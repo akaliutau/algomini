@@ -6,7 +6,7 @@
 
 ```bash
 git clone https://github.com/akaliutau/algomini.git
-cd stillemap
+cd algomini
 
 conda create -n algomini python=3.12 -y
 conda activate algomini
