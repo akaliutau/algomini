@@ -1,0 +1,37 @@
+{
+  "budget_ledger_sha256": "d4837870f7116a273772234e0b4f8471817c61840612fda1e7b712b051bd0a4f",
+  "candidate_freeze_id": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18",
+  "candidate_training_forbidden_in_verifier": true,
+  "captured_versions_match": true,
+  "docker_used": false,
+  "evaluator_freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "failed_and_interrupted_run_retries_denied": true,
+  "failure_installation_denied": true,
+  "model_inference_calls": 0,
+  "phase": "before-private-manifest-access",
+  "private_manifest_opened": false,
+  "protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "python_tests": {
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "passed": 79
+  },
+  "rust_tests": {
+    "command": [
+      "cargo",
+      "test",
+      "--offline",
+      "--locked",
+      "--manifest-path",
+      "rust/codec-worker/Cargo.toml"
+    ],
+    "passed": 3
+  },
+  "schema_version": 1,
+  "selected_build_verified": true,
+  "synthetic_installed_roundtrip_and_tamper_rejection": true
+}

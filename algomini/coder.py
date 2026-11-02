@@ -151,6 +151,8 @@ def generate(root, cfg, prompt, sample, *, attempt=0, phase="framework", kind="i
         if record["ok"] and source.is_file() and not source.is_symlink() and sha256(source) == record["source_sha256"]:
             return source, record
         raise ValueError("Cached generation failed: " + record.get("failure", "artifact missing or modified"))
+    if (root / "reports/stage5/consumed.json").exists():
+        raise ValueError("Sealed evaluation is consumed; new candidate generation is disabled for this experiment")
     if not cfg["budget"]["generation_enabled"] or not cfg["budget"]["provider_spending_cap_verified"]:
         raise ValueError("Paid generation is disabled or the provider cap is unverified")
     key = os.environ.get(coder["api_key_env"]) or dotenv_values(root / ".env", interpolate=False).get(coder["api_key_env"])

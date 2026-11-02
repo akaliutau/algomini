@@ -52,6 +52,12 @@ def main():
     refine_parser.add_argument("--measure-only", action="store_true", help="Complete deterministic ablations/sweeps before paid refinement or final selection")
     selected_parser = commands.add_parser("selected-status", help="Verify the exact Stage 4 source/model/parameter freeze")
     selected_parser.add_argument("--build", action="store_true", help="Rebuild offline and check the selected executable hash")
+    commands.add_parser("pin-sealed-verifier", help="Pin the Stage 5 verifier/runtime before opening any sealed file")
+    commands.add_parser("stage5", help="Consume one frozen sealed evaluation or replay its stored result; install only on success")
+    install_parser = commands.add_parser("install-codec", help="Install a verified compiled package using its reviewed manifest hash")
+    install_parser.add_argument("package")
+    install_parser.add_argument("destination")
+    install_parser.add_argument("--package-id", required=True)
     commands.add_parser("research-profile", help="Profile exact training lexemes, deltas and token offsets")
     commands.add_parser("representation-probes", help="Measure exact training-only layout/byte-plane hypotheses before expanding search")
     memory_parser = commands.add_parser("research-memory", help="Rebuild or query versioned research/skill evidence")
@@ -110,6 +116,15 @@ def main():
         elif args.command == "selected-status":
             from .selection import verify
             result = verify(root, cfg, rebuild=args.build)
+        elif args.command == "pin-sealed-verifier":
+            from .sealed import pin
+            result = pin(root, cfg)
+        elif args.command == "stage5":
+            from .stage5 import run
+            result = run(root, cfg)
+        elif args.command == "install-codec":
+            from .installation import install
+            result = install(args.package, args.destination, expected_id=args.package_id)
         elif args.command == "research-profile":
             from .research import profile
             full = profile(root, cfg)

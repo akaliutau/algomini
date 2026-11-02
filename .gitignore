@@ -233,6 +233,7 @@ eng_best_practice.md
 data/
 reports/budget/.lock
 reports/*/.lock
+/installed/
 rust/**/target/
 
 # Reviewed source/model/build snapshots are reproducibility inputs.
