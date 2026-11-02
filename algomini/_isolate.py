@@ -43,9 +43,10 @@ def enforce(job):
     read = (1 << 0) | (1 << 2) | (1 << 3)
     write = sum(1 << bit for bit in (1, 2, 3, 4, 5, 7, 8, 12, 13, 14))
     try:
-        # Native filesystem APIs open the root directory before traversing a
-        # permitted path. Directory metadata is visible; file contents are not.
-        for access, paths in ((read, job["ro"]), (write, job["rw"]), (1 << 3, ["/"])):
+        # Muse's native file mediator needs a root directory descriptor.
+        # Codec workers/builds do not receive root directory enumeration.
+        directories = ["/"] if job["mode"] == "coder" else []
+        for access, paths in ((read, job["ro"]), (write, job["rw"]), (1 << 3, directories)):
             for value in paths:
                 path = Path(value).resolve()
                 if not path.exists():
@@ -104,6 +105,11 @@ if __name__ == "__main__":
         job = json.loads(Path(sys.argv[1]).read_text())
         os.chdir(job["cwd"])
         enforce(job)
+        os.write(job["ready_fd"], b"R")
+        os.close(job["ready_fd"])
+        if os.read(job["start_fd"], 1) != b"S":
+            raise RuntimeError("Supervisor did not acknowledge execution start")
+        os.close(job["start_fd"])
         os.execvpe(job["argv"][0], job["argv"], dict(os.environ))
     except Exception as error:
         print(f"isolation: {type(error).__name__}: {error}", file=sys.stderr)

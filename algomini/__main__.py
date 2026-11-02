@@ -43,6 +43,15 @@ def main():
     version_parser.add_argument("--check", action="store_true", help="Compare installed versions with the captured reference")
     commands.add_parser("prepare", help="Download and split the pinned source without normalizing bytes")
     commands.add_parser("stage1", help="Generate one Rust codec, compile it, and independently check its measurements")
+    commands.add_parser("stage2", help="Freeze and verify the complete local development evaluator; no model calls")
+    commands.add_parser("plugins", help="Discover source-verified plugin manifests")
+    commands.add_parser("freeze-status", help="Verify trusted code, configuration, and native toolchain pins")
+    evaluation_parser = commands.add_parser("evaluate", help="Measure a manifest plugin on fixed development probes")
+    evaluation_parser.add_argument("codec")
+    evaluation_parser.add_argument("--split", choices=("train", "validation"), default="validation")
+    registration_parser = commands.add_parser("register-codec", help="Register a new source-only Rust plugin version")
+    registration_parser.add_argument("id")
+    registration_parser.add_argument("source")
     codec_parser = commands.add_parser("check-codec", help="Compile/check a Rust codec offline without model credentials")
     codec_parser.add_argument("source")
     for command in ("doctor", "stage0"):
@@ -77,6 +86,24 @@ def main():
         elif args.command == "stage1":
             from .discovery import first_loop
             result = first_loop(root, cfg)
+        elif args.command == "stage2":
+            from .stage2 import acceptance
+            result = acceptance(root, cfg)
+        elif args.command == "plugins":
+            from .registry import discover
+            result = {"plugins": [{key: value for key, value in plugin.items() if key != "source_path"}
+                                  for plugin in discover(root).values()]}
+        elif args.command == "freeze-status":
+            from .freeze import verify
+            result = verify(root, cfg)
+        elif args.command == "evaluate":
+            from .evaluator import evaluate
+            full = evaluate(root, cfg, args.codec, args.split)
+            result = {"score": full["score"], "freeze_id": full["freeze_id"],
+                      "result": f"reports/evaluations/{args.codec}/{args.split}/result.json"}
+        elif args.command == "register-codec":
+            from .registry import register
+            result = register(root, args.id, args.source)
         elif args.command == "check-codec":
             from pathlib import Path
             from .codecs import evaluate

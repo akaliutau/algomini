@@ -103,7 +103,7 @@ def doctor(root, cfg, api=False):
               "coder_cli_contract": cli_contract, "api_key_present": key_present, "env_file_gitignored": ignored,
               "model_inference_enabled": cfg["budget"]["generation_enabled"],
               "provider_spending_cap_verified": cfg["budget"]["provider_spending_cap_verified"],
-              "candidate_containment": "Stage 2 required; Stage 0 runs trusted local tools only"}
+              "candidate_containment": "Local Landlock ABI >=6 and libseccomp; each job fails closed if unavailable"}
     if api:
         result["api"] = check_api(root, cfg)
     result["ok"] = (sys.version_info >= (3, 12) and platform.system() == "Linux" and all(packages.values())

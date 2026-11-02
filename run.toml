@@ -50,6 +50,15 @@ score = "complete archive bytes; count headers, raw escapes, exceptions, and sha
 deployment_score = "baseline archive bytes - candidate archive bytes - incremental decoder package bytes"
 test_policy = "one frozen candidate; test data never mounted into coder or search workers"
 
+[evaluation]
+schema_version = 1
+probe_positions = [0.0, 0.5, 1.0]
+probe_bytes = 262144
+decode_repetitions = 3
+timing = "parent ready-to-exit; fresh process per repetition; isolation setup reported separately"
+rss = "wait4 maximum RSS including the isolation launcher; address space capped by RLIMIT_AS"
+collection_format = "ALC1; method id, block labels/lengths, shared model, and complete frames counted"
+
 [budget]
 total_usd = 150
 framework_usd = 30

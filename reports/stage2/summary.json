@@ -1,0 +1,87 @@
+{
+  "acceptance": {
+    "identity_bytes": 1874,
+    "identity_loses": true,
+    "malformed_frames_rejected": 11,
+    "reference_bytes": 119,
+    "repeated_bytes_and_hashes_match": true,
+    "saved_archive_decode": {
+      "decoded_bytes": 437694,
+      "files": 3
+    },
+    "second_plugin_after_freeze": true,
+    "tiny_correctness": {
+      "passed": true,
+      "raw_escape_bypass": true,
+      "tiny_cases": 8
+    }
+  },
+  "budget_ledger_sha256": "032915c5ad7e326445ce7fdaf2ed522e2f88edf7b7888a4828e2045e5bbc0c36",
+  "budget_ledger_unchanged": true,
+  "byte_signature": {
+    "gzip-9": {
+      "bytes": 59038,
+      "sha256": "1d7901b700e88c45eb8ceeb00ef7e557cc688948e63500938f3aff9c9ed29309"
+    },
+    "muse-telemetry-v1": {
+      "bytes": 43084,
+      "sha256": "14fb565d39b1d3e679e621bc0557c5e6ee079ef99bd1268f7b9cd89c671fc571"
+    },
+    "raw-token-transpose-zstd-19": {
+      "bytes": 40434,
+      "sha256": "73efce1e6a0405c09fe10322ee27bca0d2cfdd6f4fcbb2012f217db38ed594d0"
+    },
+    "xz-9e": {
+      "bytes": 46253,
+      "sha256": "c653501aaa101f8bcd7813ef7f30c4c2c444f785ec597db6ddbcab7c3863844a"
+    },
+    "zstd-19": {
+      "bytes": 48475,
+      "sha256": "61ef5700c49df6aa9435c2b844734c17a64fd83b4dce7edf155f8467ed2ea547"
+    },
+    "zstd-22": {
+      "bytes": 48478,
+      "sha256": "747219b1cdbd95ecd1c2ff23a6c2f437edbd75982fa4a55383e9c381f78f074d"
+    },
+    "zstd-dict-19": {
+      "bytes": 57136,
+      "sha256": "43448020c1f7084fb6512271fd997d25b3a87e3724890958efffc8b011a5d760"
+    },
+    "zstd-dict-22": {
+      "bytes": 57136,
+      "sha256": "26d26b7d8db77327ee9dcd0b8df54c030e5d692ce41c06253d99855806099868"
+    }
+  },
+  "execution": "local Landlock/libseccomp; no Docker",
+  "freeze": {
+    "files": 21,
+    "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+    "ok": true
+  },
+  "model_inference_calls": 0,
+  "ok": true,
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage2"
+  ],
+  "schema_version": 1,
+  "score": {
+    "archive_gain": 0.06851447473677386,
+    "deployment_assumption": "Common runtime/libzstd already available; one complete candidate executable is incremental",
+    "deployment_saving_bytes": -373399,
+    "gates": {
+      "archive_gain": false,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "meets_development_targets": false,
+    "minimum_decode_mib_per_second": 27.02708497671769,
+    "peak_decode_rss_kib": 32052
+  },
+  "sealed_manifest_commitment": "d990c0af7853ab3e9f75993a1e82ed89e022b8573a5fcc1bfa874a41fdfc9006",
+  "sealed_test_opened": false,
+  "split": "validation"
+}

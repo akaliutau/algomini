@@ -7,6 +7,7 @@ import random
 import shutil
 import struct
 import tempfile
+import zlib
 
 from .common import digest, sha256, worker_environment, write_json
 from .environment import command_output
@@ -79,11 +80,32 @@ def _build_locked(root, cfg, code):
     return binary, record
 
 
-def invoke(root, cfg, binary, operation, data, *, original_len=0, model=b""):
+def frame_metadata(frame, *, model=b"", source_sha256=None, restored=None):
+    if len(frame) < 40 or frame[:4] not in (b"ALG1", b"ALG2") or frame[5:8] != b"\0\0\0":
+        raise ValueError("Invalid archive header")
+    flag = frame[4]
+    original, model_len, payload_len, checksum = struct.unpack_from("<IIII", frame, 8)
+    if (flag not in (0, 1, 2) or (frame[:4] == b"ALG1" and flag == 2) or original > 2 * 1024**2
+            or model_len > 65536 or payload_len > 4 * 1024**2 or len(frame) != 40 + model_len + payload_len):
+        raise ValueError("Invalid archive dimensions/flags")
+    if flag == 1 and (model_len or frame[24:40] != bytes(16) or payload_len != original):
+        raise ValueError("Invalid raw archive")
+    if flag == 2 and (model_len or not model or len(model) > 65536):
+        raise ValueError("Missing or invalid external model")
+    if flag != 1 and source_sha256 is not None and frame[24:40].hex() != source_sha256[:32]:
+        raise ValueError("Archive codec id mismatch")
+    if restored is not None and (len(restored) != original or zlib.crc32(restored) != checksum):
+        raise ValueError("Decoded length/checksum mismatch")
+    return {"original_bytes": original, "model_bytes": model_len, "payload_bytes": payload_len, "flag": flag}
+
+
+def invoke(root, cfg, binary, operation, data, *, original_len=0, model=b"", source_sha256=None):
     if len(data) > cfg["limits"]["candidate_max_output_bytes"] + 65536 or len(model) > 65536:
         raise ValueError("Worker input/model exceeds bounds")
     request = b"ALQ1" + bytes([operation]) + struct.pack("<III", original_len, len(model), len(data)) + model + data
-    timeout = cfg["limits"]["candidate_encode_timeout_seconds"] if operation in (1, 3, 4) else cfg["limits"]["candidate_decode_timeout_seconds"]
+    if operation == 2:
+        frame_metadata(data, model=model, source_sha256=source_sha256)
+    timeout = cfg["limits"]["candidate_encode_timeout_seconds"] if operation in (1, 3, 4, 6) else cfg["limits"]["candidate_decode_timeout_seconds"]
     with tempfile.TemporaryDirectory(prefix="algomini-worker-") as directory:
         result = run_isolated([binary], cwd=directory, ro=[binary], data=request,
                               timeout=timeout, memory_mib=cfg["limits"]["candidate_memory_mib"],
@@ -95,7 +117,16 @@ def invoke(root, cfg, binary, operation, data, *, original_len=0, model=b""):
         raise ValueError("Invalid worker response: " + result["stderr"].decode(errors="replace")[-1000:])
     if result["returncode"] != 0 or output[4] != 0:
         raise ValueError("Candidate rejected request: " + output[9:].decode(errors="replace")[:1000])
-    return output[9:], {"wall_seconds": result["wall_seconds"], "isolation": result["isolation"]}
+    if operation in (1, 6):
+        frame_metadata(output[9:], model=model, source_sha256=source_sha256, restored=data)
+    elif operation == 2:
+        frame_metadata(data, model=model, source_sha256=source_sha256, restored=output[9:])
+    elif operation == 3 and len(output) - 9 > 65536:
+        raise ValueError("Trained model exceeds 64 KiB")
+    elif operation == 5 and len(output) - 9 != original_len:
+        raise ValueError("Algorithm roundtrip failed: decoded length mismatch")
+    return output[9:], {key: result[key] for key in ("wall_seconds", "execution_seconds", "setup_seconds",
+                       "peak_rss_kib", "user_seconds", "system_seconds", "isolation")}
 
 
 def correctness(root, cfg, binary, sample, model=b""):

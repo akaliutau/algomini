@@ -75,6 +75,8 @@ Use a small, meaningful test set: empty/single-byte/random inputs; repeated and 
 
 **Stage 3–4: spend model calls on research decisions**
 
+Stage 2 is implemented on `stage2/frozen-evaluator`. `python -m algomini stage2` verifies trusted code/config/native-toolchain pins, checks bounded framing and post-freeze manifest installation, and independently repeats fixed validation measurements against all six baselines and the structured reference. Complete ALC1 collections count shared models once; parent timing/RSS and Linux containment apply to every worker. See `docs/evaluator.md`, `reports/stage2/`, and `repro/evaluator-freeze.json`. The sealed test remains unopened; generated modules remain experimental pending later validation selection and one sealed verification.
+
 The brief should explain measured residual structure, not just generic entropy. For promising field pairs, compare residual distributions under simple predictors, conditional predictability, record states, and exceptions. Reuse existing statistics/analysis tools when they shorten the work. Let Muse propose mechanisms beyond the initial examples.
 
 Use a deterministic state machine: profile → propose → generate → compile/check → measure → select → mutate → freeze → verify → report. Cache by codec/model hashes, input hashes, parameters, toolchain, evaluator version, and limits. Resume from completed records after interruption; do not repeat model calls because a host process restarted.

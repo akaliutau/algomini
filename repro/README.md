@@ -58,4 +58,23 @@ xargs -a repro/stage1-system-packages.lock sudo apt-get install --yes
 python -m algomini check-codec plugins/muse-telemetry-v1/codec.rs
 ```
 
-Local development uses no Docker. Cloud Docker packaging and an equivalent container execution backend remain later work; the current backend fails instead of executing uncontained code on an incompatible host. Stage 2 will freeze and harden the complete evaluator and its timing protocol.
+Local development uses no Docker. Cloud Docker packaging and an equivalent container execution backend remain later work; the current backend fails instead of executing uncontained code on an incompatible host.
+
+## Stage 2 frozen evaluator
+
+`stage2-environment.json` records the current environment and harness snapshot. `stage2-system-packages.lock` captures native compiler/runtime packages; the Python and Conda locks remain unchanged. `evaluator-freeze.json` and its SHA-256 pin the trusted code/config, public dataset manifest, actual tool binaries, linked native dependencies and Rust libraries. Tool/library hashes are compared without requiring the original installation prefix. The recorded kernel/CPU describe timing context; each job requires Landlock ABI >=6 on the actual host.
+
+On the reproduced environment, prepare the pinned dataset once if absent, then run without API credentials:
+
+```bash
+xargs -a repro/stage2-system-packages.lock sudo apt-get install --yes
+python -m algomini prepare
+python -m pytest -q
+cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml --target-dir .cache/rust-tests
+python -m algomini.evaluator freeze-status
+python -m algomini stage2
+```
+
+The last command verifies an existing freeze and repeats the fixed development measurements. It makes no model calls and does not open sealed files. It does not overwrite Stage 0/1 reports or environment references. All eight methods (six baselines, structured reference, candidate) must repeat their byte counts and archive hashes; process timing/RSS can vary. Measurements and a saved candidate collection live in `reports/stage2/` and `reports/evaluations/`.
+
+Use the dedicated `python -m algomini.evaluator` entry point for future trusted scoring. See [the evaluator contract](../docs/evaluator.md) for the shared-model format, conservative parent timing, source-only plugin registration, integrity scope and cloud migration requirements. A native hash mismatch requires a new reviewed experimental reference; do not regenerate this freeze merely to suppress a mismatch. No cloud Docker image or cloud performance result is claimed by Stage 2.

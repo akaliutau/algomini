@@ -25,7 +25,7 @@ fn execute(request: &[u8]) -> Result<Vec<u8>, CodecError> {
     let data = &request[17 + model_len..];
     let out = match request[4] {
         1 => frame::encode::<Candidate>(data, model)?,
-        2 => frame::decode::<Candidate>(data)?,
+        2 => frame::decode::<Candidate>(data, model)?,
         3 => {
             let mut samples = Vec::new();
             let mut cursor = 0;
@@ -49,6 +49,7 @@ fn execute(request: &[u8]) -> Result<Vec<u8>, CodecError> {
             Candidate::encode(data, model)?
         }
         5 => Candidate::decode(data, model, original_len)?,
+        6 => frame::encode_shared::<Candidate>(data, model)?,
         _ => return Err("unknown worker operation".into()),
     };
     if out.len() > MAX_PAYLOAD + frame::HEADER + MAX_MODEL {

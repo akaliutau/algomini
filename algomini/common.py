@@ -44,6 +44,13 @@ def load_config(path="run.toml"):
         raise ValueError("Training/validation fractions must leave a nonempty test split")
     if parts["gap_days"] < 0:
         raise ValueError("Gap days must be nonnegative")
+    if "evaluation" in cfg:
+        evaluation = cfg["evaluation"]
+        positions = evaluation["probe_positions"]
+        if (evaluation["schema_version"] != 1 or not isinstance(positions, list) or not 0 < len(positions) <= 128
+                or any(not isinstance(value, (int, float)) or not 0 <= value <= 1 for value in positions)
+                or not 0 < evaluation["probe_bytes"] <= cap or not 1 <= evaluation["decode_repetitions"] <= 7):
+            raise ValueError("Invalid evaluation probe/timing policy")
     budget = cfg["budget"]
     if sum(budget[f"{phase}_usd"] for phase in ("framework", "discovery", "refinement", "reserve")) > budget["total_usd"]:
         raise ValueError("Budget allocations exceed the total spending limit")
