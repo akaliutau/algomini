@@ -267,5 +267,81 @@
       "input_tokens": 74410,
       "output_tokens": 3881
     }
+  },
+  {
+    "attempt_id": "c5499fd702c8a88aacba7cc696415e421492e2ca6af12d4d414514f6282fa603",
+    "charged_usd": 0.1004666,
+    "cost_is_estimate": true,
+    "kind": "evolved",
+    "phase": "refinement",
+    "recorded_at": "2026-11-02T22:49:19.262934+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31729,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.1004666,
+      "input_tokens": 73217,
+      "output_tokens": 10317
+    }
+  },
+  {
+    "attempt_id": "2d26841017ac1a10fed25fa2e140e861887a9c35466ecc0ceb96aaf442c0f131",
+    "charged_usd": 0.10479565,
+    "cost_is_estimate": true,
+    "kind": "evolved",
+    "phase": "refinement",
+    "recorded_at": "2026-11-02T22:51:30.051242+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 32881,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.10479565,
+      "input_tokens": 76453,
+      "output_tokens": 10682
+    }
+  },
+  {
+    "attempt_id": "674773b35b707a782095e249e60f2e1c90bbfc8b31f73e0df822a870534fb795",
+    "charged_usd": 0.1582765,
+    "cost_is_estimate": true,
+    "kind": "evolved",
+    "phase": "refinement",
+    "recorded_at": "2026-11-02T22:53:01.698789+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 0,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.1582765,
+      "input_tokens": 82173,
+      "output_tokens": 13073
+    }
+  },
+  {
+    "attempt_id": "713942273ba90b91aedc0e065e3dbf1e1601419e337c44f72d2df785fe196b58",
+    "charged_usd": 0.1091325,
+    "cost_is_estimate": true,
+    "kind": "repair",
+    "phase": "refinement",
+    "recorded_at": "2026-11-02T22:54:49.798672+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 37745,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.1091325,
+      "input_tokens": 85862,
+      "output_tokens": 10194
+    }
   }
 ]

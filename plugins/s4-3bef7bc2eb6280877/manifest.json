@@ -1,0 +1,19 @@
+{
+  "codec_id": "3bef7bc2eb62808778f213c91ff9bc33",
+  "format_version": 2,
+  "id": "s4-3bef7bc2eb6280877",
+  "provenance": {
+    "generation_attempt_id": "2d26841017ac1a10fed25fa2e140e861887a9c35466ecc0ceb96aaf442c0f131",
+    "hypothesis": "Investigate exact raw-token dictionaries or repeat runs for columns with many repeated lexemes. Store every literal once and the exact IDs/runs; consider ordering literals to improve backend compression. Preserve quotes, padding and numeric spelling without numeric conversion. Keep the parent's existing alternatives when the new representation costs more.",
+    "kind": "evolved",
+    "mechanism": "token-dictionaries",
+    "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+    "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+  },
+  "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
+  "schema_version": 1,
+  "source": "codec.rs",
+  "source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb",
+  "status": "experimental",
+  "worker_protocol_version": 1
+}

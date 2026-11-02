@@ -1,0 +1,65 @@
+{
+  "definition": {
+    "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+    "kind": "deterministic",
+    "mechanism": "plane-zstd-19",
+    "mode": "plane",
+    "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+    "zstd_level": 19
+  },
+  "driver_sha256": "df1d19ed7f7cc7482b73ced8cd445cd1af366b21d5f9146dc199fe5dd706497f",
+  "evidence": "reports/stage4/candidates/s4-47f493c6ff94be619/evaluation.json",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+  "id": "s4-47f493c6ff94be619",
+  "measurements": {
+    "archive_bytes": 40537,
+    "archive_gain": 0.12358117311309536,
+    "archive_sha256": "d812c1097809a6e8b66f3f232a007447b75e97b51a5786f247dd696dd6aa96a3",
+    "deployment_saving_bytes": -377204,
+    "files": [
+      {
+        "block_bytes": 14104,
+        "input_bytes": 175034,
+        "label": "validation-000.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 17824,
+        "input_bytes": 175034,
+        "label": "validation-006.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 8501,
+        "input_bytes": 87626,
+        "label": "validation-013.csv",
+        "raw_escape": false
+      }
+    ],
+    "gates": {
+      "archive_gain": true,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "minimum_decode_mib_per_second": 21.960840921490423,
+    "peak_decode_rss_kib": 31920
+  },
+  "outcome": "measured",
+  "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage4"
+  ],
+  "schema_version": 1,
+  "source_sha256": "47f493c6ff94be619288edb081a3393f9382adb0176fec4c367ecd81b8ceaf8e",
+  "split": "validation",
+  "tags": [
+    "csv",
+    "refinement",
+    "plane-zstd-19"
+  ]
+}

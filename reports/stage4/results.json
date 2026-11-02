@@ -1,0 +1,694 @@
+{
+  "ablations": {
+    "controls": {
+      "adaptive": {
+        "archive_bytes": 40108,
+        "id": "s4-f9dec61e727886d86",
+        "source_sha256": "f9dec61e727886d866026424098a41ec61c86d19b7c3b357624f10b48d8fa136"
+      },
+      "column": {
+        "archive_bytes": 40506,
+        "id": "s4-cec08bd29e18744aa",
+        "source_sha256": "cec08bd29e18744aa8aefbf23537f1fddcd8d3b9c87066609bfee4a3af325ead"
+      },
+      "plane": {
+        "archive_bytes": 40537,
+        "id": "s4-47f493c6ff94be619",
+        "source_sha256": "47f493c6ff94be619288edb081a3393f9382adb0176fec4c367ecd81b8ceaf8e"
+      },
+      "raw": {
+        "archive_bytes": 48599,
+        "id": "s4-2ab3e34ddd0c55b01",
+        "source_sha256": "2ab3e34ddd0c55b0138c0816292703a466a1affc2c343abe471877e98ad07849"
+      }
+    },
+    "equal_method_name_bytes": 20,
+    "files": [
+      {
+        "block_bytes": {
+          "adaptive": 14050,
+          "column": 14050,
+          "plane": 14104,
+          "raw": 17368
+        },
+        "label": "validation-000.csv",
+        "plane_contribution_bytes": 0
+      },
+      {
+        "block_bytes": {
+          "adaptive": 17449,
+          "column": 17449,
+          "plane": 17824,
+          "raw": 20836
+        },
+        "label": "validation-006.csv",
+        "plane_contribution_bytes": 0
+      },
+      {
+        "block_bytes": {
+          "adaptive": 8501,
+          "column": 8899,
+          "plane": 8501,
+          "raw": 10287
+        },
+        "label": "validation-013.csv",
+        "plane_contribution_bytes": 398
+      }
+    ],
+    "plane_contribution_bytes": 398,
+    "representation_saving_vs_raw_bytes": 8491,
+    "schema_version": 1,
+    "scope": "Controlled output-mode ablation at fixed backend level, decoder, framing and method-name length; all bytes counted",
+    "zstd_level": 19
+  },
+  "docker_used": false,
+  "freeze": {
+    "files": 21,
+    "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+    "ok": true
+  },
+  "mixed_choice_ablation": {
+    "control_id": "s4-91ea0a8d86ac9df4e",
+    "control_source_sha256": "91ea0a8d86ac9df4eab9af68a141294857b129fa042a461354e84fdac90f6452",
+    "files": [
+      {
+        "label": "validation-000.csv",
+        "saving_bytes": 1392,
+        "with_mix_bytes": 12637,
+        "without_mix_bytes": 14029
+      },
+      {
+        "label": "validation-006.csv",
+        "saving_bytes": 1236,
+        "with_mix_bytes": 16197,
+        "without_mix_bytes": 17433
+      },
+      {
+        "label": "validation-013.csv",
+        "saving_bytes": 293,
+        "with_mix_bytes": 8188,
+        "without_mix_bytes": 8481
+      }
+    ],
+    "mixed_column_contribution_bytes": 2921,
+    "parent_id": "s4-98e12bcd61e8117b0",
+    "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
+    "schema_version": 1,
+    "scope": "Single encoder-selection condition disabled; decoder/backend/framing and 20-byte method names held fixed",
+    "with_mix_bytes": 37130,
+    "without_mix_bytes": 40051,
+    "zstd_level": 22
+  },
+  "ok": true,
+  "records": [
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "raw-zstd-19",
+        "mode": "raw",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 19
+      },
+      "id": "s4-2ab3e34ddd0c55b01",
+      "measurements": {
+        "archive_bytes": 48599,
+        "archive_gain": -0.05072103431128783,
+        "archive_sha256": "29e4f61b1cf561075f1df69815d999ef04486322440a2ab3eb684dac7e9c631a",
+        "deployment_saving_bytes": -384786,
+        "files": [
+          {
+            "block_bytes": 17368,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 20836,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 10287,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": false,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 26.949469145277014,
+        "peak_decode_rss_kib": 31520
+      },
+      "outcome": "measured",
+      "source_sha256": "2ab3e34ddd0c55b0138c0816292703a466a1affc2c343abe471877e98ad07849"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "column-zstd-19",
+        "mode": "column",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 19
+      },
+      "id": "s4-cec08bd29e18744aa",
+      "measurements": {
+        "archive_bytes": 40506,
+        "archive_gain": 0.12425139990919509,
+        "archive_sha256": "757f703a02c935fc8dd17b655a3e9ad093d4e9b77f44a8d00e4979d6de695fe4",
+        "deployment_saving_bytes": -377285,
+        "files": [
+          {
+            "block_bytes": 14050,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 17449,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8899,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 24.145048743479776,
+        "peak_decode_rss_kib": 31764
+      },
+      "outcome": "measured",
+      "source_sha256": "cec08bd29e18744aa8aefbf23537f1fddcd8d3b9c87066609bfee4a3af325ead"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "plane-zstd-19",
+        "mode": "plane",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 19
+      },
+      "id": "s4-47f493c6ff94be619",
+      "measurements": {
+        "archive_bytes": 40537,
+        "archive_gain": 0.12358117311309536,
+        "archive_sha256": "d812c1097809a6e8b66f3f232a007447b75e97b51a5786f247dd696dd6aa96a3",
+        "deployment_saving_bytes": -377204,
+        "files": [
+          {
+            "block_bytes": 14104,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 17824,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8501,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 21.960840921490423,
+        "peak_decode_rss_kib": 31920
+      },
+      "outcome": "measured",
+      "source_sha256": "47f493c6ff94be619288edb081a3393f9382adb0176fec4c367ecd81b8ceaf8e"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "adaptive-zstd-19",
+        "mode": "adaptive",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 19
+      },
+      "id": "s4-f9dec61e727886d86",
+      "measurements": {
+        "archive_bytes": 40108,
+        "archive_gain": 0.13285624716234623,
+        "archive_sha256": "7ed38dea028adc04dfc82f844d4fd8f3f9013cf46c7c1bc35898bf0e0ffeeadd",
+        "deployment_saving_bytes": -377047,
+        "files": [
+          {
+            "block_bytes": 14050,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 17449,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8501,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 22.475129152521372,
+        "peak_decode_rss_kib": 31704
+      },
+      "outcome": "measured",
+      "source_sha256": "f9dec61e727886d866026424098a41ec61c86d19b7c3b357624f10b48d8fa136"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "adaptive-zstd-9",
+        "mode": "adaptive",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 9
+      },
+      "id": "s4-19666ea483ebdf4f6",
+      "measurements": {
+        "archive_bytes": 45883,
+        "archive_gain": 0.007999481114738471,
+        "archive_sha256": "7fbcec3a98e7b1a7e223b374ce3cf5ca81590a2f929d988ae87745b1de8b1acd",
+        "deployment_saving_bytes": -382822,
+        "files": [
+          {
+            "block_bytes": 16116,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 19811,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 9848,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": false,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 22.100567446376964,
+        "peak_decode_rss_kib": 31492
+      },
+      "outcome": "measured",
+      "source_sha256": "19666ea483ebdf4f6eec6e9800d07d5c3c6416ab1f284713a326dd754ca3c9e4"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "adaptive-zstd-15",
+        "mode": "adaptive",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 15
+      },
+      "id": "s4-b1218d7c50181a184",
+      "measurements": {
+        "archive_bytes": 40844,
+        "archive_gain": 0.11694376580978527,
+        "archive_sha256": "9c07825b4c63e879a224edfda8722dee03e2ec77726d7b77555f307ac9d4634c",
+        "deployment_saving_bytes": -377783,
+        "files": [
+          {
+            "block_bytes": 14310,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 17876,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8550,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 24.648330835341284,
+        "peak_decode_rss_kib": 31192
+      },
+      "outcome": "measured",
+      "source_sha256": "b1218d7c50181a184e41ed5f4e079029178bc47ebadf27ce05c5254b79f38edc"
+    },
+    {
+      "definition": {
+        "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+        "kind": "deterministic",
+        "mechanism": "adaptive-zstd-22",
+        "mode": "adaptive",
+        "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+        "zstd_level": 22
+      },
+      "id": "s4-33a3537586ff382dd",
+      "measurements": {
+        "archive_bytes": 40051,
+        "archive_gain": 0.1340885996584006,
+        "archive_sha256": "d807cb87ea308a56c6026d8ec27a1092b89ada548087b7f62ba760d1cccb6750",
+        "deployment_saving_bytes": -376990,
+        "files": [
+          {
+            "block_bytes": 14029,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 17433,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8481,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 22.645332278291566,
+        "peak_decode_rss_kib": 31936
+      },
+      "outcome": "measured",
+      "source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342"
+    },
+    {
+      "definition": {
+        "generation_attempt_id": "c5499fd702c8a88aacba7cc696415e421492e2ca6af12d4d414514f6282fa603",
+        "hypothesis": "Investigate choosing raw-token column streams versus byte-position planes separately for each column, with all lengths/modes counted. Preserve the existing whole-block column/plane alternatives as a strong fallback. Compare actual compressed bytes; local raw-byte savings alone are not sufficient.",
+        "kind": "evolved",
+        "mechanism": "column-local-choice",
+        "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+        "parent_source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342"
+      },
+      "id": "s4-98e12bcd61e8117b0",
+      "measurements": {
+        "archive_bytes": 37130,
+        "archive_gain": 0.19724126002637665,
+        "archive_sha256": "c160101b1682db0765205657d550f68657cc1e363a4a1c6a56598916291c73ba",
+        "deployment_saving_bytes": -381909,
+        "files": [
+          {
+            "block_bytes": 12637,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 16197,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8188,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 23.674356157319217,
+        "peak_decode_rss_kib": 32100
+      },
+      "outcome": "measured",
+      "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+    },
+    {
+      "definition": {
+        "generation_attempt_id": "2d26841017ac1a10fed25fa2e140e861887a9c35466ecc0ceb96aaf442c0f131",
+        "hypothesis": "Investigate exact raw-token dictionaries or repeat runs for columns with many repeated lexemes. Store every literal once and the exact IDs/runs; consider ordering literals to improve backend compression. Preserve quotes, padding and numeric spelling without numeric conversion. Keep the parent's existing alternatives when the new representation costs more.",
+        "kind": "evolved",
+        "mechanism": "token-dictionaries",
+        "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+        "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+      },
+      "id": "s4-3bef7bc2eb6280877",
+      "measurements": {
+        "archive_bytes": 37130,
+        "archive_gain": 0.19724126002637665,
+        "archive_sha256": "a0bfbf749588cc73dfe8a4a7bbb3fee118ad5ea81818a8114786f2a370c263f7",
+        "deployment_saving_bytes": -415837,
+        "files": [
+          {
+            "block_bytes": 12637,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 16197,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8188,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 24.81163859246107,
+        "peak_decode_rss_kib": 31616
+      },
+      "outcome": "measured",
+      "source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb"
+    },
+    {
+      "definition": {
+        "generation_attempt_id": "674773b35b707a782095e249e60f2e1c90bbfc8b31f73e0df822a870534fb795",
+        "hypothesis": "Investigate factoring common byte prefixes/suffixes or fixed-width lexical templates with sparse exceptions. Preserve all exact raw tokens, lengths and exceptions. Prior temporal-prefix-only code regressed, so compare after zstd and retain the complete parent alternatives rather than replacing them unconditionally.",
+        "kind": "evolved",
+        "mechanism": "lexical-templates",
+        "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+        "parent_source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb"
+      },
+      "id": "s4-ac6e981fd454df60f",
+      "measurements": null,
+      "outcome": "rejected",
+      "source_sha256": "ac6e981fd454df60f516e7528922aa354c0e52db42f78219833de96cf78331ed"
+    },
+    {
+      "definition": {
+        "generation_attempt_id": "713942273ba90b91aedc0e065e3dbf1e1601419e337c44f72d2df785fe196b58",
+        "hypothesis": "Investigate factoring common byte prefixes/suffixes or fixed-width lexical templates with sparse exceptions. Preserve all exact raw tokens, lengths and exceptions. Prior temporal-prefix-only code regressed, so compare after zstd and retain the complete parent alternatives rather than replacing them unconditionally.",
+        "kind": "repair",
+        "mechanism": "lexical-templates",
+        "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+        "parent_source_sha256": "ac6e981fd454df60f516e7528922aa354c0e52db42f78219833de96cf78331ed"
+      },
+      "id": "s4-9be1d5c14a57e50f9",
+      "measurements": {
+        "archive_bytes": 37130,
+        "archive_gain": 0.19724126002637665,
+        "archive_sha256": "c018824ab819d66c07f89935952ca846ffb4ba184f1be99b7e539a27ff7d341d",
+        "deployment_saving_bytes": -424949,
+        "files": [
+          {
+            "block_bytes": 12637,
+            "input_bytes": 175034,
+            "label": "validation-000.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 16197,
+            "input_bytes": 175034,
+            "label": "validation-006.csv",
+            "raw_escape": false
+          },
+          {
+            "block_bytes": 8188,
+            "input_bytes": 87626,
+            "label": "validation-013.csv",
+            "raw_escape": false
+          }
+        ],
+        "gates": {
+          "archive_gain": true,
+          "decode_rss": true,
+          "decode_speed": true,
+          "exact_reconstruction": true
+        },
+        "minimum_decode_mib_per_second": 24.058498600481585,
+        "peak_decode_rss_kib": 31736
+      },
+      "outcome": "measured",
+      "source_sha256": "9be1d5c14a57e50f9558c16abe5c79aaeb3aa9fec2ce682cea6f2c0ce186c272"
+    }
+  ],
+  "refinement_budget": {
+    "allocation_usd": 20,
+    "known_usage_estimate_usd": 0.47267125,
+    "retained_reservations_usd": 0,
+    "sessions": 4
+  },
+  "repair_sessions": 1,
+  "repeat": {
+    "all_eight_archive_signatures_repeat": true,
+    "archive_bytes": 37130,
+    "candidate_id": "s4-98e12bcd61e8117b0",
+    "ok": true,
+    "score": {
+      "archive_gain": 0.19724126002637665,
+      "deployment_assumption": "Common runtime/libzstd already available; one complete candidate executable is incremental",
+      "deployment_saving_bytes": -381909,
+      "gates": {
+        "archive_gain": true,
+        "decode_rss": true,
+        "decode_speed": true,
+        "exact_reconstruction": true
+      },
+      "meets_development_targets": true,
+      "minimum_decode_mib_per_second": 22.885784963943838,
+      "peak_decode_rss_kib": 31612
+    },
+    "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+  },
+  "schema_version": 1,
+  "scope": "One source/model/parameter/build is frozen using validation alone; sealed verification and installation remain later work",
+  "sealed_test_opened": false,
+  "selection": {
+    "build_verified": true,
+    "candidate_freeze_id": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18",
+    "candidate_id": "s4-98e12bcd61e8117b0",
+    "model_bytes": 0,
+    "ok": true,
+    "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+  },
+  "stop_reason": "bounded_refinement_complete",
+  "winner": {
+    "definition": {
+      "generation_attempt_id": "c5499fd702c8a88aacba7cc696415e421492e2ca6af12d4d414514f6282fa603",
+      "hypothesis": "Investigate choosing raw-token column streams versus byte-position planes separately for each column, with all lengths/modes counted. Preserve the existing whole-block column/plane alternatives as a strong fallback. Compare actual compressed bytes; local raw-byte savings alone are not sufficient.",
+      "kind": "evolved",
+      "mechanism": "column-local-choice",
+      "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+      "parent_source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342"
+    },
+    "driver_sha256": "d50a85d43ec932a27f9d09e0294fa40c8725bda548bca1908974c707edd55fba",
+    "evidence": "reports/stage4/candidates/s4-98e12bcd61e8117b0/evaluation.json",
+    "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+    "hypothesis": "Investigate choosing raw-token column streams versus byte-position planes separately for each column, with all lengths/modes counted. Preserve the existing whole-block column/plane alternatives as a strong fallback. Compare actual compressed bytes; local raw-byte savings alone are not sufficient.",
+    "id": "s4-98e12bcd61e8117b0",
+    "measurements": {
+      "archive_bytes": 37130,
+      "archive_gain": 0.19724126002637665,
+      "archive_sha256": "c160101b1682db0765205657d550f68657cc1e363a4a1c6a56598916291c73ba",
+      "deployment_saving_bytes": -381909,
+      "files": [
+        {
+          "block_bytes": 12637,
+          "input_bytes": 175034,
+          "label": "validation-000.csv",
+          "raw_escape": false
+        },
+        {
+          "block_bytes": 16197,
+          "input_bytes": 175034,
+          "label": "validation-006.csv",
+          "raw_escape": false
+        },
+        {
+          "block_bytes": 8188,
+          "input_bytes": 87626,
+          "label": "validation-013.csv",
+          "raw_escape": false
+        }
+      ],
+      "gates": {
+        "archive_gain": true,
+        "decode_rss": true,
+        "decode_speed": true,
+        "exact_reconstruction": true
+      },
+      "minimum_decode_mib_per_second": 23.674356157319217,
+      "peak_decode_rss_kib": 32100
+    },
+    "outcome": "measured",
+    "parent_source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342",
+    "reproduce": [
+      "python",
+      "-m",
+      "algomini",
+      "stage4"
+    ],
+    "schema_version": 1,
+    "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
+    "split": "validation",
+    "tags": [
+      "csv",
+      "refinement",
+      "column-local-choice"
+    ]
+  }
+}

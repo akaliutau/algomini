@@ -1,0 +1,65 @@
+{
+  "definition": {
+    "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+    "kind": "deterministic",
+    "mechanism": "adaptive-zstd-22",
+    "mode": "adaptive",
+    "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+    "zstd_level": 22
+  },
+  "driver_sha256": "df1d19ed7f7cc7482b73ced8cd445cd1af366b21d5f9146dc199fe5dd706497f",
+  "evidence": "reports/stage4/candidates/s4-33a3537586ff382dd/evaluation.json",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+  "id": "s4-33a3537586ff382dd",
+  "measurements": {
+    "archive_bytes": 40051,
+    "archive_gain": 0.1340885996584006,
+    "archive_sha256": "d807cb87ea308a56c6026d8ec27a1092b89ada548087b7f62ba760d1cccb6750",
+    "deployment_saving_bytes": -376990,
+    "files": [
+      {
+        "block_bytes": 14029,
+        "input_bytes": 175034,
+        "label": "validation-000.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 17433,
+        "input_bytes": 175034,
+        "label": "validation-006.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 8481,
+        "input_bytes": 87626,
+        "label": "validation-013.csv",
+        "raw_escape": false
+      }
+    ],
+    "gates": {
+      "archive_gain": true,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "minimum_decode_mib_per_second": 22.645332278291566,
+    "peak_decode_rss_kib": 31936
+  },
+  "outcome": "measured",
+  "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage4"
+  ],
+  "schema_version": 1,
+  "source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342",
+  "split": "validation",
+  "tags": [
+    "csv",
+    "refinement",
+    "adaptive-zstd-22"
+  ]
+}

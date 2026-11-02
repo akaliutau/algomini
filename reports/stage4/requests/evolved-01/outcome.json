@@ -1,0 +1,67 @@
+{
+  "candidate_id": "s4-3bef7bc2eb6280877",
+  "definition": {
+    "generation_attempt_id": "2d26841017ac1a10fed25fa2e140e861887a9c35466ecc0ceb96aaf442c0f131",
+    "hypothesis": "Investigate exact raw-token dictionaries or repeat runs for columns with many repeated lexemes. Store every literal once and the exact IDs/runs; consider ordering literals to improve backend compression. Preserve quotes, padding and numeric spelling without numeric conversion. Keep the parent's existing alternatives when the new representation costs more.",
+    "kind": "evolved",
+    "mechanism": "token-dictionaries",
+    "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+    "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+  },
+  "driver_sha256": "d50a85d43ec932a27f9d09e0294fa40c8725bda548bca1908974c707edd55fba",
+  "evidence": "reports/stage4/candidates/s4-3bef7bc2eb6280877/evaluation.json",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "hypothesis": "Investigate exact raw-token dictionaries or repeat runs for columns with many repeated lexemes. Store every literal once and the exact IDs/runs; consider ordering literals to improve backend compression. Preserve quotes, padding and numeric spelling without numeric conversion. Keep the parent's existing alternatives when the new representation costs more.",
+  "id": "s4-3bef7bc2eb6280877",
+  "measurements": {
+    "archive_bytes": 37130,
+    "archive_gain": 0.19724126002637665,
+    "archive_sha256": "a0bfbf749588cc73dfe8a4a7bbb3fee118ad5ea81818a8114786f2a370c263f7",
+    "deployment_saving_bytes": -415837,
+    "files": [
+      {
+        "block_bytes": 12637,
+        "input_bytes": 175034,
+        "label": "validation-000.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 16197,
+        "input_bytes": 175034,
+        "label": "validation-006.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 8188,
+        "input_bytes": 87626,
+        "label": "validation-013.csv",
+        "raw_escape": false
+      }
+    ],
+    "gates": {
+      "archive_gain": true,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "minimum_decode_mib_per_second": 24.81163859246107,
+    "peak_decode_rss_kib": 31616
+  },
+  "outcome": "measured",
+  "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage4"
+  ],
+  "schema_version": 1,
+  "source_path": "reports/stage4/requests/evolved-01/codec.rs",
+  "source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb",
+  "split": "validation",
+  "tags": [
+    "csv",
+    "refinement",
+    "token-dictionaries"
+  ]
+}

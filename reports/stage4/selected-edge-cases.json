@@ -1,0 +1,72 @@
+{
+  "cases": [
+    {
+      "algorithm_bytes": 64,
+      "case": 0,
+      "input_bytes": 2050,
+      "input_sha256": "14da9a5d77569b71fa00b3fe13940fd0298212e61d670c6a9c83527eb9b893f7",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 67,
+      "case": 1,
+      "input_bytes": 2129,
+      "input_sha256": "de79ee5906acddd987e97b0de31e5a96deaa69346a9f196702c3499c8543c0b4",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 64,
+      "case": 2,
+      "input_bytes": 2049,
+      "input_sha256": "7bde9110665f73ac3bdb77b40e384d7bebe6794666c428cacc6300f29b48cd76",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 25,
+      "case": 3,
+      "input_bytes": 512,
+      "input_sha256": "e3550d98b3c0ddffda296b180932cf03ed8f1ee843807647cc4b892f72dde4e6",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 24,
+      "case": 4,
+      "input_bytes": 605,
+      "input_sha256": "41021405c60f574a548310ef96a0ad1a54eb177b9e800ad00792ca7845835394",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 277,
+      "case": 5,
+      "input_bytes": 1024,
+      "input_sha256": "785b0751fc2c53dc14a4ce3d800e69ef9ce1009eb327ccf458afe09c242c26c9",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 1035,
+      "case": 6,
+      "input_bytes": 1024,
+      "input_sha256": "dac1c277e73fcec20f6d9f35ec826433c75dcb7651877093d36b27e88d591ee1",
+      "payload_tag": 0,
+      "roundtrip": true
+    },
+    {
+      "algorithm_bytes": 26,
+      "case": 7,
+      "input_bytes": 805,
+      "input_sha256": "ba7a565ce36e840bc8eb1f9da3cdb536c2925ba27076d646ec03596fefe2cb7b",
+      "payload_tag": 0,
+      "roundtrip": true
+    }
+  ],
+  "direct_algorithm_raw_escape_bypassed": true,
+  "frozen_model_used": true,
+  "ok": true,
+  "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+}

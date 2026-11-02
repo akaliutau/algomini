@@ -1,0 +1,11 @@
+{
+  "reason": "Before the Stage 4 merge, replace arbitrary source-hash tie breaking with smaller decoder-package tie breaking for identical archive bytes.",
+  "tied_archive_bytes": 37130,
+  "simpler_candidate": "s4-98e12bcd61e8117b0",
+  "simpler_decoder_bytes": 391032,
+  "previous_candidate": "s4-3bef7bc2eb6280877",
+  "previous_decoder_bytes": 424960,
+  "sealed_test_opened": false,
+  "model_calls_added_by_revision": 0,
+  "status": "superseded unmerged selection draft; original artifacts and verifier retained"
+}

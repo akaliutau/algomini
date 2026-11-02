@@ -1,0 +1,10 @@
+{
+  "control_fixture": true,
+  "input_bytes": 14,
+  "input_sha256": "aba367f08819f1fb81dcdbc25d795b06da7ad1e0460f375691e60e150877fef4",
+  "maximum_checks": 32,
+  "minimal_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+  "predicate_checks": 5,
+  "remaining_bytes": 1,
+  "scope": "Bounded deletion minimization; not a proof of global minimality"
+}

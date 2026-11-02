@@ -94,3 +94,16 @@ python -m algomini.evaluator evaluate stage3-byteplanes-r1 --split validation
 Terminal outcomes, exact generated sources and verified result/archive fingerprints are committed. The first command reuses them even when `.cache/coder/` is absent. `reports/stage3/replay-check.json` records a replay with generation disabled and a hook rejecting every generation call; the ledger did not change. `repeat-check.json` compares an independent frozen remeasurement of all eight archive signatures. Native timings may differ by run/CPU, while bytes and hashes should match.
 
 Starting fresh research requires a new run id/policy and an API credential; it reserves discovery spending before generation. Completed requests are immutable, and unresolved interrupted reservations require inspection. Candidate/repair-cap extensions are explicit and versioned; they cannot alter the model/data/frozen evaluator or reset the deadline. See [search contracts](../docs/search.md) for cache provenance, costs, initial failures and later-stage boundaries. All work remains local; Docker/cloud execution and the sealed evaluation are still later stages.
+
+## Stage 4 selected artifact
+
+`stage4-environment.json` records the final controller, policy, skill, tool and candidate-freeze hashes. Python/native dependencies remain those in the existing locks. `candidate-freeze.json` plus its SHA-256 is the active source/model/parameter/compiler selection; `artifacts/stage4-selected/` contains independently hashed source, model, build, policy and validation snapshots. Superseded premerge tie-breaking evidence under `reports/stage4/premerge-selection-01/` is historical, not an active selection.
+
+```bash
+python -m algomini stage4
+python -m algomini selected-status --build
+```
+
+The first command replays committed requests/outcomes without inference; it refuses fresh generation after selection is frozen. The second verifies all frozen snapshots and the offline executable hash. `fresh-rebuild-check.json` records a separate empty-cache compilation that reproduces the executable exactly and decodes all validation archives using the frozen zero-byte model, without training. `replay-check.json` records generation disabled and an invocation hook rejecting every model call. `repeat-check.json` checks independent archive-size/hash repeatability for all eight methods.
+
+The active freeze binds compiler/native dependencies through the unchanged evaluator id. The later sealed verifier must load the frozen model, not retrain it, and evaluate this one candidate once. Cloud Docker packaging and target-host performance remain later work; no local Docker execution was used. See [refinement and freeze contracts](../docs/refinement.md).

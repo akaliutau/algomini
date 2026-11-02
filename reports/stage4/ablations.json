@@ -1,0 +1,62 @@
+{
+  "controls": {
+    "adaptive": {
+      "archive_bytes": 40108,
+      "id": "s4-f9dec61e727886d86",
+      "source_sha256": "f9dec61e727886d866026424098a41ec61c86d19b7c3b357624f10b48d8fa136"
+    },
+    "column": {
+      "archive_bytes": 40506,
+      "id": "s4-cec08bd29e18744aa",
+      "source_sha256": "cec08bd29e18744aa8aefbf23537f1fddcd8d3b9c87066609bfee4a3af325ead"
+    },
+    "plane": {
+      "archive_bytes": 40537,
+      "id": "s4-47f493c6ff94be619",
+      "source_sha256": "47f493c6ff94be619288edb081a3393f9382adb0176fec4c367ecd81b8ceaf8e"
+    },
+    "raw": {
+      "archive_bytes": 48599,
+      "id": "s4-2ab3e34ddd0c55b01",
+      "source_sha256": "2ab3e34ddd0c55b0138c0816292703a466a1affc2c343abe471877e98ad07849"
+    }
+  },
+  "equal_method_name_bytes": 20,
+  "files": [
+    {
+      "block_bytes": {
+        "adaptive": 14050,
+        "column": 14050,
+        "plane": 14104,
+        "raw": 17368
+      },
+      "label": "validation-000.csv",
+      "plane_contribution_bytes": 0
+    },
+    {
+      "block_bytes": {
+        "adaptive": 17449,
+        "column": 17449,
+        "plane": 17824,
+        "raw": 20836
+      },
+      "label": "validation-006.csv",
+      "plane_contribution_bytes": 0
+    },
+    {
+      "block_bytes": {
+        "adaptive": 8501,
+        "column": 8899,
+        "plane": 8501,
+        "raw": 10287
+      },
+      "label": "validation-013.csv",
+      "plane_contribution_bytes": 398
+    }
+  ],
+  "plane_contribution_bytes": 398,
+  "representation_saving_vs_raw_bytes": 8491,
+  "schema_version": 1,
+  "scope": "Controlled output-mode ablation at fixed backend level, decoder, framing and method-name length; all bytes counted",
+  "zstd_level": 19
+}

@@ -1,0 +1,19 @@
+{
+  "codec_id": "98e12bcd61e8117b0c9f3cc6b4edfbc3",
+  "format_version": 2,
+  "id": "s4-98e12bcd61e8117b0",
+  "provenance": {
+    "generation_attempt_id": "c5499fd702c8a88aacba7cc696415e421492e2ca6af12d4d414514f6282fa603",
+    "hypothesis": "Investigate choosing raw-token column streams versus byte-position planes separately for each column, with all lengths/modes counted. Preserve the existing whole-block column/plane alternatives as a strong fallback. Compare actual compressed bytes; local raw-byte savings alone are not sufficient.",
+    "kind": "evolved",
+    "mechanism": "column-local-choice",
+    "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+    "parent_source_sha256": "33a3537586ff382dd9b36cfb88bff8205685595241f31beb7d7e068d1b339342"
+  },
+  "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
+  "schema_version": 1,
+  "source": "codec.rs",
+  "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
+  "status": "experimental",
+  "worker_protocol_version": 1
+}

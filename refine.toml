@@ -1,0 +1,14 @@
+schema_version = 1
+run_id = "stage4"
+parent = "stage3-byteplanes-r1"
+parent_sha256 = "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c"
+levels = [9, 15, 19, 22]
+ablation_level = 19
+evolved_mechanisms = ["column-local-choice", "token-dictionaries", "lexical-templates"]
+maximum_evolved_candidates = 3
+maximum_repairs = 1
+plateau_rounds = 3
+screen_bytes = 65536
+maximum_run_seconds = 3600
+retrieve_documents = 4
+retrieve_chars = 6000

@@ -234,3 +234,11 @@ data/
 reports/budget/.lock
 reports/*/.lock
 rust/**/target/
+
+# Reviewed source/model/build snapshots are reproducibility inputs.
+!/artifacts/
+/artifacts/*
+!/artifacts/stage4-selected/
+!/artifacts/stage4-selected/**
+!/reports/stage4/premerge-selection-01/artifacts/
+!/reports/stage4/premerge-selection-01/artifacts/**

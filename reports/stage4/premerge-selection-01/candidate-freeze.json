@@ -1,0 +1,122 @@
+{
+  "candidate_id": "s4-3bef7bc2eb6280877",
+  "compiler": {
+    "binary_bytes": 424960,
+    "binary_sha256": "d31c6f08005a5ac78d0e5f0ef548a85e787733ba6f49cf05168a094dbf94a721",
+    "build_fingerprint": "1fd63a498fa808b0bfd202f7afd8688981197687ac7b80a52a8ab5d3fb80a0f7",
+    "cargo_release_profile": {
+      "codegen-units": 1,
+      "opt-level": 2,
+      "overflow-checks": true,
+      "panic": "abort",
+      "strip": true
+    },
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--offline",
+      "--locked"
+    ],
+    "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+    "toolchain_and_native_dependencies": "Bound by evaluator_freeze_id"
+  },
+  "created_at": "2026-11-02T22:56:43.452326+00:00",
+  "dataset_manifest_sha256": "30db7ff495a353877efe5d6857e6e42102416b3aa9c2f01c85000c863b68f467",
+  "evaluator_freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "files": {
+    "artifacts/stage4-selected/build.json": "ec4da0a6d77a5e447cf6502c6fbc49e0aa81697a4361f3ede335702c2fd75ec1",
+    "artifacts/stage4-selected/codec.rs": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb",
+    "artifacts/stage4-selected/model.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/stage4-selected/policy.json": "2292a2766be63b2af97076854c152b7f238891e624e89d3b0b4c9b33d35c2595",
+    "artifacts/stage4-selected/validation.json": "a35d36e20b7e1e19b7562dbed903884d143b78462c699890885f4f1c8b1c3346"
+  },
+  "model": {
+    "bytes": 0,
+    "counted_shared_model_bytes_on_validation": 0,
+    "path": "artifacts/stage4-selected/model.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training_sample_sha256": [
+      "b153ce0f96bd8eab2f0593aa3d10bd28bf55b13456342753be68a867209f3569",
+      "9c5afbcba340d8cc8b2673c9ffdc340b48a3406351a8b7cb827e4c1a3b7dab89",
+      "1b105c8e217a8f921d5409230af24d6fb25e7a4963ae272a2189aec258f11815",
+      "5bc37114bca726fff6a38820d5f11b3d1c556f5a7dad88fe46c728ee4edf3fe8",
+      "191404d428f2715902ecb07303a01fa54f0b321c011ba8ca10aa51c07db4bf78",
+      "e6ea756bdbfa842e71e7e889fc5f873e527657b9b51f3e606276837856fb030b",
+      "e38063c22001583b8e1750445e8aa51f3bf401ff885bbdd9707dfe9170859c0e",
+      "7709cfb0d0aaebe55b212f94761e73c30e07e3940eb58462f9a88f441b5d34f3",
+      "6fcaf22bf7c1bed47fbd14782a8c0eb8a552e21bf79394e76cf6a19b37eeb8e7",
+      "eff302f7fc1aaf663e1b157baf480bc1227787a852fdc40974fc9694fe24deb0",
+      "28baf8b5cd2a63f58ea15868494439856ef60523b38e7754d29a9f20c4480d77",
+      "33820a7f9c3c6bd2e9d246c31ed6b71930d7f66fc196088bf61732aa6cb87b11",
+      "db1264cc52980487105192306455b45cd1e4eb4414d4a9566e14d602aa9b825b",
+      "52b6be9e91623833d9ad16b29d3de0fd2d6e1bc7a44c24a934e55c23b2ffd448",
+      "1bd5bbd3aa0c5b2aab4d2376ae44607d7d6fab77eefe21b178f2dab645db0236",
+      "a09b5b2483f833a3a3c9563980d55f74ea30fd9efb166b07ca61555c9f2a3f45"
+    ],
+    "training_split": "train"
+  },
+  "parameters": {
+    "generation_attempt_id": "2d26841017ac1a10fed25fa2e140e861887a9c35466ecc0ceb96aaf442c0f131",
+    "hypothesis": "Investigate exact raw-token dictionaries or repeat runs for columns with many repeated lexemes. Store every literal once and the exact IDs/runs; consider ordering literals to improve backend compression. Preserve quotes, padding and numeric spelling without numeric conversion. Keep the parent's existing alternatives when the new representation costs more.",
+    "kind": "evolved",
+    "mechanism": "token-dictionaries",
+    "parameters": "All encoder/decoder choices are embedded in the exact generated source; no external runtime parameters",
+    "parent_source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+  },
+  "schema_version": 1,
+  "sealed_manifest_commitment": "d990c0af7853ab3e9f75993a1e82ed89e022b8573a5fcc1bfa874a41fdfc9006",
+  "sealed_run_contract": "Load this exact source/model/parameters/build in the later trusted verifier. Never train on sealed inputs. One sealed outcome is final; no tuning or candidate replacement after viewing it.",
+  "sealed_test_opened": false,
+  "selection": {
+    "archive_bytes": 37130,
+    "archive_sha256": "a0bfbf749588cc73dfe8a4a7bbb3fee118ad5ea81818a8114786f2a370c263f7",
+    "inputs": [
+      {
+        "bytes": 175034,
+        "label": "validation-000.csv",
+        "sha256": "5d95d75dcef3850e3870a4c0d38db71381d139630ff2b960e7246a8c34d45091"
+      },
+      {
+        "bytes": 175034,
+        "label": "validation-006.csv",
+        "sha256": "228b84fe290825c2f83f18da2621c82221be7377dc00802c73e384caa24d3641"
+      },
+      {
+        "bytes": 87626,
+        "label": "validation-013.csv",
+        "sha256": "7d3ed802af58545691b553c02253de9d2ddd8150795465237112b83775568a7e"
+      }
+    ],
+    "policy": "smallest complete archive passing every frozen gate; source hash breaks equal-size ties",
+    "score": {
+      "archive_gain": 0.19724126002637665,
+      "deployment_assumption": "Common runtime/libzstd already available; one complete candidate executable is incremental",
+      "deployment_saving_bytes": -415837,
+      "gates": {
+        "archive_gain": true,
+        "decode_rss": true,
+        "decode_speed": true,
+        "exact_reconstruction": true
+      },
+      "meets_development_targets": true,
+      "minimum_decode_mib_per_second": 24.81163859246107,
+      "peak_decode_rss_kib": 31616
+    },
+    "split": "validation"
+  },
+  "source": {
+    "path": "artifacts/stage4-selected/codec.rs",
+    "plugin_source": "plugins/s4-3bef7bc2eb6280877/codec.rs",
+    "sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb"
+  },
+  "status": "frozen-for-single-sealed-verification",
+  "thresholds": {
+    "max_input_bytes": 2097152,
+    "memory_mib": 256,
+    "minimum_archive_gain": 0.1,
+    "minimum_decode_mib_per_second": 10.0
+  },
+  "trust": "Publisher pins this record SHA-256 in a reviewed commit; adjacent hash alone is not authentication.",
+  "verifier_sha256": "2a20884ed5cca6b3bdaa07b574596ba80cd421fabf00fc7718fc7ff8bf50661b"
+}

@@ -1,0 +1,19 @@
+{
+  "codec_id": "b1218d7c50181a184e41ed5f4e079029",
+  "format_version": 2,
+  "id": "s4-b1218d7c50181a184",
+  "provenance": {
+    "hypothesis": "Measure layout contribution at fixed effort, or backend-level effect with the adaptive layout held fixed",
+    "kind": "deterministic",
+    "mechanism": "adaptive-zstd-15",
+    "mode": "adaptive",
+    "parent_source_sha256": "3d0f93fed0f457b33097f605c80dd314fbdb6c87bc2312fc4fca5acb9e3a499c",
+    "zstd_level": 15
+  },
+  "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
+  "schema_version": 1,
+  "source": "codec.rs",
+  "source_sha256": "b1218d7c50181a184e41ed5f4e079029178bc47ebadf27ce05c5254b79f38edc",
+  "status": "experimental",
+  "worker_protocol_version": 1
+}

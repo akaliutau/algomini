@@ -47,6 +47,11 @@ def main():
     search_parser = commands.add_parser("stage3", help="Run/resume bounded Muse mechanism search using the frozen evaluator")
     search_parser.add_argument("--policy", default="search.toml")
     search_parser.add_argument("--extend-budget", action="store_true", help="Record an explicit increase of candidate/repair caps within project limits; retain the original deadline")
+    refine_parser = commands.add_parser("stage4", help="Run controlled ablations, bounded refinement, and freeze a validation-selected candidate")
+    refine_parser.add_argument("--policy", default="refine.toml")
+    refine_parser.add_argument("--measure-only", action="store_true", help="Complete deterministic ablations/sweeps before paid refinement or final selection")
+    selected_parser = commands.add_parser("selected-status", help="Verify the exact Stage 4 source/model/parameter freeze")
+    selected_parser.add_argument("--build", action="store_true", help="Rebuild offline and check the selected executable hash")
     commands.add_parser("research-profile", help="Profile exact training lexemes, deltas and token offsets")
     commands.add_parser("representation-probes", help="Measure exact training-only layout/byte-plane hypotheses before expanding search")
     memory_parser = commands.add_parser("research-memory", help="Rebuild or query versioned research/skill evidence")
@@ -99,6 +104,12 @@ def main():
         elif args.command == "stage3":
             from .search import run
             result = run(root, cfg, args.policy, extend_budget=args.extend_budget)
+        elif args.command == "stage4":
+            from .refinement import run
+            result = run(root, cfg, args.policy, measure_only=args.measure_only)
+        elif args.command == "selected-status":
+            from .selection import verify
+            result = verify(root, cfg, rebuild=args.build)
         elif args.command == "research-profile":
             from .research import profile
             full = profile(root, cfg)

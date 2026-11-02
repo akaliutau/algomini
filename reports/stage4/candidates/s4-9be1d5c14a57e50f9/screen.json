@@ -1,0 +1,63 @@
+{
+  "archive_bytes": 6400,
+  "archive_sha256": "947b407f5fcc88c8b116403c2aa3a7baa647a103dd5d46d21cbeddab02b204bb",
+  "build": {
+    "binary_bytes": 434072,
+    "binary_sha256": "d48fb761f5d840979bde658ff5ea74e6c3d288ab9fbe9b12234b1085e600f8a0",
+    "builder_sha256": "a5be1a9b6f4e801bdf67af911235a0cb6a8765becdf773904eb79595c4910eaf",
+    "core": {
+      "Cargo.lock": "897678899bc651ef41ce74a504628638045898fd85079c07c7862f62ca73670a",
+      "Cargo.toml": "4d77352736ea1bf544456c411381d5460d940cef930dba85248fb34b20b0e6f3",
+      "README.md": "4d7066c423197d109d77dd2c8687572732d151e859347afd2fa1707b488b47ae",
+      "src/api.rs": "8091ff431970657a50f8c43668d634923d0f8da6fead113394eaf7446fca1f11",
+      "src/codec.rs": "da1634dbc1a82d878688c0c126f2b2a87018e89db2a796894057098c5b09d11d",
+      "src/frame.rs": "f07f9fc0aab5b83087cff38e65f8cb7f39233c2892698e4390fca5d13a0728bf",
+      "src/identity.rs": "1be41fe873d3f4afc70dee5e2e355f6ebabf5ac43bced7bdb86bfa28111cb102",
+      "src/main.rs": "edd0de67fad0bdf33c75c270120f42fc9f61bec0d1da528f95c8880f0bf66a34",
+      "src/toolkit.rs": "a30112d14bc87f970a5f7bd913d5bad75c34d09aba63db382aaf3962edcbd7ec"
+    },
+    "diagnostics": "   Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/e7b996f8540deb745f273aaf9f9bed53e227798717a1aea9067bdf1b2ce54876)\n    Finished `release` profile [optimized] target(s) in 0.86s\n",
+    "execution_sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+    "fingerprint": "e7b996f8540deb745f273aaf9f9bed53e227798717a1aea9067bdf1b2ce54876",
+    "isolation": "landlock-abi6+-libseccomp",
+    "isolation_sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+    "ok": true,
+    "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+    "source_sha256": "9be1d5c14a57e50f9558c16abe5c79aaeb3aa9fec2ce682cea6f2c0ce186c272",
+    "wall_seconds": 0.9890738340000098
+  },
+  "correctness": {
+    "passed": true,
+    "raw_escape_bypass": true,
+    "tiny_cases": 8
+  },
+  "decode": {
+    "execution_seconds": 0.002858902000298258,
+    "isolation": "landlock-abi6+-libseccomp",
+    "peak_rss_kib": 31772,
+    "setup_seconds": 0.10912762800217024,
+    "system_seconds": 0.046279999999999995,
+    "user_seconds": 0.065534,
+    "wall_seconds": 0.1119865300024685
+  },
+  "encode": {
+    "execution_seconds": 0.17139546500038705,
+    "isolation": "landlock-abi6+-libseccomp",
+    "peak_rss_kib": 31772,
+    "setup_seconds": 0.11557657799858134,
+    "system_seconds": 0.051466,
+    "user_seconds": 0.23509999999999998,
+    "wall_seconds": 0.2869720429989684
+  },
+  "framing_bytes": 40,
+  "input_bytes": 65167,
+  "input_sha256": "be07604743b9b9e8dc788dde7c1705341f75394a69e1a9a2148c423413ff4939",
+  "model_bytes": 0,
+  "payload_bytes": 6360,
+  "raw_escape": false,
+  "roundtrip": true,
+  "source_sha256": "9be1d5c14a57e50f9558c16abe5c79aaeb3aa9fec2ce682cea6f2c0ce186c272",
+  "timing_scope": "Includes local isolation setup and process startup; not warmed codec throughput",
+  "trained_model_bytes": 0,
+  "trained_model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

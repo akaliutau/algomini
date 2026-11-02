@@ -2,7 +2,7 @@
 
 Automated algorithm discovery dedicated to minimizing data footprints.
 
-Stage 0 supplies a pinned telemetry dataset, chronological splits, train-only analytics, compressor baselines, and Muse preflight. Stage 1 adds the Rust wrapper, configurable CLI coder, and independently checked Muse module. Stage 2 freezes the local evaluator, byte accounting, containment and manifest installation contract. Stage 3 adds bounded Muse mechanism search, resumable evidence caches, diverse elites, and searchable research skills.
+Stage 0 supplies a pinned telemetry dataset, chronological splits, train-only analytics, compressor baselines, and Muse preflight. Stage 1 adds the Rust wrapper, configurable CLI coder, and independently checked Muse module. Stage 2 freezes the local evaluator, byte accounting, containment and manifest installation contract. Stage 3 adds bounded Muse search, resumable evidence caches, diverse elites and research skills. Stage 4 adds controlled ablations, refinement and one validation-selected source/model/build freeze.
 
 ## Local setup
 
@@ -47,12 +47,17 @@ python -m pytest -q
 | `python -m algomini research-profile` | Inspect exact training lexemes, quotes/padding, decimal scales, temporal prefixes and byte offsets |
 | `python -m algomini representation-probes` | Test reversible training-only representations before expanding search |
 | `python -m algomini research-memory 'decimal prefixes'` | Retrieve versioned findings and project skills through SQLite FTS5 |
+| `python -m algomini stage4 --measure-only` | Reproduce fixed layout ablations and backend-level sweeps without generation or selection |
+| `python -m algomini stage4` | Replay refinement outcomes and verify the frozen validation selection |
+| `python -m algomini selected-status --build` | Verify the exact selected source/model/parameters and offline executable hash |
 
 Exploratory and evaluator commands accept `--split train` or `--split validation`; they expose no test split. The frozen evaluator stores shared model bytes once in an actual collection, counts all framing, and selects the strongest whole-corpus baseline. See [evaluator contracts and local encode/decode](docs/evaluator.md).
 
-The Stage 2 seed uses **43,084 bytes** versus xz's **46,253 bytes** on the three fixed validation probes. Stage 3's leading generated module, `stage3-byteplanes-r1`, uses **40,108 bytes**: **13.29% archive gain** versus xz and 326 bytes below the structured reference's **40,434**. It passes decode speed/RSS gates; its decoder package still erases savings on this small corpus. These are development results; the sealed test remains unopened and causal ablations remain Stage 4 work.
+The Stage 2 seed uses **43,084 bytes** versus xz's **46,253 bytes** on the three fixed validation probes. Stage 3's leading generated module, `stage3-byteplanes-r1`, uses **40,108 bytes**: **13.29% archive gain** versus xz and 326 bytes below the structured reference's **40,434**. It passes decode speed/RSS gates; its decoder package still erases savings on this small corpus. These are development results; Stage 4 adds the controlled ablations below, and the sealed test remains unopened.
 
-Stage 3 retains six initial mechanisms, three repairs and three eligible elites including the seed. Nine Muse sessions report **$0.8288** in token-based usage estimates. Replay succeeds with generation disabled and leaves the ledger unchanged. The suite has 56 Python tests and three trusted Rust tests; the leading candidate also passes independent direct edge-case checks. See [search contracts](docs/search.md) and the [Stage 3 report](reports/stage3/report.md).
+Stage 4's selected mixed-column codec uses **37,130 bytes: 19.72% below xz**, with passing resource gates. A single-condition removal ablation measures **2,921 bytes** of savings from mixed-column choice. Its exact source, empty serialized model, parameters and build are frozen for one later sealed verification. The 391,032-byte decoder still makes deployment savings negative on this corpus. Four additional Muse sessions report **$0.4727** in token-based estimates. Current checks pass **65 Python and three Rust tests**, including a fresh-cache executable reproduction and frozen-model decode. See [Stage 4 evidence](reports/stage4/report.md) and [refinement contracts](docs/refinement.md).
+
+Stage 3 retains six initial mechanisms, three repairs and three eligible elites including the seed. Nine Muse sessions report **$0.8288** in token-based usage estimates. Replay succeeds with generation disabled and leaves the ledger unchanged. Its stage passed 56 Python tests and three trusted Rust tests; the leading candidate also passes independent direct edge-case checks. See [search contracts](docs/search.md) and the [Stage 3 report](reports/stage3/report.md).
 
 ## First generated codec loop
 
@@ -82,5 +87,6 @@ The main artifacts are:
 - [Stage 1 report](reports/stage1/report.md), [experiment summary](reports/stage1/summary.json), and [Stage 1 environment](repro/stage1-environment.json).
 - [Stage 2 report](reports/stage2/report.md), [acceptance summary](reports/stage2/summary.json), and [evaluator freeze](repro/evaluator-freeze.json).
 - [Stage 3 report](reports/stage3/report.md), [pool/results](reports/stage3/results.json), [observations](reports/stage3/observations.jsonl), and [Stage 3 environment](repro/stage3-environment.json).
+- [Stage 4 report](reports/stage4/report.md), [results](reports/stage4/results.json), [candidate freeze](repro/candidate-freeze.json), and [selected artifacts](artifacts/stage4-selected/codec.rs).
 
 The raw-token column-transposition reference is an ordinary lossless representation experiment. Its training result demonstrates a possible research direction; it establishes neither scientific novelty nor performance on unseen data.

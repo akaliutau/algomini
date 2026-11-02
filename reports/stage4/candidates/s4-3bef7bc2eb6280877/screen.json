@@ -1,0 +1,63 @@
+{
+  "archive_bytes": 6400,
+  "archive_sha256": "4888f6e140f9ecb3b8e3301da364cddfda4d38364f5f6ca467c1d775a8368131",
+  "build": {
+    "binary_bytes": 424960,
+    "binary_sha256": "d31c6f08005a5ac78d0e5f0ef548a85e787733ba6f49cf05168a094dbf94a721",
+    "builder_sha256": "a5be1a9b6f4e801bdf67af911235a0cb6a8765becdf773904eb79595c4910eaf",
+    "core": {
+      "Cargo.lock": "897678899bc651ef41ce74a504628638045898fd85079c07c7862f62ca73670a",
+      "Cargo.toml": "4d77352736ea1bf544456c411381d5460d940cef930dba85248fb34b20b0e6f3",
+      "README.md": "4d7066c423197d109d77dd2c8687572732d151e859347afd2fa1707b488b47ae",
+      "src/api.rs": "8091ff431970657a50f8c43668d634923d0f8da6fead113394eaf7446fca1f11",
+      "src/codec.rs": "da1634dbc1a82d878688c0c126f2b2a87018e89db2a796894057098c5b09d11d",
+      "src/frame.rs": "f07f9fc0aab5b83087cff38e65f8cb7f39233c2892698e4390fca5d13a0728bf",
+      "src/identity.rs": "1be41fe873d3f4afc70dee5e2e355f6ebabf5ac43bced7bdb86bfa28111cb102",
+      "src/main.rs": "edd0de67fad0bdf33c75c270120f42fc9f61bec0d1da528f95c8880f0bf66a34",
+      "src/toolkit.rs": "a30112d14bc87f970a5f7bd913d5bad75c34d09aba63db382aaf3962edcbd7ec"
+    },
+    "diagnostics": "   Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/1fd63a498fa808b0bfd202f7afd8688981197687ac7b80a52a8ab5d3fb80a0f7)\nwarning: value assigned to `np` is never read\n   --> src/codec.rs:706:21\n    |\n706 |                     np = k;\n    |                     ^^^^^^\n    |\n    = help: maybe it is overwritten before being read?\n    = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `algomini-codec-worker` (bin \"algomini-codec-worker\") generated 1 warning\n    Finished `release` profile [optimized] target(s) in 0.77s\n",
+    "execution_sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+    "fingerprint": "1fd63a498fa808b0bfd202f7afd8688981197687ac7b80a52a8ab5d3fb80a0f7",
+    "isolation": "landlock-abi6+-libseccomp",
+    "isolation_sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+    "ok": true,
+    "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+    "source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb",
+    "wall_seconds": 0.9033069750003051
+  },
+  "correctness": {
+    "passed": true,
+    "raw_escape_bypass": true,
+    "tiny_cases": 8
+  },
+  "decode": {
+    "execution_seconds": 0.003404121998755727,
+    "isolation": "landlock-abi6+-libseccomp",
+    "peak_rss_kib": 31772,
+    "setup_seconds": 0.10946193800191395,
+    "system_seconds": 0.049219,
+    "user_seconds": 0.063522,
+    "wall_seconds": 0.11286606000066968
+  },
+  "encode": {
+    "execution_seconds": 0.14886251200005063,
+    "isolation": "landlock-abi6+-libseccomp",
+    "peak_rss_kib": 31772,
+    "setup_seconds": 0.10797643199839513,
+    "system_seconds": 0.049269,
+    "user_seconds": 0.20693599999999998,
+    "wall_seconds": 0.25683894399844576
+  },
+  "framing_bytes": 40,
+  "input_bytes": 65167,
+  "input_sha256": "be07604743b9b9e8dc788dde7c1705341f75394a69e1a9a2148c423413ff4939",
+  "model_bytes": 0,
+  "payload_bytes": 6360,
+  "raw_escape": false,
+  "roundtrip": true,
+  "source_sha256": "3bef7bc2eb62808778f213c91ff9bc334e20c6da8beb1c87bd52fd4cb39b52fb",
+  "timing_scope": "Includes local isolation setup and process startup; not warmed codec throughput",
+  "trained_model_bytes": 0,
+  "trained_model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}
