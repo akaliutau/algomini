@@ -78,3 +78,19 @@ python -m algomini stage2
 The last command verifies an existing freeze and repeats the fixed development measurements. It makes no model calls and does not open sealed files. It does not overwrite Stage 0/1 reports or environment references. All eight methods (six baselines, structured reference, candidate) must repeat their byte counts and archive hashes; process timing/RSS can vary. Measurements and a saved candidate collection live in `reports/stage2/` and `reports/evaluations/`.
 
 Use the dedicated `python -m algomini.evaluator` entry point for future trusted scoring. See [the evaluator contract](../docs/evaluator.md) for the shared-model format, conservative parent timing, source-only plugin registration, integrity scope and cloud migration requirements. A native hash mismatch requires a new reviewed experimental reference; do not regenerate this freeze merely to suppress a mismatch. No cloud Docker image or cloud performance result is claimed by Stage 2.
+
+## Stage 3 evidence and replay
+
+`stage3-environment.json` adds the research-controller, search-policy and project-skill hashes. No dependencies or native package versions were changed; use the existing Python/Conda locks and Stage 2 native package lock. The same reviewed evaluator freeze is verified before/after research and every official evaluation.
+
+With the pinned tools and development dataset prepared, replay the committed population without model inference:
+
+```bash
+python -m algomini stage3
+python -m algomini research-memory 'byteplanes padding'
+python -m algomini.evaluator evaluate stage3-byteplanes-r1 --split validation
+```
+
+Terminal outcomes, exact generated sources and verified result/archive fingerprints are committed. The first command reuses them even when `.cache/coder/` is absent. `reports/stage3/replay-check.json` records a replay with generation disabled and a hook rejecting every generation call; the ledger did not change. `repeat-check.json` compares an independent frozen remeasurement of all eight archive signatures. Native timings may differ by run/CPU, while bytes and hashes should match.
+
+Starting fresh research requires a new run id/policy and an API credential; it reserves discovery spending before generation. Completed requests are immutable, and unresolved interrupted reservations require inspection. Candidate/repair-cap extensions are explicit and versioned; they cannot alter the model/data/frozen evaluator or reset the deadline. See [search contracts](../docs/search.md) for cache provenance, costs, initial failures and later-stage boundaries. All work remains local; Docker/cloud execution and the sealed evaluation are still later stages.

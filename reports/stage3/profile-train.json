@@ -1,0 +1,2902 @@
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 4816,
+          "decimal_tokens": 0,
+          "distinct_tokens": 330,
+          "field": "date",
+          "fraction_digits": [],
+          "lexical_exceptions": {
+            "leading_padding_tokens": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6930,
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 97,
+          "consecutive_prefix_bytes": 1209,
+          "decimal_tokens": 330,
+          "distinct_tokens": 42,
+          "field": "Appliances",
+          "fraction_digits": [
+            [
+              0,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 330,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1980,
+          "scaled_integer": {
+            "max_magnitude_bits": 10,
+            "median_delta_bits": 4,
+            "scale": 0
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 244,
+          "consecutive_prefix_bytes": 1061,
+          "decimal_tokens": 330,
+          "distinct_tokens": 8,
+          "field": "lights",
+          "fraction_digits": [
+            [
+              0,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 209,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1320,
+          "scaled_integer": {
+            "max_magnitude_bits": 7,
+            "median_delta_bits": 0,
+            "scale": 0
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 183,
+          "consecutive_prefix_bytes": 4280,
+          "decimal_tokens": 330,
+          "distinct_tokens": 72,
+          "field": "T1",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 48,
+          "consecutive_prefix_bytes": 2023,
+          "decimal_tokens": 330,
+          "distinct_tokens": 202,
+          "field": "RH_1",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 162,
+          "consecutive_prefix_bytes": 3957,
+          "decimal_tokens": 330,
+          "distinct_tokens": 105,
+          "field": "T2",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 43,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 54,
+          "consecutive_prefix_bytes": 2208,
+          "decimal_tokens": 330,
+          "distinct_tokens": 200,
+          "field": "RH_2",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 196,
+          "consecutive_prefix_bytes": 4477,
+          "decimal_tokens": 330,
+          "distinct_tokens": 51,
+          "field": "T3",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 112,
+          "consecutive_prefix_bytes": 3130,
+          "decimal_tokens": 330,
+          "distinct_tokens": 135,
+          "field": "RH_3",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 126,
+          "consecutive_prefix_bytes": 3353,
+          "decimal_tokens": 330,
+          "distinct_tokens": 98,
+          "field": "T4",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 45,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 74,
+          "consecutive_prefix_bytes": 2455,
+          "decimal_tokens": 330,
+          "distinct_tokens": 199,
+          "field": "RH_4",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 186,
+          "consecutive_prefix_bytes": 4311,
+          "decimal_tokens": 330,
+          "distinct_tokens": 77,
+          "field": "T5",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 82,
+          "consecutive_prefix_bytes": 2500,
+          "decimal_tokens": 330,
+          "distinct_tokens": 190,
+          "field": "RH_5",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 61,
+          "consecutive_prefix_bytes": 2462,
+          "decimal_tokens": 330,
+          "distinct_tokens": 155,
+          "field": "T6",
+          "fraction_digits": [
+            [
+              18,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 330,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7590,
+          "scaled_integer": {
+            "max_magnitude_bits": 63,
+            "median_delta_bits": 57,
+            "scale": 18
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 11,
+          "consecutive_prefix_bytes": 1144,
+          "decimal_tokens": 330,
+          "distinct_tokens": 299,
+          "field": "RH_6",
+          "fraction_digits": [
+            [
+              16,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6930,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 52,
+            "scale": 16
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 151,
+          "consecutive_prefix_bytes": 3787,
+          "decimal_tokens": 330,
+          "distinct_tokens": 82,
+          "field": "T7",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 45,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 39,
+          "consecutive_prefix_bytes": 1850,
+          "decimal_tokens": 330,
+          "distinct_tokens": 254,
+          "field": "RH_7",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 161,
+          "consecutive_prefix_bytes": 3962,
+          "decimal_tokens": 330,
+          "distinct_tokens": 84,
+          "field": "T8",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 44,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 35,
+          "consecutive_prefix_bytes": 1793,
+          "decimal_tokens": 330,
+          "distinct_tokens": 260,
+          "field": "RH_8",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 255,
+          "consecutive_prefix_bytes": 5427,
+          "decimal_tokens": 330,
+          "distinct_tokens": 21,
+          "field": "T9",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 54,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 56,
+          "consecutive_prefix_bytes": 2182,
+          "decimal_tokens": 330,
+          "distinct_tokens": 216,
+          "field": "RH_9",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 36,
+          "consecutive_prefix_bytes": 2136,
+          "decimal_tokens": 330,
+          "distinct_tokens": 129,
+          "field": "T_out",
+          "fraction_digits": [
+            [
+              16,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 330,
+            "leading_padding_tokens": 330,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 8250,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 16
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 30,
+          "consecutive_prefix_bytes": 2117,
+          "decimal_tokens": 330,
+          "distinct_tokens": 286,
+          "field": "Press_mm_hg",
+          "fraction_digits": [
+            [
+              14,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6600,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 43,
+            "scale": 14
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 54,
+          "consecutive_prefix_bytes": 2190,
+          "decimal_tokens": 330,
+          "distinct_tokens": 108,
+          "field": "RH_out",
+          "fraction_digits": [
+            [
+              15,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 330,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6930,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 15
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 126,
+          "consecutive_prefix_bytes": 3496,
+          "decimal_tokens": 330,
+          "distinct_tokens": 31,
+          "field": "Windspeed",
+          "fraction_digits": [
+            [
+              17,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 330,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7260,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 54,
+            "scale": 17
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 138,
+          "consecutive_prefix_bytes": 3261,
+          "decimal_tokens": 330,
+          "distinct_tokens": 56,
+          "field": "Visibility",
+          "fraction_digits": [
+            [
+              16,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6930,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 54,
+            "scale": 16
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 42,
+          "consecutive_prefix_bytes": 2240,
+          "decimal_tokens": 330,
+          "distinct_tokens": 148,
+          "field": "Tdewpoint",
+          "fraction_digits": [
+            [
+              16,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 330,
+            "leading_padding_tokens": 327,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 8250,
+          "scaled_integer": {
+            "max_magnitude_bits": 63,
+            "median_delta_bits": 55,
+            "scale": 18
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 404,
+          "decimal_tokens": 330,
+          "distinct_tokens": 330,
+          "field": "rv1",
+          "fraction_digits": [
+            [
+              19,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 61,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7920,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 67,
+            "scale": 19
+          },
+          "tokens": 330
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 404,
+          "decimal_tokens": 330,
+          "distinct_tokens": 330,
+          "field": "rv2",
+          "fraction_digits": [
+            [
+              19,
+              330
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 61,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 330,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7920,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 67,
+            "scale": 19
+          },
+          "tokens": 330
+        }
+      ],
+      "label": "train-000.csv"
+    },
+    {
+      "fields": [
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 4204,
+          "decimal_tokens": 0,
+          "distinct_tokens": 288,
+          "field": "date",
+          "fraction_digits": [],
+          "lexical_exceptions": {
+            "leading_padding_tokens": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 81,
+          "consecutive_prefix_bytes": 1056,
+          "decimal_tokens": 288,
+          "distinct_tokens": 34,
+          "field": "Appliances",
+          "fraction_digits": [
+            [
+              0,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1728,
+          "scaled_integer": {
+            "max_magnitude_bits": 9,
+            "median_delta_bits": 4,
+            "scale": 0
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 204,
+          "consecutive_prefix_bytes": 899,
+          "decimal_tokens": 288,
+          "distinct_tokens": 5,
+          "field": "lights",
+          "fraction_digits": [
+            [
+              0,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 151,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1152,
+          "scaled_integer": {
+            "max_magnitude_bits": 6,
+            "median_delta_bits": 0,
+            "scale": 0
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 168,
+          "consecutive_prefix_bytes": 3878,
+          "decimal_tokens": 288,
+          "distinct_tokens": 52,
+          "field": "T1",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 79,
+          "consecutive_prefix_bytes": 2401,
+          "decimal_tokens": 288,
+          "distinct_tokens": 138,
+          "field": "RH_1",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 147,
+          "consecutive_prefix_bytes": 3546,
+          "decimal_tokens": 288,
+          "distinct_tokens": 67,
+          "field": "T2",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 77,
+          "consecutive_prefix_bytes": 2407,
+          "decimal_tokens": 288,
+          "distinct_tokens": 112,
+          "field": "RH_2",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 175,
+          "consecutive_prefix_bytes": 3962,
+          "decimal_tokens": 288,
+          "distinct_tokens": 49,
+          "field": "T3",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 95,
+          "consecutive_prefix_bytes": 2692,
+          "decimal_tokens": 288,
+          "distinct_tokens": 113,
+          "field": "RH_3",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 135,
+          "consecutive_prefix_bytes": 3332,
+          "decimal_tokens": 288,
+          "distinct_tokens": 85,
+          "field": "T4",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 45,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 75,
+          "consecutive_prefix_bytes": 2354,
+          "decimal_tokens": 288,
+          "distinct_tokens": 118,
+          "field": "RH_4",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 138,
+          "consecutive_prefix_bytes": 3424,
+          "decimal_tokens": 288,
+          "distinct_tokens": 79,
+          "field": "T5",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 42,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 50,
+          "consecutive_prefix_bytes": 1878,
+          "decimal_tokens": 288,
+          "distinct_tokens": 215,
+          "field": "RH_5",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 83,
+          "consecutive_prefix_bytes": 2766,
+          "decimal_tokens": 288,
+          "distinct_tokens": 150,
+          "field": "T6",
+          "fraction_digits": [
+            [
+              18,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 67,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6624,
+          "scaled_integer": {
+            "max_magnitude_bits": 64,
+            "median_delta_bits": 56,
+            "scale": 18
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 30,
+          "consecutive_prefix_bytes": 1513,
+          "decimal_tokens": 288,
+          "distinct_tokens": 238,
+          "field": "RH_6",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 51,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 219,
+          "consecutive_prefix_bytes": 4689,
+          "decimal_tokens": 288,
+          "distinct_tokens": 29,
+          "field": "T7",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 89,
+          "consecutive_prefix_bytes": 2593,
+          "decimal_tokens": 288,
+          "distinct_tokens": 119,
+          "field": "RH_7",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 146,
+          "consecutive_prefix_bytes": 3526,
+          "decimal_tokens": 288,
+          "distinct_tokens": 68,
+          "field": "T8",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 44,
+          "consecutive_prefix_bytes": 1822,
+          "decimal_tokens": 288,
+          "distinct_tokens": 187,
+          "field": "RH_8",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 195,
+          "consecutive_prefix_bytes": 4325,
+          "decimal_tokens": 288,
+          "distinct_tokens": 44,
+          "field": "T9",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 88,
+          "consecutive_prefix_bytes": 2599,
+          "decimal_tokens": 288,
+          "distinct_tokens": 139,
+          "field": "RH_9",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 54,
+          "consecutive_prefix_bytes": 2494,
+          "decimal_tokens": 288,
+          "distinct_tokens": 146,
+          "field": "T_out",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 288,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7200,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 36,
+          "consecutive_prefix_bytes": 2095,
+          "decimal_tokens": 288,
+          "distinct_tokens": 166,
+          "field": "Press_mm_hg",
+          "fraction_digits": [
+            [
+              14,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 42,
+            "scale": 14
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 78,
+          "consecutive_prefix_bytes": 2478,
+          "decimal_tokens": 288,
+          "distinct_tokens": 79,
+          "field": "RH_out",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 90,
+          "consecutive_prefix_bytes": 2687,
+          "decimal_tokens": 288,
+          "distinct_tokens": 53,
+          "field": "Windspeed",
+          "fraction_digits": [
+            [
+              17,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 251,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6336,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 54,
+            "scale": 17
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 96,
+          "consecutive_prefix_bytes": 2359,
+          "decimal_tokens": 288,
+          "distinct_tokens": 115,
+          "field": "Visibility",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 55,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 42,
+          "consecutive_prefix_bytes": 2142,
+          "decimal_tokens": 288,
+          "distinct_tokens": 145,
+          "field": "Tdewpoint",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 288,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7200,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 341,
+          "decimal_tokens": 288,
+          "distinct_tokens": 288,
+          "field": "rv1",
+          "fraction_digits": [
+            [
+              19,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 60,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6912,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 68,
+            "scale": 19
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 341,
+          "decimal_tokens": 288,
+          "distinct_tokens": 288,
+          "field": "rv2",
+          "fraction_digits": [
+            [
+              19,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 60,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6912,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 68,
+            "scale": 19
+          },
+          "tokens": 288
+        }
+      ],
+      "label": "train-020.csv"
+    },
+    {
+      "fields": [
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 4204,
+          "decimal_tokens": 0,
+          "distinct_tokens": 288,
+          "field": "date",
+          "fraction_digits": [],
+          "lexical_exceptions": {
+            "leading_padding_tokens": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 80,
+          "consecutive_prefix_bytes": 1040,
+          "decimal_tokens": 288,
+          "distinct_tokens": 21,
+          "field": "Appliances",
+          "fraction_digits": [
+            [
+              0,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1728,
+          "scaled_integer": {
+            "max_magnitude_bits": 9,
+            "median_delta_bits": 4,
+            "scale": 0
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 236,
+          "consecutive_prefix_bytes": 995,
+          "decimal_tokens": 288,
+          "distinct_tokens": 4,
+          "field": "lights",
+          "fraction_digits": [
+            [
+              0,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 236,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 1152,
+          "scaled_integer": {
+            "max_magnitude_bits": 5,
+            "median_delta_bits": 0,
+            "scale": 0
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 196,
+          "consecutive_prefix_bytes": 4325,
+          "decimal_tokens": 288,
+          "distinct_tokens": 45,
+          "field": "T1",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 104,
+          "consecutive_prefix_bytes": 2792,
+          "decimal_tokens": 288,
+          "distinct_tokens": 118,
+          "field": "RH_1",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 138,
+          "consecutive_prefix_bytes": 3387,
+          "decimal_tokens": 288,
+          "distinct_tokens": 72,
+          "field": "T2",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 45,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 62,
+          "consecutive_prefix_bytes": 2112,
+          "decimal_tokens": 288,
+          "distinct_tokens": 159,
+          "field": "RH_2",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 180,
+          "consecutive_prefix_bytes": 4059,
+          "decimal_tokens": 288,
+          "distinct_tokens": 36,
+          "field": "T3",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 127,
+          "consecutive_prefix_bytes": 3210,
+          "decimal_tokens": 288,
+          "distinct_tokens": 70,
+          "field": "RH_3",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 45,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 192,
+          "consecutive_prefix_bytes": 4266,
+          "decimal_tokens": 288,
+          "distinct_tokens": 39,
+          "field": "T4",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 90,
+          "consecutive_prefix_bytes": 2591,
+          "decimal_tokens": 288,
+          "distinct_tokens": 115,
+          "field": "RH_4",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 164,
+          "consecutive_prefix_bytes": 3761,
+          "decimal_tokens": 288,
+          "distinct_tokens": 41,
+          "field": "T5",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 57,
+          "consecutive_prefix_bytes": 1940,
+          "decimal_tokens": 288,
+          "distinct_tokens": 174,
+          "field": "RH_5",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 51,
+          "consecutive_prefix_bytes": 2087,
+          "decimal_tokens": 288,
+          "distinct_tokens": 167,
+          "field": "T6",
+          "fraction_digits": [
+            [
+              18,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 230,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6624,
+          "scaled_integer": {
+            "max_magnitude_bits": 64,
+            "median_delta_bits": 57,
+            "scale": 18
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 16,
+          "consecutive_prefix_bytes": 1088,
+          "decimal_tokens": 288,
+          "distinct_tokens": 258,
+          "field": "RH_6",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 53,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 197,
+          "consecutive_prefix_bytes": 4341,
+          "decimal_tokens": 288,
+          "distinct_tokens": 32,
+          "field": "T7",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 114,
+          "consecutive_prefix_bytes": 3008,
+          "decimal_tokens": 288,
+          "distinct_tokens": 86,
+          "field": "RH_7",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 46,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 149,
+          "consecutive_prefix_bytes": 3574,
+          "decimal_tokens": 288,
+          "distinct_tokens": 53,
+          "field": "T8",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 38,
+          "consecutive_prefix_bytes": 1703,
+          "decimal_tokens": 288,
+          "distinct_tokens": 189,
+          "field": "RH_8",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 207,
+          "consecutive_prefix_bytes": 4462,
+          "decimal_tokens": 288,
+          "distinct_tokens": 21,
+          "field": "T9",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 55,
+            "median_delta_bits": 0,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 43,
+          "consecutive_prefix_bytes": 1810,
+          "decimal_tokens": 288,
+          "distinct_tokens": 175,
+          "field": "RH_9",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 47,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 24,
+          "consecutive_prefix_bytes": 1773,
+          "decimal_tokens": 288,
+          "distinct_tokens": 157,
+          "field": "T_out",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 288,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7200,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 30,
+          "consecutive_prefix_bytes": 2007,
+          "decimal_tokens": 288,
+          "distinct_tokens": 173,
+          "field": "Press_mm_hg",
+          "fraction_digits": [
+            [
+              14,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 5760,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 42,
+            "scale": 14
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 11,
+          "consecutive_prefix_bytes": 1327,
+          "decimal_tokens": 288,
+          "distinct_tokens": 146,
+          "field": "RH_out",
+          "fraction_digits": [
+            [
+              15,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 57,
+            "median_delta_bits": 49,
+            "scale": 15
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 126,
+          "consecutive_prefix_bytes": 3344,
+          "decimal_tokens": 288,
+          "distinct_tokens": 40,
+          "field": "Windspeed",
+          "fraction_digits": [
+            [
+              17,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6336,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 54,
+            "scale": 17
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 114,
+          "consecutive_prefix_bytes": 2751,
+          "decimal_tokens": 288,
+          "distinct_tokens": 86,
+          "field": "Visibility",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 0,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6048,
+          "scaled_integer": {
+            "max_magnitude_bits": 60,
+            "median_delta_bits": 52,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 12,
+          "consecutive_prefix_bytes": 1459,
+          "decimal_tokens": 288,
+          "distinct_tokens": 128,
+          "field": "Tdewpoint",
+          "fraction_digits": [
+            [
+              16,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 288,
+            "leading_padding_tokens": 288,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 7200,
+          "scaled_integer": {
+            "max_magnitude_bits": 56,
+            "median_delta_bits": 50,
+            "scale": 16
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 361,
+          "decimal_tokens": 288,
+          "distinct_tokens": 288,
+          "field": "rv1",
+          "fraction_digits": [
+            [
+              19,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 44,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6912,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 67,
+            "scale": 19
+          },
+          "tokens": 288
+        },
+        {
+          "consecutive_equal": 0,
+          "consecutive_prefix_bytes": 361,
+          "decimal_tokens": 288,
+          "distinct_tokens": 288,
+          "field": "rv2",
+          "fraction_digits": [
+            [
+              19,
+              288
+            ]
+          ],
+          "lexical_exceptions": {
+            "exponent_tokens": 0,
+            "leading_padding_tokens": 44,
+            "leading_plus": 0,
+            "negative_zero": 0,
+            "quoted_tokens": 288,
+            "trailing_padding_tokens": 0
+          },
+          "raw_token_bytes": 6912,
+          "scaled_integer": {
+            "max_magnitude_bits": 69,
+            "median_delta_bits": 67,
+            "scale": 19
+          },
+          "tokens": 288
+        }
+      ],
+      "label": "train-039.csv"
+    }
+  ],
+  "hypotheses": [
+    "Compare NUL-separated column streams with per-cell length prefixes, counting dimensions and line endings.",
+    "Test exact signed integer mantissas plus decimal scales and temporal deltas; use exceptions for unsupported spellings.",
+    "Test block-local equality and earlier-field predictors; store references and residuals without assuming relationships persist.",
+    "Test previous-token prefix/suffix coding; measure its metadata cost after zstd rather than assuming raw prefix savings compress."
+  ],
+  "id": "exact-token-profile-v1",
+  "identical_columns": [
+    {
+      "label": "train-000.csv",
+      "pairs": [
+        [
+          "rv1",
+          "rv2"
+        ]
+      ]
+    },
+    {
+      "label": "train-020.csv",
+      "pairs": [
+        [
+          "rv1",
+          "rv2"
+        ]
+      ]
+    },
+    {
+      "label": "train-039.csv",
+      "pairs": [
+        [
+          "rv1",
+          "rv2"
+        ]
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "bytes": 200528,
+      "label": "train-000.csv",
+      "rows": 330,
+      "sha256": "40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-020.csv",
+      "rows": 288,
+      "sha256": "e42c237b160a34eb56615126d596e48384afd5d8107756f7c400dffb06340e9c"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-039.csv",
+      "rows": 288,
+      "sha256": "74e4678e4075ecd622f4b40e31aaa1a2a8396b999342bc83ea10377cb573de11"
+    }
+  ],
+  "limitations": "Raw comma layout probe, not a general quoted-CSV parser. Decimal statistics do not authorize rounding or reserialization.",
+  "offsets": [
+    {
+      "first_record": {
+        "ending_bytes": 2,
+        "line": [
+          218,
+          825
+        ],
+        "tokens": [
+          [
+            218,
+            239
+          ],
+          [
+            240,
+            246
+          ],
+          [
+            247,
+            251
+          ],
+          [
+            252,
+            272
+          ],
+          [
+            273,
+            293
+          ],
+          [
+            294,
+            314
+          ],
+          [
+            315,
+            335
+          ],
+          [
+            336,
+            356
+          ],
+          [
+            357,
+            377
+          ],
+          [
+            378,
+            398
+          ],
+          [
+            399,
+            419
+          ],
+          [
+            420,
+            440
+          ],
+          [
+            441,
+            461
+          ],
+          [
+            462,
+            485
+          ],
+          [
+            486,
+            507
+          ],
+          [
+            508,
+            528
+          ],
+          [
+            529,
+            549
+          ],
+          [
+            550,
+            570
+          ],
+          [
+            571,
+            591
+          ],
+          [
+            592,
+            612
+          ],
+          [
+            613,
+            633
+          ],
+          [
+            634,
+            659
+          ],
+          [
+            660,
+            680
+          ],
+          [
+            681,
+            702
+          ],
+          [
+            703,
+            725
+          ],
+          [
+            726,
+            747
+          ],
+          [
+            748,
+            773
+          ],
+          [
+            774,
+            798
+          ],
+          [
+            799,
+            823
+          ]
+        ]
+      },
+      "label": "train-000.csv",
+      "path": ".cache/lab/layout/40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af.json",
+      "sha256": "45364f8c9d0a93df0da0a6955cb67ba3a061dd1bddc640945e54ef60edce124b"
+    },
+    {
+      "first_record": {
+        "ending_bytes": 2,
+        "line": [
+          218,
+          825
+        ],
+        "tokens": [
+          [
+            218,
+            239
+          ],
+          [
+            240,
+            246
+          ],
+          [
+            247,
+            251
+          ],
+          [
+            252,
+            272
+          ],
+          [
+            273,
+            293
+          ],
+          [
+            294,
+            314
+          ],
+          [
+            315,
+            335
+          ],
+          [
+            336,
+            356
+          ],
+          [
+            357,
+            377
+          ],
+          [
+            378,
+            398
+          ],
+          [
+            399,
+            419
+          ],
+          [
+            420,
+            440
+          ],
+          [
+            441,
+            461
+          ],
+          [
+            462,
+            485
+          ],
+          [
+            486,
+            507
+          ],
+          [
+            508,
+            528
+          ],
+          [
+            529,
+            549
+          ],
+          [
+            550,
+            570
+          ],
+          [
+            571,
+            591
+          ],
+          [
+            592,
+            612
+          ],
+          [
+            613,
+            633
+          ],
+          [
+            634,
+            659
+          ],
+          [
+            660,
+            680
+          ],
+          [
+            681,
+            702
+          ],
+          [
+            703,
+            725
+          ],
+          [
+            726,
+            747
+          ],
+          [
+            748,
+            773
+          ],
+          [
+            774,
+            798
+          ],
+          [
+            799,
+            823
+          ]
+        ]
+      },
+      "label": "train-020.csv",
+      "path": ".cache/lab/layout/e42c237b160a34eb56615126d596e48384afd5d8107756f7c400dffb06340e9c.json",
+      "sha256": "911765a8dcddedca973bdb7c5505f6147183d9ec741a61015bbdb51f4617b900"
+    },
+    {
+      "first_record": {
+        "ending_bytes": 2,
+        "line": [
+          218,
+          825
+        ],
+        "tokens": [
+          [
+            218,
+            239
+          ],
+          [
+            240,
+            246
+          ],
+          [
+            247,
+            251
+          ],
+          [
+            252,
+            272
+          ],
+          [
+            273,
+            293
+          ],
+          [
+            294,
+            314
+          ],
+          [
+            315,
+            335
+          ],
+          [
+            336,
+            356
+          ],
+          [
+            357,
+            377
+          ],
+          [
+            378,
+            398
+          ],
+          [
+            399,
+            419
+          ],
+          [
+            420,
+            440
+          ],
+          [
+            441,
+            461
+          ],
+          [
+            462,
+            485
+          ],
+          [
+            486,
+            507
+          ],
+          [
+            508,
+            528
+          ],
+          [
+            529,
+            549
+          ],
+          [
+            550,
+            570
+          ],
+          [
+            571,
+            591
+          ],
+          [
+            592,
+            612
+          ],
+          [
+            613,
+            633
+          ],
+          [
+            634,
+            659
+          ],
+          [
+            660,
+            680
+          ],
+          [
+            681,
+            702
+          ],
+          [
+            703,
+            725
+          ],
+          [
+            726,
+            747
+          ],
+          [
+            748,
+            773
+          ],
+          [
+            774,
+            798
+          ],
+          [
+            799,
+            823
+          ]
+        ]
+      },
+      "label": "train-039.csv",
+      "path": ".cache/lab/layout/74e4678e4075ecd622f4b40e31aaa1a2a8396b999342bc83ea10377cb573de11.json",
+      "sha256": "406d0b2e9d822adcfa77f4352c3508ff4b15e536663082a62518a6f59e3a6dde"
+    }
+  ],
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "research-profile"
+  ],
+  "schema_version": 1,
+  "split": "train",
+  "timestamp": [
+    {
+      "label": "train-000.csv",
+      "step_seconds_counts": [
+        [
+          600.0,
+          329
+        ]
+      ]
+    },
+    {
+      "label": "train-020.csv",
+      "step_seconds_counts": [
+        [
+          600.0,
+          287
+        ]
+      ]
+    },
+    {
+      "label": "train-039.csv",
+      "step_seconds_counts": [
+        [
+          600.0,
+          287
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "codec_id": "a33e615520af6619dc9f6571f1b552a6",
+  "format_version": 2,
+  "id": "stage3-cross-field-r2",
+  "provenance": {
+    "attempt_id": "8edf05b90a5829d1f40ffb7212c3dfa2f4328d95a3ca3c2e825574e4cb99c22d",
+    "mechanism": "cross-field",
+    "model": "muse-spark-1.3",
+    "parent_source_sha256": "d84a3cbebc4c0b780e3368a3522fbd3e7501a4adb00347cbae88bf3e2cb93167"
+  },
+  "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
+  "schema_version": 1,
+  "source": "codec.rs",
+  "source_sha256": "a33e615520af6619dc9f6571f1b552a6611f1c2ce076b48d9594ea2119d9ae86",
+  "status": "experimental",
+  "worker_protocol_version": 1
+}

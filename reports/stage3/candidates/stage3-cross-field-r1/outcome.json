@@ -1,0 +1,53 @@
+{
+  "controller_sha256": {
+    "coder": "61e2855caeaa2285a2b2bd8880a523794e30ee3b0405f126ce24529aa1bf3b35",
+    "memory": "14eaef28c0af49c2a1b88f30a9ae495c77dfd8a5bd0d6513d78312de06e8c9d5",
+    "research": "416955d9e9546fa06e0d2e8f6020975c1545002c065b803266eb0101c8afbb53",
+    "search": "75fbb8dc946f6acd6fb6bc6b2d2608626fb6aa75c67ff2b851c7c259fa70dd55"
+  },
+  "failed_stage": "tiny correctness and training screen",
+  "failure": "Candidate compilation failed:    Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/dd1db8047c114324499682ab988b1398f814ba19c8154f9997a656fba6d46bb3)\nerror[E0277]: `&&[u8]` is not an iterator\n   --> src/codec.rs:323:20\n    |\n323 |         pre.extend(h);\n    |             ------ ^ `&&[u8]` is not an iterator\n    |             |\n    |             required by a bound introduced by this call\n    |\n    = help: the trait `Iterator` is not implemented for `&&[u8]`\n    = note: required for `&&[u8]` to implement `IntoIterator`\nnote: required by a bound in `extend`\n   --> /rustc/ded5c06cf21d2b93bffd5d884aa6e96934ee4234/library/core/src/iter/traits/collect.rs:413:5\nhelp: consider dereferencing here\n    |\n323 |         pre.extend(*h);\n    |                    +\n\nFor more information about this error, try `rustc --explain E0277`.\nerror: could not compile `algomini-codec-worker` (bin \"algomini-codec-worker\") due to 1 previous error\n",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "generation_attempt_id": "6bd59efb83a4d9534b91ce41885e0b4861ffaa31c475b21ca8dd45237501482c",
+  "hypothesis": "Test earlier-column prediction and exact duplicate columns within a block. For supported numeric tokens, encode exact residuals against an earlier field or a previous row, storing the selected predictor and lexical information. Preserve all exceptions. Compare block-local predictor choices by actual encoded size. Relationships are observed evidence, never guaranteed schema facts.",
+  "id": "stage3-cross-field-r1",
+  "inputs": [
+    {
+      "bytes": 200528,
+      "label": "train-000.csv",
+      "rows": 330,
+      "sha256": "40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-020.csv",
+      "rows": 288,
+      "sha256": "e42c237b160a34eb56615126d596e48384afd5d8107756f7c400dffb06340e9c"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-039.csv",
+      "rows": 288,
+      "sha256": "74e4678e4075ecd622f4b40e31aaa1a2a8396b999342bc83ea10377cb573de11"
+    }
+  ],
+  "kind": "repair",
+  "mechanism": "cross-field",
+  "outcome": "rejected",
+  "parent_source_sha256": "d3d7ad558302a76fd454b77ee6d91b16ebe2e91aaae2768cbf23121a352de0f2",
+  "profile_sha256": "fee15cc45e9a0637aafc426f73941df598aa97d5d2bf3648d586afbb8dbe9750",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage3"
+  ],
+  "schema_version": 1,
+  "source_sha256": "d84a3cbebc4c0b780e3368a3522fbd3e7501a4adb00347cbae88bf3e2cb93167",
+  "split": "validation",
+  "tags": [
+    "telemetry",
+    "csv",
+    "cross-field"
+  ]
+}

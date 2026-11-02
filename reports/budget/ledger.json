@@ -96,5 +96,176 @@
       "input_tokens": 58875,
       "output_tokens": 6138
     }
+  },
+  {
+    "attempt_id": "4b12a134b703d8a1f790afeaf36270c7978fc4f03b6ba21494e1576b39be99b1",
+    "charged_usd": 0.0804824,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T21:54:44.946850+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31601,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.0804824,
+      "input_tokens": 69663,
+      "output_tokens": 6627
+    }
+  },
+  {
+    "attempt_id": "7c2acd7de8f21f7c05209055858a28eb85f0fd7026efc9c523b7c0b9549279b8",
+    "charged_usd": 0.11112945,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T21:55:32.141881+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31473,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.11112945,
+      "input_tokens": 75062,
+      "output_tokens": 12217
+    }
+  },
+  {
+    "attempt_id": "75484aa5d8719b66a9c8658ee64a4b38df80e00bf85cbd4892b3a72567953a7a",
+    "charged_usd": 0.1188027,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T21:56:36.956000+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31473,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.1188027,
+      "input_tokens": 76427,
+      "output_tokens": 13621
+    }
+  },
+  {
+    "attempt_id": "6bd59efb83a4d9534b91ce41885e0b4861ffaa31c475b21ca8dd45237501482c",
+    "charged_usd": 0.0893234,
+    "cost_is_estimate": true,
+    "kind": "repair",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T21:57:28.046508+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 54626,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.0893234,
+      "input_tokens": 86145,
+      "output_tokens": 9819
+    }
+  },
+  {
+    "attempt_id": "4e81a4ad5098524b21b12d20e474c5a297315c18694d64fa6dbe03c84b1ab19c",
+    "charged_usd": 0.08193635,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T21:57:58.688195+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31729,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.08193635,
+      "input_tokens": 70286,
+      "output_tokens": 6819
+    }
+  },
+  {
+    "attempt_id": "8edf05b90a5829d1f40ffb7212c3dfa2f4328d95a3ca3c2e825574e4cb99c22d",
+    "charged_usd": 0.09443015,
+    "cost_is_estimate": true,
+    "kind": "repair",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T22:03:58.885175+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 37361,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.09443015,
+      "input_tokens": 82490,
+      "output_tokens": 7627
+    }
+  },
+  {
+    "attempt_id": "c1330e8680ba98513d677167eae596c8be48bd3527fb1e6aaf942163300e4e7b",
+    "charged_usd": 0.08114805,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T22:04:43.178965+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31857,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.08114805,
+      "input_tokens": 70380,
+      "output_tokens": 6639
+    }
+  },
+  {
+    "attempt_id": "69945dee7c709e1c2699b401c58b2a8eba3cdfa7c48706ff6ea680db8b07db43",
+    "charged_usd": 0.10076055,
+    "cost_is_estimate": true,
+    "kind": "initial",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T22:05:30.891292+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 71522,
+      "calls": 3,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.10076055,
+      "input_tokens": 113145,
+      "output_tokens": 8942
+    }
+  },
+  {
+    "attempt_id": "7249ac6c41a1ff543e755437434c3d9b9638c71e386c8d6c0338d26722cb43fd",
+    "charged_usd": 0.07080325,
+    "cost_is_estimate": true,
+    "kind": "repair",
+    "phase": "discovery",
+    "recorded_at": "2026-11-02T22:08:09.465063+00:00",
+    "reservation_usd": 5,
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 35185,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.07080325,
+      "input_tokens": 74410,
+      "output_tokens": 3881
+    }
   }
 ]

@@ -1,0 +1,173 @@
+{
+  "best_id": "raw-token-transpose-zstd-19",
+  "best_payload_bytes": 6591,
+  "id": "training-representation-probes-v1",
+  "incumbent": {
+    "archive_bytes": 7072,
+    "id": "muse-telemetry-v1",
+    "payload_bytes": 7032,
+    "source_sha256": "f059fe25e52d9187281f0dc19f0d1e549447a9b66826d5c8b6b80606b1dbea7f"
+  },
+  "input": {
+    "bytes": 65167,
+    "path": "data/development/appliances/train/train-000.csv",
+    "sha256": "be07604743b9b9e8dc788dde7c1705341f75394a69e1a9a2148c423413ff4939"
+  },
+  "reference_payload_bytes": 6591,
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "representation-probes"
+  ],
+  "results": [
+    {
+      "decode": {
+        "execution_seconds": 0.003059572001802735,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.10877541299851146,
+        "system_seconds": 0.04666,
+        "user_seconds": 0.064982,
+        "wall_seconds": 0.11183498500031419
+      },
+      "encode": {
+        "execution_seconds": 0.005458626998006366,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29008,
+        "setup_seconds": 0.11278444500203477,
+        "system_seconds": 0.041208999999999996,
+        "user_seconds": 0.076836,
+        "wall_seconds": 0.11824307200004114
+      },
+      "id": "raw-token-transpose-zstd-9",
+      "payload_bytes": 7447,
+      "roundtrip": true,
+      "transform_bytes": 65178
+    },
+    {
+      "decode": {
+        "execution_seconds": 0.002948157001810614,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11476386999856913,
+        "system_seconds": 0.047098,
+        "user_seconds": 0.070529,
+        "wall_seconds": 0.11771202700037975
+      },
+      "encode": {
+        "execution_seconds": 0.025720076002471615,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11486583599980804,
+        "system_seconds": 0.056981,
+        "user_seconds": 0.083394,
+        "wall_seconds": 0.14058591200227966
+      },
+      "id": "raw-token-transpose-zstd-19",
+      "payload_bytes": 6591,
+      "roundtrip": true,
+      "transform_bytes": 65178
+    },
+    {
+      "decode": {
+        "execution_seconds": 0.003102853002928896,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11524583299978985,
+        "system_seconds": 0.044114,
+        "user_seconds": 0.074048,
+        "wall_seconds": 0.11834868600271875
+      },
+      "encode": {
+        "execution_seconds": 0.004994948998501059,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11799890600013896,
+        "system_seconds": 0.047578999999999996,
+        "user_seconds": 0.07526999999999999,
+        "wall_seconds": 0.12299385499864002
+      },
+      "id": "header-separated-dedup-zstd-9",
+      "payload_bytes": 7558,
+      "roundtrip": true,
+      "transform_bytes": 62651
+    },
+    {
+      "decode": {
+        "execution_seconds": 0.0031134429991652723,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11654614200233482,
+        "system_seconds": 0.047347,
+        "user_seconds": 0.071573,
+        "wall_seconds": 0.11965958500150009
+      },
+      "encode": {
+        "execution_seconds": 0.03156579799906467,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.1134210370000801,
+        "system_seconds": 0.055893,
+        "user_seconds": 0.08863599999999999,
+        "wall_seconds": 0.14498683499914478
+      },
+      "id": "header-separated-dedup-zstd-19",
+      "payload_bytes": 6676,
+      "roundtrip": true,
+      "transform_bytes": 62651
+    },
+    {
+      "decode": {
+        "execution_seconds": 0.0027781669996329583,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.10863718900145614,
+        "system_seconds": 0.054771,
+        "user_seconds": 0.056558,
+        "wall_seconds": 0.1114153560010891
+      },
+      "encode": {
+        "execution_seconds": 0.004984110997611424,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29264,
+        "setup_seconds": 0.11824310900192359,
+        "system_seconds": 0.051736,
+        "user_seconds": 0.071408,
+        "wall_seconds": 0.12322721999953501
+      },
+      "id": "header-separated-byteplanes-zstd-9",
+      "payload_bytes": 7720,
+      "roundtrip": true,
+      "transform_bytes": 65675
+    },
+    {
+      "decode": {
+        "execution_seconds": 0.003084398998908,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29392,
+        "setup_seconds": 0.1072420679993229,
+        "system_seconds": 0.043952,
+        "user_seconds": 0.066228,
+        "wall_seconds": 0.1103264669982309
+      },
+      "encode": {
+        "execution_seconds": 0.019341042996529723,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 29392,
+        "setup_seconds": 0.1343073420030123,
+        "system_seconds": 0.06781899999999999,
+        "user_seconds": 0.08544,
+        "wall_seconds": 0.15364838499954203
+      },
+      "id": "header-separated-byteplanes-zstd-19",
+      "payload_bytes": 6676,
+      "roundtrip": true,
+      "transform_bytes": 65675
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Handwritten Python training hypotheses, all transform metadata included in payload; not a generated codec or official corpus score",
+  "split": "train",
+  "supports_further_breadth": true
+}

@@ -232,4 +232,5 @@ eng_best_practice.md
 .cache/
 data/
 reports/budget/.lock
+reports/*/.lock
 rust/**/target/

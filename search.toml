@@ -1,0 +1,13 @@
+schema_version = 1
+run_id = "stage3"
+initial_mechanisms = ["column-layout", "decimal-deltas", "cross-field", "temporal-prefixes"]
+expansion_mechanisms = ["timestamp-dedup", "byteplanes"]
+maximum_initial_candidates = 6
+maximum_repairs = 4
+elite_count = 4
+minimum_diverse_elites = 3
+profile_distance = 0.01
+screen_bytes = 65536
+maximum_run_seconds = 3600
+retrieve_documents = 4
+retrieve_chars = 6000

@@ -44,6 +44,13 @@ def main():
     commands.add_parser("prepare", help="Download and split the pinned source without normalizing bytes")
     commands.add_parser("stage1", help="Generate one Rust codec, compile it, and independently check its measurements")
     commands.add_parser("stage2", help="Freeze and verify the complete local development evaluator; no model calls")
+    search_parser = commands.add_parser("stage3", help="Run/resume bounded Muse mechanism search using the frozen evaluator")
+    search_parser.add_argument("--policy", default="search.toml")
+    search_parser.add_argument("--extend-budget", action="store_true", help="Record an explicit increase of candidate/repair caps within project limits; retain the original deadline")
+    commands.add_parser("research-profile", help="Profile exact training lexemes, deltas and token offsets")
+    commands.add_parser("representation-probes", help="Measure exact training-only layout/byte-plane hypotheses before expanding search")
+    memory_parser = commands.add_parser("research-memory", help="Rebuild or query versioned research/skill evidence")
+    memory_parser.add_argument("query", nargs="?")
     commands.add_parser("plugins", help="Discover source-verified plugin manifests")
     commands.add_parser("freeze-status", help="Verify trusted code, configuration, and native toolchain pins")
     evaluation_parser = commands.add_parser("evaluate", help="Measure a manifest plugin on fixed development probes")
@@ -89,6 +96,20 @@ def main():
         elif args.command == "stage2":
             from .stage2 import acceptance
             result = acceptance(root, cfg)
+        elif args.command == "stage3":
+            from .search import run
+            result = run(root, cfg, args.policy, extend_budget=args.extend_budget)
+        elif args.command == "research-profile":
+            from .research import profile
+            full = profile(root, cfg)
+            result = {"split": full["split"], "inputs": full["inputs"], "result": "reports/stage3/profile-train.json"}
+        elif args.command == "representation-probes":
+            from .research import representation_probes
+            full = representation_probes(root, cfg)
+            result = {key: full[key] for key in ("split", "best_id", "best_payload_bytes", "reference_payload_bytes", "supports_further_breadth")}
+        elif args.command == "research-memory":
+            from .memory import rebuild, search
+            result = {"matches": search(root, args.query)} if args.query else rebuild(root)
         elif args.command == "plugins":
             from .registry import discover
             result = {"plugins": [{key: value for key, value in plugin.items() if key != "source_path"}

@@ -2,7 +2,7 @@
 
 Automated algorithm discovery dedicated to minimizing data footprints.
 
-Stage 0 supplies a pinned telemetry dataset, chronological splits, train-only analytics, compressor baselines, and Muse preflight. Stage 1 adds the Rust wrapper, configurable CLI coder, and independently checked Muse module. Stage 2 freezes the local evaluator, byte accounting, containment and manifest installation contract.
+Stage 0 supplies a pinned telemetry dataset, chronological splits, train-only analytics, compressor baselines, and Muse preflight. Stage 1 adds the Rust wrapper, configurable CLI coder, and independently checked Muse module. Stage 2 freezes the local evaluator, byte accounting, containment and manifest installation contract. Stage 3 adds bounded Muse mechanism search, resumable evidence caches, diverse elites, and searchable research skills.
 
 ## Local setup
 
@@ -43,10 +43,16 @@ python -m pytest -q
 | `python -m algomini.evaluator evaluate muse-telemetry-v1` | Evaluate a manifest plugin on the fixed validation probes with all six baselines and a structured reference |
 | `python -m algomini register-codec my-codec-v1 path/to/codec.rs` | Add a source-verified plugin version without editing the frozen core |
 | `python -m algomini.evaluator plugins` | List valid source-only plugin manifests |
+| `python -m algomini stage3` | Run/resume bounded mechanism search using cached outcomes and the frozen evaluator |
+| `python -m algomini research-profile` | Inspect exact training lexemes, quotes/padding, decimal scales, temporal prefixes and byte offsets |
+| `python -m algomini representation-probes` | Test reversible training-only representations before expanding search |
+| `python -m algomini research-memory 'decimal prefixes'` | Retrieve versioned findings and project skills through SQLite FTS5 |
 
 Exploratory and evaluator commands accept `--split train` or `--split validation`; they expose no test split. The frozen evaluator stores shared model bytes once in an actual collection, counts all framing, and selects the strongest whole-corpus baseline. See [evaluator contracts and local encode/decode](docs/evaluator.md).
 
-The current Muse module uses **43,084 bytes** versus xz's **46,253 bytes** on the three fixed validation probes: **6.85% archive gain**. The structured reference is smaller at **40,434 bytes**, and the 10% target is still unmet. These are development results; the sealed test remains unopened. Stage 2 passed 44 Python tests, three Rust tests, repeated byte/hash checks, and a manifest-selected CLI decode after removing the original.
+The Stage 2 seed uses **43,084 bytes** versus xz's **46,253 bytes** on the three fixed validation probes. Stage 3's leading generated module, `stage3-byteplanes-r1`, uses **40,108 bytes**: **13.29% archive gain** versus xz and 326 bytes below the structured reference's **40,434**. It passes decode speed/RSS gates; its decoder package still erases savings on this small corpus. These are development results; the sealed test remains unopened and causal ablations remain Stage 4 work.
+
+Stage 3 retains six initial mechanisms, three repairs and three eligible elites including the seed. Nine Muse sessions report **$0.8288** in token-based usage estimates. Replay succeeds with generation disabled and leaves the ledger unchanged. The suite has 56 Python tests and three trusted Rust tests; the leading candidate also passes independent direct edge-case checks. See [search contracts](docs/search.md) and the [Stage 3 report](reports/stage3/report.md).
 
 ## First generated codec loop
 
@@ -75,5 +81,6 @@ The main artifacts are:
 - [Environment versions](repro/environment.json), [Python lock](requirements.lock), and [reproduction instructions](repro/README.md).
 - [Stage 1 report](reports/stage1/report.md), [experiment summary](reports/stage1/summary.json), and [Stage 1 environment](repro/stage1-environment.json).
 - [Stage 2 report](reports/stage2/report.md), [acceptance summary](reports/stage2/summary.json), and [evaluator freeze](repro/evaluator-freeze.json).
+- [Stage 3 report](reports/stage3/report.md), [pool/results](reports/stage3/results.json), [observations](reports/stage3/observations.jsonl), and [Stage 3 environment](repro/stage3-environment.json).
 
 The raw-token column-transposition reference is an ordinary lossless representation experiment. Its training result demonstrates a possible research direction; it establishes neither scientific novelty nor performance on unseen data.

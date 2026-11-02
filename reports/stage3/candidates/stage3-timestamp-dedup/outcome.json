@@ -1,0 +1,86 @@
+{
+  "controller_sha256": {
+    "coder": "61e2855caeaa2285a2b2bd8880a523794e30ee3b0405f126ce24529aa1bf3b35",
+    "memory": "14eaef28c0af49c2a1b88f30a9ae495c77dfd8a5bd0d6513d78312de06e8c9d5",
+    "research": "6f9f79298847667c1f953b841f33519a67ec1274d3e10f277c41f2490417300b",
+    "search": "d9023c1fba48e401e3539512ed581d9b74d75922b044e75d0c53940c72dbd2fe"
+  },
+  "evidence": "reports/stage3/candidates/stage3-timestamp-dedup/evaluation.json",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "generation_attempt_id": "c1330e8680ba98513d677167eae596c8be48bd3527fb1e6aaf942163300e4e7b",
+  "hypothesis": "Exploit regular timestamp tokens and repeated columns using reversible template/delta or prefix changes and block-local equality references. Keep exact original timestamp spelling, calendar transitions and exceptions. Other columns remain raw token streams before zstd. Store all schema and predictor choices in the payload, not assumptions about this sample.",
+  "id": "stage3-timestamp-dedup",
+  "inputs": [
+    {
+      "bytes": 200528,
+      "label": "train-000.csv",
+      "rows": 330,
+      "sha256": "40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-020.csv",
+      "rows": 288,
+      "sha256": "e42c237b160a34eb56615126d596e48384afd5d8107756f7c400dffb06340e9c"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-039.csv",
+      "rows": 288,
+      "sha256": "74e4678e4075ecd622f4b40e31aaa1a2a8396b999342bc83ea10377cb573de11"
+    }
+  ],
+  "kind": "initial",
+  "measurements": {
+    "archive_bytes": 48601,
+    "archive_gain": -0.050764274749745875,
+    "archive_sha256": "8bea96bd622ccf55ad1c29ca21c9161270b065a45b76c35d4a823ff3d475abc5",
+    "deployment_saving_bytes": -387636,
+    "files": [
+      {
+        "block_bytes": 17368,
+        "input_bytes": 175034,
+        "label": "validation-000.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 20836,
+        "input_bytes": 175034,
+        "label": "validation-006.csv",
+        "raw_escape": false
+      },
+      {
+        "block_bytes": 10287,
+        "input_bytes": 87626,
+        "label": "validation-013.csv",
+        "raw_escape": false
+      }
+    ],
+    "gates": {
+      "archive_gain": false,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "minimum_decode_mib_per_second": 26.024278782843904,
+    "peak_decode_rss_kib": 31688
+  },
+  "mechanism": "timestamp-dedup",
+  "outcome": "measured",
+  "parent_source_sha256": null,
+  "profile_sha256": "fee15cc45e9a0637aafc426f73941df598aa97d5d2bf3648d586afbb8dbe9750",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage3"
+  ],
+  "schema_version": 1,
+  "source_sha256": "78b047876af6d50055ceb8f8b4eb1f1ca0be01058db3bf5ab83bdb6857698050",
+  "split": "validation",
+  "tags": [
+    "telemetry",
+    "csv",
+    "timestamp-dedup"
+  ]
+}

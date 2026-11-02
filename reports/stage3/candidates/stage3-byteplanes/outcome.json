@@ -1,0 +1,53 @@
+{
+  "controller_sha256": {
+    "coder": "61e2855caeaa2285a2b2bd8880a523794e30ee3b0405f126ce24529aa1bf3b35",
+    "memory": "14eaef28c0af49c2a1b88f30a9ae495c77dfd8a5bd0d6513d78312de06e8c9d5",
+    "research": "6f9f79298847667c1f953b841f33519a67ec1274d3e10f277c41f2490417300b",
+    "search": "d9023c1fba48e401e3539512ed581d9b74d75922b044e75d0c53940c72dbd2fe"
+  },
+  "failed_stage": "tiny correctness and training screen",
+  "failure": "Candidate compilation failed:    Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/c5210b62834f15f1e295eb6c762bca9cf5ab78fe81739dc92892a8672d93b3b5)\nerror[E0004]: non-exhaustive patterns: `Some(_)` not covered\n   --> src/codec.rs:110:15\n    |\n110 |         match ncols {\n    |               ^^^^^ pattern `Some(_)` not covered\n    |\nnote: `Option<usize>` defined here\n   --> /rustc/ded5c06cf21d2b93bffd5d884aa6e96934ee4234/library/core/src/option.rs:599:1\n   ::: /rustc/ded5c06cf21d2b93bffd5d884aa6e96934ee4234/library/core/src/option.rs:607:5\n    |\n    = note: not covered\n    = note: the matched value is of type `Option<usize>`\nhelp: ensure that all possible cases are being handled by adding a match arm with a wildcard pattern or an explicit pattern as shown\n    |\n112 ~             Some(c) if c != n => return None,\n113 ~             Some(_) => todo!(),\n    |\n\nFor more information about this error, try `rustc --explain E0004`.\nerror: could not compile `algomini-codec-worker` (bin \"algomini-codec-worker\") due to 1 previous error\n",
+  "freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "generation_attempt_id": "69945dee7c709e1c2699b401c58b2a8eba3cdfa7c48706ff6ea680db8b07db43",
+  "hypothesis": "Investigate column-specific byte-plane or digit-position streams for variable-width numeric lexemes. Store exact token lengths and transpose character positions within each column before zstd; avoid numeric conversion. Account for all lengths/line endings and choose plain transpose if the representation is larger. This is a distinct representation experiment, not a zstd-level sweep.",
+  "id": "stage3-byteplanes",
+  "inputs": [
+    {
+      "bytes": 200528,
+      "label": "train-000.csv",
+      "rows": 330,
+      "sha256": "40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-020.csv",
+      "rows": 288,
+      "sha256": "e42c237b160a34eb56615126d596e48384afd5d8107756f7c400dffb06340e9c"
+    },
+    {
+      "bytes": 175034,
+      "label": "train-039.csv",
+      "rows": 288,
+      "sha256": "74e4678e4075ecd622f4b40e31aaa1a2a8396b999342bc83ea10377cb573de11"
+    }
+  ],
+  "kind": "initial",
+  "mechanism": "byteplanes",
+  "outcome": "rejected",
+  "parent_source_sha256": null,
+  "profile_sha256": "fee15cc45e9a0637aafc426f73941df598aa97d5d2bf3648d586afbb8dbe9750",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "stage3"
+  ],
+  "schema_version": 1,
+  "source_sha256": "c4f3c82ae72ac508751963158878de8729178357ad48c94cefb2054354f43d31",
+  "split": "validation",
+  "tags": [
+    "telemetry",
+    "csv",
+    "byteplanes"
+  ]
+}
