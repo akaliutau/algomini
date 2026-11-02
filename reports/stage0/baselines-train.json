@@ -1,0 +1,287 @@
+{
+  "best_baseline": "xz-9e",
+  "dictionary": {
+    "bytes": 8192,
+    "command": [
+      "zstd",
+      "-q",
+      "--train",
+      "-T1",
+      "--dictID=1",
+      "--maxdict=8192",
+      "-o",
+      ".cache/dictionaries/appliances.dict",
+      ".cache/dictionaries/sample-000.csv",
+      ".cache/dictionaries/sample-001.csv",
+      ".cache/dictionaries/sample-002.csv",
+      ".cache/dictionaries/sample-003.csv",
+      ".cache/dictionaries/sample-004.csv",
+      ".cache/dictionaries/sample-005.csv",
+      ".cache/dictionaries/sample-006.csv",
+      ".cache/dictionaries/sample-007.csv",
+      ".cache/dictionaries/sample-008.csv",
+      ".cache/dictionaries/sample-009.csv",
+      ".cache/dictionaries/sample-010.csv",
+      ".cache/dictionaries/sample-011.csv",
+      ".cache/dictionaries/sample-012.csv",
+      ".cache/dictionaries/sample-013.csv",
+      ".cache/dictionaries/sample-014.csv",
+      ".cache/dictionaries/sample-015.csv"
+    ],
+    "dict_id": 1,
+    "path": ".cache/dictionaries/appliances.dict",
+    "resources": {
+      "peak_rss_kib": 14168,
+      "wall_seconds": 0.05142747999889252
+    },
+    "sha256": "a0d4f2dba9ec12dd344c8bee6b8afb21e427e9a77053808bb1d3b6cf2b5b6616",
+    "training_bytes": 1042672,
+    "training_sample_sha256": [
+      "b153ce0f96bd8eab2f0593aa3d10bd28bf55b13456342753be68a867209f3569",
+      "9c5afbcba340d8cc8b2673c9ffdc340b48a3406351a8b7cb827e4c1a3b7dab89",
+      "1b105c8e217a8f921d5409230af24d6fb25e7a4963ae272a2189aec258f11815",
+      "5bc37114bca726fff6a38820d5f11b3d1c556f5a7dad88fe46c728ee4edf3fe8",
+      "191404d428f2715902ecb07303a01fa54f0b321c011ba8ca10aa51c07db4bf78",
+      "e6ea756bdbfa842e71e7e889fc5f873e527657b9b51f3e606276837856fb030b",
+      "e38063c22001583b8e1750445e8aa51f3bf401ff885bbdd9707dfe9170859c0e",
+      "7709cfb0d0aaebe55b212f94761e73c30e07e3940eb58462f9a88f441b5d34f3",
+      "6fcaf22bf7c1bed47fbd14782a8c0eb8a552e21bf79394e76cf6a19b37eeb8e7",
+      "eff302f7fc1aaf663e1b157baf480bc1227787a852fdc40974fc9694fe24deb0",
+      "28baf8b5cd2a63f58ea15868494439856ef60523b38e7754d29a9f20c4480d77",
+      "33820a7f9c3c6bd2e9d246c31ed6b71930d7f66fc196088bf61732aa6cb87b11",
+      "db1264cc52980487105192306455b45cd1e4eb4414d4a9566e14d602aa9b825b",
+      "52b6be9e91623833d9ad16b29d3de0fd2d6e1bc7a44c24a934e55c23b2ffd448",
+      "1bd5bbd3aa0c5b2aab4d2376ae44607d7d6fab77eefe21b178f2dab645db0236",
+      "a09b5b2483f833a3a3c9563980d55f74ea30fd9efb166b07ca61555c9f2a3f45"
+    ],
+    "training_split": "train"
+  },
+  "input": {
+    "bytes": 65167,
+    "path": "data/development/appliances/train/train-000.csv",
+    "sha256": "be07604743b9b9e8dc788dde7c1705341f75394a69e1a9a2148c423413ff4939"
+  },
+  "probe_id": "baseline-smoke-v1",
+  "reference": {
+    "archive_bytes": 6591,
+    "command": [
+      "zstd",
+      "-q",
+      "-T1",
+      "--stream-size=65178",
+      "-19",
+      "-c"
+    ],
+    "decode": {
+      "peak_rss_kib": 2708,
+      "wall_seconds": 0.0037522220009122975
+    },
+    "encode": {
+      "peak_rss_kib": 3924,
+      "wall_seconds": 0.03436414499992679
+    },
+    "gain_vs_best_baseline": 0.11268174474959614,
+    "id": "raw-token-transpose-zstd-19",
+    "roundtrip": true,
+    "transform_bytes": 65178
+  },
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "baselines",
+    "--split",
+    "train"
+  ],
+  "results": [
+    {
+      "archive_bytes": 9177,
+      "decode": {
+        "peak_rss_kib": 1392,
+        "wall_seconds": 0.0032975389985949732
+      },
+      "decode_command": [
+        "gzip",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 1648,
+        "wall_seconds": 0.01507642999968084
+      },
+      "encode_command": [
+        "gzip",
+        "-n",
+        "-9",
+        "-c"
+      ],
+      "encoded_sha256": "31bb4c2d0f2dcfe9cca972c2a9a557c72eca6b7a14c80b8b3cb1d0670679d35e",
+      "id": "gzip-9",
+      "model_bytes": 0,
+      "payload_bytes": 9177,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 7428,
+      "decode": {
+        "peak_rss_kib": 1852,
+        "wall_seconds": 0.003382382001291262
+      },
+      "decode_command": [
+        "xz",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 5752,
+        "wall_seconds": 0.029650926000613254
+      },
+      "encode_command": [
+        "xz",
+        "-9e",
+        "--threads=1",
+        "--check=crc64",
+        "-c"
+      ],
+      "encoded_sha256": "71dde20d6e0749dc6abfd73cd476e3ee8463bf7b7a17b0937658ed996110f87c",
+      "id": "xz-9e",
+      "model_bytes": 0,
+      "payload_bytes": 7428,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 7641,
+      "decode": {
+        "peak_rss_kib": 2648,
+        "wall_seconds": 0.004081269999005599
+      },
+      "decode_command": [
+        "zstd",
+        "-q",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 4020,
+        "wall_seconds": 0.0405383189990971
+      },
+      "encode_command": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "-19",
+        "-c"
+      ],
+      "encoded_sha256": "999d0af56a0ca61070e5a35a6c72e03f241924e4cbfca7b7b0f8bda553627506",
+      "id": "zstd-19",
+      "model_bytes": 0,
+      "payload_bytes": 7641,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 7642,
+      "decode": {
+        "peak_rss_kib": 2800,
+        "wall_seconds": 0.0036066089996893425
+      },
+      "decode_command": [
+        "zstd",
+        "-q",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 3892,
+        "wall_seconds": 0.04124394999962533
+      },
+      "encode_command": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "--ultra",
+        "-22",
+        "-c"
+      ],
+      "encoded_sha256": "dc20367a98131b12aae3e842ff326498ccd67f079ed9fc71eda37ea17cb06a00",
+      "id": "zstd-22",
+      "model_bytes": 0,
+      "payload_bytes": 7642,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 15728,
+      "decode": {
+        "peak_rss_kib": 2836,
+        "wall_seconds": 0.003789860000324552
+      },
+      "decode_command": [
+        "zstd",
+        "-q",
+        "-D",
+        "{dictionary}",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 3924,
+        "wall_seconds": 0.021565703000305803
+      },
+      "encode_command": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "-19",
+        "-D",
+        "{dictionary}",
+        "-c"
+      ],
+      "encoded_sha256": "2594ba4ce4e0a4c8080d245507838a68e611f2b49db878c415510d17a58af29a",
+      "id": "zstd-dict-19",
+      "model_bytes": 8192,
+      "payload_bytes": 7536,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 15728,
+      "decode": {
+        "peak_rss_kib": 2824,
+        "wall_seconds": 0.0026779449999594362
+      },
+      "decode_command": [
+        "zstd",
+        "-q",
+        "-D",
+        "{dictionary}",
+        "-d",
+        "-c"
+      ],
+      "encode": {
+        "peak_rss_kib": 3744,
+        "wall_seconds": 0.0256640059997153
+      },
+      "encode_command": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "--ultra",
+        "-22",
+        "-D",
+        "{dictionary}",
+        "-c"
+      ],
+      "encoded_sha256": "2594ba4ce4e0a4c8080d245507838a68e611f2b49db878c415510d17a58af29a",
+      "id": "zstd-dict-22",
+      "model_bytes": 8192,
+      "payload_bytes": 7536,
+      "roundtrip": true
+    }
+  ],
+  "schema_version": 1,
+  "scope": "One development probe; this is not sealed-test evidence or a generated codec",
+  "split": "train",
+  "timing_scope": "Includes process startup; not a warmed decoder throughput measurement"
+}

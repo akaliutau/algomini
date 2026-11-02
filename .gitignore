@@ -226,3 +226,8 @@ eng_best_practice.md
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local tools, source archives, development chunks, and sealed evaluation data.
+.tools/
+.cache/
+data/

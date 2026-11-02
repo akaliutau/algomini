@@ -1,0 +1,46 @@
+# Reproducing the local environment
+
+The captured reference is **Linux x86_64, Ubuntu 24.04, Python 3.12.16, and Rust/Cargo 1.92.0**. `environment.json` records the complete Python distribution list, tool version strings and executable hashes, SQLite/libc versions, OS, CPU, source hashes, and capture time. Hardware differences affect timing even when compressed bytes match.
+
+The Conda export was produced with Conda 25.9.1. `git_head` identifies the checkout head at capture; the source hashes also identify implementation files that had not yet been committed at that point.
+
+The reproduction inputs are:
+
+- `../requirements.lock`: exact installed Python distributions, including transitive dependencies.
+- `conda-linux-64.lock`: explicit Conda artifact URLs and MD5 checksums for the dedicated Python environment.
+- `system-packages.lock`: installed Ubuntu package versions for gzip, zstd, file, xxd, binutils, util-linux, and GNU time.
+- `muse-release.json`: official, version-specific Muse artifact URLs, SHA-256 checksums, and sizes.
+- `../run.toml`: dataset archive checksum, split policy, input/resource limits, baseline argument vectors, coder template, and budget.
+
+On a clean Ubuntu 24.04 x86_64 machine with Conda and rustup installed:
+
+```bash
+sudo apt-get update
+xargs -a repro/system-packages.lock sudo apt-get install --yes
+conda create --name algomini --file repro/conda-linux-64.lock --yes
+conda activate algomini
+python -m pip install -r requirements.lock
+rustup toolchain install 1.92.0 --profile minimal
+rustup override set 1.92.0
+python -m algomini bootstrap-muse
+python -m algomini versions --check
+```
+
+Run these commands from the repository root. Put the model credential in `.env` or the `META_API_KEY` environment variable on that machine, then run:
+
+```bash
+python -m algomini stage0 --check-api
+python -m pytest -q
+```
+
+The dataset archive is approximately 11.4 MiB and Muse approximately 396 MiB. Both downloads are checksum-verified and cached locally. The complete source is streamed for preparation; compression checks operate on bounded extracts. The Conda lock supplies the reference xz/liblzma build, while gzip and zstd come from the recorded Ubuntu packages. Preserve PATH ordering by activating the environment first.
+
+Two setup findings are retained in the observation ledger: DuckDB's in-memory file interface required an extra filesystem dependency, so the bounded profile uses a temporary CSV path; high-level zstd compression of unknown-length stdin exceeded the baseline memory limit, so every zstd encoder receives the exact `--stream-size`. The same input length is available to the candidate interface.
+
+If an Ubuntu package version has been superseded, use the [Ubuntu snapshot service](https://ubuntu.com/server/docs/how-to/software/snapshot-service/) with a timestamp appropriate to the environment capture. The reference recipe records versions; a cloud image build and timing comparison still require validation on that target. Keep any changed environment as a new experimental reference.
+
+`versions --check` compares exact Python/package and CLI version strings. It does not require identical kernel or CPU metadata. Binary hashes are available for stricter comparison, and source/data hashes identify the experiment inputs. `stage0` verifies an existing version reference before running; use `versions` deliberately when updating that reference.
+
+No credentials, environment-variable dumps, key fingerprints, or authenticated response bodies are exported. The only credential check is a bounded, redirect-disabled request to the official Meta model catalogue. The recorded result includes status and selected-model availability.
+
+The generation gate remains off until a provider spending ceiling or prepaid-credit behavior has been verified. Step/time limits alone cannot establish a dollar ceiling. Candidate build/train/encode/decode containment and the final frozen evaluator remain Stage 2 work.

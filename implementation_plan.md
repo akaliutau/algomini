@@ -39,6 +39,8 @@ Hours are time boxes from the start of implementation. Long deterministic measur
 
 **Stage 0: choose a tractable research problem**
 
+Implemented locally on `stage0/local-lab-foundation`: see `run.toml`, `reports/stage0/report.md`, and `repro/README.md`. The selected source is UCI Appliances Energy Prediction, with chronological day groups, a one-day gap at each boundary, byte-preserving development chunks, and a sealed manifest commitment. The helper CLI supports preflight, version capture/checking, dataset preparation, train-only profiling, and bounded baseline measurements. Paid generation remains disabled pending provider-cap verification; candidate-code containment belongs to Stage 2.
+
 Start with numeric telemetry in CSV or JSON Lines from independent devices, sessions, or time periods. Inspect training data for cross-field relationships, deltas, regime changes, repeated schemas, exceptional records, and formatting overhead. Use real data for the headline result; synthetic fixtures exercise correctness and controlled hypotheses.
 
 The initial lab stack is **DuckDB, NumPy, SciPy, and scikit-learn**, plus `file`/libmagic, `xxd`, `strings`, and the declared compression CLIs. Add ruptures for changing regimes, Binwalk for embedded binary formats, and Kaitai Struct to validate proposed binary layouts when those questions arise. The tool catalog and probe-report contract are documented in `doc_design.md`, under **Laboratory tools and probe reports**.
