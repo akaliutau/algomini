@@ -42,6 +42,9 @@ def main():
     version_parser = commands.add_parser("versions", help="Capture tool, OS, Python, and Conda versions")
     version_parser.add_argument("--check", action="store_true", help="Compare installed versions with the captured reference")
     commands.add_parser("prepare", help="Download and split the pinned source without normalizing bytes")
+    commands.add_parser("stage1", help="Generate one Rust codec, compile it, and independently check its measurements")
+    codec_parser = commands.add_parser("check-codec", help="Compile/check a Rust codec offline without model credentials")
+    codec_parser.add_argument("source")
     for command in ("doctor", "stage0"):
         sub = commands.add_parser(command, help="Run preflight" if command == "doctor" else "Run the complete local Stage 0")
         sub.add_argument("--check-api", action="store_true", help="Authenticate GET /models; performs no model inference")
@@ -71,6 +74,15 @@ def main():
             result = lab.profile(root, cfg, args.split)
         elif args.command == "baselines":
             result = lab.baselines(root, cfg, args.split)
+        elif args.command == "stage1":
+            from .discovery import first_loop
+            result = first_loop(root, cfg)
+        elif args.command == "check-codec":
+            from pathlib import Path
+            from .codecs import evaluate
+            sample = dataset.bounded_sample(dataset.development_files(root, cfg, "train")[0], cfg["lab"]["baseline_probe_bytes"])
+            training = dataset.bounded_sample(dataset.development_files(root, cfg, "train")[0], 2048)
+            result = evaluate(root, cfg, Path(args.source).resolve(), sample, training_samples=[training])
         else:
             checks = environment.doctor(root, cfg, args.check_api)
             if not checks["ok"]:

@@ -231,3 +231,5 @@ eng_best_practice.md
 .tools/
 .cache/
 data/
+reports/budget/.lock
+rust/**/target/

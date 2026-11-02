@@ -1,0 +1,863 @@
+{
+  "byte_entropy_bits": 3.3994841929655135,
+  "fields": [
+    {
+      "distinct_lexemes": 330,
+      "missing": 0,
+      "most_common": [
+        [
+          "2016-01-11 17:00:00",
+          1
+        ],
+        [
+          "2016-01-11 17:10:00",
+          1
+        ],
+        [
+          "2016-01-11 17:20:00",
+          1
+        ]
+      ],
+      "name": "date",
+      "token_length_max": 19,
+      "token_length_min": 19
+    },
+    {
+      "distinct_lexemes": 42,
+      "integer_lexeme_fraction": 0.0,
+      "max": 580.0,
+      "mean_absolute_delta": 35.25835866261398,
+      "min": 20.0,
+      "missing": 0,
+      "most_common": [
+        [
+          "  50",
+          70
+        ],
+        [
+          "  40",
+          61
+        ],
+        [
+          "  60",
+          42
+        ]
+      ],
+      "name": "Appliances",
+      "token_length_max": 4,
+      "token_length_min": 4,
+      "zero_delta_fraction": 0.2948328267477204
+    },
+    {
+      "distinct_lexemes": 8,
+      "integer_lexeme_fraction": 0.36666666666666664,
+      "max": 70.0,
+      "mean_absolute_delta": 2.9483282674772036,
+      "min": 0.0,
+      "missing": 0,
+      "most_common": [
+        [
+          " 0",
+          209
+        ],
+        [
+          "20",
+          47
+        ],
+        [
+          "10",
+          38
+        ]
+      ],
+      "name": "lights",
+      "token_length_max": 2,
+      "token_length_min": 2,
+      "zero_delta_fraction": 0.7416413373860182
+    },
+    {
+      "distinct_lexemes": 72,
+      "integer_lexeme_fraction": 0.0,
+      "max": 21.6,
+      "mean_absolute_delta": 0.027781155015199472,
+      "min": 18.79,
+      "missing": 0,
+      "most_common": [
+        [
+          "20.000000000000000",
+          29
+        ],
+        [
+          "19.890000000000001",
+          22
+        ],
+        [
+          "20.100000000000001",
+          22
+        ]
+      ],
+      "name": "T1",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.5562310030395137
+    },
+    {
+      "distinct_lexemes": 202,
+      "integer_lexeme_fraction": 0.0,
+      "max": 55.8933333333333,
+      "mean_absolute_delta": 0.23168186423505485,
+      "min": 40.53,
+      "missing": 0,
+      "most_common": [
+        [
+          "44.200000000000003",
+          10
+        ],
+        [
+          "44.090000000000003",
+          8
+        ],
+        [
+          "44.060000000000002",
+          7
+        ]
+      ],
+      "name": "RH_1",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.1458966565349544
+    },
+    {
+      "distinct_lexemes": 105,
+      "integer_lexeme_fraction": 0.0,
+      "max": 21.0,
+      "mean_absolute_delta": 0.030536067499459557,
+      "min": 18.0,
+      "missing": 0,
+      "most_common": [
+        [
+          "19.100000000000001",
+          27
+        ],
+        [
+          "19.199999999999999",
+          25
+        ],
+        [
+          "19.000000000000000",
+          23
+        ]
+      ],
+      "name": "T2",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.49240121580547114
+    },
+    {
+      "distinct_lexemes": 200,
+      "integer_lexeme_fraction": 0.0,
+      "max": 47.2233333333333,
+      "mean_absolute_delta": 0.09521073193945584,
+      "min": 39.5,
+      "missing": 0,
+      "most_common": [
+        [
+          "44.000000000000000",
+          11
+        ],
+        [
+          "44.590000000000003",
+          8
+        ],
+        [
+          "44.500000000000000",
+          7
+        ]
+      ],
+      "name": "RH_2",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.1641337386018237
+    },
+    {
+      "distinct_lexemes": 51,
+      "integer_lexeme_fraction": 0.0,
+      "max": 21.2,
+      "mean_absolute_delta": 0.03010131712259325,
+      "min": 19.1333333333333,
+      "missing": 0,
+      "most_common": [
+        [
+          "19.890000000000001",
+          58
+        ],
+        [
+          "19.789999999999999",
+          46
+        ],
+        [
+          "19.289999999999999",
+          29
+        ]
+      ],
+      "name": "T3",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.5957446808510638
+    },
+    {
+      "distinct_lexemes": 135,
+      "integer_lexeme_fraction": 0.0,
+      "max": 48.53,
+      "mean_absolute_delta": 0.08549645390070748,
+      "min": 41.7,
+      "missing": 0,
+      "most_common": [
+        [
+          "44.899999999999999",
+          21
+        ],
+        [
+          "44.789999999999999",
+          20
+        ],
+        [
+          "45.590000000000003",
+          15
+        ]
+      ],
+      "name": "RH_3",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.3404255319148936
+    },
+    {
+      "distinct_lexemes": 98,
+      "integer_lexeme_fraction": 0.0,
+      "max": 21.89,
+      "mean_absolute_delta": 0.061124620060790544,
+      "min": 18.23,
+      "missing": 0,
+      "most_common": [
+        [
+          "18.890000000000001",
+          20
+        ],
+        [
+          "19.100000000000001",
+          19
+        ],
+        [
+          "19.000000000000000",
+          18
+        ]
+      ],
+      "name": "T4",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.3829787234042553
+    },
+    {
+      "distinct_lexemes": 199,
+      "integer_lexeme_fraction": 0.0,
+      "max": 49.9475,
+      "mean_absolute_delta": 0.1351874366767975,
+      "min": 39.6333333333333,
+      "missing": 0,
+      "most_common": [
+        [
+          "44.200000000000003",
+          13
+        ],
+        [
+          "42.500000000000000",
+          9
+        ],
+        [
+          "44.126666666666701",
+          7
+        ]
+      ],
+      "name": "RH_4",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.22492401215805471
+    },
+    {
+      "distinct_lexemes": 77,
+      "integer_lexeme_fraction": 0.0,
+      "max": 19.76,
+      "mean_absolute_delta": 0.05840932117527903,
+      "min": 17.1,
+      "missing": 0,
+      "most_common": [
+        [
+          "17.289999999999999",
+          29
+        ],
+        [
+          "17.390000000000001",
+          28
+        ],
+        [
+          "17.500000000000000",
+          23
+        ]
+      ],
+      "name": "T5",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.5653495440729484
+    },
+    {
+      "distinct_lexemes": 190,
+      "integer_lexeme_fraction": 0.0,
+      "max": 91.2933333333333,
+      "mean_absolute_delta": 0.677304964539007,
+      "min": 48.6266666666667,
+      "missing": 0,
+      "most_common": [
+        [
+          "51.000000000000000",
+          23
+        ],
+        [
+          "50.090000000000003",
+          11
+        ],
+        [
+          "50.000000000000000",
+          11
+        ]
+      ],
+      "name": "RH_5",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.24924012158054712
+    },
+    {
+      "distinct_lexemes": 155,
+      "integer_lexeme_fraction": 0.0,
+      "max": 7.9,
+      "mean_absolute_delta": 0.10836879432624119,
+      "min": 1.1,
+      "missing": 0,
+      "most_common": [
+        [
+          " 5.589999999999999858",
+          21
+        ],
+        [
+          " 5.500000000000000000",
+          10
+        ],
+        [
+          " 5.530000000000000249",
+          9
+        ]
+      ],
+      "name": "T6",
+      "token_length_max": 21,
+      "token_length_min": 21,
+      "zero_delta_fraction": 0.18541033434650456
+    },
+    {
+      "distinct_lexemes": 299,
+      "integer_lexeme_fraction": 0.0,
+      "max": 96.56,
+      "mean_absolute_delta": 0.675379939209729,
+      "min": 51.8233333333333,
+      "missing": 0,
+      "most_common": [
+        [
+          "96.0900000000000034",
+          5
+        ],
+        [
+          "79.4000000000000057",
+          3
+        ],
+        [
+          "84.2566666666667032",
+          2
+        ]
+      ],
+      "name": "RH_6",
+      "token_length_max": 19,
+      "token_length_min": 19,
+      "zero_delta_fraction": 0.03343465045592705
+    },
+    {
+      "distinct_lexemes": 82,
+      "integer_lexeme_fraction": 0.0,
+      "max": 18.9633333333333,
+      "mean_absolute_delta": 0.03688715202393076,
+      "min": 17.1,
+      "missing": 0,
+      "most_common": [
+        [
+          "17.890000000000001",
+          58
+        ],
+        [
+          "17.789999999999999",
+          35
+        ],
+        [
+          "17.699999999999999",
+          28
+        ]
+      ],
+      "name": "T7",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.45896656534954405
+    },
+    {
+      "distinct_lexemes": 254,
+      "integer_lexeme_fraction": 0.0,
+      "max": 46.2633333333333,
+      "mean_absolute_delta": 0.19190070921985677,
+      "min": 35.73,
+      "missing": 0,
+      "most_common": [
+        [
+          "39.000000000000000",
+          13
+        ],
+        [
+          "39.590000000000003",
+          5
+        ],
+        [
+          "39.090000000000003",
+          5
+        ]
+      ],
+      "name": "RH_7",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.11854103343465046
+    },
+    {
+      "distinct_lexemes": 84,
+      "integer_lexeme_fraction": 0.0,
+      "max": 19.79,
+      "mean_absolute_delta": 0.031249029592494808,
+      "min": 17.79,
+      "missing": 0,
+      "most_common": [
+        [
+          "18.500000000000000",
+          32
+        ],
+        [
+          "18.699999999999999",
+          30
+        ],
+        [
+          "18.600000000000001",
+          18
+        ]
+      ],
+      "name": "T8",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.48936170212765956
+    },
+    {
+      "distinct_lexemes": 260,
+      "integer_lexeme_fraction": 0.0,
+      "max": 55.09,
+      "mean_absolute_delta": 0.15830371123304338,
+      "min": 43.0,
+      "missing": 0,
+      "most_common": [
+        [
+          "48.590000000000003",
+          9
+        ],
+        [
+          "47.399999999999999",
+          6
+        ],
+        [
+          "47.289999999999999",
+          4
+        ]
+      ],
+      "name": "RH_8",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.10638297872340426
+    },
+    {
+      "distinct_lexemes": 21,
+      "integer_lexeme_fraction": 0.0,
+      "max": 17.2,
+      "mean_absolute_delta": 0.013698074974671987,
+      "min": 16.6,
+      "missing": 0,
+      "most_common": [
+        [
+          "16.890000000000001",
+          85
+        ],
+        [
+          "17.100000000000001",
+          72
+        ],
+        [
+          "17.000000000000000",
+          66
+        ]
+      ],
+      "name": "T9",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.7750759878419453
+    },
+    {
+      "distinct_lexemes": 216,
+      "integer_lexeme_fraction": 0.0,
+      "max": 50.4,
+      "mean_absolute_delta": 0.12496960486322105,
+      "min": 39.9666666666667,
+      "missing": 0,
+      "most_common": [
+        [
+          "45.289999999999999",
+          12
+        ],
+        [
+          "42.899999999999999",
+          8
+        ],
+        [
+          "40.000000000000000",
+          8
+        ]
+      ],
+      "name": "RH_9",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.1702127659574468
+    },
+    {
+      "distinct_lexemes": 129,
+      "integer_lexeme_fraction": 0.0,
+      "max": 7.5,
+      "mean_absolute_delta": 0.06666666666666667,
+      "min": 2.7,
+      "missing": 0,
+      "most_common": [
+        [
+          " 5.0000000000000000e+00",
+          21
+        ],
+        [
+          " 6.0000000000000000e+00",
+          15
+        ],
+        [
+          " 5.2999999999999998e+00",
+          12
+        ]
+      ],
+      "name": "T_out",
+      "token_length_max": 23,
+      "token_length_min": 23,
+      "zero_delta_fraction": 0.1094224924012158
+    },
+    {
+      "distinct_lexemes": 286,
+      "integer_lexeme_fraction": 0.0,
+      "max": 757.7,
+      "mean_absolute_delta": 0.08064842958459936,
+      "min": 733.5,
+      "missing": 0,
+      "most_common": [
+        [
+          "757.29999999999995",
+          14
+        ],
+        [
+          "743.50000000000000",
+          13
+        ],
+        [
+          "756.89999999999998",
+          7
+        ]
+      ],
+      "name": "Press_mm_hg",
+      "token_length_max": 18,
+      "token_length_min": 18,
+      "zero_delta_fraction": 0.0911854103343465
+    },
+    {
+      "distinct_lexemes": 108,
+      "integer_lexeme_fraction": 0.0,
+      "max": 95.0,
+      "mean_absolute_delta": 0.506079027355623,
+      "min": 63.0,
+      "missing": 0,
+      "most_common": [
+        [
+          " 92.000000000000000",
+          30
+        ],
+        [
+          " 91.000000000000000",
+          18
+        ],
+        [
+          " 89.000000000000000",
+          15
+        ]
+      ],
+      "name": "RH_out",
+      "token_length_max": 19,
+      "token_length_min": 19,
+      "zero_delta_fraction": 0.1641337386018237
+    },
+    {
+      "distinct_lexemes": 31,
+      "integer_lexeme_fraction": 0.0,
+      "max": 8.0,
+      "mean_absolute_delta": 0.1332320162107396,
+      "min": 3.0,
+      "missing": 0,
+      "most_common": [
+        [
+          " 5.00000000000000000",
+          60
+        ],
+        [
+          " 6.00000000000000000",
+          38
+        ],
+        [
+          " 8.00000000000000000",
+          32
+        ]
+      ],
+      "name": "Windspeed",
+      "token_length_max": 20,
+      "token_length_min": 20,
+      "zero_delta_fraction": 0.3829787234042553
+    },
+    {
+      "distinct_lexemes": 56,
+      "integer_lexeme_fraction": 0.0,
+      "max": 63.0,
+      "mean_absolute_delta": 1.0764944275582573,
+      "min": 20.0,
+      "missing": 0,
+      "most_common": [
+        [
+          "40.0000000000000000",
+          139
+        ],
+        [
+          "38.1666666666666998",
+          17
+        ],
+        [
+          "36.3333333333333002",
+          17
+        ]
+      ],
+      "name": "Visibility",
+      "token_length_max": 19,
+      "token_length_min": 19,
+      "zero_delta_fraction": 0.4194528875379939
+    },
+    {
+      "distinct_lexemes": 148,
+      "integer_lexeme_fraction": 0.0,
+      "max": 5.3,
+      "mean_absolute_delta": 0.05491388044579535,
+      "min": -0.1,
+      "missing": 0,
+      "most_common": [
+        [
+          " 3.3999999999999999e+00",
+          30
+        ],
+        [
+          " 4.0999999999999996e+00",
+          12
+        ],
+        [
+          " 3.7333333333333298e+00",
+          9
+        ]
+      ],
+      "name": "Tdewpoint",
+      "token_length_max": 23,
+      "token_length_min": 23,
+      "zero_delta_fraction": 0.1276595744680851
+    },
+    {
+      "distinct_lexemes": 330,
+      "integer_lexeme_fraction": 0.0,
+      "max": 49.80386857641861,
+      "mean_absolute_delta": 15.521036737809371,
+      "min": 0.6538787740282714,
+      "missing": 0,
+      "most_common": [
+        [
+          "13.2754331571049988270",
+          1
+        ],
+        [
+          "18.6061949818395078182",
+          1
+        ],
+        [
+          "28.6426681675948202610",
+          1
+        ]
+      ],
+      "name": "rv1",
+      "token_length_max": 22,
+      "token_length_min": 22,
+      "zero_delta_fraction": 0.0
+    },
+    {
+      "distinct_lexemes": 330,
+      "integer_lexeme_fraction": 0.0,
+      "max": 49.80386857641861,
+      "mean_absolute_delta": 15.521036737809371,
+      "min": 0.6538787740282714,
+      "missing": 0,
+      "most_common": [
+        [
+          "13.2754331571049988270",
+          1
+        ],
+        [
+          "18.6061949818395078182",
+          1
+        ],
+        [
+          "28.6426681675948202610",
+          1
+        ]
+      ],
+      "name": "rv2",
+      "token_length_max": 22,
+      "token_length_min": 22,
+      "zero_delta_fraction": 0.0
+    }
+  ],
+  "hypotheses": [
+    "Test one stored copy plus exact reconstruction of rv1 and rv2; equality is observed only in this sample.",
+    "Test a start timestamp plus step/exception representation, preserving original timestamp spelling.",
+    "Test raw-token column transposition and small residual predictors; count metadata and exceptions."
+  ],
+  "identical_lexeme_columns": [
+    [
+      "rv1",
+      "rv2"
+    ]
+  ],
+  "input": {
+    "bytes": 200528,
+    "columns": 29,
+    "path": "data/development/appliances/train/train-000.csv",
+    "rows": 330,
+    "sha256": "40f0a58cc89fa7e6f58af1400df641c7d40fa268929f01ad40d4d6aa4fc6b7af"
+  },
+  "line_endings": {
+    "crlf": 331,
+    "lf": 331
+  },
+  "probe_id": "structured-profile-v1",
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "profile",
+    "--split",
+    "train"
+  ],
+  "schema_version": 1,
+  "scope": "Exploratory sample; entropy/MI are estimates, not measured compression gains",
+  "split": "train",
+  "strongest_numeric_pairs": [
+    {
+      "estimated_mutual_information_nats": 4.541459069286239,
+      "fields": [
+        "rv1",
+        "rv2"
+      ],
+      "pearson_r": 1.0
+    },
+    {
+      "estimated_mutual_information_nats": 1.9647497609131306,
+      "fields": [
+        "T1",
+        "T2"
+      ],
+      "pearson_r": 0.9795900752282902
+    },
+    {
+      "estimated_mutual_information_nats": 1.7307241151575963,
+      "fields": [
+        "RH_7",
+        "RH_8"
+      ],
+      "pearson_r": 0.9505484416303392
+    },
+    {
+      "estimated_mutual_information_nats": 1.2142337058648414,
+      "fields": [
+        "T6",
+        "T_out"
+      ],
+      "pearson_r": 0.9266625566265984
+    },
+    {
+      "estimated_mutual_information_nats": 1.6977666032648835,
+      "fields": [
+        "RH_8",
+        "RH_9"
+      ],
+      "pearson_r": 0.9198279412078537
+    },
+    {
+      "estimated_mutual_information_nats": 1.3448625587047065,
+      "fields": [
+        "RH_2",
+        "Tdewpoint"
+      ],
+      "pearson_r": 0.9098229910431529
+    },
+    {
+      "estimated_mutual_information_nats": 1.5319162283258527,
+      "fields": [
+        "RH_7",
+        "RH_9"
+      ],
+      "pearson_r": 0.8987356343395259
+    },
+    {
+      "estimated_mutual_information_nats": 1.521478514279826,
+      "fields": [
+        "RH_2",
+        "RH_4"
+      ],
+      "pearson_r": 0.8965455609070794
+    }
+  ],
+  "timestamp": {
+    "field": "date",
+    "step_seconds_counts": [
+      [
+        600.0,
+        329
+      ]
+    ]
+  }
+}

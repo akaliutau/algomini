@@ -39,7 +39,7 @@ Hours are time boxes from the start of implementation. Long deterministic measur
 
 **Stage 0: choose a tractable research problem**
 
-Implemented locally on `stage0/local-lab-foundation`: see `run.toml`, `reports/stage0/report.md`, and `repro/README.md`. The selected source is UCI Appliances Energy Prediction, with chronological day groups, a one-day gap at each boundary, byte-preserving development chunks, and a sealed manifest commitment. The helper CLI supports preflight, version capture/checking, dataset preparation, train-only profiling, and bounded baseline measurements. Paid generation remains disabled pending provider-cap verification; candidate-code containment belongs to Stage 2.
+Implemented locally on `stage0/local-lab-foundation`: see `run.toml`, `reports/stage0/report.md`, and `repro/README.md`. The selected source is UCI Appliances Energy Prediction, with chronological day groups, a one-day gap at each boundary, byte-preserving development chunks, and a sealed manifest commitment. The helper CLI supports preflight, version capture/checking, dataset preparation, train-only profiling, and bounded baseline measurements. At Stage 0 completion paid generation was disabled; the provider ceiling was confirmed before Stage 1, which added the initial local execution boundary. Stage 2 owns the final evaluator hardening and freeze.
 
 Start with numeric telemetry in CSV or JSON Lines from independent devices, sessions, or time periods. Inspect training data for cross-field relationships, deltas, regime changes, repeated schemas, exceptional records, and formatting overhead. Use real data for the headline result; synthetic fixtures exercise correctness and controlled hypotheses.
 
@@ -54,6 +54,8 @@ Use tiny fixtures first, then approximately 32–64 KiB probes, then 256 KiB sam
 Pin gzip `-9`, xz `-9e`, zstd `-19`/`-22`, and a zstd dictionary baseline trained on training data only where applicable. Record versions and command lines. Freeze numerical CPU/RSS/timeout limits on the chosen runner before population search. A proposed candidate target is at least 10 MiB/s decode and at most 256 MiB RSS; establish a stable timing method and report startup separately. Baseline resource use is also reported.
 
 **Stage 1–2: keep the implementation small and the boundaries explicit**
+
+Stage 1 is implemented locally on `stage1/first-codec-loop`: `python -m algomini stage1` runs the first complete generation/build/check loop, and `check-codec` verifies committed source without a model call. The experimental Muse module is in `plugins/muse-telemetry-v1/`; its measured result and failed generation attempts are retained in `reports/stage1/` and `reports/budget/`. Local execution uses Landlock and libseccomp, with no Docker. The user confirmed the $150 provider ceiling. This functional milestone does not establish unseen-data performance or a win over the simple structured reference; Stage 2 still owns final evaluator hardening and freeze.
 
 Use Python's standard library, existing compression CLIs, and a fixed Rust workspace. Add analysis packages only when a concrete hypothesis benefits from them. Avoid a custom framework or entropy coder during the first loop.
 

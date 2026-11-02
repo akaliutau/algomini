@@ -2,7 +2,7 @@
 
 Automated algorithm discovery dedicated to minimizing data footprints.
 
-Stage 0 supplies a local experiment foundation: a pinned telemetry dataset, chronological splits, train-only analytics, reproducible compressor baselines, and Muse preflight. The generated Rust codec loop is Stage 1.
+Stage 0 supplies a local experiment foundation: a pinned telemetry dataset, chronological splits, train-only analytics, reproducible compressor baselines, and Muse preflight. Stage 1 adds the fixed Rust wrapper, configurable CLI coder, and independent generated-code checks.
 
 ## Local setup
 
@@ -22,7 +22,7 @@ python -m algomini stage0 --check-api
 python -m pytest -q
 ```
 
-`--check-api` authenticates `GET /v1/models` and checks availability of the configured model. Stage 0 makes no inference calls. `run.toml` keeps generation disabled until a provider spending ceiling is verified.
+`--check-api` authenticates `GET /v1/models` and checks availability of the configured model. Stage 0 makes no inference calls. The user confirmed a $150 provider ceiling before Stage 1; `run.toml` records that confirmation and enables bounded generation.
 
 ## Local tools
 
@@ -36,8 +36,23 @@ python -m pytest -q
 | `python -m algomini versions` | Refresh Python, Conda, system-package, and CLI version records |
 | `python -m algomini versions --check` | Fail if installed Python/package or CLI versions differ from the captured reference |
 | `python -m algomini stage0 --check-api` | Complete local preparation, profile, baselines, observations, and report |
+| `python -m algomini stage1` | Profile training data, invoke the CLI coder, compile its Rust file offline, reject broken codecs, and compare complete archive bytes |
+| `python -m algomini check-codec plugins/muse-telemetry-v1/codec.rs` | Rebuild and independently check a committed codec without model credentials or inference |
 
-Exploratory `profile` and `baselines` commands accept `--split train` or `--split validation`. The CLI exposes no exploratory test split. Stage 0 executes installed, trusted tools; candidate-code isolation is implemented in Stage 2.
+Exploratory `profile` and `baselines` commands accept `--split train` or `--split validation`. The CLI exposes no exploratory test split. Stage 0 executes installed, trusted tools. Stage 1 uses Landlock and libseccomp for local candidate builds/workers; the final frozen evaluator remains Stage 2 work.
+
+## First generated codec loop
+
+```bash
+python -m algomini stage1
+python -m algomini check-codec plugins/muse-telemetry-v1/codec.rs
+```
+
+Generation receives the API contract, compact measured evidence, and a training excerpt of at most 4 KiB. The configured CLI writes `codec.rs`; its exit status alone cannot establish correctness. Protected inputs must remain unchanged, and the harness compiles and evaluates the resulting source independently. Identical generation inputs reuse the verified cached file. The [budget ledger](reports/budget/ledger.json) records reservations, reported token usage, and estimated costs. Unreported usage retains its complete reservation.
+
+The Rust wrapper supplies a default empty-model trainer, encode/decode operations, bounded framing, CRC32, codec identity, raw escape, and safe libzstd helpers. Generated modules compile with `forbid(unsafe_code)` and no extra Cargo dependencies or build scripts. Direct algorithm checks prevent an incorrect decoder hiding behind raw escape. See the [worker protocol](rust/codec-worker/README.md).
+
+Everything runs on the local host. Builds and workers receive no credentials and cannot create network connections; the coder has the model credential and networking but no shell tool. Landlock restricts file contents and writes while allowing directory metadata traversal required by native APIs. This backend requires Linux Landlock ABI 6 or newer and libseccomp; it fails closed when unavailable. Docker execution is reserved for a later cloud backend.
 
 ## Experiment and evidence
 
@@ -51,5 +66,6 @@ The main artifacts are:
 - [Training profile](reports/stage0/profile-train.json) and [baseline measurements](reports/stage0/baselines-train.json).
 - [Run configuration](run.toml) and [dataset manifest](datasets/appliances/manifest.json).
 - [Environment versions](repro/environment.json), [Python lock](requirements.lock), and [reproduction instructions](repro/README.md).
+- [Stage 1 report](reports/stage1/report.md), [experiment summary](reports/stage1/summary.json), and [Stage 1 environment](repro/stage1-environment.json).
 
 The raw-token column-transposition reference is an ordinary lossless representation experiment. Its training result demonstrates a possible research direction; it establishes neither scientific novelty nor performance on unseen data.

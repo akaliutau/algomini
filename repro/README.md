@@ -43,4 +43,19 @@ If an Ubuntu package version has been superseded, use the [Ubuntu snapshot servi
 
 No credentials, environment-variable dumps, key fingerprints, or authenticated response bodies are exported. The only credential check is a bounded, redirect-disabled request to the official Meta model catalogue. The recorded result includes status and selected-model availability.
 
-The generation gate remains off until a provider spending ceiling or prepaid-credit behavior has been verified. Step/time limits alone cannot establish a dollar ceiling. Candidate build/train/encode/decode containment and the final frozen evaluator remain Stage 2 work.
+The user confirmed a $150 provider limit before enabling Stage 1 generation. Step/time limits alone cannot establish a dollar ceiling. The local budget ledger reserves capacity before a call, records token-based estimates when reported, and retains the full reservation when usage is incomplete.
+
+## Stage 1 local backend
+
+`stage1-environment.json` adds the current harness and Rust source hashes and compiler details. `stage1-system-packages.lock` records the added compiler, C development library, libzstd, and libseccomp packages. The Python dependency lock is unchanged.
+
+The local backend requires Linux with **Landlock ABI >=6** and libseccomp. The reference host reports ABI 8. This is a host-kernel requirement; selecting an Ubuntu base image alone does not supply it. File contents and writes are restricted, while path metadata remains visible. Worker networking and forks are denied; Cargo's local socketpair IPC is permitted inside the build boundary.
+
+For an existing generated module, reproduce the build and measurements without invoking Muse:
+
+```bash
+xargs -a repro/stage1-system-packages.lock sudo apt-get install --yes
+python -m algomini check-codec plugins/muse-telemetry-v1/codec.rs
+```
+
+Local development uses no Docker. Cloud Docker packaging and an equivalent container execution backend remain later work; the current backend fails instead of executing uncontained code on an incompatible host. Stage 2 will freeze and harden the complete evaluator and its timing protocol.

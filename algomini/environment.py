@@ -113,7 +113,7 @@ def doctor(root, cfg, api=False):
     return result
 
 
-def snapshot(root, cfg):
+def snapshot(root, cfg, *, destination="repro/environment.json", write_locks=True):
     tools = {}
     for name, argv in {**TOOLS, "muse": [str(root / cfg["coder"]["executable"]), "--version"]}.items():
         executable = shutil.which(argv[0])
@@ -134,7 +134,9 @@ def snapshot(root, cfg):
               "source_sha256": {path.relative_to(root).as_posix(): sha256(path)
                                 for path in sorted((root / "algomini").glob("*.py"))},
               "git_head": command_output(["git", "-C", str(root), "rev-parse", "HEAD"])}
-    write_json(root / "repro/environment.json", result)
+    write_json(root / destination, result)
+    if not write_locks:
+        return result
     lock = "# Exact Python distributions captured by python -m algomini versions.\n"
     lock += "\n".join(f"{name}=={version}" for name, version in sorted(packages.items())
                       if name.lower() not in {"pip", "setuptools", "wheel"}) + "\n"
