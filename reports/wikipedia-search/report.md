@@ -2,6 +2,8 @@
 
 The selected text codec produces a **260,727-byte complete archive**, compared with **290,783 bytes for xz -9e**, on the previously examined first 1,000,000 enwik8 bytes: **10.34% smaller**. Exact reconstruction passes. Median fresh-process decode throughput is **2.18 MiB/s**, peak decode RSS **69.13 MiB**, and encoding takes **0.68 seconds**. This is a win against the six configured baselines on a development benchmark, not a claim about all Wikipedia or the best published enwik8 compressor.
 
+After selection was committed, the same frozen codec produced **272,671 bytes versus xz's 302,421** on the reserved later 1 MB window: **9.84% smaller**, with exact reconstruction. It wins on size but misses the declared 10% target on this window. No source, parameters, model or selection changes followed that result.
+
 The user explicitly made speed a secondary metric. This campaign ranks complete archive bytes first and throughput second for equal sizes. Exact reconstruction, the 256 MiB worker cap, and 30-second encode/10-second decode deadlines remain mandatory. The old telemetry 10 MiB/s gate is reported as false; its `meets_development_targets=false` field remains intact. Wikipedia eligibility follows the separate committed [objective](objective.json). The 10% archive target is met.
 
 | Method | Complete archive bytes |
@@ -32,7 +34,14 @@ The first 1 MB prefix was already known and used for selection. The zstd referen
 
 The exact source, empty model, build, development result, baseline policy, corpus manifest, objective, evaluator and final verifier are pinned by [the freeze](../../repro/wikipedia-freeze.json). The verifier requires that exact freeze to be committed before access, durably claims the run before reading the window, measures all six baselines with the same dictionary and preserves a single terminal outcome. Interruptions and failures consume the attempt. A cached replay never reads the window or measures again. No tuning follows the final outcome. This checks transfer to one later window of a public corpus, not independent generalization.
 
-**Status at the pre-verification commit:** selection frozen; final window unopened. The final result will be committed under `verification/result.json` after this commit, along with its consumed receipt and checksummed terminal record.
+The pre-verification commit is **`ebc1473`**, and the frozen protocol ID is `36e4985c50d3d18a6faa93e4558136804ade4ae3c2128114ca4802f6f9ee15ca`. The [final result](verification/result.json), [consumed receipt](verification/consumed.json) and [terminal checksums](verification/terminal.json) preserve the only attempt. The input SHA-256 is `bce2c189245585a8ab00d7059b064449ac49c040470e92fc4a8c6911fc6a045e`.
+
+| Window | Candidate bytes | Best baseline bytes | Gain | Decode MiB/s | Peak decode RSS |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Development, offset 0 | 260,727 | 290,783 | 10.34% | 2.18 | 69.13 MiB |
+| Final, offset 10,000,000 | 272,671 | 302,421 | 9.84% | 2.37 | 72.21 MiB |
+
+Both windows meet exact reconstruction, memory and hard time limits. The final size-first win is true, its 10% gain gate is false, and the legacy speed gate remains false. The result retains all these distinctions. Shared retrieval receives development findings only; the final-window observation is marked `split=test` and excluded from its catalog.
 
 ## Reproduce and use
 
@@ -49,4 +58,11 @@ python -m pytest -q
 
 The source plugin is `wk-3169dda381d9c072`. The existing plugin encoder/decoder can select it by ID; it remains experimental and separate from the installed telemetry package. No telemetry freeze, sealed evidence or installed release was replaced. General release packaging and cloud execution remain later work.
 
-Validation before final-window access: **97 Python tests passed**; evaluator, telemetry candidate and environment version checks passed. The final report will include verification/replay and shared-memory export checks.
+For a local input of at most 2 MiB, use the dedicated native evaluator entry point. These commands require the pinned local compiler/runtime, make no model calls and refuse to overwrite output:
+
+```bash
+python -m algomini.evaluator encode wk-3169dda381d9c072 sample.xml sample.alc
+python -m algomini.evaluator decode sample.alc restored/
+```
+
+Validation: **97 Python tests passed**; evaluator, telemetry candidate and environment version checks passed. An actual replay with corpus access and benchmark calls denied returned the stored final result unchanged. The updated skill and development observations were exported with the portable semantic index; final-window evidence is excluded from proposal retrieval.
