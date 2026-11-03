@@ -25,3 +25,10 @@ Branch: `midstage2/text-e2e`, stacked on M1.
 ## Boundaries
 
 The reusable lab is a preparation/research API, separate from acceptance scoring. New tools cannot change the existing evaluator. Embedding inference is optional and local, isolated from the original Python environment; no heavyweight model framework is required by the core CLI. Cloud scheduling, distributed budgets, remote publishing and the Rust client remain later work. This work provides explicit workspace paths and JSON results that a future Docker/job wrapper can invoke directly.
+
+
+## Delivered
+
+M1 is committed as `6be3e91`: 87 Python and three Rust tests pass, the core CLI runs without site packages, and real local semantic retrieval is checked on a 256-skill synthetic library. Published telemetry pins and the original environment remain unchanged.
+
+M2 passes exact reconstruction of all 1,000,000 prefix bytes through clean installation after original deletion, prepares independent XML/JSON campaigns, and compares four dictionary-free baselines. The existing codec is 3.23% larger than xz on this fixture; that limitation is retained in the reviewed skill and index. Cached replay denies corpus/credential reads and new codec/embedding work. The final suite passes 91 Python tests, including historical CLI failure handling; the core wheel installs and runs in an empty environment without scientific/model packages. Final checks and reproduction evidence live in `reports/midstage2/` and `repro/midstage2-environment.json`.

@@ -59,7 +59,7 @@ def main():
         root, cfg = load_config(args.config)
         from . import dataset, environment, lab
         if args.command in lab_cli.COMMANDS:
-            result = lab_cli.run(args, root)
+            result = lab_cli.run(args, root, cfg)
         elif args.command == "bootstrap-muse":
             result = environment.bootstrap_muse(root, cfg)
         elif args.command == "versions":

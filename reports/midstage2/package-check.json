@@ -1,0 +1,10 @@
+{
+  "core_wheel_built_without_dependency_resolution": true,
+  "fixture_data_model_weights_and_reports_excluded_from_wheel": true,
+  "installed_cli_runs_outside_source_checkout_with_explicit_config": true,
+  "installed_without_dependencies_in_empty_venv": true,
+  "ok": true,
+  "registered_probes": 4,
+  "runtime_dependencies": 0,
+  "scientific_and_embedding_packages_absent": true
+}

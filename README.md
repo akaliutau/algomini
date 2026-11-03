@@ -44,3 +44,11 @@ python -m pytest -q
 `stage5` verifies and replays the stored final outcome. It does not repeat sealed measurements. The installed package decodes without a compiler; current runtime prerequisites are Linux x86_64, Python, Landlock and the pinned native libraries.
 
 See [reproduction instructions](repro/README.md), [verification/install contracts](docs/verification.md), and the [two maintenance stages](docs/maintenance-plan.md). Cloud execution and a general paid-generation campaign controller remain later work.
+
+## Complex-text integration
+
+```bash
+python -m algomini text-e2e
+```
+
+The [M2 integration](reports/midstage2/report.md) reconstructs exactly the first **1,000,000 Wikipedia bytes** through a fresh compiled installation after deleting the supplied original. It also exercises independent XML/JSON campaign preparation, shared semantic retrieval and four native baselines. The existing telemetry codec is **3.23% larger than xz** here; this verifies fallback and integration, not a new text-specialist compression win. Cached replay denies original-data reads and new codec/embedding work. See [fixture provenance](datasets/wikipedia/README.md).

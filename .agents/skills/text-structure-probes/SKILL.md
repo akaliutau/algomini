@@ -8,3 +8,5 @@ Use `python -m algomini lab list` to discover the available probes. Run `byte-st
 Repeated words and schemas suggest dictionary, prefix or template experiments. Their occurrence counts do not establish a compression improvement: test the representation with literal tables, IDs, lengths and exceptions included. Preserve original whitespace, numeric spelling, entity escaping, key order and duplicate keys.
 
 Treat tools as research capabilities and this skill as an investigation procedure. Keep probe versions, input hashes and negative findings with each campaign. Reuse a measured mechanism only after checking its applicability to the new workload. The final codec may use a reversible fallback when a text-specific transform is unsupported.
+
+The [Wikipedia integration](../../../reports/midstage2/report.md) reconstructs exactly the first 1,000,000 enwik8 bytes with the existing telemetry codec, but its 300,163-byte collection is 3.23% larger than xz. Treat this as a fallback/integration check, not evidence that a CSV mechanism improves general text. Investigate a text-specific representation before claiming a compression benefit.

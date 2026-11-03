@@ -141,3 +141,22 @@ The core preparation/probe/keyword commands require Python 3.12+ and the standar
 For exact local semantic reproduction, create `.tools/memory-env` with `--system-site-packages` from that reference environment, install `repro/requirements-memory.lock`, then run `python tools/bootstrap_memory.py`. The bootstrap checks the exact model revision/file hashes in `memory-model.json`; it does not use the model API key. `memory/index-manifest.json` binds the portable catalog/vectors. Fresh campaign caches import these vectors and embed only new text. See [the laboratory guide](../docs/laboratory.md) for commands and limitations.
 
 `reports/midstage1/` records 87 passing Python tests, the core CLI without site packages, incremental/portable retrieval, campaign isolation and a local 256-skill maintenance measurement. The published evaluator/candidate/sealed pins still verify, cached Stage 5 replay succeeds, and the spending ledger is unchanged.
+
+
+## M2: isolated complex-text end-to-end integration
+
+`midstage2-environment.json` records the final source and original environment. `datasets/wikipedia/manifest.json` pins the enwik8 archive, published full-member checksums and exactly its first 1,000,000 bytes. Only provenance/hashes/reports are committed; corpus and compressed fixture bytes remain ignored.
+
+```bash
+python -m algomini text-e2e
+```
+
+This verifies and returns the committed integration record without reading the corpus or launching codecs/embeddings again. To perform an independent fresh installation/measurement, retain the first report and supply an unused output directory:
+
+```bash
+python -m algomini text-e2e --output reports/text-e2e-repeat-01
+```
+
+A first uncached execution downloads the 36,445,475-byte ZIP if absent, verifies its archive SHA-256 and streams the published full member through MD5/SHA-1 verification while retaining only the bounded prefix. The actual encode/baseline inputs are each 1,000,000 bytes. The existing compiled package is copied into a fresh directory; isolated Python encode is followed by deletion of the supplied original and exact decode. Two temporary campaign workspaces separately exercise XML and JSON probes/retrieval. Install the optional memory environment above to reproduce semantic mode; otherwise preparation explicitly reports keyword retrieval.
+
+The existing telemetry codec reconstructs exactly but uses 300,163 bytes versus xz 290,783 (3.23% larger). This is an integration/fallback result, not another sealed result or a new generated text algorithm. `reports/midstage2/replay-check.json` records successful replay with original-data/credential reads and new codec/embedding processes denied. The updated text skill and portable index retain this counterexample to assuming a CSV win transfers to general text.

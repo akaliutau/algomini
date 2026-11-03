@@ -124,3 +124,16 @@ def test_core_cli_runs_without_site_packages():
     result = subprocess.run([sys.executable, "-S", "-m", "algomini", "lab", "list"],
                             cwd=Path(__file__).parents[1], capture_output=True, text=True, check=True)
     assert len(json.loads(result.stdout)["probes"]) == 4
+
+
+@pytest.mark.parametrize("failure", ["preflight", "versions"])
+def test_historical_stage0_failures_return_structured_cli_results(tmp_path, monkeypatch, failure):
+    from algomini import foundation
+    expected = {"ok": False, "reason": failure}
+    monkeypatch.setattr(foundation.environment, "doctor", lambda *args: expected if failure == "preflight" else {"ok": True})
+    if failure == "versions":
+        (tmp_path / "repro").mkdir()
+        (tmp_path / "repro/environment.json").write_text("{}")
+        monkeypatch.setattr(foundation.environment, "verify_versions", lambda *args: expected)
+    monkeypatch.setattr(foundation.dataset, "prepare", lambda *args: pytest.fail("failed preflight continued into data preparation"))
+    assert foundation.run(tmp_path, {}) == expected

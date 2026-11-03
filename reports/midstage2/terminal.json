@@ -1,0 +1,7 @@
+{
+  "artifacts": {
+    "campaigns/json-control.json": "58ee5fce5ebd0618119b53f064d940be9ed08e2f4838462019adc7004e5214f6",
+    "campaigns/wikipedia.json": "ca5e544ca2b10cd3c0fc3a98bc1ac4e365111e67657e24fae358d5c8fe5eee79"
+  },
+  "result_sha256": "6adaa62e5167ec918e778b397a56d851fd5f14d12e3b8d925ee0cc06166ca215"
+}

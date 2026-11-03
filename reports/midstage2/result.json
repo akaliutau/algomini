@@ -1,0 +1,740 @@
+{
+  "archive_bytes": 300163,
+  "archive_gain": -0.03225773171058832,
+  "archive_sha256": "6d63c0e4634236395ed0eb3de8286fe269355d7eb81b0cb3087252f45f00b5d1",
+  "baselines": [
+    {
+      "archive_bytes": 355402,
+      "archive_sha256": "4ea054dd6b2fb9fc284e299907a81123d332aeedf58e25c4dbac000d2d1fd166",
+      "block_bytes": 355350,
+      "collection_bytes": 52,
+      "files": [
+        {
+          "block_bytes": 355350,
+          "decode": {
+            "decode_mib_per_second": 95.54289612343905,
+            "median_execution_seconds": 0.009981635004805867,
+            "peak_rss_kib": 34136,
+            "repetitions": [
+              {
+                "execution_seconds": 0.011474124999949709,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 32472,
+                "setup_seconds": 0.11951026500173612,
+                "system_seconds": 0.046703999999999996,
+                "user_seconds": 0.082215,
+                "wall_seconds": 0.13098439000168582
+              },
+              {
+                "execution_seconds": 0.009981635004805867,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 33240,
+                "setup_seconds": 0.12582802399992943,
+                "system_seconds": 0.055007,
+                "user_seconds": 0.07987799999999999,
+                "wall_seconds": 0.1358096590047353
+              },
+              {
+                "execution_seconds": 0.008888953001587652,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 34136,
+                "setup_seconds": 0.13802336899971124,
+                "system_seconds": 0.048903999999999996,
+                "user_seconds": 0.096855,
+                "wall_seconds": 0.1469123220012989
+              }
+            ]
+          },
+          "encode": {
+            "execution_seconds": 0.06899976500426419,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 31960,
+            "setup_seconds": 0.13383523599623004,
+            "system_seconds": 0.064484,
+            "user_seconds": 0.13386399999999998,
+            "wall_seconds": 0.20283500100049423
+          },
+          "input_bytes": 1000000,
+          "label": "enwik8-first-1000000.xml"
+        }
+      ],
+      "id": "gzip-9",
+      "model_bytes": 0,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 290783,
+      "archive_sha256": "760b27cb69b215542b7ade88bb2344390fc57c2c2a23423fc2d012baad092a27",
+      "block_bytes": 290732,
+      "collection_bytes": 51,
+      "files": [
+        {
+          "block_bytes": 290732,
+          "decode": {
+            "decode_mib_per_second": 58.898590550958325,
+            "median_execution_seconds": 0.01619180200214032,
+            "peak_rss_kib": 37012,
+            "repetitions": [
+              {
+                "execution_seconds": 0.0112858829961624,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 35416,
+                "setup_seconds": 0.1507691180013353,
+                "system_seconds": 0.054257,
+                "user_seconds": 0.106309,
+                "wall_seconds": 0.1620550009974977
+              },
+              {
+                "execution_seconds": 0.01619180200214032,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 35988,
+                "setup_seconds": 0.12732572599634295,
+                "system_seconds": 0.046562,
+                "user_seconds": 0.095521,
+                "wall_seconds": 0.14351752799848327
+              },
+              {
+                "execution_seconds": 0.01706639900658047,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 37012,
+                "setup_seconds": 0.13609500299935462,
+                "system_seconds": 0.047037999999999996,
+                "user_seconds": 0.10535,
+                "wall_seconds": 0.1531614020059351
+              }
+            ]
+          },
+          "encode": {
+            "execution_seconds": 0.4140716550027719,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 68908,
+            "setup_seconds": 0.1388840209983755,
+            "system_seconds": 0.104881,
+            "user_seconds": 0.44494799999999995,
+            "wall_seconds": 0.5529556760011474
+          },
+          "input_bytes": 1000000,
+          "label": "enwik8-first-1000000.xml"
+        }
+      ],
+      "id": "xz-9e",
+      "model_bytes": 0,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 300120,
+      "archive_sha256": "7e07282877f1660d63e240ba23140c4b0c65c5548dc0b4c78e3fc2d16b205ae1",
+      "block_bytes": 300067,
+      "collection_bytes": 53,
+      "files": [
+        {
+          "block_bytes": 300067,
+          "decode": {
+            "decode_mib_per_second": 164.8151436306537,
+            "median_execution_seconds": 0.0057863270048983395,
+            "peak_rss_kib": 38164,
+            "repetitions": [
+              {
+                "execution_seconds": 0.005873677997442428,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 38164,
+                "setup_seconds": 0.17695177900168346,
+                "system_seconds": 0.056401,
+                "user_seconds": 0.126434,
+                "wall_seconds": 0.1828254569991259
+              },
+              {
+                "execution_seconds": 0.0057863270048983395,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 38164,
+                "setup_seconds": 0.1358064559972263,
+                "system_seconds": 0.050107,
+                "user_seconds": 0.090569,
+                "wall_seconds": 0.14159278300212463
+              },
+              {
+                "execution_seconds": 0.005416508996859193,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 38164,
+                "setup_seconds": 0.13389262800046708,
+                "system_seconds": 0.056149,
+                "user_seconds": 0.08325099999999999,
+                "wall_seconds": 0.13930913699732628
+              }
+            ]
+          },
+          "encode": {
+            "execution_seconds": 0.34070153799984837,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 37908,
+            "setup_seconds": 0.17519564500253182,
+            "system_seconds": 0.076352,
+            "user_seconds": 0.437227,
+            "wall_seconds": 0.5158971830023802
+          },
+          "input_bytes": 1000000,
+          "label": "enwik8-first-1000000.xml"
+        }
+      ],
+      "id": "zstd-19",
+      "model_bytes": 0,
+      "roundtrip": true
+    },
+    {
+      "archive_bytes": 300113,
+      "archive_sha256": "5e40fbb1adc0c15376bfab2b6c6189de5be228e26ec74acd3a3c75ef59dd3347",
+      "block_bytes": 300060,
+      "collection_bytes": 53,
+      "files": [
+        {
+          "block_bytes": 300060,
+          "decode": {
+            "decode_mib_per_second": 146.4971487481643,
+            "median_execution_seconds": 0.006509848994028289,
+            "peak_rss_kib": 39316,
+            "repetitions": [
+              {
+                "execution_seconds": 0.006509848994028289,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 38420,
+                "setup_seconds": 0.14432766100071603,
+                "system_seconds": 0.076648,
+                "user_seconds": 0.074062,
+                "wall_seconds": 0.15083750999474432
+              },
+              {
+                "execution_seconds": 0.005519664999155793,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 39316,
+                "setup_seconds": 0.1727903700011666,
+                "system_seconds": 0.064307,
+                "user_seconds": 0.113271,
+                "wall_seconds": 0.1783100350003224
+              },
+              {
+                "execution_seconds": 0.0065818049988592975,
+                "isolation": "landlock-abi6+-libseccomp",
+                "peak_rss_kib": 39316,
+                "setup_seconds": 0.124357056003646,
+                "system_seconds": 0.055768,
+                "user_seconds": 0.07427099999999999,
+                "wall_seconds": 0.1309388610025053
+              }
+            ]
+          },
+          "encode": {
+            "execution_seconds": 0.3331559980069869,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 38164,
+            "setup_seconds": 0.14342441699409392,
+            "system_seconds": 0.073188,
+            "user_seconds": 0.400993,
+            "wall_seconds": 0.47658041500108084
+          },
+          "input_bytes": 1000000,
+          "label": "enwik8-first-1000000.xml"
+        }
+      ],
+      "id": "zstd-22",
+      "model_bytes": 0,
+      "roundtrip": true
+    }
+  ],
+  "best_baseline": "xz-9e",
+  "blocks": 1,
+  "campaigns": {
+    "json-control": {
+      "campaign": {
+        "family": "json",
+        "id": "json-control",
+        "input_bytes": 64,
+        "input_sha256": "f8e631f4671e4254c8a14c7d48e26510127efdb384e13e09f5a2a50dff7e8802",
+        "probe_bytes": 65536,
+        "sample_name": "events.jsonl",
+        "schema_version": 1,
+        "scope": "Research/integration sample; not unseen acceptance evidence",
+        "split": "train"
+      },
+      "coder_model_calls": 0,
+      "docker_used": false,
+      "paid_model_calls": 0,
+      "probes": [
+        {
+          "elapsed_seconds": 9.93249996099621e-05,
+          "facts": {
+            "crlf": 0,
+            "distinct_bytes": 20,
+            "entropy_bits_per_byte": 3.94244516693109,
+            "lf": 2,
+            "lines": 2,
+            "maximum_line_bytes": 35,
+            "nul": 0,
+            "repeated_lines": 0,
+            "utf8": true
+          },
+          "family": "json",
+          "implementation_sha256": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+          "input_bytes": 64,
+          "input_sha256": "f8e631f4671e4254c8a14c7d48e26510127efdb384e13e09f5a2a50dff7e8802",
+          "probe_id": "byte-structure",
+          "schema_version": 1,
+          "scope": "Research findings; not an acceptance score or compression gain",
+          "version": 1
+        },
+        {
+          "elapsed_seconds": 0.00015887700283201411,
+          "facts": {
+            "common_words": [
+              [
+                "x",
+                3
+              ],
+              [
+                "event",
+                2
+              ],
+              [
+                "sample",
+                2
+              ],
+              [
+                "e0",
+                1
+              ]
+            ],
+            "distinct_words": 4,
+            "hypothesis": "Compare dictionary/template savings after counting literals, IDs and exceptions",
+            "repeated_word_pairs": 2,
+            "words": 8
+          },
+          "family": "json",
+          "implementation_sha256": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+          "input_bytes": 64,
+          "input_sha256": "f8e631f4671e4254c8a14c7d48e26510127efdb384e13e09f5a2a50dff7e8802",
+          "probe_id": "text-repetition",
+          "schema_version": 1,
+          "scope": "Research findings; not an acceptance score or compression gain",
+          "version": 1
+        },
+        {
+          "elapsed_seconds": 0.0003041000018129125,
+          "facts": {
+            "common_keys": [
+              [
+                "x",
+                3
+              ],
+              [
+                "event",
+                2
+              ]
+            ],
+            "distinct_number_spellings": 3,
+            "duplicate_keys": 1,
+            "exponent_numbers": 1,
+            "hypothesis": "Test repeated-key templates while retaining key order, duplicates and exact lexemes",
+            "json_lines": true,
+            "negative_zero_spellings": 1,
+            "objects": 2,
+            "records": 2,
+            "supported": true
+          },
+          "family": "json",
+          "implementation_sha256": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+          "input_bytes": 64,
+          "input_sha256": "f8e631f4671e4254c8a14c7d48e26510127efdb384e13e09f5a2a50dff7e8802",
+          "probe_id": "json-lexemes",
+          "schema_version": 1,
+          "scope": "Research findings; not an acceptance score or compression gain",
+          "version": 1
+        }
+      ],
+      "reproduce": [
+        "python",
+        "-m",
+        "algomini",
+        "campaign",
+        "prepare",
+        "/tmp/algomini-text-campaigns-64gwr5b5/json-control"
+      ],
+      "research_query": "json Compare dictionary/template savings after counting literals, IDs and exceptions Test repeated-key templates while retaining key order, duplicates and exact lexemes",
+      "retrieved": [
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "Repeated words and schemas suggest dictionary, prefix or template experiments. Their occurrence counts do not establish a compression improvement: test the representation with literal tables, IDs, lengths and exceptions included. Preserve original whitespace, numeric spelling, entity escaping, key order and duplicate keys.",
+          "id": "text-structure-probes",
+          "kind": "skill",
+          "path": ".agents/skills/text-structure-probes/SKILL.md",
+          "retrieval": "hybrid",
+          "section": 1,
+          "source_sha256": "a2c92e51d17140822961bd14d92723c4d28950d120a9a9ce5f062c315ecf4497"
+        },
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "{\"description\": \"Investigate repeated words, adjacent phrases and dictionary candidates\", \"families\": [\"text\", \"xml\", \"json\", \"csv\"], \"id\": \"text-repetition\", \"max_input_bytes\": 2097152, \"version\": 1}",
+          "id": "text-repetition",
+          "kind": "tool",
+          "path": "laboratory/tools.json",
+          "retrieval": "hybrid",
+          "section": 0,
+          "source_sha256": "3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"
+        },
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "{\"description\": \"Inspect JSON/JSONL keys, duplicate keys and exact numeric spellings\", \"families\": [\"json\"], \"id\": \"json-lexemes\", \"max_input_bytes\": 2097152, \"version\": 1}",
+          "id": "json-lexemes",
+          "kind": "tool",
+          "path": "laboratory/tools.json",
+          "retrieval": "hybrid",
+          "section": 0,
+          "source_sha256": "3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"
+        },
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "{\"description\": \"Measure byte entropy, UTF-8, line endings and repeated lines\", \"families\": [\"*\"], \"id\": \"byte-structure\", \"max_input_bytes\": 2097152, \"version\": 1}",
+          "id": "byte-structure",
+          "kind": "tool",
+          "path": "laboratory/tools.json",
+          "retrieval": "hybrid",
+          "section": 0,
+          "source_sha256": "3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"
+        }
+      ],
+      "retrieved_characters": 860,
+      "schema_version": 1
+    },
+    "wikipedia": {
+      "campaign": {
+        "family": "xml",
+        "id": "wikipedia",
+        "input_bytes": 1000000,
+        "input_sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad",
+        "probe_bytes": 65536,
+        "sample_name": "enwik8-first-1000000.xml",
+        "schema_version": 1,
+        "scope": "Research/integration sample; not unseen acceptance evidence",
+        "split": "train"
+      },
+      "coder_model_calls": 0,
+      "docker_used": false,
+      "paid_model_calls": 0,
+      "probes": [
+        {
+          "elapsed_seconds": 0.002137304996722378,
+          "facts": {
+            "crlf": 0,
+            "distinct_bytes": 155,
+            "entropy_bits_per_byte": 4.96899959588937,
+            "lf": 538,
+            "lines": 539,
+            "maximum_line_bytes": 1584,
+            "nul": 0,
+            "repeated_lines": 182,
+            "utf8": true
+          },
+          "family": "xml",
+          "implementation_sha256": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+          "input_bytes": 65536,
+          "input_sha256": "05fc5f44993ef0557959db76bf47e45badb2dd9c69d93ce08911935b5e52bf40",
+          "probe_id": "byte-structure",
+          "schema_version": 1,
+          "scope": "Research findings; not an acceptance score or compression gain",
+          "version": 1
+        },
+        {
+          "elapsed_seconds": 0.00341154800116783,
+          "facts": {
+            "common_words": [
+              [
+                "the",
+                392
+              ],
+              [
+                "of",
+                312
+              ],
+              [
+                "and",
+                246
+              ],
+              [
+                "in",
+                156
+              ],
+              [
+                "to",
+                144
+              ],
+              [
+                "quot",
+                144
+              ],
+              [
+                "a",
+                119
+              ],
+              [
+                "as",
+                93
+              ],
+              [
+                "anarchism",
+                84
+              ],
+              [
+                "is",
+                80
+              ],
+              [
+                "lt",
+                73
+              ],
+              [
+                "gt",
+                72
+              ]
+            ],
+            "distinct_words": 2685,
+            "hypothesis": "Compare dictionary/template savings after counting literals, IDs and exceptions",
+            "repeated_word_pairs": 2019,
+            "words": 8861
+          },
+          "family": "xml",
+          "implementation_sha256": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+          "input_bytes": 65536,
+          "input_sha256": "05fc5f44993ef0557959db76bf47e45badb2dd9c69d93ce08911935b5e52bf40",
+          "probe_id": "text-repetition",
+          "schema_version": 1,
+          "scope": "Research findings; not an acceptance score or compression gain",
+          "version": 1
+        }
+      ],
+      "reproduce": [
+        "python",
+        "-m",
+        "algomini",
+        "campaign",
+        "prepare",
+        "/tmp/algomini-text-campaigns-64gwr5b5/wikipedia"
+      ],
+      "research_query": "xml Compare dictionary/template savings after counting literals, IDs and exceptions",
+      "retrieved": [
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "Repeated words and schemas suggest dictionary, prefix or template experiments. Their occurrence counts do not establish a compression improvement: test the representation with literal tables, IDs, lengths and exceptions included. Preserve original whitespace, numeric spelling, entity escaping, key order and duplicate keys.",
+          "id": "text-structure-probes",
+          "kind": "skill",
+          "path": ".agents/skills/text-structure-probes/SKILL.md",
+          "retrieval": "hybrid",
+          "section": 1,
+          "source_sha256": "a2c92e51d17140822961bd14d92723c4d28950d120a9a9ce5f062c315ecf4497"
+        },
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "{\"description\": \"Investigate repeated words, adjacent phrases and dictionary candidates\", \"families\": [\"text\", \"xml\", \"json\", \"csv\"], \"id\": \"text-repetition\", \"max_input_bytes\": 2097152, \"version\": 1}",
+          "id": "text-repetition",
+          "kind": "tool",
+          "path": "laboratory/tools.json",
+          "retrieval": "hybrid",
+          "section": 0,
+          "source_sha256": "3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"
+        },
+        {
+          "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+          "excerpt": "{\"description\": \"Measure byte entropy, UTF-8, line endings and repeated lines\", \"families\": [\"*\"], \"id\": \"byte-structure\", \"max_input_bytes\": 2097152, \"version\": 1}",
+          "id": "byte-structure",
+          "kind": "tool",
+          "path": "laboratory/tools.json",
+          "retrieval": "hybrid",
+          "section": 0,
+          "source_sha256": "3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"
+        }
+      ],
+      "retrieved_characters": 688,
+      "schema_version": 1
+    }
+  },
+  "candidate_training_calls": 0,
+  "definition": {
+    "baseline_definitions": [
+      {
+        "decode": [
+          "gzip",
+          "-d",
+          "-c"
+        ],
+        "encode": [
+          "gzip",
+          "-n",
+          "-9",
+          "-c"
+        ],
+        "id": "gzip-9"
+      },
+      {
+        "decode": [
+          "xz",
+          "-d",
+          "-c"
+        ],
+        "encode": [
+          "xz",
+          "-9e",
+          "--threads=1",
+          "--check=crc64",
+          "-c"
+        ],
+        "id": "xz-9e"
+      },
+      {
+        "decode": [
+          "zstd",
+          "-q",
+          "-d",
+          "-c"
+        ],
+        "encode": [
+          "zstd",
+          "-q",
+          "-T1",
+          "--stream-size={input_bytes}",
+          "-19",
+          "-c"
+        ],
+        "id": "zstd-19"
+      },
+      {
+        "decode": [
+          "zstd",
+          "-q",
+          "-d",
+          "-c"
+        ],
+        "encode": [
+          "zstd",
+          "-q",
+          "-T1",
+          "--stream-size={input_bytes}",
+          "--ultra",
+          "-22",
+          "-c"
+        ],
+        "id": "zstd-22"
+      },
+      {
+        "decode": [
+          "zstd",
+          "-q",
+          "-D",
+          "{dictionary}",
+          "-d",
+          "-c"
+        ],
+        "dictionary": true,
+        "encode": [
+          "zstd",
+          "-q",
+          "-T1",
+          "--stream-size={input_bytes}",
+          "-19",
+          "-D",
+          "{dictionary}",
+          "-c"
+        ],
+        "id": "zstd-dict-19"
+      },
+      {
+        "decode": [
+          "zstd",
+          "-q",
+          "-D",
+          "{dictionary}",
+          "-d",
+          "-c"
+        ],
+        "dictionary": true,
+        "encode": [
+          "zstd",
+          "-q",
+          "-T1",
+          "--stream-size={input_bytes}",
+          "--ultra",
+          "-22",
+          "-D",
+          "{dictionary}",
+          "-c"
+        ],
+        "id": "zstd-dict-22"
+      }
+    ],
+    "evaluator_freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+    "fixture_manifest_sha256": "c70c1989aed4b7d1cf5d8665e441a7053c7e834c6203f95ba610bb29216e7a98",
+    "implementations": {
+      "_embed": "54d18536d3805039d1660e44f1acb1ccd385934714910e2c05269f4ad54c1a36",
+      "campaigns": "bc21e32bee43e65d98b34b7ede4f99e3768976995e8929097336f199a54082f7",
+      "labtools": "6b92c6d34c9909aadd609ffd331301073718fee26779eb6b6d42c3cf1dddf85a",
+      "memory": "2f72b64a8ad8713d70932fa805a2fd91b0f2b5fac60fe319d048d5e1b75abbed",
+      "semantic": "42b4dec8840a314478d0ff68d00555caffeeea38edf4df46b76601f5128486ad",
+      "text_e2e": "f4dae3c42ddc00a980f96d30f244ccf74daecb933de950a2b68c524b670fad6a"
+    },
+    "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+    "schema_version": 1
+  },
+  "docker_used": false,
+  "fixture": {
+    "archive": {
+      "bytes": 36445475,
+      "sha256": "547994d9980ebed1288380d652999f38a14fe291a6247c157c3d33d4932534bc",
+      "url": "https://mattmahoney.net/dc/enwik8.zip"
+    },
+    "id": "wikipedia-enwik8-first-1000000",
+    "member": {
+      "bytes": 100000000,
+      "md5": "a1fa5ffddb56f4953e226637dabbb36a",
+      "name": "enwik8",
+      "sha1": "57b8363b814821dc9d47aa4d41f58733519076b2"
+    },
+    "prefix": {
+      "bytes": 1000000,
+      "cache_path": ".cache/datasets/enwik8-first-1000000.xml",
+      "offset": 0,
+      "sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad"
+    },
+    "schema_version": 1,
+    "scope": "Public integration fixture; no novel algorithm, unseen-data or compression-win claim",
+    "source": {
+      "attribution": "Wikipedia contributors; benchmark prepared by Matt Mahoney",
+      "description": "English Wikipedia XML dump from March 2006; byte-exact prefix, not a complete XML document",
+      "homepage": "https://mattmahoney.net/dc/textdata.html",
+      "redistribution": "Raw and compressed corpus remain ignored; reproduce from the upstream benchmark",
+      "rights_reference": "https://en.wikipedia.org/wiki/Wikipedia:Copyrights"
+    },
+    "title": "First 1,000,000 bytes of enwik8"
+  },
+  "input_bytes": 1000000,
+  "input_sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad",
+  "installation": {
+    "compiler_not_needed": true,
+    "decoded_files": [
+      {
+        "bytes": 1000000,
+        "label": "enwik8-first-1000000.xml",
+        "sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad"
+      }
+    ],
+    "fresh_install_and_cwd": true,
+    "input_bytes": 1000000,
+    "isolated_python_imports": true,
+    "native_workers_contained": true,
+    "ok": true,
+    "original_removed_before_decode": true,
+    "sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad"
+  },
+  "key": "a5d0d3d3c128f590f68e903b40582e7eea854b2153c4bcc780dac957b4778bc9",
+  "model_bytes": 0,
+  "ok": true,
+  "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+  "paid_model_calls": 0,
+  "schema_version": 1,
+  "scope": "Public integration fixture; existing frozen codec, no generated text specialist or unseen-data claim"
+}

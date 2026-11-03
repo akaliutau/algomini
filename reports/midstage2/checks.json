@@ -1,0 +1,26 @@
+{
+  "actual_local_semantic_retrieval": true,
+  "budget_ledger_unchanged": true,
+  "candidate_training_calls": 0,
+  "clean_install_decode_after_original_deletion": true,
+  "context_characters": {
+    "json-control": 860,
+    "wikipedia": 688
+  },
+  "context_documents": {
+    "json-control": 4,
+    "wikipedia": 3
+  },
+  "docker_used": false,
+  "historical_preflight_failures_return_structured_results": true,
+  "independent_xml_json_campaigns": true,
+  "input_bytes": 1000000,
+  "input_sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad",
+  "ok": true,
+  "original_environment_and_locks_unchanged": true,
+  "paid_model_calls": 0,
+  "published_pinned_sources_and_rust_unchanged": true,
+  "published_protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "python_tests_passed": 91,
+  "rust_tests_passed_in_m1": 3
+}

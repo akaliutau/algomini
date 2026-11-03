@@ -37,13 +37,11 @@ def write_report(root, cfg, checks, profile, baselines):
 def run(root, cfg, check_api=False):
     checks = environment.doctor(root, cfg, check_api)
     if not checks["ok"]:
-        print(json.dumps(checks, indent=2))
-        return 1
+        return checks
     if (root / "repro/environment.json").exists():
         version_check = environment.verify_versions(root, cfg)
         if not version_check["ok"]:
-            print(json.dumps(version_check, indent=2))
-            return 1
+            return version_check
     else:
         environment.snapshot(root, cfg)
     manifest = dataset.prepare(root, cfg)
