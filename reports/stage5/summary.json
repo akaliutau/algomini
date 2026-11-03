@@ -1,0 +1,42 @@
+{
+  "candidate_freeze_id": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18",
+  "candidate_training_calls": 0,
+  "docker_used": false,
+  "installation": {
+    "all_sealed_hashes_match": true,
+    "clean_cwd_and_isolated_python_imports": true,
+    "compiler_or_dataset_not_required_by_runtime": true,
+    "decoded_bytes": 2429231,
+    "docker_used": false,
+    "files_decoded": 14,
+    "frozen_model_used": true,
+    "model_inference_calls": 0,
+    "ok": true,
+    "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+    "repo_and_development_paths_not_supplied": true,
+    "synthetic_original_removed_before_decode": true
+  },
+  "installed": "installed/s4-98e12bcd61e8117b0",
+  "model_inference_calls": 0,
+  "ok": true,
+  "package": "packages/s4-98e12bcd61e8117b0",
+  "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+  "protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "saving_including_standalone_bundle_bytes": -655696,
+  "score": {
+    "archive_gain": 0.18017676083066747,
+    "deployment_assumption": "Common runtime/libzstd already available; one complete candidate executable is incremental",
+    "deployment_saving_bytes": -341187,
+    "gates": {
+      "archive_gain": true,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "meets_development_targets": true,
+    "minimum_decode_mib_per_second": 29.756731139654626,
+    "peak_decode_rss_kib": 32040
+  },
+  "standalone_bundle_bytes": 705541,
+  "status": "passed"
+}

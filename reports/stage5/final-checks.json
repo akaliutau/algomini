@@ -1,0 +1,17 @@
+{
+  "all_14_inputs_in_all_six_baselines_and_candidate": true,
+  "budget_ledger_unchanged": true,
+  "candidate_training_calls": 0,
+  "docker_used": false,
+  "executable_mode_present": true,
+  "frozen_evaluator_and_candidate_unchanged": true,
+  "model_inference_calls": 0,
+  "ok": true,
+  "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+  "packaged_and_installed_hashes_match": true,
+  "pinned_sources_match_preseal_commit": true,
+  "preseal_commit": "d1f72d33092ffca197c41e7481dde2d5a02cb0e0",
+  "protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "python_tests_passed": 79,
+  "rust_tests_passed": 3
+}

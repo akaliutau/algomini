@@ -12,8 +12,15 @@
   },
   "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
   "schema_version": 1,
+  "sealed_evidence": {
+    "candidate_freeze_id": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18",
+    "package": "packages/s4-98e12bcd61e8117b0",
+    "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+    "protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+    "result_sha256": "7105352f9b3c7c1b0df73dfc2c6f465dc8060b900580291cea456f771372a6ba"
+  },
   "source": "codec.rs",
   "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
-  "status": "experimental",
+  "status": "verified",
   "worker_protocol_version": 1
 }

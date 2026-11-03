@@ -59,7 +59,7 @@ python -m algomini.evaluator encode my-codec-v1 input.csv output.alc
 python -m algomini.evaluator decode output.alc decoded/
 ```
 
-Local encode accepts one input of at most 2 MiB and an optional `--model model.bin` of at most 64 KiB; the model must come from a separately recorded train-only operation for research claims. Local decode selects the plugin from the collection. It verifies all blocks before writing and refuses to overwrite outputs. This general file utility is distinct from the development-only measurement loader. Do not give search access to sealed files through it. All shipped plugins remain `experimental` or `reference`; manifest discoverability is not an unseen-performance endorsement.
+Local encode accepts one input of at most 2 MiB and an optional `--model model.bin` of at most 64 KiB; the model must come from a separately recorded train-only operation for research claims. Local decode selects the plugin from the collection. It verifies all blocks before writing and refuses to overwrite outputs. This general file utility is distinct from the development-only measurement loader. Do not give search access to sealed files through it. Stage 2 plugins are `experimental` or `reference`; manifest discoverability alone is not an unseen-performance endorsement. Stage 5 can promote only the frozen selection after its single sealed verification; see [verification and installation](verification.md).
 
 The Stage 2 acceptance command registers `zstd-reference-v1` after the freeze and proves exact reconstruction with unchanged trusted hashes. Its handwritten source is explicitly a plumbing reference, not evidence of AI novelty.
 

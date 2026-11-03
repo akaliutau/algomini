@@ -1,0 +1,14 @@
+{
+  "all_sealed_hashes_match": true,
+  "clean_cwd_and_isolated_python_imports": true,
+  "compiler_or_dataset_not_required_by_runtime": true,
+  "decoded_bytes": 2429231,
+  "docker_used": false,
+  "files_decoded": 14,
+  "frozen_model_used": true,
+  "model_inference_calls": 0,
+  "ok": true,
+  "package_id": "fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb",
+  "repo_and_development_paths_not_supplied": true,
+  "synthetic_original_removed_before_decode": true
+}

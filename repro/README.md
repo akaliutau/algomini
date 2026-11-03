@@ -107,3 +107,28 @@ python -m algomini selected-status --build
 The first command replays committed requests/outcomes without inference; it refuses fresh generation after selection is frozen. The second verifies all frozen snapshots and the offline executable hash. `fresh-rebuild-check.json` records a separate empty-cache compilation that reproduces the executable exactly and decodes all validation archives using the frozen zero-byte model, without training. `replay-check.json` records generation disabled and an invocation hook rejecting every model call. `repeat-check.json` checks independent archive-size/hash repeatability for all eight methods.
 
 The active freeze binds compiler/native dependencies through the unchanged evaluator id. The later sealed verifier must load the frozen model, not retrain it, and evaluate this one candidate once. Cloud Docker packaging and target-host performance remain later work; no local Docker execution was used. See [refinement and freeze contracts](../docs/refinement.md).
+
+
+## Stage 5: reproduce the final evidence and compiled installation
+
+`stage5-environment.json` captures the same Python/native versions and final source hashes without rewriting earlier locks. No dependency was added. The source/model/evaluator pins remain unchanged. The verifier/protocol was committed as `d1f72d33092ffca197c41e7481dde2d5a02cb0e0` before the durable consumed receipt and private manifest access. Protocol id: `73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a`.
+
+A checkout containing the committed final reports and package can replay without dataset preparation, original files, credentials or inference:
+
+```bash
+python -m algomini versions --check
+python -m algomini selected-status --build
+python -m algomini stage5
+```
+
+The last command verifies and returns the stored result; it never repeats the sealed evaluation. `replay-check.json` records a successful replay with dataset/credential opens and new measurement workers explicitly denied, and unchanged receipt/result/terminal/archive hashes. The original run and its terminal outcome must be retained. Do not recreate the protocol, remove consumed markers, or replace the candidate to obtain another unseen result. All 14 bounded chunks reconstructed exactly: 226,800 candidate bytes versus xz 276,645 (18.02% gain). Per-chunk metadata, six baseline results, all measurements and the structured reference are preserved in `reports/stage5/result.json`.
+
+The compiled package needs Linux x86_64, Python 3.12+, Landlock ABI >=6 and the recorded libseccomp/libzstd binaries. Its runtime imports only the standard library; it does not build Rust or need research packages. The offline build verification above is a separate source-reproduction check using the frozen Rust/native toolchain. Install with the reviewed external package pin:
+
+```bash
+python -m algomini install-codec packages/s4-98e12bcd61e8117b0 installed/s4-98e12bcd61e8117b0 --package-id fd4de6ec7cc2fbbc395658a9905fb5e5f23fa145c41d1474fd0992b9494485fb
+python -I -B installed/s4-98e12bcd61e8117b0/decode.py --plugin installed/s4-98e12bcd61e8117b0 verify
+python -I -B installed/s4-98e12bcd61e8117b0/decode.py --plugin installed/s4-98e12bcd61e8117b0 decode reports/stage5/archive.alc /tmp/algomini-stage5-decoded
+```
+
+Choose a fresh decode destination; existing files are refused. `install-check.json` records clean temporary installation and decoding of every held-out archive block, plus a synthetic encode/delete-original/decode check. Archive gain does not imply net deployment savings: executable-only saving is −341,187 bytes; charging all 705,541 bundled bytes gives −655,696 bytes. Python/native system prerequisites remain external. These measurements cover one house and the local CPU; cloud timing and Docker execution remain later work. See [verification contracts](../docs/verification.md) and [final report](../reports/stage5/report.md).

@@ -93,12 +93,24 @@ def run(root, cfg):
                   f"Minimum per-chunk decode **{result['score']['minimum_decode_mib_per_second']:.2f} MiB/s**; peak job RSS **{result['score']['peak_decode_rss_kib']:,} KiB**.",
                   f"Declared incremental executable: **{result['candidate']['decoder_package_bytes']:,} bytes**; deployment saving **{result['score']['deployment_saving_bytes']:,} bytes**, assuming the common runtime/libzstd already exists.",
                   "Per-chunk input hashes/groups, sizes, every decode repetition and baseline resources are in `result.json`. The model is the exact frozen artifact; candidate training calls: zero."]
+        baseline = next(row for row in result["baselines"]["results"] if row["id"] == result["baselines"]["best_id"])
+        baseline_files = {row["label"]: row for row in baseline["files"]}
+        inputs = {row["label"]: row for row in result["inputs"]}
+        lines += ["", "| Chunk | Day groups | Input bytes | Candidate block bytes | Best-corpus baseline block bytes | Decode MiB/s |",
+                  "|---|---|---:|---:|---:|---:|"]
+        for row in result["candidate"]["files"]:
+            lines.append(f"| {row['label']} | {', '.join(inputs[row['label']]['groups'])} | {row['input_bytes']} | {row['block_bytes']} | {baseline_files[row['label']]['block_bytes']} | {row['decode']['decode_mib_per_second']:.2f} |")
+        lines += ["", "The per-chunk baseline is the same winning whole-corpus configuration throughout. Block sizes include native/ALG2 framing; the aggregate above also counts collection metadata and shared models."]
     else:
         lines += ["Verification failed: " + result.get("failure", "unknown error"), "No package or installation is allowed."]
     if summary["ok"]:
         lines += ["", f"Verified compiled package: `{summary['package']}`; manifest id `{summary['package_id']}`.",
-                  f"The standalone bundle is {summary['standalone_bundle_bytes']:,} bytes including runtime, source and evidence; full-bundle deployment saving is {summary['saving_including_standalone_bundle_bytes']:,} bytes.",
+                  f"The installable bundle is {summary['standalone_bundle_bytes']:,} bytes including Python runtime files, source and evidence; full-bundle deployment saving is {summary['saving_including_standalone_bundle_bytes']:,} bytes. The Python interpreter and native system libraries remain external prerequisites.",
                   "A clean temporary installation decoded every saved sealed archive hash without supplying original/development paths or a compiler. A synthetic original was deleted before installed decode. Only the verified selected manifest was promoted; the trusted core remains unchanged."]
+        saving = result["baselines"]["best_bytes"] - result["candidate"]["archive_bytes"]
+        if saving > 0:
+            factor = result["input_bytes"] / saving / 1024**2
+            lines += [f"Estimated break-even input volume is {factor * result['candidate']['decoder_package_bytes']:.2f} MiB for the incremental executable, or {factor * summary['standalone_bundle_bytes']:.2f} MiB for all bundled files, assuming identical per-byte savings and fixed package overhead. This extrapolation is not a measured larger-corpus result."]
     lines += ["", "Scope: later time periods in one house. This establishes no generalization to unseen houses or scientific novelty. Negative deployment savings are reported separately from archive gains.",
               "No Docker or model inference was used. Source/model/parameters/compiler/evaluator pins match. New generation is disabled after sealed consumption.",
               "Reproduce the stored outcome: `python -m algomini stage5`. Do not delete the consumed marker or rerun the sealed measurements. Packaging/decode replay uses saved artifacts."]

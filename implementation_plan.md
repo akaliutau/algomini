@@ -1,6 +1,6 @@
 **Algomini — proposed implementation plan for the Meta hackathon**
 
-Reviewed on 2 November 2026 against `doc_design.md`, `event_rules.txt`, and `eng_best_practice.md`. The repository currently contains setup files and documentation; there is no runtime, evaluator, or search implementation to extend. This is a proposed build plan, not a claim that discovery or compression gains have already been demonstrated.
+Reviewed on 2 November 2026 against `doc_design.md`, `event_rules.txt`, and `eng_best_practice.md`. At the initial review, the repository contained setup files and documentation, without a runtime, evaluator or search implementation to extend. This is a proposed build plan, not a claim that discovery or compression gains have already been demonstrated.
 
 Recommend **Indie Developer / Push the Frontier**. Meta describes the Indie criteria as creativity, technical ambition, and whether the project works. The strongest submission is a working experiment in which Muse proposes a mechanism, measurements expose a weakness, Muse improves it, and a verified module extends the installed compressor. [Official event page](https://dev.meta.ai/events/global-hackathon).
 
@@ -92,6 +92,8 @@ Record every experiment, including failures, in versioned `reports/<run>/observa
 Build a derived, gitignored `.cache/lab/index.sqlite` from those records and skills. Retrieve by feature/mechanism tags and SQLite FTS5 keyword search. Add local Sentence Transformers embeddings only if keyword retrieval misses relevant evidence; cache vectors by document hash and embedding-model version and use a cosine-similarity scan for the small collection. Git is the durable source; the index is rebuildable. See **Research memory and skills** in `doc_design.md` for the full layout.
 
 By hour 18, if nothing improves validation compression, inspect the profiles and simplest lossless representations before commissioning more population breadth. By hour 26, stop expansion and select the strongest valid result. If there is no win, publish an honest research result; do not manufacture a successful installation or tune on the sealed test.
+
+Stage 5 is implemented on `stage5/sealed-verification`. The tested verifier/protocol was committed as `d1f72d3` before opening the private manifest; its durable receipt precedes all held-out reads. The one final evaluation covers all 14 committed chunks (2,429,231 bytes). The frozen candidate uses 226,800 bytes versus xz 276,645 (18.02% archive gain), with exact reconstruction, minimum decode 29.76 MiB/s and peak RSS 32,040 KiB. Its compiled package installs and decodes every saved hash in a clean directory without compiler/original access. The 391,032-byte executable makes measured deployment savings negative (−341,187 bytes); full-bundle costs and explicitly estimated break-even volumes are also reported. All trusted pins remain unchanged, 79 Python/three Rust tests pass, and no model call or Docker execution occurs. Cached replay denies dataset/credential access and new measurements, preserves final evidence, and leaves spending unchanged. This is later-period evidence from one house; search is closed for this test. See `docs/verification.md`, `reports/stage5/` and `packages/s4-98e12bcd61e8117b0/`.
 
 **Scoring and claims**
 

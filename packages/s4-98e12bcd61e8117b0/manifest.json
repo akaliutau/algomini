@@ -1,0 +1,96 @@
+{
+  "candidate_freeze_id": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18",
+  "codec_id": "98e12bcd61e8117b0c9f3cc6b4edfbc3",
+  "config": {
+    "lab": {
+      "max_input_bytes": 2097152
+    },
+    "limits": {
+      "baseline_memory_mib": 2048,
+      "baseline_timeout_seconds": 120,
+      "candidate_decode_timeout_seconds": 10,
+      "candidate_encode_timeout_seconds": 30,
+      "candidate_max_output_bytes": 4194304,
+      "candidate_memory_mib": 256,
+      "candidate_min_decode_mib_per_second": 10.0
+    }
+  },
+  "decoder_executable_bytes": 391032,
+  "evaluator_freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "files": {
+    "bin/codec-worker": {
+      "bytes": 391032,
+      "sha256": "295c8446875d0b893816b5e8c93d3eef7a5d769c7e993c4b2c3940d27d41d2e2"
+    },
+    "candidate-freeze.json": {
+      "bytes": 6013,
+      "sha256": "487251797c2b5facec5d9cd36a5621b9f119169728676b421cd93ceed2078f18"
+    },
+    "codec.rs": {
+      "bytes": 16753,
+      "sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+    },
+    "dataset-attribution.json": {
+      "bytes": 618,
+      "sha256": "0d2ad8e226145a76e660a762ecf0101c774ef11814f96a7d97a0cb969c6b5837"
+    },
+    "decode.py": {
+      "bytes": 192,
+      "sha256": "39b259e3f96ca3bb00db63882f6da85fe562e278f5634494ca819da46f6f0f70"
+    },
+    "model.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runtime/algomini/__init__.py": {
+      "bytes": 91,
+      "sha256": "7666c0951c48ef7cae1f39a41ca299e0ed5bc25444e087775b07ef21e61cec52"
+    },
+    "runtime/algomini/_isolate.py": {
+      "bytes": 5558,
+      "sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62"
+    },
+    "runtime/algomini/archive.py": {
+      "bytes": 2579,
+      "sha256": "51c49c669e5305a0b0330c527e18233755d11f4c7999331f0658b379ab23312f"
+    },
+    "runtime/algomini/codecs.py": {
+      "bytes": 9772,
+      "sha256": "a5be1a9b6f4e801bdf67af911235a0cb6a8765becdf773904eb79595c4910eaf"
+    },
+    "runtime/algomini/common.py": {
+      "bytes": 3857,
+      "sha256": "d048ad5606e3adf2fdc7af4ab39132aa9a1e0cd13ce7dbf88e8aa8dc2ad4be78"
+    },
+    "runtime/algomini/environment.py": {
+      "bytes": 9986,
+      "sha256": "5e9c92e257f2ea453da6610767e4dad619acf6837b412470e3ae4f53723ff20a"
+    },
+    "runtime/algomini/execution.py": {
+      "bytes": 5791,
+      "sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473"
+    },
+    "runtime/algomini/installed.py": {
+      "bytes": 7563,
+      "sha256": "fa4dd73ce43d2a9d517b61f0cd8b60ef4c711e256a75d538be90ea135a9e0118"
+    },
+    "verification.json": {
+      "bytes": 242051,
+      "sha256": "7105352f9b3c7c1b0df73dfc2c6f465dc8060b900580291cea456f771372a6ba"
+    }
+  },
+  "id": "s4-98e12bcd61e8117b0",
+  "machine": "x86_64",
+  "native_libraries": {
+    "libseccomp.so.2.5.5": "b4d9140a7797ccf3ac14f5d9d579b64f157111662940cb8330c632b11a8cea8e",
+    "libzstd.so.1.5.5": "0a2128bc10841fb29e76d08d945864dfb0b6a66da5df6df5d8299197439e54bb"
+  },
+  "payload_files_bytes": 701856,
+  "protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "python_requirement": ">=3.12; standard library only",
+  "schema_version": 1,
+  "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7",
+  "status": "verified",
+  "trust": "Use the reviewed package manifest SHA-256 as the external installation pin; adjacent hash is not a signature",
+  "verification_sha256": "7105352f9b3c7c1b0df73dfc2c6f465dc8060b900580291cea456f771372a6ba"
+}
