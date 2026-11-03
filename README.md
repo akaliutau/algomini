@@ -6,6 +6,8 @@ The local pipeline has produced a verified telemetry codec with **18.02% smaller
 
 The reusable laboratory separates campaign workspaces, deterministic probes and shared research memory. It runs locally without Docker. Its explicit paths and JSON APIs are intended for a later cloud job wrapper.
 
+The [24-hour GitHub cloud demo plan](docs/github-cloud-demo.md) defines the proposed issue → research → PR → release → Cargo workflow, required credentials, idempotency and implementation stages. That automation is not implemented yet.
+
 ## Start a research campaign
 
 Python 3.12+ is sufficient for preparation, probes and keyword retrieval:
