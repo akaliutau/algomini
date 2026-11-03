@@ -1,0 +1,56 @@
+{
+  "base_commit": "f6ce5ad4295d192c9bdde6b6239ec97fa4d3b376",
+  "dataset": {
+    "family": "json",
+    "provenance": {
+      "license": "Applicable upstream license",
+      "source": "Dataset title and upstream URL"
+    },
+    "schema_version": 1,
+    "test": {
+      "bytes": 513148,
+      "sha256": "78ac520da1e0516f3a33d6ca13361fa0b364a3d791ac24b23e320288d3683402",
+      "url": "https://raw.githubusercontent.com/akaliutau/algomini-datasets/e1a704f956464a77dee1bdb228cc8fe8364d11b8/json/microsoftedge/test-512kb.json"
+    },
+    "train": {
+      "bytes": 1026294,
+      "sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "url": "https://raw.githubusercontent.com/akaliutau/algomini-datasets/e1a704f956464a77dee1bdb228cc8fe8364d11b8/json/microsoftedge/train-1mb.json"
+    }
+  },
+  "dataset_manifest_sha256": "d368697d6c2faaeaf98e85ac35eca17abdf78fac68473712d3602b2dbf420e32",
+  "dataset_manifest_url": "https://raw.githubusercontent.com/akaliutau/algomini-datasets/8a2b4c57bda91343001e66b03eda54520952347f/json/microsoftedge/manifest.json",
+  "execution": {
+    "run_attempt": 1,
+    "run_id": "41717514595"
+  },
+  "id": "issue-2",
+  "image": "ghcr.io/akaliutau/algomini-lab@sha256:375e177e5a6a97bce6aaafe359060dc04bff17fb50ec0aeeca3823910151dc71",
+  "issue": 2,
+  "mode": "generate",
+  "plugin": "json-t1",
+  "policy": {
+    "account_reserve_usd": 20.0,
+    "allowed_dataset_hosts": [
+      "raw.githubusercontent.com"
+    ],
+    "archive_gain_target": 0.1,
+    "decode_repetitions": 3,
+    "maximum_evolved_candidates": 1,
+    "maximum_initial_candidates": 2,
+    "maximum_input_bytes": 2097152,
+    "maximum_manifest_bytes": 32768,
+    "maximum_repairs": 1,
+    "maximum_research_seconds": 5400,
+    "provider_limit_usd": 150.0,
+    "release_minimum_archive_gain": 0.0,
+    "repository": "akaliutau/algomini",
+    "request_reservation_usd": 20.0,
+    "schema_version": 1,
+    "speed_priority": "secondary",
+    "state_branch": "automation-state"
+  },
+  "policy_sha256": "f6a3020fd6d1b09c157efcc7e74b6caa2c59d96e4c839fb6c911c0cfa6bb7a38",
+  "repository": "akaliutau/algomini",
+  "schema_version": 1
+}

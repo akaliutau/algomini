@@ -1,0 +1,466 @@
+{
+  "baselines": {
+    "best_bytes": 8801,
+    "best_id": "xz-9e",
+    "results": [
+      {
+        "archive_bytes": 126871,
+        "archive_sha256": "7e8ceeca89e276cd1478051f3ea8464a7b4c2ca71de21d155ad842dde6d7b2bd",
+        "block_bytes": 126833,
+        "collection_bytes": 38,
+        "files": [
+          {
+            "block_bytes": 126833,
+            "decode": {
+              "decode_mib_per_second": 159.3495688163258,
+              "median_execution_seconds": 0.006142157999875053,
+              "peak_rss_kib": 38228,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.00606694799989782,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38228,
+                  "setup_seconds": 0.04758824100008496,
+                  "system_seconds": 0.007684,
+                  "user_seconds": 0.045813,
+                  "wall_seconds": 0.053655188999982784
+                },
+                {
+                  "execution_seconds": 0.006142157999875053,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38228,
+                  "setup_seconds": 0.047458639000069525,
+                  "system_seconds": 0.010751,
+                  "user_seconds": 0.042674,
+                  "wall_seconds": 0.05360079699994458
+                },
+                {
+                  "execution_seconds": 0.006260238999857393,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38228,
+                  "setup_seconds": 0.047275887000068906,
+                  "system_seconds": 0.010537,
+                  "user_seconds": 0.042821,
+                  "wall_seconds": 0.0535361259999263
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.03931180399990808,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 38228,
+              "setup_seconds": 0.04715461000000687,
+              "system_seconds": 0.014964,
+              "user_seconds": 0.07137299999999999,
+              "wall_seconds": 0.08646641399991495
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "gzip-9",
+        "model_bytes": 0,
+        "roundtrip": true
+      },
+      {
+        "archive_bytes": 8801,
+        "archive_sha256": "3e7fc633a87f300989bb488f82ac8a1c627e6842126a3afd70f51f7402f86b26",
+        "block_bytes": 8764,
+        "collection_bytes": 37,
+        "files": [
+          {
+            "block_bytes": 8764,
+            "decode": {
+              "decode_mib_per_second": 251.6067426460068,
+              "median_execution_seconds": 0.003889999999955762,
+              "peak_rss_kib": 38956,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.003796956000087448,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38228,
+                  "setup_seconds": 0.047050344999888694,
+                  "system_seconds": 0.016624,
+                  "user_seconds": 0.03411,
+                  "wall_seconds": 0.05084730099997614
+                },
+                {
+                  "execution_seconds": 0.003904888000079154,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38228,
+                  "setup_seconds": 0.04712411300010899,
+                  "system_seconds": 0.009877,
+                  "user_seconds": 0.041039,
+                  "wall_seconds": 0.051029001000188146
+                },
+                {
+                  "execution_seconds": 0.003889999999955762,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 38956,
+                  "setup_seconds": 0.04743154800007687,
+                  "system_seconds": 0.013635999999999999,
+                  "user_seconds": 0.037572999999999995,
+                  "wall_seconds": 0.051321548000032635
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.15391233199989074,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 38228,
+              "setup_seconds": 0.04745000299999447,
+              "system_seconds": 0.029949999999999997,
+              "user_seconds": 0.17127299999999998,
+              "wall_seconds": 0.2013623349998852
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "xz-9e",
+        "model_bytes": 0,
+        "roundtrip": true
+      },
+      {
+        "archive_bytes": 9187,
+        "archive_sha256": "e5aa4df3d1367a8b45cdb468e6d8dd2aac92de6f0246f9df8b203f7d7f0f44fc",
+        "block_bytes": 9148,
+        "collection_bytes": 39,
+        "files": [
+          {
+            "block_bytes": 9148,
+            "decode": {
+              "decode_mib_per_second": 244.52189364392416,
+              "median_execution_seconds": 0.00400270999989516,
+              "peak_rss_kib": 39980,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.0038972029999513325,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 39852,
+                  "setup_seconds": 0.04825916499999039,
+                  "system_seconds": 0.010584999999999999,
+                  "user_seconds": 0.042088,
+                  "wall_seconds": 0.05215636799994172
+                },
+                {
+                  "execution_seconds": 0.004106845000023895,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 39980,
+                  "setup_seconds": 0.047575158999961786,
+                  "system_seconds": 0.015588,
+                  "user_seconds": 0.036631,
+                  "wall_seconds": 0.05168200399998568
+                },
+                {
+                  "execution_seconds": 0.00400270999989516,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 39980,
+                  "setup_seconds": 0.047226265000062995,
+                  "system_seconds": 0.013051,
+                  "user_seconds": 0.038685,
+                  "wall_seconds": 0.051228974999958155
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.08117762100005166,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 39852,
+              "setup_seconds": 0.052220907999981137,
+              "system_seconds": 0.021856,
+              "user_seconds": 0.11182099999999999,
+              "wall_seconds": 0.1333985290000328
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "zstd-19",
+        "model_bytes": 0,
+        "roundtrip": true
+      },
+      {
+        "archive_bytes": 9187,
+        "archive_sha256": "1b1fd494030aff65b3693e29baa6fd7fa903dba9f93b7a0f5b8ca19558fcccf8",
+        "block_bytes": 9148,
+        "collection_bytes": 39,
+        "files": [
+          {
+            "block_bytes": 9148,
+            "decode": {
+              "decode_mib_per_second": 254.7269182021843,
+              "median_execution_seconds": 0.0038423510000029637,
+              "peak_rss_kib": 40876,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.00388041099995462,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 39980,
+                  "setup_seconds": 0.04710572899989529,
+                  "system_seconds": 0.011004,
+                  "user_seconds": 0.040559,
+                  "wall_seconds": 0.05098613999984991
+                },
+                {
+                  "execution_seconds": 0.0038423510000029637,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.046633256000177425,
+                  "system_seconds": 0.012945,
+                  "user_seconds": 0.038124,
+                  "wall_seconds": 0.05047560700018039
+                },
+                {
+                  "execution_seconds": 0.003712688999939928,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04682122700000946,
+                  "system_seconds": 0.009916,
+                  "user_seconds": 0.04119,
+                  "wall_seconds": 0.050533915999949386
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.08115653200002271,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 39980,
+              "setup_seconds": 0.04720255000006546,
+              "system_seconds": 0.021751,
+              "user_seconds": 0.106907,
+              "wall_seconds": 0.12835908200008816
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "zstd-22",
+        "model_bytes": 0,
+        "roundtrip": true
+      },
+      {
+        "archive_bytes": 15146,
+        "archive_sha256": "da36dd2e1b7a84597538fb8a8df0b3ff8db3070ba36861713f2062a56206c49c",
+        "block_bytes": 6910,
+        "collection_bytes": 44,
+        "files": [
+          {
+            "block_bytes": 6910,
+            "decode": {
+              "decode_mib_per_second": 241.57653461179285,
+              "median_execution_seconds": 0.0040515119999327,
+              "peak_rss_kib": 40876,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.0040515119999327,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04787906399997155,
+                  "system_seconds": 0.012978,
+                  "user_seconds": 0.039515,
+                  "wall_seconds": 0.05193057599990425
+                },
+                {
+                  "execution_seconds": 0.004319555999927616,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04788050599995586,
+                  "system_seconds": 0.010605999999999999,
+                  "user_seconds": 0.042109999999999995,
+                  "wall_seconds": 0.052200061999883474
+                },
+                {
+                  "execution_seconds": 0.003920772999890687,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04720009600009689,
+                  "system_seconds": 0.013841,
+                  "user_seconds": 0.037812,
+                  "wall_seconds": 0.05112086899998758
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.04846811299989895,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 40876,
+              "setup_seconds": 0.04639286599990555,
+              "system_seconds": 0.01115,
+              "user_seconds": 0.084704,
+              "wall_seconds": 0.0948609789998045
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "zstd-dict-19",
+        "model_bytes": 8192,
+        "roundtrip": true
+      },
+      {
+        "archive_bytes": 15146,
+        "archive_sha256": "c014e18e1ebea038e614a628b443394a55f792312f976aea248ec38900c8d5fc",
+        "block_bytes": 6910,
+        "collection_bytes": 44,
+        "files": [
+          {
+            "block_bytes": 6910,
+            "decode": {
+              "decode_mib_per_second": 254.70994792745807,
+              "median_execution_seconds": 0.0038426070000241452,
+              "peak_rss_kib": 40876,
+              "repetitions": [
+                {
+                  "execution_seconds": 0.004093556000043463,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04692542299994784,
+                  "system_seconds": 0.018236,
+                  "user_seconds": 0.03337,
+                  "wall_seconds": 0.051018978999991305
+                },
+                {
+                  "execution_seconds": 0.0038426070000241452,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04676216799998656,
+                  "system_seconds": 0.012648999999999999,
+                  "user_seconds": 0.038507,
+                  "wall_seconds": 0.050604775000010704
+                },
+                {
+                  "execution_seconds": 0.003698517999964679,
+                  "isolation": "landlock-abi6+-libseccomp",
+                  "peak_rss_kib": 40876,
+                  "setup_seconds": 0.04621017700014818,
+                  "system_seconds": 0.021109,
+                  "user_seconds": 0.029356999999999998,
+                  "wall_seconds": 0.04990869500011286
+                }
+              ]
+            },
+            "encode": {
+              "execution_seconds": 0.048350745000107054,
+              "isolation": "landlock-abi6+-libseccomp",
+              "peak_rss_kib": 40876,
+              "setup_seconds": 0.04787286300006599,
+              "system_seconds": 0.014938,
+              "user_seconds": 0.082201,
+              "wall_seconds": 0.09622360800017304
+            },
+            "input_bytes": 1026294,
+            "label": "sample.bin"
+          }
+        ],
+        "id": "zstd-dict-22",
+        "model_bytes": 8192,
+        "roundtrip": true
+      }
+    ]
+  },
+  "candidate": {
+    "archive_bytes": 9236,
+    "archive_sha256": "7cf718a364a01892dc9becee45fff404c7e959b86b6cd93fc21aaf2ed12bf958",
+    "block_bytes": 9185,
+    "collection_bytes": 51,
+    "correctness": {
+      "direct_cases": 8,
+      "passed": true
+    },
+    "decoder_package_bytes": 979160,
+    "files": [
+      {
+        "block_bytes": 9185,
+        "decode": {
+          "decode_mib_per_second": 125.35714500275816,
+          "median_execution_seconds": 0.007807693999893672,
+          "peak_rss_kib": 40876,
+          "repetitions": [
+            {
+              "execution_seconds": 0.007847407000099338,
+              "isolation": "landlock-abi6+-libseccomp",
+              "mode": "worker",
+              "peak_rss_kib": 40876,
+              "returncode": 0,
+              "setup_seconds": 0.04631442300001254,
+              "system_seconds": 0.012324,
+              "timed_out": false,
+              "user_seconds": 0.041679,
+              "wall_seconds": 0.05416183000011188
+            },
+            {
+              "execution_seconds": 0.007807693999893672,
+              "isolation": "landlock-abi6+-libseccomp",
+              "mode": "worker",
+              "peak_rss_kib": 40876,
+              "returncode": 0,
+              "setup_seconds": 0.046409041000060824,
+              "system_seconds": 0.012712999999999999,
+              "timed_out": false,
+              "user_seconds": 0.041395999999999995,
+              "wall_seconds": 0.0542167349999545
+            },
+            {
+              "execution_seconds": 0.007766124999989188,
+              "isolation": "landlock-abi6+-libseccomp",
+              "mode": "worker",
+              "peak_rss_kib": 40876,
+              "returncode": 0,
+              "setup_seconds": 0.046311298999853534,
+              "system_seconds": 0.018130999999999998,
+              "timed_out": false,
+              "user_seconds": 0.035835,
+              "wall_seconds": 0.05407742399984272
+            }
+          ]
+        },
+        "encode": {
+          "execution_seconds": 0.17948936299990237,
+          "isolation": "landlock-abi6+-libseccomp",
+          "mode": "worker",
+          "peak_rss_kib": 40876,
+          "returncode": 0,
+          "setup_seconds": 0.046590437000077145,
+          "system_seconds": 0.03259,
+          "timed_out": false,
+          "user_seconds": 0.193038,
+          "wall_seconds": 0.2260797999999795
+        },
+        "input_bytes": 1026294,
+        "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+        "label": "sample.bin"
+      }
+    ],
+    "id": "wk-3169dda381d9c072",
+    "model_bytes": 0,
+    "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "roundtrip": true,
+    "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
+  },
+  "console": {
+    "exact": true,
+    "isolation": "landlock-abi6+-libseccomp",
+    "original_deleted": true,
+    "same_archive_as_worker": true
+  },
+  "eligible": true,
+  "input_bytes": 1026294,
+  "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+  "score": {
+    "archive_gain": -0.04942620156800359,
+    "deployment_assumption": "Common runtime/libzstd already available; one complete candidate executable is incremental",
+    "deployment_saving_bytes": -979595,
+    "gates": {
+      "archive_gain": false,
+      "decode_rss": true,
+      "decode_speed": true,
+      "exact_reconstruction": true
+    },
+    "meets_development_targets": false,
+    "minimum_decode_mib_per_second": 125.35714500275816,
+    "peak_decode_rss_kib": 40876
+  },
+  "size_first_win": false,
+  "speed_priority": "secondary"
+}
