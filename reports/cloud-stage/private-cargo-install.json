@@ -1,0 +1,8 @@
+{
+  "cargo_git_fetch_with_cli": true,
+  "dynamic_libzstd_required": false,
+  "installed_binary": "algomini",
+  "model_credentials_passed": false,
+  "private_github_fetch": true,
+  "source_commit": "ec2ae76c2f22e77e23fab14077ad3db6b77e6dae"
+}

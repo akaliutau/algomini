@@ -1,0 +1,24 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main, 'cloud/**']
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Build test environment without model credentials
+        run: docker build --file cloud/Dockerfile --tag algomini-ci .
+      - name: Python and Rust contracts
+        run: |
+          docker run --rm --cap-drop ALL --security-opt no-new-privileges --network none --pids-limit 256 --memory 4g \
+            algomini-ci sh -eu -c 'python -m pytest -q -k "not test_tiny_native_integration_and_replay_without_new_work and not test_native_package_installs_and_decodes_without_repo_or_original" && cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml && cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml'

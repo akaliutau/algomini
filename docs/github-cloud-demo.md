@@ -1,6 +1,6 @@
 # GitHub cloud demo: implementation plan for the next 24 hours
 
-Status: proposed work, 3 November 2026. This document does not enable workflows, spend money, create GitHub resources or publish a release.
+Status: implementation plan, 3 November 2026. The implementation and operational steps are documented in [the cloud guide](cloud.md). GitHub host qualification and credentials are checked by the new workflows; issue automation becomes active after those workflows merge into the default branch.
 
 ## Readiness and the smallest useful demo
 

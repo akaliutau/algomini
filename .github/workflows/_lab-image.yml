@@ -1,0 +1,61 @@
+name: Qualified laboratory image
+on:
+  workflow_call:
+    inputs:
+      base:
+        type: string
+        required: true
+    outputs:
+      image:
+        value: ${{ jobs.image.outputs.image }}
+permissions:
+  contents: read
+jobs:
+  image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.base }}
+          persist-credentials: false
+      - name: Build or fetch immutable-source laboratory image
+        id: image
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+          BASE_SHA: ${{ inputs.base }}
+        run: |
+          set -euo pipefail
+          [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ ]]
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          tag="ghcr.io/akaliutau/algomini-lab:$BASE_SHA"
+          if ! docker pull "$tag"; then
+            docker build --platform linux/amd64 --file cloud/Dockerfile \
+              --label org.opencontainers.image.source=https://github.com/akaliutau/algomini \
+              --label "org.opencontainers.image.revision=$BASE_SHA" --tag "$tag" .
+            docker push "$tag"
+          fi
+          image=$(docker inspect --format '{{index .RepoDigests 0}}' "$tag")
+          printf 'image=%s\n' "$image" >> "$GITHUB_OUTPUT"
+      - name: Qualify offline build and containment on this host
+        env:
+          LAB_IMAGE: ${{ steps.image.outputs.image }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/lab-smoke"
+          chmod 0777 "$RUNNER_TEMP/lab-smoke"
+          docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges \
+            --network none --pids-limit 256 --memory 4g --tmpfs /tmp:rw,nosuid,size=512m \
+            -v "$RUNNER_TEMP/lab-smoke:/work" "$LAB_IMAGE" \
+            python -m algomini.cloud smoke --workspace /work --image "$LAB_IMAGE"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: cloud-host-qualification
+          path: ${{ runner.temp }}/lab-smoke/smoke.json
+          if-no-files-found: warn
+          retention-days: 30

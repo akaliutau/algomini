@@ -236,6 +236,7 @@ data/
 reports/budget/.lock
 reports/*/.lock
 /installed/
+/.cloud/
 rust/**/target/
 
 # Reviewed source/model/build snapshots are reproducibility inputs.

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "akaliutau/algomini",
+  "allowed_dataset_hosts": ["raw.githubusercontent.com"],
+  "maximum_input_bytes": 2097152,
+  "maximum_manifest_bytes": 32768,
+  "maximum_research_seconds": 5400,
+  "maximum_initial_candidates": 2,
+  "maximum_evolved_candidates": 1,
+  "maximum_repairs": 1,
+  "request_reservation_usd": 20.0,
+  "provider_limit_usd": 150.0,
+  "account_reserve_usd": 20.0,
+  "archive_gain_target": 0.1,
+  "release_minimum_archive_gain": 0.0,
+  "speed_priority": "secondary",
+  "decode_repetitions": 3,
+  "state_branch": "automation-state"
+}

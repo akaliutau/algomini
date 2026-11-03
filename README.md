@@ -6,7 +6,7 @@ The local pipeline has produced a verified telemetry codec with **18.02% smaller
 
 The reusable laboratory separates campaign workspaces, deterministic probes and shared research memory. It runs locally without Docker. Its explicit paths and JSON APIs are intended for a later cloud job wrapper.
 
-The [24-hour GitHub cloud demo plan](docs/github-cloud-demo.md) defines the proposed issue → research → PR → release → Cargo workflow, required credentials, idempotency and implementation stages. That automation is not implemented yet.
+The [GitHub cloud guide](docs/cloud.md) covers issue → bounded research → report/PR → release → Cargo installation. Workflows use a private laboratory image and durable Git state; the Rust client runs without Python or model credentials. The [24-hour implementation plan](docs/github-cloud-demo.md) records the scope and design decisions.
 
 ## Start a research campaign
 
