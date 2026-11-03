@@ -224,7 +224,7 @@ def observation(root, cfg, policy, profile, identifier, mechanism, *, previous=N
         if request["sample_sha256"] != digest(sample):
             raise ValueError("Candidate generation input changed")
     else:
-        retrieved = memory.search(root, mechanism + " telemetry csv", limit=policy["retrieve_documents"], max_chars=policy["retrieve_chars"])
+        retrieved = memory.search(root, mechanism + " telemetry csv", limit=policy["retrieve_documents"], max_chars=policy["retrieve_chars"], family="csv")
         prompt = brief(root, cfg, profile, mechanism, retrieved, previous=previous)
         kind = "repair" if previous else "initial"
         attempt_id, _, _ = coder.generation_request(root, cfg, prompt, sample, phase="discovery", kind=kind)

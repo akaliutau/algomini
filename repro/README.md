@@ -132,3 +132,12 @@ python -I -B installed/s4-98e12bcd61e8117b0/decode.py --plugin installed/s4-98e1
 ```
 
 Choose a fresh decode destination; existing files are refused. `install-check.json` records clean temporary installation and decoding of every held-out archive block, plus a synthetic encode/delete-original/decode check. Archive gain does not imply net deployment savings: executable-only saving is −341,187 bytes; charging all 705,541 bundled bytes gives −655,696 bytes. Python/native system prerequisites remain external. These measurements cover one house and the local CPU; cloud timing and Docker execution remain later work. See [verification contracts](../docs/verification.md) and [final report](../reports/stage5/report.md).
+
+
+## M1: reusable laboratory and optional semantic memory
+
+The core preparation/probe/keyword commands require Python 3.12+ and the standard library. Optional analytics/coder/memory/test dependencies are separated in `pyproject.toml`. The historical Python/Conda/native locks are unchanged. `midstage1-environment.json` captures the refactored source and original environment.
+
+For exact local semantic reproduction, create `.tools/memory-env` with `--system-site-packages` from that reference environment, install `repro/requirements-memory.lock`, then run `python tools/bootstrap_memory.py`. The bootstrap checks the exact model revision/file hashes in `memory-model.json`; it does not use the model API key. `memory/index-manifest.json` binds the portable catalog/vectors. Fresh campaign caches import these vectors and embed only new text. See [the laboratory guide](../docs/laboratory.md) for commands and limitations.
+
+`reports/midstage1/` records 87 passing Python tests, the core CLI without site packages, incremental/portable retrieval, campaign isolation and a local 256-skill maintenance measurement. The published evaluator/candidate/sealed pins still verify, cached Stage 5 replay succeeds, and the spending ledger is unchanged.

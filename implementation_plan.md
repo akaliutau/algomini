@@ -125,3 +125,8 @@ Use recorded real run artifacts to compress waiting time and label time skips or
 **Defer until after the event**
 
 Cloud Run, a second orchestrator, universal package installation/extras, dynamic libraries, an embedding service, multiple data families, sophisticated genetic programming over skills, and automatic merging. The local CLI, Docker worker, manifest loader, durable research records, and GitHub PR provide a complete first implementation with a clear route to those extensions.
+
+
+**Maintenance before cloud orchestration**
+
+The user requested two intermediate stages to simplify Python ownership and make repeated campaigns practical. M1 (`midstage1/reusable-lab`) separates CLI/workflow responsibilities, introduces isolated preparation workspaces, explicit probe registration, incremental section retrieval, applicability metadata and a Git-backed portable semantic catalog. The original pinned runtime/evidence and Rust remain unchanged. M2 (`midstage2/text-e2e`) exercises these boundaries and compiled installation on exactly the first 1,000,000 bytes of the enwik8 Wikipedia benchmark, with provenance and isolated decode. See `docs/maintenance-plan.md` and `docs/laboratory.md`.

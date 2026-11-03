@@ -1,0 +1,41 @@
+[
+  {
+    "description": "Measure byte entropy, UTF-8, line endings and repeated lines",
+    "families": [
+      "*"
+    ],
+    "id": "byte-structure",
+    "max_input_bytes": 2097152,
+    "version": 1
+  },
+  {
+    "description": "Investigate repeated words, adjacent phrases and dictionary candidates",
+    "families": [
+      "text",
+      "xml",
+      "json",
+      "csv"
+    ],
+    "id": "text-repetition",
+    "max_input_bytes": 2097152,
+    "version": 1
+  },
+  {
+    "description": "Inspect quoted CSV structure and duplicate records without reserialization",
+    "families": [
+      "csv"
+    ],
+    "id": "csv-structure",
+    "max_input_bytes": 2097152,
+    "version": 1
+  },
+  {
+    "description": "Inspect JSON/JSONL keys, duplicate keys and exact numeric spellings",
+    "families": [
+      "json"
+    ],
+    "id": "json-lexemes",
+    "max_input_bytes": 2097152,
+    "version": 1
+  }
+]

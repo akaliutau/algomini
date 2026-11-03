@@ -1,0 +1,30 @@
+{
+  "budget_ledger_unchanged": true,
+  "cached_stage5_replay_passed": true,
+  "campaign_inputs_and_caches_isolated": true,
+  "core_cli_without_site_packages": true,
+  "docker_used": false,
+  "incremental_index_and_portable_vector_reuse": true,
+  "ok": true,
+  "optional_embedding_model": {
+    "dimensions": 64,
+    "directory": ".cache/models/potion-base-2M",
+    "files": {
+      "config.json": "b2a89173391ca774c2d7323090a993a9a1553faa5b40eb37bb7cec6685fbea47",
+      "model.safetensors": "f95ffde02ad06f63ae38eb9d400038cd5ccaf8411ec3cb650c6025113f96cbb8",
+      "tokenizer.json": "e67e803f624fb4d67dea1c730d06e1067e1b14d830e2c2202569e3ef0f70bb50"
+    },
+    "library": "model2vec==0.10.0",
+    "license": "MIT",
+    "normalization": "L2; mean static token embeddings; no model fine-tuning",
+    "repository": "minishlab/potion-base-2M",
+    "revision": "389b9f64be5aa4ae7a6bc6fe95ef20ce485ae5da",
+    "schema_version": 1
+  },
+  "original_versions_match": true,
+  "paid_model_calls": 0,
+  "published_pinned_sources_unchanged": true,
+  "published_protocol_id": "73dafe0f2d9b06edf75df4a98c94135c27b8372497d76f3395a5f29853bb8d3a",
+  "python_tests_passed": 87,
+  "rust_tests_passed": 3
+}

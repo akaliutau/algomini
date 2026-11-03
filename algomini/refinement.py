@@ -322,7 +322,7 @@ def evolve(root, cfg, policy, parent_record, mechanism, slot, controlled, *, rep
         source_path = parent_record.get("source_path", f"reports/stage4/candidates/{parent_record['id']}/codec.rs")
         parent = {"source_path": source_path, "source_sha256": parent_record["source_sha256"],
                   "archive_bytes": parent_record.get("measurements", {}).get("archive_bytes", "rejected; no score")}
-        retrieved = memory.search(root, mechanism + " byteplanes csv", limit=policy["retrieve_documents"], max_chars=policy["retrieve_chars"])
+        retrieved = memory.search(root, mechanism + " byteplanes csv", limit=policy["retrieve_documents"], max_chars=policy["retrieve_chars"], family="csv")
         prompt = refinement_brief(root, cfg, parent, mechanism, controlled, retrieved, repair=repair)
         kind = "repair" if repair else "evolved"
         attempt_id, _, _ = coder.generation_request(root, cfg, prompt, sample, phase="refinement", kind=kind)

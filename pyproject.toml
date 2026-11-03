@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algomini"
+version = "0.2.0"
+description = "Bounded research laboratory for reproducible compression experiments"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+analytics = ["duckdb==1.5.6", "numpy==2.5.4", "scipy==1.18.1", "scikit-learn==1.9.1"]
+coder = ["python-dotenv==1.2.4"]
+memory = ["model2vec==0.10.0"]
+test = ["pytest==9.2.0"]
+
+[project.scripts]
+algomini = "algomini.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["algomini*"]

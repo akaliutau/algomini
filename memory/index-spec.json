@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "section_characters": 1400,
+  "default_context_characters": 6000,
+  "default_documents": 4,
+  "lexical": "SQLite FTS5 BM25",
+  "semantic": "optional local Model2Vec; exact model files and revision in repro/memory-model.json",
+  "fusion": "reciprocal rank, constant 60; family filtering; at most one section per document",
+  "durable_inputs": [".agents/skills/*/SKILL.md", ".agents/skills/*/metadata.json", "reports/*/observations.jsonl", "reports/campaigns/*/observations.jsonl"],
+  "cache": "Per-campaign or .cache/lab/index.sqlite; disposable",
+  "exports": ["catalog.jsonl", "vectors.jsonl", "index-manifest.json"]
+}

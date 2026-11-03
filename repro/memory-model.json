@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "repository": "minishlab/potion-base-2M",
+  "revision": "389b9f64be5aa4ae7a6bc6fe95ef20ce485ae5da",
+  "license": "MIT",
+  "directory": ".cache/models/potion-base-2M",
+  "dimensions": 64,
+  "files": {
+    "config.json": "b2a89173391ca774c2d7323090a993a9a1553faa5b40eb37bb7cec6685fbea47",
+    "tokenizer.json": "e67e803f624fb4d67dea1c730d06e1067e1b14d830e2c2202569e3ef0f70bb50",
+    "model.safetensors": "f95ffde02ad06f63ae38eb9d400038cd5ccaf8411ec3cb650c6025113f96cbb8"
+  },
+  "library": "model2vec==0.10.0",
+  "normalization": "L2; mean static token embeddings; no model fine-tuning"
+}
