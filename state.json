@@ -4,6 +4,8 @@
     "issue-2": {
       "charged_usd": 20.0,
       "reserved_at": "2026-11-03T21:02:07.996263+00:00",
+      "run_attempt": 1,
+      "run_id": "41717514595",
       "run_url": "https://github.com/akaliutau/algomini/actions/runs/41717514595",
       "snapshot": {
         "base_commit": "f6ce5ad4295d192c9bdde6b6239ec97fa4d3b376",
@@ -61,7 +63,7 @@
         "repository": "akaliutau/algomini",
         "schema_version": 1
       },
-      "status": "reserved",
+      "status": "researching",
       "terminal": false
     }
   },
