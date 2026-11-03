@@ -1,0 +1,20 @@
+{
+  "conclusion": "success",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "app"
+    },
+    {
+      "conclusion": "success",
+      "name": "image / image"
+    },
+    {
+      "conclusion": "success",
+      "name": "provider"
+    }
+  ],
+  "model_inference_calls": 0,
+  "source_commit": "f66f91f8f5739c6fde0a63e1e022fe2a0bdfec55",
+  "url": "https://github.com/akaliutau/algomini/actions/runs/41711938316"
+}

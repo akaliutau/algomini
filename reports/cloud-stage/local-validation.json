@@ -16,7 +16,12 @@
   "new_rust_tests": 3,
   "paid_model_calls": 0,
   "private_github_cargo_install": "passed",
-  "python_full_suite_before_final_guard": {
-    "passed": 121
-  }
+  "python_full_suite": {
+    "passed": 123
+  },
+  "rust_tests": {
+    "cli": 3,
+    "original_worker": 3
+  },
+  "workflow_syntax": "actionlint v1.7.12 with only the documented queue:max compatibility exception; GitHub accepted queue:max"
 }

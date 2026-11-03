@@ -1,0 +1,10 @@
+{
+  "conclusion": "success",
+  "source_commit": "f66f91f8f5739c6fde0a63e1e022fe2a0bdfec55",
+  "summary": [
+    "2026-11-03T20:25:48.0483068Z 121 passed, 2 deselected in 129.26s (0:02:09)",
+    "2026-11-03T20:26:00.4137230Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "2026-11-03T20:26:00.7928481Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+  ],
+  "url": "https://github.com/akaliutau/algomini/actions/runs/41711945933"
+}
