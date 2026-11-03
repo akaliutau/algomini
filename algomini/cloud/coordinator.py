@@ -103,11 +103,11 @@ def gate(root, event, event_name, destination, gh):
         output(start=False, issue=issue["number"])
         return
     write_json(destination, {"issue": issue, "mode": mode})
-    output(start=True, issue=issue["number"], mode=mode, base=os.environ["GITHUB_SHA"])
+    output(start=True, issue=issue["number"], mode=mode, base=gh.head("main"))
 
 
 def claim(root, intake, image, destination, gh):
-    request = contracts.snapshot(root, intake["issue"], gh.repository, os.environ["GITHUB_SHA"], image)
+    request = contracts.snapshot(root, intake["issue"], gh.repository, os.environ.get("ALGOMINI_BASE_COMMIT", os.environ["GITHUB_SHA"]), image)
     request["mode"] = intake["mode"]
     request["execution"] = {"run_id": os.environ["GITHUB_RUN_ID"], "run_attempt": int(os.environ.get("GITHUB_RUN_ATTEMPT", "1"))}
     store = state(root, gh)
@@ -152,7 +152,7 @@ def checked_checkpoint(root, workspace, request):
         if selected != previous:
             raise ValueError("A reused codec version was modified")
     else:
-        identifier = "cx-" + selected["source_sha256"][:16] + "-" + selected["model_sha256"][:8]
+        identifier = "cx-" + selected["source_sha256"][:32] + "-" + selected["model_sha256"][:16]
         if (selected["id"] != identifier or selected["codec_id"] != selected["source_sha256"][:32]
                 or selected["source"] != f"plugins/{identifier}/codec.rs" or selected["model"] != f"plugins/{identifier}/model.bin"):
             raise ValueError("Invalid immutable codec version")
@@ -218,6 +218,8 @@ def status_comment(row):
         text += f"\n\n[Release]({row['release_url']})."
     if row["status"] == "interrupted":
         text += "\n\nThe previous run stopped without a complete terminal publication. Reservations and test claims are retained; no automatic paid retry is allowed."
+    if row.get("failure"):
+        text += "\n\nFailure:\n```\n" + row["failure"][:2000].replace("```", "'''") + "\n```"
     if row.get("report"):
         text += "\n\n" + row["report"]
     return text
@@ -245,6 +247,8 @@ def report(request, research, final):
     text += f"Estimated/reserved model usage: ${research['charged_usd']:.6f}. Executable: {research['development']['candidate']['decoder_package_bytes']:,} bytes, separate from archive sizes. "
     text += f"One declared final file was used after source/model/client freezing; no tuning followed. Previously used test hash: **{final.get('test_previously_used', False)}**.\n"
     text += f"\nPinned cloud image: `{request['image']}`. Source: `{research['selected']['source_sha256']}`. Model: `{research['selected']['model_sha256']}`.\n"
+    environment = final.get("environment", research.get("environment", {}))
+    text += f"\nMeasured host: {environment.get('cpu', 'see workflow log')}; kernel `{environment.get('kernel', 'unknown')}`. Generation failures: {len(research.get('failures', []))}; details remain in research.json.\n"
     return text
 
 

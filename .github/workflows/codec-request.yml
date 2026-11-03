@@ -91,6 +91,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}
           LAB_IMAGE: ${{ needs.image.outputs.image }}
+          ALGOMINI_BASE_COMMIT: ${{ needs.gate.outputs.base }}
           ALGOMINI_RUN_ID: ${{ github.run_id }}
           ALGOMINI_RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |

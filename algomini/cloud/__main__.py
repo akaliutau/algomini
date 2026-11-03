@@ -63,6 +63,7 @@ print(json.dumps(denied))
         packed = pack(item["id"], [("sample.bin", encoded)], model if encoded[4] == 2 else b"")
         probes.append({"codec": item["id"], "checks": checks, "console": native.console_roundtrip(binary, cfg, data, item["id"], packed)})
     value = {"ok": True, "image": image, "build": build, "codecs": probes, "model_calls": 0,
+             "environment": native.host_environment(),
              "containment": {"original_read_denied": True, "network_denied": True, "fork_denied": True}}
     write_json(workspace / "smoke.json", value)
     (workspace / "smoke.json").chmod(0o644)

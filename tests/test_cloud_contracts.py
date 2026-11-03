@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from algomini.cloud import contracts, coordinator
+from algomini.cloud import contracts, coordinator, research
 from algomini.cloud.github import APIError, State
 
 
@@ -61,6 +61,13 @@ def test_retry_attempt_cannot_reuse_a_spending_or_test_claim(monkeypatch):
     monkeypatch.setenv("ALGOMINI_RUN_ATTEMPT", "2")
     with pytest.raises(ValueError, match="cannot retry"):
         contracts.execution_guard({"run_id": "123", "run_attempt": 1})
+
+
+def test_unclaimed_cloud_research_cannot_contact_provider(monkeypatch, tmp_path):
+    request = snapshot(monkeypatch)
+    monkeypatch.setattr(research, "check_api", lambda *_: pytest.fail("Unclaimed research contacted provider"))
+    with pytest.raises(ValueError, match="durable Actions execution claim"):
+        research.search(ROOT, tmp_path, request)
 
 
 class MemoryGit:

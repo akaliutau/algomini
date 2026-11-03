@@ -33,7 +33,7 @@ def persist_asset(workspace, source, model, base):
     match = next((row for row in base["codecs"] if row["source_sha256"] == checksum and row["model_sha256"] == model_hash), None)
     if match:
         return match
-    identifier = "cx-" + checksum[:16] + "-" + model_hash[:8]
+    identifier = "cx-" + checksum[:32] + "-" + model_hash[:16]
     directory = Path(workspace) / "plugins" / identifier
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "codec.rs").write_bytes(source.read_bytes())
@@ -83,6 +83,8 @@ def search(library, workspace, request):
     started = time.monotonic()
     cfg = configuration(library, request)
     if cfg["budget"]["generation_enabled"]:
+        if not request.get("execution"):
+            raise ValueError("Paid cloud research requires its durable Actions execution claim")
         preflight = check_api(library, cfg)
         if not preflight["ok"]:
             raise ValueError("Model catalog preflight failed before inference: " + str(preflight.get("http_status", preflight.get("reason"))))
@@ -176,6 +178,7 @@ def search(library, workspace, request):
               "trials": [{key: row[key] for key in ("item", "origin", "result", "generation")} for row in candidates],
               "charged_usd": sum(row["charged_usd"] for row in usage), "search_seconds": time.monotonic() - started,
               "mode": request.get("mode", "generate"), "split": "validation", "retrieved": preparation["retrieved"]}
+    result["environment"] = native.host_environment()
     write_json(terminal, result)
     freeze_record = {"schema_version": 1, "request_sha256": sha256(workspace / "request.json"),
         "files": {name: sha256(workspace / name) for name in ("algomini", "registry.json", "build.json", "research.json", "development.json", "development.alc", "dictionary.json", "dictionary/dictionary.bin", item["source"], item["model"])},
@@ -211,6 +214,7 @@ def verify(library, workspace, request, receipt):
     result = {"schema_version": 1, "request_id": request["id"], "freeze_id": identifier,
               "split": "test", "scope": "One frozen final file; no tuning afterwards", "size_first_win": False,
               "test_previously_used": bool(receipt.get("test_previously_used"))}
+    result["environment"] = native.host_environment()
     try:
         cfg = configuration(library, request)
         data = DatasetFile.parse(request["dataset"]["test"], request["policy"]).fetch(request["policy"])

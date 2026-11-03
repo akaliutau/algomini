@@ -2,6 +2,7 @@
 
 import json
 import os
+import platform
 from pathlib import Path
 import random
 import shutil
@@ -12,6 +13,13 @@ from .. import archive, baselines, codecs, evaluator
 from ..common import digest, sha256, worker_environment, write_json
 from ..environment import command_output
 from ..execution import run_isolated
+
+
+def host_environment():
+    cpu = next((line.partition(":")[2].strip() for line in Path("/proc/cpuinfo").read_text().splitlines()
+                if line.startswith("model name")), platform.machine())
+    return {"kernel": platform.release(), "machine": platform.machine(), "python": platform.python_version(),
+            "cpu": cpu, "affinity_cpus": len(os.sched_getaffinity(0)), "os_release": platform.freedesktop_os_release()}
 
 
 def driver_files(library):

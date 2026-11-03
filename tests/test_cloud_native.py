@@ -53,6 +53,40 @@ def test_release_binary_rebuild_is_reproducible(release_client):
     assert rebuilt["binary_sha256"] == original["binary_sha256"]
 
 
+def test_generated_codec_and_nonempty_model_are_bundled_and_counted(tmp_path):
+    _, cfg = load_config(ROOT / "run.toml")
+    base = json.loads((ROOT / "release/registry.json").read_text())
+    for name, data in native.assets(ROOT, base).items():
+        path = tmp_path / name;path.parent.mkdir(parents=True, exist_ok=True);path.write_bytes(data)
+    source = tmp_path / "generated.rs"
+    source.write_text('''use crate::{Codec, CodecError};
+pub struct Candidate;
+impl Codec for Candidate {
+ fn train(_: &[&[u8]]) -> Result<Vec<u8>, CodecError> { Ok(vec![71]) }
+ fn encode(input: &[u8], model: &[u8]) -> Result<Vec<u8>, CodecError> {
+  if model != [71] { return Err("wrong model".into()); }
+  crate::toolkit::zstd_compress(input, 19)
+ }
+ fn decode(input: &[u8], model: &[u8], _: usize) -> Result<Vec<u8>, CodecError> {
+  if model != [71] { return Err("wrong model".into()); }
+  crate::toolkit::zstd_decompress(input)
+ }
+}''')
+    item = research.persist_asset(tmp_path, source, b"G", base)
+    registry = research.registry_for(base, item, "learned-model")
+    binary, _ = native.build(ROOT, tmp_path, registry, asset_root=tmp_path)
+    model, _ = native.invoke(binary, item["id"], cfg, 3, b"\3\0\0\0abc")
+    assert model == b"G"
+    data = b"new generated codec with counted model\n" * 100
+    checks = native.correctness(binary, item, cfg, data, model)
+    assert checks["passed"]
+    encoded, _ = native.invoke(binary, item["id"], cfg, 6, data, model=model, source_sha256=item["source_sha256"])
+    assert encoded[4] == 2
+    packed = archive.pack(item["id"], [("sample.bin", encoded)], model)
+    assert archive.unpack(packed)[1] == model
+    assert native.console_roundtrip(binary, cfg, data, item["id"], packed)["exact"]
+
+
 def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path):
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)

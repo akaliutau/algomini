@@ -1,0 +1,22 @@
+{
+  "cloud_contracts_cover": [
+    "durable budget reservations",
+    "conditional Git updates",
+    "issue authorization",
+    "retry execution guards",
+    "cross-language frames",
+    "deterministic clean builds",
+    "nonempty generated model packaging",
+    "one final fetch",
+    "public console exact reconstruction",
+    "merged-PR release gating",
+    "partial-draft release recovery"
+  ],
+  "local_docker_used": false,
+  "new_rust_tests": 3,
+  "paid_model_calls": 0,
+  "private_github_cargo_install": "passed",
+  "python_full_suite_before_final_guard": {
+    "passed": 121
+  }
+}
