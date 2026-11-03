@@ -9,6 +9,7 @@ import sys
 import tempfile
 
 from ..common import load_config, write_json
+from ..environment import check_api
 from ..execution import run_isolated
 from . import coordinator, native, research
 from .github import GitHub
@@ -94,6 +95,7 @@ def main():
     p = commands.add_parser("smoke")
     p.add_argument("--workspace", type=Path, required=True)
     p.add_argument("--image", default="local")
+    commands.add_parser("provider-check")
     for command in ("release-build", "release-publish"):
         p = commands.add_parser(command)
         p.add_argument("--output", type=Path, required=True)
@@ -139,6 +141,11 @@ def main():
             coordinator.publish(root, args.workspace, args.issue, gh)
         elif args.command == "smoke":
             smoke(root, args.workspace, args.image)
+        elif args.command == "provider-check":
+            _, cfg = load_config(root / "run.toml")
+            result = check_api(root, cfg)
+            print(json.dumps(result, sort_keys=True))
+            return 0 if result["ok"] else 1
         else:
             from . import releasing
             if args.command == "release-build":

@@ -74,7 +74,7 @@ def test_coder_uses_image_tools_when_checkout_is_a_readonly_mount(monkeypatch, t
     request = snapshot(monkeypatch)
     (tmp_path / "run.toml").write_bytes((ROOT / "run.toml").read_bytes())
     config = research.configuration(tmp_path, request)
-    assert Path(config["coder"]["executable"]).parent == ROOT / ".tools"
+    assert Path(config["coder"]["executable"]).parent == ROOT / ".tools/bin"
     assert not str(config["coder"]["executable"]).startswith(str(tmp_path))
 
 
