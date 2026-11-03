@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "contexts": 134401,
+      "ideal_arithmetic_bytes": 276960.0260861967,
+      "increment": 1,
+      "maximum_order": 4,
+      "mean_context_visits": 1.316579,
+      "symbol_entries": 322380
+    },
+    {
+      "contexts": 322575,
+      "ideal_arithmetic_bytes": 269817.6927860388,
+      "increment": 1,
+      "maximum_order": 5,
+      "mean_context_visits": 1.613816,
+      "symbol_entries": 619617
+    },
+    {
+      "contexts": 619812,
+      "ideal_arithmetic_bytes": 271228.7043573543,
+      "increment": 1,
+      "maximum_order": 6,
+      "mean_context_visits": 2.021224,
+      "symbol_entries": 1027025
+    }
+  ],
+  "scope": "Predictive log loss, not actual coded archive"
+}

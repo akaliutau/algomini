@@ -1,0 +1,10 @@
+{
+  "origin": "host deterministic parameter derivative of Muse SEE source",
+  "paid_calls": 0,
+  "parameters": {
+    "increment": 2,
+    "maximum_order": 7,
+    "use_see": true
+  },
+  "parent_sha256": "7427d975d5727f33cb49ca476e32bd139604dcace5c6560a1e5f57ef33609055"
+}

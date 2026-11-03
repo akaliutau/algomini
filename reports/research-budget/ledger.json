@@ -1,0 +1,34 @@
+[
+  {
+    "campaign": "wikipedia-optimization-01",
+    "charged_usd": 0.14572725,
+    "cost_is_estimate": true,
+    "id": "ac82a781137c979e5e5144c2ed3a10944a20280600da968dff6a328662a47cc3",
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 27505,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.14572725,
+      "input_tokens": 74459,
+      "output_tokens": 19508
+    }
+  },
+  {
+    "campaign": "wikipedia-optimization-01",
+    "charged_usd": 0.1133297,
+    "cost_is_estimate": true,
+    "id": "c77346bc4c00dfd68086af944a568461812f504efd5cace6c98bede2f2714be1",
+    "state": "completed",
+    "usage": {
+      "available": true,
+      "cached_input_tokens": 31473,
+      "calls": 2,
+      "cost_source": "CLI token totals and declared standard-mode prices",
+      "estimated_usd": 0.1133297,
+      "input_tokens": 75418,
+      "output_tokens": 12630
+    }
+  }
+]

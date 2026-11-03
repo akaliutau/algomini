@@ -1,0 +1,14 @@
+{
+  "archive_bytes": 260727,
+  "archive_gain": 0.10336230109738187,
+  "decode_mib_per_second": 2.1801406651414137,
+  "eligible": true,
+  "id": "refine-tail-classes",
+  "parameters": {
+    "classes": true,
+    "tail": true
+  },
+  "peak_rss_kib": 70784,
+  "source": "reports/wikipedia-search/candidates/refine-tail-classes/codec.rs",
+  "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
+}

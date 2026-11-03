@@ -1,0 +1,15 @@
+{
+  "archive_bytes": 264319,
+  "archive_gain": 0.09100944690714385,
+  "decode_mib_per_second": 1.9250618701489737,
+  "eligible": true,
+  "id": "see-o6-i1",
+  "parameters": {
+    "increment": 1,
+    "maximum_order": 6,
+    "use_see": true
+  },
+  "peak_rss_kib": 70640,
+  "source": "reports/wikipedia-search/candidates/see-o6-i1/codec.rs",
+  "source_sha256": "81a5a8e171977a4d070d96bfb1788a793f4863725d6f24142d1d3f7f4a650858"
+}

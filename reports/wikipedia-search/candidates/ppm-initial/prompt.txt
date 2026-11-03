@@ -1,0 +1,124 @@
+Write exactly one file codec.rs with the native write_file tool now.
+Implement a compact lossless Rust text codec based on sparse PPM (partial matching)
+with symbol exclusion and an arithmetic coder. The independent host compiles/tests it.
+
+Fixed API (already defined; do not redefine it):
+pub const MAX_INPUT: usize = 2 * 1024 * 1024;
+pub const MAX_PAYLOAD: usize = 4 * 1024 * 1024;
+pub const MAX_MODEL: usize = 64 * 1024;
+pub type CodecError = String;
+
+pub trait Codec {
+    fn train(_samples: &[&[u8]]) -> Result<Vec<u8>, CodecError> {
+        Ok(Vec::new())
+    }
+    fn encode(input: &[u8], model: &[u8]) -> Result<Vec<u8>, CodecError>;
+    fn decode(encoded: &[u8], model: &[u8], original_len: usize) -> Result<Vec<u8>, CodecError>;
+}
+
+Use crate::{Codec, CodecError}, export pub struct Candidate; implement Codec.
+Keep the default empty trainer. Safe helpers crate::toolkit::zstd_compress(input,22)
+and zstd_decompress(encoded) are available. No dependencies, modules, unsafe, I/O,
+processes, networking, environment, embedded sample text or corpus-specific tables.
+Source <=64 KiB. Input <=2 MiB, output <=4 MiB. 256 MiB address space.
+Encoder <=30 sec. Each fresh-process 1 MB decoder must reach 10 MiB/s: be fast.
+
+Development evidence: first 1,000,000 enwik8 bytes: xz9e complete collection 290783,
+zstd22 300113. Word-dictionary+zstd and BWT+MTF+zstd prototypes did not win.
+A sparse PPM with exclusion, visited-context updates and max order5 has predictive
+log loss 268850 bytes at increment2; order4 275295, order6 270854. These are ESTIMATES,
+not encoded results. Full updates hurt. Aim to implement that working mechanism.
+Use named constants MAX_ORDER=5, INCREMENT=2, RESCALE=16384 for host sweeps.
+
+Reference predictive model (analyze(...,full_update=False,increment=2)):
+"""Partial-match predictive log loss with symbol exclusion; not an archive benchmark."""
+
+import math
+from pathlib import Path
+
+from algomini.common import digest, sha256, write_json
+
+
+def analyze(data, maximum, *, full_update=False, increment=2):
+    models = [{} for _ in range(maximum + 1)]
+    zero = {byte: 1 for byte in range(256)}
+    history, bits, visits = 0, 0., 0
+    for position, value in enumerate(data):
+        visited, excluded = [], set()
+        zero_used = False
+        for order in range(min(position, maximum), 0, -1):
+            context = history & ((1 << (8 * order)) - 1)
+            counts = models[order].setdefault(context, {})
+            visited.append(counts)
+            visits += 1
+            available = {key: n for key, n in counts.items() if key not in excluded}
+            if not available:
+                continue
+            total = sum(available.values())
+            escape = len(available)
+            if value in available:
+                bits -= math.log2(available[value] / (total + escape))
+                break
+            bits -= math.log2(escape / (total + escape))
+            excluded.update(counts)
+        else:
+            bits -= math.log2(zero[value] / sum(n for key, n in zero.items() if key not in excluded))
+            zero_used = True
+        if full_update:
+            visited = [models[order].setdefault(history & ((1 << (8 * order)) - 1), {}) for order in range(1, min(position, maximum) + 1)]
+        if zero_used or full_update:
+            zero[value] += increment
+            if sum(zero.values()) >= 16384:
+                zero = {key: max(1, n // 2) for key, n in zero.items()}
+        for counts in visited:
+            counts[value] = counts.get(value, 0) + increment
+            if sum(counts.values()) + len(counts) >= 16384:
+                for key in counts:
+                    counts[key] = max(1, counts[key] // 2)
+        history = ((history << 8) | value) & ((1 << (8 * maximum)) - 1)
+    return {"maximum_order": maximum, "ideal_arithmetic_bytes": bits / 8,
+            "mean_context_visits": visits / len(data), "contexts": sum(map(len, models)),
+            "symbol_entries": sum(sum(map(len, order.values())) for order in models)}
+
+
+if __name__ == "__main__":
+    root = Path.cwd()
+    data = (root / ".cache/datasets/enwik8-first-1000000.xml").read_bytes()
+    rows = []
+    for maximum in (3, 4, 5):
+        result = analyze(data, maximum)
+        rows.append(result)
+        print(result, flush=True)
+    write_json(root / "reports/wikipedia-search/ppm-exclusion-logloss.json", {"source_sha256": sha256(__file__),
+        "input_bytes": len(data), "input_sha256": digest(data), "results": rows,
+        "scope": "Predictive model log loss; no encoded stream, framing or native speed measured"})
+
+
+Use sparse context/symbol storage (arena Vecs, short symbol lists) rather than
+256-counter arrays for every context. A u64 context key can be a leading 1 bit then
+last ORDER bytes, separating orders. For the hot context map use a deterministic
+simple integer Hasher + HashMap, not expensive string keys. Per-context model keeps
+observed symbols/counts; exclusion masks symbols already seen in higher escaped
+contexts. Escape frequency equals the number of non-excluded observed symbols;
+empty contexts consume zero coding bits. Terminal order0 starts every byte at 1,
+has no escape and honors exclusions. Update only visited contexts after the symbol,
+including order0 only when reached, by INCREMENT; preserve nonzero counts on rescale.
+Move frequent/recent symbols toward the front of short lists if useful. Keep model
+memory bounded (e.g. 1<<20 contexts, 1<<22 symbol entries), with deterministic fallback
+when a cap is reached; never allocate proportionally to corrupt dimensions.
+
+Use a correct integer arithmetic coder with E1/E2/E3 renormalization (u64 products,
+32-bit intervals, bit stream with a bounded zero tail for finishing). Decoder uses
+original_len, validates tags and bounds. Partial input must return Err, not panic
+or allocate enormous buffers. Empty/random/binary/UTF8/malformed data must roundtrip.
+Use tag 0 for plain zstd22 and tag1 for PPM. Encoder should compare COMPLETE tagged
+payload sizes and keep the shorter. No raw-escape-only shortcut; host tests direct
+algorithm operations as well as full framed streams. Parameters live in source;
+all adaptive state is recreated from decoded bytes, no external training required.
+
+Retrieved research context:
+[{"embedding_model_id":"1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89","excerpt":"Repeated words and schemas suggest dictionary, prefix or template experiments. Their occurrence counts do not establish a compression improvement: test the representation with literal tables, IDs, lengths and exceptions included. Preserve original whitespace, numeric spelling, entity escaping, key order and duplicate keys.","id":"text-structure-probes","kind":"skill","path":".agents/skills/text-structure-probes/SKILL.md","retrieval":"hybrid","section":1,"source_sha256":"e2b1ecddb35b9dcfe6d90845fdc2d76da086aaa2d5ab4c08755396de0cf03c7d"},{"embedding_model_id":"1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89","excerpt":"{\"description\": \"Investigate repeated words, adjacent phrases and dictionary candidates\", \"families\": [\"text\", \"xml\", \"json\", \"csv\"], \"id\": \"text-repetition\", \"max_input_bytes\": 2097152, \"version\": 1}","id":"text-repetition","kind":"tool","path":"laboratory/tools.json","retrieval":"hybrid","section":0,"source_sha256":"3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"},{"embedding_model_id":"1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89","excerpt":"{\"evidence\": \"result.json\", \"hypothesis\": \"Validate the existing codec's general-byte fallback on a complex Wikipedia prefix\", \"measurements\": {\"archive_bytes\": 300163, \"archive_gain\": -0.03225773171058832, \"best_baseline_bytes\": 290783}, \"outcome\": \"exact reconstruction\", \"scope\": \"Public integration fixture; existing frozen codec, no generated text specialist or unseen-data claim\"}","id":"wikipedia-text-integration","kind":"observation","path":"reports/midstage2/observations.jsonl","retrieval":"hybrid","section":0,"source_sha256":"ebf9dd722a1d2676cc888336e50f781d9e871e4bc97cf5dd2c31cbd2051849c8"},{"embedding_model_id":"1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89","excerpt":"{\"description\": \"Measure byte entropy, UTF-8, line endings and repeated lines\", \"families\": [\"*\"], \"id\": \"byte-structure\", \"max_input_bytes\": 2097152, \"version\": 1}","id":"byte-structure","kind":"tool","path":"laboratory/tools.json","retrieval":"hybrid","section":0,"source_sha256":"3e36ba0caaec41b76e6dc3a082c54c680f5b9084122ab1355df4da7f7a6c8b73"}]
+
+sample.csv (legacy name) contains <=4KiB of unmodified Wikipedia text, not CSV.
+At most one optional read_file call, then immediately write the complete codec.rs.
+No README/tests, no scanning other files. Explain the mechanism/limitations in comments.

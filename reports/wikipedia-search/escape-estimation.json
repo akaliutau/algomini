@@ -1,0 +1,17 @@
+{
+  "baseline_ideal_bytes": 268849.7248115862,
+  "escape_estimators": [
+    {
+      "ideal_bytes": 263634.98803240864,
+      "learned_feature_groups": 1881,
+      "variant": 0
+    },
+    {
+      "ideal_bytes": 264068.7734206957,
+      "learned_feature_groups": 294,
+      "variant": 1
+    }
+  ],
+  "scope": "Predictive log loss; no serialized stream or native resource claim",
+  "source_sha256": "95a44c4d29264f1c1371520852cf1a450730ad2102bb6a8c7bf5081ca2902a2f"
+}

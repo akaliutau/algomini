@@ -1,0 +1,119 @@
+{
+  "archive_manifest_sha256": "c70c1989aed4b7d1cf5d8665e441a7053c7e834c6203f95ba610bb29216e7a98",
+  "baseline_arguments": [
+    {
+      "decode": [
+        "gzip",
+        "-d",
+        "-c"
+      ],
+      "encode": [
+        "gzip",
+        "-n",
+        "-9",
+        "-c"
+      ],
+      "id": "gzip-9"
+    },
+    {
+      "decode": [
+        "xz",
+        "-d",
+        "-c"
+      ],
+      "encode": [
+        "xz",
+        "-9e",
+        "--threads=1",
+        "--check=crc64",
+        "-c"
+      ],
+      "id": "xz-9e"
+    },
+    {
+      "decode": [
+        "zstd",
+        "-q",
+        "-d",
+        "-c"
+      ],
+      "encode": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "-19",
+        "-c"
+      ],
+      "id": "zstd-19"
+    },
+    {
+      "decode": [
+        "zstd",
+        "-q",
+        "-d",
+        "-c"
+      ],
+      "encode": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "--ultra",
+        "-22",
+        "-c"
+      ],
+      "id": "zstd-22"
+    },
+    {
+      "decode": [
+        "zstd",
+        "-q",
+        "-D",
+        "{dictionary}",
+        "-d",
+        "-c"
+      ],
+      "dictionary": true,
+      "encode": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "-19",
+        "-D",
+        "{dictionary}",
+        "-c"
+      ],
+      "id": "zstd-dict-19"
+    },
+    {
+      "decode": [
+        "zstd",
+        "-q",
+        "-D",
+        "{dictionary}",
+        "-d",
+        "-c"
+      ],
+      "dictionary": true,
+      "encode": [
+        "zstd",
+        "-q",
+        "-T1",
+        "--stream-size={input_bytes}",
+        "--ultra",
+        "-22",
+        "-D",
+        "{dictionary}",
+        "-c"
+      ],
+      "id": "zstd-dict-22"
+    }
+  ],
+  "dictionary_bytes": 8192,
+  "offset": 1000000,
+  "sample_bytes": 65536,
+  "samples": 16,
+  "scope": "Disjoint external training bytes, never the reserved later window; dictionary counted once"
+}

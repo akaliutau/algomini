@@ -1,0 +1,4 @@
+# Optional exploratory probes only; the codec and verifier do not import these.
+# Python 3.12.16; remaining base packages are pinned in requirements.lock.
+numpy==2.5.4
+pydivsufsort==0.0.20

@@ -1,0 +1,13 @@
+{
+  "archive_bytes": 263665,
+  "archive_gain": 0.09325854675135758,
+  "decode_mib_per_second": 2.004256149314614,
+  "eligible": true,
+  "id": "refine-fast-escape",
+  "parameters": {
+    "rescale": 256
+  },
+  "peak_rss_kib": 70932,
+  "source": "reports/wikipedia-search/candidates/refine-fast-escape/codec.rs",
+  "source_sha256": "2ba3166e9047bc9be019149cc4c279fa17b8b9fc432bebaf26ed8364bb9853a7"
+}

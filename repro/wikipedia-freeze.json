@@ -1,0 +1,32 @@
+{
+  "binary_sha256": "a6647e9b61f6232f365752062ab6115350e9f98b91e1ca85e3a9768c43bed984",
+  "candidate_training": "No external model; deterministic adaptive counts reconstructed from decoded bytes",
+  "created_at": "2026-11-03T04:54:40.743424+00:00",
+  "evaluator_freeze_id": "e42cb5487a653169342d9eddbcd492613038c36d36b01370a3c2ffddc3ff7340",
+  "files": {
+    "algomini/wiki_benchmark.py": "038496d0858e8dbfb928978bbe49c93475cbf6c8ba9567f2399e2f44829c6040",
+    "algomini/wiki_verify.py": "09cc78235e0ededee21b42a05d5f287fa069e4f936af7e4a565d557902737f34",
+    "artifacts/wikipedia-selected/build.json": "d94261b57ba302f308cde25ba3dd46b25e39a873c22577377f76a2592bd93a3b",
+    "artifacts/wikipedia-selected/codec.rs": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa",
+    "artifacts/wikipedia-selected/development.json": "f48597015ef8d1af1b644eead64c4c59c6f2ba886ba96426ad21d81cafa3cac2",
+    "artifacts/wikipedia-selected/model.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "datasets/wikipedia/manifest.json": "c70c1989aed4b7d1cf5d8665e441a7053c7e834c6203f95ba610bb29216e7a98",
+    "reports/wikipedia-search/baseline-policy.json": "90816f14d6c011fa84906895feb5592897bf9b9ee03769052fc8f70966a0242f",
+    "reports/wikipedia-search/dictionary-training.json": "3c3b9b5110fd06560f8a36462f5a09d994302431e8577aa81a26e9b72c45de6f",
+    "reports/wikipedia-search/objective.json": "dea281dab3e7b4beb93d8fb744886b15dddd31ccf209152e29a41f5a0c65b935",
+    "run.toml": "b349cdee075453d50b2754d25d197c5480fc5dcf664df9c0620ba62871815392",
+    "wiki-search.toml": "d5f99a71fd2c59402f71d316c49c6ff7ada34c501f440acd5728f6d847656b9e"
+  },
+  "once": "Commit this freeze before reading the reserved window; claim first; no tuning after any outcome",
+  "schema_version": 1,
+  "selection": "Smallest eligible complete archive; speed secondary; all parameters in frozen source",
+  "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa",
+  "trust": "Commit and externally pin this record ID; adjacent checksum alone is not authentication",
+  "window": {
+    "access": "Only after source/model/parameters/build selection is frozen; one final outcome, no tuning afterwards",
+    "archive_manifest": "datasets/wikipedia/manifest.json",
+    "bytes": 1000000,
+    "member": "enwik8",
+    "offset": 10000000
+  }
+}

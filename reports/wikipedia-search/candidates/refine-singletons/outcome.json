@@ -1,0 +1,13 @@
+{
+  "archive_bytes": 263737,
+  "archive_gain": 0.0930109394290588,
+  "decode_mib_per_second": 2.2477968243786473,
+  "eligible": true,
+  "id": "refine-singletons",
+  "parameters": {
+    "singletons": true
+  },
+  "peak_rss_kib": 70864,
+  "source": "reports/wikipedia-search/candidates/refine-singletons/codec.rs",
+  "source_sha256": "c9838cd19c91e8a5125b5c648925bd95a410ae164a574febdd3e0132851a6567"
+}

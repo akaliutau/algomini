@@ -241,5 +241,7 @@ rust/**/target/
 /artifacts/*
 !/artifacts/stage4-selected/
 !/artifacts/stage4-selected/**
+!/artifacts/wikipedia-selected/
+!/artifacts/wikipedia-selected/**
 !/reports/stage4/premerge-selection-01/artifacts/
 !/reports/stage4/premerge-selection-01/artifacts/**

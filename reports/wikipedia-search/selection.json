@@ -1,0 +1,105 @@
+{
+  "elapsed_search_seconds": 5281.745752811432,
+  "ranking": [
+    {
+      "archive_bytes": 260727,
+      "decode_mib_per_second": 2.1801406651414137,
+      "evaluation": "reports/wikipedia-search/evaluations/8eee2328d4d1f049c999eb7a46a95fe643c598d06961ff687d95426632fef61f.json",
+      "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
+    },
+    {
+      "archive_bytes": 260848,
+      "decode_mib_per_second": 2.057012217604073,
+      "evaluation": "reports/wikipedia-search/evaluations/ea5e7373ec1a6bb59ab6e63fecc190ed9e54b1e51aab26aa7ddfd55c3db87191.json",
+      "source_sha256": "59f2da1716cdd2b035593df66c68ebf280c453217eec32de5991c92f611c2906"
+    },
+    {
+      "archive_bytes": 263528,
+      "decode_mib_per_second": 1.7086640004617217,
+      "evaluation": "reports/wikipedia-search/evaluations/a90b7856cee8f7c1df7727959b36a8fd077dbdc14e9fd52902d3451618f043ae.json",
+      "source_sha256": "a8e920d45f9756f0b818fabcb3ceb336ef4df1650ab385167b2f66ae3fd07b0c"
+    },
+    {
+      "archive_bytes": 263655,
+      "decode_mib_per_second": 1.8053766518783818,
+      "evaluation": "reports/wikipedia-search/evaluations/7b8c20ce5b27878fab3bce0fb338803f7612296880510581187ca0c0666cdfff.json",
+      "source_sha256": "624bd6eaad47b000008e65d8e058fee414de6a0e4352aec5d29ed88d3976730f"
+    },
+    {
+      "archive_bytes": 263665,
+      "decode_mib_per_second": 2.004256149314614,
+      "evaluation": "reports/wikipedia-search/evaluations/596b2e0bcfe733f8e21f6996e17911c26384809eb06c966ba454f5597ae4ae4f.json",
+      "source_sha256": "2ba3166e9047bc9be019149cc4c279fa17b8b9fc432bebaf26ed8364bb9853a7"
+    },
+    {
+      "archive_bytes": 263712,
+      "decode_mib_per_second": 2.1562871401102,
+      "evaluation": "reports/wikipedia-search/evaluations/8deb95c5a6e57d20a4c582890556e71f68165da6bdc77091805bcfd2be699b63.json",
+      "source_sha256": "c884fd36f56bef4b5d44cd57f97ca03b0cbe9c853cb5528469ba6ebf89d7fa6d"
+    },
+    {
+      "archive_bytes": 263737,
+      "decode_mib_per_second": 2.2477968243786473,
+      "evaluation": "reports/wikipedia-search/evaluations/dbb80deac32a519cc3519f191cfc89e3eb682db5f957f10a25afe1e40a2b4e6c.json",
+      "source_sha256": "c9838cd19c91e8a5125b5c648925bd95a410ae164a574febdd3e0132851a6567"
+    },
+    {
+      "archive_bytes": 263746,
+      "decode_mib_per_second": 3.2343902726297085,
+      "evaluation": "reports/wikipedia-search/evaluations/d2e70ca7bed91c06814c60d768647eacda47b7b3fc9e9bdf0e1e23dd94180091.json",
+      "source_sha256": "7427d975d5727f33cb49ca476e32bd139604dcace5c6560a1e5f57ef33609055"
+    },
+    {
+      "archive_bytes": 264131,
+      "decode_mib_per_second": 2.00593977014556,
+      "evaluation": "reports/wikipedia-search/evaluations/a9441a6e6157fada5b8b42936fc26418a50ce6c3f79713c21ebd0ce88df4c3d8.json",
+      "source_sha256": "eececfb495cb1e4d779ebb9fdf4453c1de3d502aecc8be81a7dacded64166aed"
+    },
+    {
+      "archive_bytes": 264184,
+      "decode_mib_per_second": 2.6419038409569735,
+      "evaluation": "reports/wikipedia-search/evaluations/310e5cb66418fb0c62f72a146e91940aefa0c764effbad2b43274fb91883e3c6.json",
+      "source_sha256": "56a5212e4365eeb8bd56ec43bbfcfa2601129a7a028d2bd5ace4141d29f2f491"
+    },
+    {
+      "archive_bytes": 264319,
+      "decode_mib_per_second": 1.9250618701489737,
+      "evaluation": "reports/wikipedia-search/evaluations/5c206c19548507d7ac968aabac672939c591639f907ba8d2c6582aaffb6d2c89.json",
+      "source_sha256": "81a5a8e171977a4d070d96bfb1788a793f4863725d6f24142d1d3f7f4a650858"
+    },
+    {
+      "archive_bytes": 264476,
+      "decode_mib_per_second": 2.5886133363048467,
+      "evaluation": "reports/wikipedia-search/evaluations/ef41bf7e71fdb743fd09860390b8769ae72b11756e201945eb3403d32f43eb2b.json",
+      "source_sha256": "2da9ca21b00227ae52c2677431e7f849dc95daca7ce927f5e8987a8e3c9e5fba"
+    },
+    {
+      "archive_bytes": 265450,
+      "decode_mib_per_second": 1.572783590891587,
+      "evaluation": "reports/wikipedia-search/evaluations/f683afa022849c4a0832e462a0bcc4f3359ead2dddbc4a2d3b5e3e6cf0dd8b19.json",
+      "source_sha256": "80a983a7b32f60f6e91e1693d3039ce788c3896162e690ad5ece17555812d1dc"
+    },
+    {
+      "archive_bytes": 268960,
+      "decode_mib_per_second": 3.585712112458627,
+      "evaluation": "reports/wikipedia-search/evaluations/34e5e343e6f47308907265fc06bcb78a43033a44cb7c72e7a092883dcc60e2a6.json",
+      "source_sha256": "7df997ef70ebb9801005d703eff976424c05e51d15fa6d53bb1e6db914a50a32"
+    },
+    {
+      "archive_bytes": 268960,
+      "decode_mib_per_second": 2.829568453325433,
+      "evaluation": "reports/wikipedia-search/evaluations/9b082671f4446131f81a11fb69a103b432eda8da0beacd40ea6b10963e1c983a.json",
+      "source_sha256": "d287108cc6981a5150f2fc327f66a8715da319914e460b415212856e5029ef8b"
+    },
+    {
+      "archive_bytes": 272423,
+      "decode_mib_per_second": 3.0763680182634547,
+      "evaluation": "reports/wikipedia-search/evaluations/57303422f66c7f4c0400635d5a7f501470adc6a978e15f6b840a182ca18b42e1.json",
+      "source_sha256": "27ad6f4df765e7e2056f78f3dbba54b21faf4d3e65f1c6612b3b1bf747f06f8c"
+    }
+  ],
+  "reason": "10% target met; no more generation or parameter trials",
+  "search_closed_at": "2026-11-03T04:54:22.968814+00:00",
+  "selected_evaluation": "reports/wikipedia-search/evaluations/8eee2328d4d1f049c999eb7a46a95fe643c598d06961ff687d95426632fef61f.json",
+  "selected_source": "reports/wikipedia-search/candidates/refine-tail-classes/codec.rs"
+}

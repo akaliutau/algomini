@@ -1,0 +1,129 @@
+{
+  "build": {
+    "binary_bytes": 387608,
+    "binary_sha256": "9311c26cbd5741e32a030089dd8f6baa428c4e6d3c558f9c2f93d391db649e30",
+    "builder_sha256": "a5be1a9b6f4e801bdf67af911235a0cb6a8765becdf773904eb79595c4910eaf",
+    "core": {
+      "Cargo.lock": "897678899bc651ef41ce74a504628638045898fd85079c07c7862f62ca73670a",
+      "Cargo.toml": "4d77352736ea1bf544456c411381d5460d940cef930dba85248fb34b20b0e6f3",
+      "README.md": "4d7066c423197d109d77dd2c8687572732d151e859347afd2fa1707b488b47ae",
+      "src/api.rs": "8091ff431970657a50f8c43668d634923d0f8da6fead113394eaf7446fca1f11",
+      "src/codec.rs": "da1634dbc1a82d878688c0c126f2b2a87018e89db2a796894057098c5b09d11d",
+      "src/frame.rs": "f07f9fc0aab5b83087cff38e65f8cb7f39233c2892698e4390fca5d13a0728bf",
+      "src/identity.rs": "1be41fe873d3f4afc70dee5e2e355f6ebabf5ac43bced7bdb86bfa28111cb102",
+      "src/main.rs": "edd0de67fad0bdf33c75c270120f42fc9f61bec0d1da528f95c8880f0bf66a34",
+      "src/toolkit.rs": "a30112d14bc87f970a5f7bd913d5bad75c34d09aba63db382aaf3962edcbd7ec"
+    },
+    "diagnostics": "   Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/915df3d93b8993e2aa5b80b65f14a6fa36be7d4f4715d35a3755b1bbffc2fedc)\n    Finished `release` profile [optimized] target(s) in 0.57s\n",
+    "execution_sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+    "fingerprint": "915df3d93b8993e2aa5b80b65f14a6fa36be7d4f4715d35a3755b1bbffc2fedc",
+    "isolation": "landlock-abi6+-libseccomp",
+    "isolation_sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+    "ok": true,
+    "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+    "source_sha256": "c8a49456692ba635bce8cd4a87f61eecb9f5dd4c4f631f94161faff6802f3e33",
+    "wall_seconds": 0.7236210580012994
+  },
+  "eligible": false,
+  "reason": "Preflight failed on empty input; measurements retained only as diagnostics",
+  "results": [
+    {
+      "decode": {
+        "decode_mib_per_second": 2.5304851597684053,
+        "median_execution_seconds": 0.02469882099831011,
+        "peak_rss_kib": 28488,
+        "repetitions": [
+          {
+            "execution_seconds": 0.02469882099831011,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 28488,
+            "setup_seconds": 0.106643664999865,
+            "system_seconds": 0.040084,
+            "user_seconds": 0.091137,
+            "wall_seconds": 0.1313424859981751
+          },
+          {
+            "execution_seconds": 0.029366285001742654,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 28488,
+            "setup_seconds": 0.1194228070016834,
+            "system_seconds": 0.053914,
+            "user_seconds": 0.094723,
+            "wall_seconds": 0.14878909200342605
+          },
+          {
+            "execution_seconds": 0.02273541800241219,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 28488,
+            "setup_seconds": 0.10621605899359565,
+            "system_seconds": 0.042835,
+            "user_seconds": 0.085923,
+            "wall_seconds": 0.12895147699600784
+          }
+        ]
+      },
+      "encode": {
+        "execution_seconds": 0.04497466399334371,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 28488,
+        "setup_seconds": 0.11736819500220008,
+        "system_seconds": 0.046033,
+        "user_seconds": 0.11538,
+        "wall_seconds": 0.1623428589955438
+      },
+      "frame_bytes": 22353,
+      "input_bytes": 65536,
+      "input_sha256": "05fc5f44993ef0557959db76bf47e45badb2dd9c69d93ce08911935b5e52bf40",
+      "mode": 1
+    },
+    {
+      "decode": {
+        "decode_mib_per_second": 3.228605379897785,
+        "median_execution_seconds": 0.29538274399965303,
+        "peak_rss_kib": 38616,
+        "repetitions": [
+          {
+            "execution_seconds": 0.2906116679951083,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 38616,
+            "setup_seconds": 0.11086197000258835,
+            "system_seconds": 0.066955,
+            "user_seconds": 0.333981,
+            "wall_seconds": 0.40147363799769664
+          },
+          {
+            "execution_seconds": 0.2955625910035451,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 38612,
+            "setup_seconds": 0.11227734899875941,
+            "system_seconds": 0.062779,
+            "user_seconds": 0.34462699999999996,
+            "wall_seconds": 0.4078399400023045
+          },
+          {
+            "execution_seconds": 0.29538274399965303,
+            "isolation": "landlock-abi6+-libseccomp",
+            "peak_rss_kib": 38568,
+            "setup_seconds": 0.1142279880004935,
+            "system_seconds": 0.061265999999999994,
+            "user_seconds": 0.347969,
+            "wall_seconds": 0.4096107320001465
+          }
+        ]
+      },
+      "encode": {
+        "execution_seconds": 0.5185503050015541,
+        "isolation": "landlock-abi6+-libseccomp",
+        "peak_rss_kib": 47332,
+        "setup_seconds": 0.10870251199958147,
+        "system_seconds": 0.078107,
+        "user_seconds": 0.548188,
+        "wall_seconds": 0.6272528170011356
+      },
+      "frame_bytes": 280306,
+      "input_bytes": 1000000,
+      "input_sha256": "369b688978f649681136198fb96db14c1616756260c55fb4b65e9bc049552cad",
+      "mode": 1
+    }
+  ]
+}

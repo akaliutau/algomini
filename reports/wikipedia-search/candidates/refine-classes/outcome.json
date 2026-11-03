@@ -1,0 +1,13 @@
+{
+  "archive_bytes": 260848,
+  "archive_gain": 0.10294618323629645,
+  "decode_mib_per_second": 2.057012217604073,
+  "eligible": true,
+  "id": "refine-classes",
+  "parameters": {
+    "classes": true
+  },
+  "peak_rss_kib": 70756,
+  "source": "reports/wikipedia-search/candidates/refine-classes/codec.rs",
+  "source_sha256": "59f2da1716cdd2b035593df66c68ebf280c453217eec32de5991c92f611c2906"
+}

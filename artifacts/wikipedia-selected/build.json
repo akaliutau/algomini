@@ -1,0 +1,25 @@
+{
+  "binary_bytes": 389232,
+  "binary_sha256": "a6647e9b61f6232f365752062ab6115350e9f98b91e1ca85e3a9768c43bed984",
+  "builder_sha256": "a5be1a9b6f4e801bdf67af911235a0cb6a8765becdf773904eb79595c4910eaf",
+  "core": {
+    "Cargo.lock": "897678899bc651ef41ce74a504628638045898fd85079c07c7862f62ca73670a",
+    "Cargo.toml": "4d77352736ea1bf544456c411381d5460d940cef930dba85248fb34b20b0e6f3",
+    "README.md": "4d7066c423197d109d77dd2c8687572732d151e859347afd2fa1707b488b47ae",
+    "src/api.rs": "8091ff431970657a50f8c43668d634923d0f8da6fead113394eaf7446fca1f11",
+    "src/codec.rs": "da1634dbc1a82d878688c0c126f2b2a87018e89db2a796894057098c5b09d11d",
+    "src/frame.rs": "f07f9fc0aab5b83087cff38e65f8cb7f39233c2892698e4390fca5d13a0728bf",
+    "src/identity.rs": "1be41fe873d3f4afc70dee5e2e355f6ebabf5ac43bced7bdb86bfa28111cb102",
+    "src/main.rs": "edd0de67fad0bdf33c75c270120f42fc9f61bec0d1da528f95c8880f0bf66a34",
+    "src/toolkit.rs": "a30112d14bc87f970a5f7bd913d5bad75c34d09aba63db382aaf3962edcbd7ec"
+  },
+  "diagnostics": "   Compiling algomini-codec-worker v0.1.0 (/media/DATA/repos-my/algomini/.cache/builds/5dc6afa2629654676766d7a4d74d66ceffe28fbe98247ff6a01f3c5a58fc876d)\nwarning: method `find` is never used\n   --> src/codec.rs:342:8\n    |\n316 | impl Ppm {\n    | -------- method in this implementation\n...\n342 |     fn find(&self, key: u64) -> Option<u32> {\n    |        ^^^^\n    |\n    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `algomini-codec-worker` (bin \"algomini-codec-worker\") generated 1 warning\n    Finished `release` profile [optimized] target(s) in 0.60s\n",
+  "execution_sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+  "fingerprint": "5dc6afa2629654676766d7a4d74d66ceffe28fbe98247ff6a01f3c5a58fc876d",
+  "isolation": "landlock-abi6+-libseccomp",
+  "isolation_sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+  "ok": true,
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa",
+  "wall_seconds": 0.7501719889987726
+}

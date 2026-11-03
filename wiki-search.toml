@@ -1,0 +1,25 @@
+schema_version = 1
+run_id = "wikipedia-optimization-01"
+development_fixture = "datasets/wikipedia/manifest.json"
+screen_bytes = 65536
+benchmark_bytes = 1000000
+minimum_archive_gain = 0.10
+maximum_coder_sessions = 8
+maximum_initial_candidates = 4
+maximum_evolved_candidates = 2
+maximum_repairs = 2
+maximum_spending_usd = 20
+maximum_run_seconds = 7200
+decode_repetitions = 3
+
+[later_window]
+archive_manifest = "datasets/wikipedia/manifest.json"
+member = "enwik8"
+offset = 10000000
+bytes = 1000000
+access = "Only after source/model/parameters/build selection is frozen; one final outcome, no tuning afterwards"
+
+[claims]
+benchmark = "Previously examined first 1,000,000 bytes: development benchmark, not unseen data"
+verification = "One later window in the same public corpus; not independent Wikipedia-wide generalization"
+accounting = "Actual ALC1 collection, complete ALG2 frames, all transform metadata and models; executable cost separate"

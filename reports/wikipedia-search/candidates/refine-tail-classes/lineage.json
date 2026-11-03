@@ -1,0 +1,9 @@
+{
+  "origin": "host deterministic escape-feature derivative of Muse source",
+  "paid_calls": 0,
+  "parameters": {
+    "classes": true,
+    "tail": true
+  },
+  "parent_sha256": "624bd6eaad47b000008e65d8e058fee414de6a0e4352aec5d29ed88d3976730f"
+}

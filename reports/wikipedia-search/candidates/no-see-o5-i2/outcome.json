@@ -1,0 +1,15 @@
+{
+  "archive_bytes": 268960,
+  "archive_gain": 0.07504909159063633,
+  "decode_mib_per_second": 2.829568453325433,
+  "eligible": true,
+  "id": "no-see-o5-i2",
+  "parameters": {
+    "increment": 2,
+    "maximum_order": 5,
+    "use_see": false
+  },
+  "peak_rss_kib": 38436,
+  "source": "reports/wikipedia-search/candidates/no-see-o5-i2/codec.rs",
+  "source_sha256": "d287108cc6981a5150f2fc327f66a8715da319914e460b415212856e5029ef8b"
+}

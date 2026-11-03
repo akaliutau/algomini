@@ -1,0 +1,17 @@
+{
+  "codec_id": "3169dda381d9c07279def7e8e37cc6cc",
+  "format_version": 2,
+  "id": "wk-3169dda381d9c072",
+  "provenance": {
+    "campaign": "wikipedia-optimization-01",
+    "origin": "Muse-generated adaptive PPM with documented host correctness and escape-feature derivatives",
+    "scope": "Wikipedia development benchmark; final verification pending",
+    "selection": "reports/wikipedia-search/selection.json"
+  },
+  "runtime_dependency": "libzstd.so.1; toolchain pinned by evaluator freeze",
+  "schema_version": 1,
+  "source": "codec.rs",
+  "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa",
+  "status": "experimental",
+  "worker_protocol_version": 1
+}

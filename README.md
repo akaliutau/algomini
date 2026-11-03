@@ -52,3 +52,5 @@ python -m algomini text-e2e
 ```
 
 The [M2 integration](reports/midstage2/report.md) reconstructs exactly the first **1,000,000 Wikipedia bytes** through a fresh compiled installation after deleting the supplied original. It also exercises independent XML/JSON campaign preparation, shared semantic retrieval and four native baselines. The existing telemetry codec is **3.23% larger than xz** here; this verifies fallback and integration, not a new text-specialist compression win. Cached replay denies original-data reads and new codec/embedding work. See [fixture provenance](datasets/wikipedia/README.md).
+
+The [Wikipedia optimization](reports/wikipedia-search/report.md) adds a text-specific adaptive context codec: **260,727 bytes versus xz's 290,783 bytes** on the examined 1 MB prefix, a **10.34% reduction** with all archive metadata counted. Size ranks first; decode speed is secondary. This is a development benchmark against the six configured baselines. The separate, frozen later-window outcome and reproduction commands are recorded in that report.

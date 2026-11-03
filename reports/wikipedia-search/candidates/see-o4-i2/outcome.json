@@ -1,0 +1,15 @@
+{
+  "archive_bytes": 272423,
+  "archive_gain": 0.06313986718618347,
+  "decode_mib_per_second": 3.0763680182634547,
+  "eligible": true,
+  "id": "see-o4-i2",
+  "parameters": {
+    "increment": 2,
+    "maximum_order": 4,
+    "use_see": true
+  },
+  "peak_rss_kib": 32668,
+  "source": "reports/wikipedia-search/candidates/see-o4-i2/codec.rs",
+  "source_sha256": "27ad6f4df765e7e2056f78f3dbba54b21faf4d3e65f1c6612b3b1bf747f06f8c"
+}

@@ -1,0 +1,15 @@
+{
+  "archive_bytes": 265450,
+  "archive_gain": 0.08711994855270078,
+  "decode_mib_per_second": 1.572783590891587,
+  "eligible": true,
+  "id": "see-o7-i2",
+  "parameters": {
+    "increment": 2,
+    "maximum_order": 7,
+    "use_see": true
+  },
+  "peak_rss_kib": 128736,
+  "source": "reports/wikipedia-search/candidates/see-o7-i2/codec.rs",
+  "source_sha256": "80a983a7b32f60f6e91e1693d3039ce788c3896162e690ad5ece17555812d1dc"
+}
