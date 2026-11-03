@@ -1,0 +1,249 @@
+name: Codec request
+on:
+  issues:
+    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Existing codec issue number; replay never restarts a claimed request.
+        type: string
+        required: true
+      mode:
+        description: Generate with Muse, or reuse reviewed seeds for a no-inference plumbing check.
+        type: choice
+        options: [generate, reuse]
+        default: generate
+permissions:
+  contents: read
+concurrency:
+  group: algomini-paid-research
+  cancel-in-progress: false
+  queue: max
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      start: ${{ steps.gate.outputs.start }}
+      issue: ${{ steps.gate.outputs.issue }}
+      mode: ${{ steps.gate.outputs.mode }}
+      base: ${{ steps.gate.outputs.base }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.ALGOMINI_APP_CLIENT_ID || secrets.ALGOMINI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ALGOMINI_APP_PRIVATE_KEY }}
+      - id: gate
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          GH_ACTIONS_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: python -m algomini.cloud gate --event "$GITHUB_EVENT_PATH" --event-name "$EVENT_NAME" --output "$RUNNER_TEMP/intake.json"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: steps.gate.outputs.start == 'true'
+        with:
+          name: intake
+          path: ${{ runner.temp }}/intake.json
+          retention-days: 7
+  image:
+    needs: gate
+    if: needs.gate.outputs.start == 'true'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/_lab-image.yml
+    with:
+      base: ${{ needs.gate.outputs.base }}
+  claim:
+    needs: [gate, image]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      claimed: ${{ steps.claim.outputs.claimed }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.gate.outputs.base }}
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: intake
+          path: ${{ runner.temp }}/intake
+      - id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.ALGOMINI_APP_CLIENT_ID || secrets.ALGOMINI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ALGOMINI_APP_PRIVATE_KEY }}
+      - id: claim
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          LAB_IMAGE: ${{ needs.image.outputs.image }}
+          ALGOMINI_RUN_ID: ${{ github.run_id }}
+          ALGOMINI_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/claimed"
+          python -m algomini.cloud claim --intake "$RUNNER_TEMP/intake/intake.json" --image "$LAB_IMAGE" --output "$RUNNER_TEMP/claimed/request.json"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: steps.claim.outputs.claimed == 'true'
+        with:
+          name: claimed-request
+          path: ${{ runner.temp }}/claimed/
+          retention-days: 30
+  research:
+    needs: [gate, image, claim]
+    if: needs.claim.outputs.claimed == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.gate.outputs.base }}
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: claimed-request
+          path: ${{ runner.temp }}/research-work
+      - name: Bounded research with the model key isolated from publisher jobs
+        env:
+          META_API_KEY: ${{ needs.gate.outputs.mode == 'generate' && secrets.META_API_KEY || '' }}
+          GHCR_TOKEN: ${{ github.token }}
+          LAB_IMAGE: ${{ needs.image.outputs.image }}
+          ALGOMINI_RUN_ID: ${{ github.run_id }}
+          ALGOMINI_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$LAB_IMAGE"
+          mkdir -p "$RUNNER_TEMP/research-output"
+          docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --memory 4g \
+            --tmpfs /tmp:rw,nosuid,size=512m -e META_API_KEY -e ALGOMINI_RUN_ID -e ALGOMINI_RUN_ATTEMPT \
+            -v "$GITHUB_WORKSPACE:/library:ro" -v "$RUNNER_TEMP/research-work:/work" -v "$RUNNER_TEMP/research-output:/out" \
+            "$LAB_IMAGE" python -m algomini.cloud --library /library research --workspace /work --export /out
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: research-checkpoint
+          path: ${{ runner.temp }}/research-output/
+          if-no-files-found: warn
+          retention-days: 30
+  freeze:
+    needs: [gate, research]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      verify: ${{ steps.freeze.outputs.verify }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.gate.outputs.base }}
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: research-checkpoint
+          path: ${{ runner.temp }}/checkpoint
+      - id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.ALGOMINI_APP_CLIENT_ID || secrets.ALGOMINI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ALGOMINI_APP_PRIVATE_KEY }}
+      - id: freeze
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: python -m algomini.cloud freeze --workspace "$RUNNER_TEMP/checkpoint" --receipt "$RUNNER_TEMP/receipt.json"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: test-receipt
+          path: ${{ runner.temp }}/receipt.json
+          retention-days: 30
+  verify:
+    needs: [gate, image, freeze]
+    if: needs.freeze.outputs.verify == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.gate.outputs.base }}
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: research-checkpoint
+          path: ${{ runner.temp }}/verify-work
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: test-receipt
+          path: ${{ runner.temp }}/receipt
+      - name: Consume final verification without model or repository write credentials
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+          LAB_IMAGE: ${{ needs.image.outputs.image }}
+          ALGOMINI_RUN_ID: ${{ github.run_id }}
+          ALGOMINI_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          mkdir -p "$RUNNER_TEMP/final-output"
+          docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --memory 4g \
+            --tmpfs /tmp:rw,nosuid,size=512m -e ALGOMINI_RUN_ID -e ALGOMINI_RUN_ATTEMPT \
+            -v "$GITHUB_WORKSPACE:/library:ro" -v "$RUNNER_TEMP/verify-work:/work" \
+            -v "$RUNNER_TEMP/receipt:/receipt:ro" -v "$RUNNER_TEMP/final-output:/out" "$LAB_IMAGE" \
+            python -m algomini.cloud --library /library verify --workspace /work --receipt /receipt/receipt.json --export /out
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: final-checkpoint
+          path: ${{ runner.temp }}/final-output/
+          if-no-files-found: warn
+          retention-days: 30
+  publish:
+    needs: [gate, image, claim, research, freeze, verify]
+    if: always() && needs.gate.outputs.start == 'true' && needs.gate.outputs.issue != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.gate.outputs.base }}
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        continue-on-error: true
+        with:
+          name: research-checkpoint
+          path: ${{ runner.temp }}/publish-work
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        continue-on-error: true
+        with:
+          name: final-checkpoint
+          path: ${{ runner.temp }}/publish-work
+      - id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.ALGOMINI_APP_CLIENT_ID || secrets.ALGOMINI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ALGOMINI_APP_PRIVATE_KEY }}
+      - env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          ISSUE_NUMBER: ${{ needs.gate.outputs.issue }}
+        run: python -m algomini.cloud publish --workspace "$RUNNER_TEMP/publish-work" --issue "$ISSUE_NUMBER"

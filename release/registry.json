@@ -1,0 +1,28 @@
+{
+  "aliases": {
+    "telemetry-csv": "s4-98e12bcd61e8117b0",
+    "wiki-xml": "wk-3169dda381d9c072"
+  },
+  "codecs": [
+    {
+      "codec_id": "3169dda381d9c07279def7e8e37cc6cc",
+      "id": "wk-3169dda381d9c072",
+      "model": "plugins/wk-3169dda381d9c072/model.bin",
+      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "Previously measured local codec; cloud runtime qualification pending",
+      "source": "plugins/wk-3169dda381d9c072/codec.rs",
+      "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
+    },
+    {
+      "codec_id": "98e12bcd61e8117b0c9f3cc6b4edfbc3",
+      "id": "s4-98e12bcd61e8117b0",
+      "model": "plugins/s4-98e12bcd61e8117b0/model.bin",
+      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "Previously measured local codec; cloud runtime qualification pending",
+      "source": "plugins/s4-98e12bcd61e8117b0/codec.rs",
+      "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+    }
+  ],
+  "requests": [],
+  "schema_version": 1
+}

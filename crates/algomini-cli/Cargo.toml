@@ -1,0 +1,26 @@
+[package]
+name = "algomini-cli"
+version = "0.3.0"
+edition = "2021"
+rust-version = "1.92"
+description = "Bounded lossless compression with reviewed Algomini codecs"
+license = "MIT"
+publish = false
+
+[[bin]]
+name = "algomini"
+path = "src/main.rs"
+
+[dependencies]
+zstd = { version = "=0.13.3", default-features = false }
+
+[build-dependencies]
+serde_json = "=1.0.154"
+sha2 = "=0.10.9"
+
+[profile.release]
+opt-level = 2
+codegen-units = 1
+overflow-checks = true
+panic = "abort"
+strip = true

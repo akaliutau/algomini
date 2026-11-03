@@ -1,0 +1,37 @@
+name: Cloud smoke
+on:
+  push:
+    branches: [main, 'cloud/**']
+    paths:
+      - 'cloud/**'
+      - 'crates/**'
+      - 'algomini/cloud/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image:
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/_lab-image.yml
+    with:
+      base: ${{ github.sha }}
+  app:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check supplied App credentials
+        id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.ALGOMINI_APP_CLIENT_ID || secrets.ALGOMINI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ALGOMINI_APP_PRIVATE_KEY }}
+      - name: Check repository access and initialize issue labels
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          gh api repos/akaliutau/algomini --jq '.full_name'
+          gh label create codec-request --repo akaliutau/algomini --color 1d76db --description 'Bounded codec research request' --force
+          gh label create codec-run --repo akaliutau/algomini --color 0e8a16 --description 'Maintainer authorizes this codec request' --force
