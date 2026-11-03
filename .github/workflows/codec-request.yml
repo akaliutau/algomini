@@ -130,6 +130,7 @@ jobs:
           printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
           docker pull "$LAB_IMAGE"
           mkdir -p "$RUNNER_TEMP/research-output"
+          chmod 0777 "$RUNNER_TEMP/research-work" "$RUNNER_TEMP/research-output"
           docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --memory 4g \
             --tmpfs /tmp:rw,nosuid,size=512m -e META_API_KEY -e ALGOMINI_RUN_ID -e ALGOMINI_RUN_ATTEMPT \
             -v "$GITHUB_WORKSPACE:/library:ro" -v "$RUNNER_TEMP/research-work:/work" -v "$RUNNER_TEMP/research-output:/out" \
@@ -203,6 +204,8 @@ jobs:
         run: |
           printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
           mkdir -p "$RUNNER_TEMP/final-output"
+          chmod 0777 "$RUNNER_TEMP/verify-work" "$RUNNER_TEMP/final-output"
+          chmod a+rx "$RUNNER_TEMP/verify-work/algomini"
           docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --memory 4g \
             --tmpfs /tmp:rw,nosuid,size=512m -e ALGOMINI_RUN_ID -e ALGOMINI_RUN_ATTEMPT \
             -v "$GITHUB_WORKSPACE:/library:ro" -v "$RUNNER_TEMP/verify-work:/work" \

@@ -47,6 +47,7 @@ jobs:
           LAB_IMAGE: ${{ steps.image.outputs.image }}
         run: |
           mkdir -p "$RUNNER_TEMP/lab-smoke"
+          chmod 0777 "$RUNNER_TEMP/lab-smoke"
           docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges \
             --network none --pids-limit 256 --memory 4g --tmpfs /tmp:rw,nosuid,size=512m \
             -v "$RUNNER_TEMP/lab-smoke:/work" "$LAB_IMAGE" \

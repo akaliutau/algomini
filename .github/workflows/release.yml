@@ -57,6 +57,7 @@ jobs:
         run: |
           printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
           mkdir -p "$RUNNER_TEMP/release-work" "$RUNNER_TEMP/release-output"
+          chmod 0777 "$RUNNER_TEMP/release-work" "$RUNNER_TEMP/release-output"
           docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --memory 4g \
             --tmpfs /tmp:rw,nosuid,size=512m -e ALGOMINI_RELEASE_REQUEST \
             -v "$GITHUB_WORKSPACE:/library:ro" -v "$RUNNER_TEMP/release-work:/work" -v "$RUNNER_TEMP/release-output:/out" \

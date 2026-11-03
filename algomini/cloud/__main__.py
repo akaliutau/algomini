@@ -127,7 +127,8 @@ def main():
             receipt = json.loads(args.receipt.read_text())
             from .contracts import execution_guard
             execution_guard(receipt.get("execution"))
-            (args.workspace / "algomini").chmod(0o755)
+            if not os.access(args.workspace / "algomini", os.X_OK):
+                (args.workspace / "algomini").chmod(0o755)
             try:
                 research.verify(root, args.workspace, request, receipt)
             finally:

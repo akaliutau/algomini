@@ -1,4 +1,8 @@
 .git
+.aws
+.ssh
+.codex
+.git-credentials
 .env
 .env.*
 *.pem

@@ -6,7 +6,8 @@ ENV PATH="/usr/local/cargo/bin:${PATH}" CARGO_HOME=/usr/local/cargo RUSTUP_HOME=
 RUN apt-get update && apt-get install --yes --no-install-recommends \
     build-essential ca-certificates curl git pkg-config gzip xz-utils zstd file xxd binutils util-linux time libseccomp2 libzstd1 \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s /usr/local/rustup /root/.rustup && ln -s /usr/local/cargo /root/.cargo
+    && ln -s /usr/local/rustup /root/.rustup && ln -s /usr/local/cargo /root/.cargo \
+    && if [ ! -e /usr/bin/python3 ]; then ln -s /usr/local/bin/python3 /usr/bin/python3; fi
 WORKDIR /opt/algomini
 COPY . .
 RUN python -m pip install --no-cache-dir '.[analytics,coder,test]' \
