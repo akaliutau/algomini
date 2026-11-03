@@ -69,7 +69,10 @@ def build_release(library, destination):
         write_json(directory / "manifest.json", record)
         names = ["algomini-linux-x86_64", "report.md", "registry.json", "manifest.json"]
         (directory / "SHA256SUMS").write_text("".join(f"{sha256(directory / name)}  {name}\n" for name in names))
+        for path in directory.iterdir():
+            path.chmod(0o644)  # The host artifact uploader runs as a different UID.
     write_json(destination / "build-summary.json", {"requests": [row["id"] for row in entries]})
+    (destination / "build-summary.json").chmod(0o644)
 
 
 def upload(gh, release, path):

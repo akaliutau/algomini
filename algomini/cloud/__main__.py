@@ -65,6 +65,7 @@ print(json.dumps(denied))
     value = {"ok": True, "image": image, "build": build, "codecs": probes, "model_calls": 0,
              "containment": {"original_read_denied": True, "network_denied": True, "fork_denied": True}}
     write_json(workspace / "smoke.json", value)
+    (workspace / "smoke.json").chmod(0o644)
     return value
 
 
