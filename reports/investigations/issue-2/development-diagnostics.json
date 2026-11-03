@@ -1,0 +1,221 @@
+{
+  "archive_scope": "Reversible Python reference plus explicit prospective Rust framing. No Rust port, release qualification or speed/resource claim.",
+  "byte_structure": {
+    "crlf": 0,
+    "distinct_bytes": 87,
+    "entropy_bits_per_byte": 4.746579029162827,
+    "lf": 22169,
+    "lines": 22170,
+    "maximum_line_bytes": 399,
+    "nul": 0,
+    "repeated_lines": 21386,
+    "utf8": true
+  },
+  "entropy": [
+    {
+      "bits_per_observation": 4.746579029162826,
+      "contexts": 1,
+      "ideal_bytes_without_model": 608923.1972694541,
+      "observations": 1026294,
+      "order": 0
+    },
+    {
+      "bits_per_observation": 3.3643874863016365,
+      "contexts": 86,
+      "ideal_bytes_without_model": 431605.9158098707,
+      "observations": 1026293,
+      "order": 1
+    },
+    {
+      "bits_per_observation": 1.7833181567377496,
+      "contexts": 1934,
+      "ideal_bytes_without_model": 228775.6447143373,
+      "observations": 1026292,
+      "order": 2
+    },
+    {
+      "bits_per_observation": 0.7861725112309412,
+      "contexts": 5807,
+      "ideal_bytes_without_model": 100855.22159046424,
+      "observations": 1026291,
+      "order": 3
+    },
+    {
+      "bits_per_observation": 0.4406183906885214,
+      "contexts": 7883,
+      "ideal_bytes_without_model": 56525.28102246532,
+      "observations": 1026290,
+      "order": 4
+    }
+  ],
+  "entropy_scope": "In-sample finite-order estimates, not a theoretical minimum; model costs omitted and high orders can overfit.",
+  "experiments": [
+    {
+      "best_baseline_bytes": 8725,
+      "exact_reconstruction": true,
+      "input_bytes": 513147,
+      "input_sha256": "35d21d3e0341597456f44bd6870962a4af25695ee62968f66b3b2643a008ab16",
+      "representation_bytes": 560694,
+      "results": [
+        {
+          "baseline_archive_bytes": 8725,
+          "gain_vs_best_baseline": 0.044928366762177596,
+          "lexical_stream_bytes": 8208,
+          "method": "xz-9e",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8333,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 8688
+        },
+        {
+          "baseline_archive_bytes": 9109,
+          "gain_vs_best_baseline": 0.04550143266475648,
+          "lexical_stream_bytes": 8203,
+          "method": "zstd-22",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8328,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 9070
+        }
+      ],
+      "scope": "training_byte_half",
+      "validity": {
+        "reason": "Expecting value: line 11085 column 5 (char 512683)",
+        "valid_json": false
+      }
+    },
+    {
+      "best_baseline_bytes": 8729,
+      "exact_reconstruction": true,
+      "input_bytes": 513147,
+      "input_sha256": "4e08ea480db66792b6f038690c0da000c18a8cf6d9bd5e9e0089b27a79ca01ba",
+      "representation_bytes": 560694,
+      "results": [
+        {
+          "baseline_archive_bytes": 8729,
+          "gain_vs_best_baseline": 0.04719899186619314,
+          "lexical_stream_bytes": 8192,
+          "method": "xz-9e",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8317,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 8692
+        },
+        {
+          "baseline_archive_bytes": 9112,
+          "gain_vs_best_baseline": 0.04593882460762977,
+          "lexical_stream_bytes": 8203,
+          "method": "zstd-22",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8328,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 9073
+        }
+      ],
+      "scope": "validation_byte_half",
+      "validity": {
+        "reason": "Extra data: line 8 column 4 (char 303)",
+        "valid_json": false
+      }
+    },
+    {
+      "best_baseline_bytes": 8801,
+      "exact_reconstruction": true,
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "representation_bytes": 1121361,
+      "results": [
+        {
+          "baseline_archive_bytes": 8801,
+          "gain_vs_best_baseline": 0.03817747983183728,
+          "lexical_stream_bytes": 8340,
+          "method": "xz-9e",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8465,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 8764
+        },
+        {
+          "baseline_archive_bytes": 9152,
+          "gain_vs_best_baseline": 0.049539825019884076,
+          "lexical_stream_bytes": 8240,
+          "method": "zstd-22",
+          "model_bytes": 0,
+          "prospective_archive_bytes": 8365,
+          "prospective_framing_bytes": 125,
+          "raw_stream_bytes": 9113
+        }
+      ],
+      "scope": "full_development",
+      "validity": {
+        "array_items": 3168,
+        "byte_half_distinct_bodies": {
+          "shared": 197,
+          "training": 197,
+          "validation": 197
+        },
+        "distinct_exact_item_bodies": 197,
+        "duplicate_item_bodies": 2971,
+        "multiplicities": [
+          [
+            16,
+            193
+          ],
+          [
+            20,
+            4
+          ]
+        ],
+        "root": "list",
+        "scope": "Within this development file only; equal file hashes are not required for record overlap",
+        "valid_json": true
+      }
+    }
+  ],
+  "input_bytes": 1026294,
+  "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+  "json_records": {
+    "array_items": 3168,
+    "byte_half_distinct_bodies": {
+      "shared": 197,
+      "training": 197,
+      "validation": 197
+    },
+    "distinct_exact_item_bodies": 197,
+    "duplicate_item_bodies": 2971,
+    "multiplicities": [
+      [
+        16,
+        193
+      ],
+      [
+        20,
+        4
+      ]
+    ],
+    "root": "list",
+    "scope": "Within this development file only; equal file hashes are not required for record overlap",
+    "valid_json": true
+  },
+  "prefix_probe": {
+    "limitation": "Input may be a bounded fragment",
+    "reason": "Expecting value: line 1 column 2 (char 1)",
+    "supported": false
+  },
+  "python": "3.12.16",
+  "schema_version": 1,
+  "scope": "Development-only research. Final data not opened; no paid model calls or Docker.",
+  "tool_sha256": "a9414f6bdc2099aaf464786770796aea868fe8e4124cabec6b82764af5fa17db",
+  "tools": {
+    "xz": {
+      "path": "/home/al/miniconda3/envs/algomini/bin/xz",
+      "sha256": "29ee53bceb19c26aea74998cc37e29c4ef282a805fd51e1361762a109ea58a9e",
+      "version": "xz (XZ Utils) 5.8.4"
+    },
+    "zstd": {
+      "path": "/usr/bin/zstd",
+      "sha256": "7c5468b370f7c47eda07281e3437fafc568f95d10420051e3aa522709f9342c5",
+      "version": "*** Zstandard CLI (64-bit) v1.5.5, by Yann Collet ***"
+    }
+  }
+}
