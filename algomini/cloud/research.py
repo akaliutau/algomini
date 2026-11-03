@@ -19,7 +19,10 @@ def configuration(library, request):
     _, original = load_config(Path(library) / "run.toml")
     cfg = copy.deepcopy(original)
     rules = request["policy"]
-    cfg["coder"]["executable"] = str((Path(library) / cfg["coder"]["executable"]).resolve())
+    # The readonly Git checkout has no .tools directory. The executable was
+    # checksum-verified into the immutable image alongside this module.
+    tool_root = Path(__file__).parents[2]
+    cfg["coder"]["executable"] = str((tool_root / cfg["coder"]["executable"]).resolve())
     cfg["budget"].update(total_usd=rules["request_reservation_usd"], framework_usd=0, discovery_usd=rules["request_reservation_usd"],
         refinement_usd=0, reserve_usd=0, initial_candidates=rules["maximum_initial_candidates"],
         evolved_candidates=rules["maximum_evolved_candidates"], repair_sessions=rules["maximum_repairs"],
@@ -87,7 +90,7 @@ def search(library, workspace, request):
             raise ValueError("Paid cloud research requires its durable Actions execution claim")
         preflight = check_api(library, cfg)
         if not preflight["ok"]:
-            raise ValueError("Model catalog preflight failed before inference: " + str(preflight.get("http_status", preflight.get("reason"))))
+            raise ValueError("Model catalog preflight failed before inference: " + json.dumps(preflight, sort_keys=True))
         write_json(workspace / "model-preflight.json", preflight)
     train = DatasetFile.parse(request["dataset"]["train"], request["policy"]).fetch(request["policy"])
     original = workspace / "train.bin"

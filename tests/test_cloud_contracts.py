@@ -70,6 +70,14 @@ def test_unclaimed_cloud_research_cannot_contact_provider(monkeypatch, tmp_path)
         research.search(ROOT, tmp_path, request)
 
 
+def test_coder_uses_image_tools_when_checkout_is_a_readonly_mount(monkeypatch, tmp_path):
+    request = snapshot(monkeypatch)
+    (tmp_path / "run.toml").write_bytes((ROOT / "run.toml").read_bytes())
+    config = research.configuration(tmp_path, request)
+    assert Path(config["coder"]["executable"]).parent == ROOT / ".tools"
+    assert not str(config["coder"]["executable"]).startswith(str(tmp_path))
+
+
 class MemoryGit:
     def __init__(self):
         self.repository = "akaliutau/algomini"

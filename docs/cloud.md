@@ -88,7 +88,7 @@ Replace `123` with a released issue number. Source installation needs Rust 1.92+
 
 ## Rehearsal and checks
 
-Before a paid issue, a maintainer can select `mode: reuse` under **Actions → Codec request → Run workflow**, supplying an existing, unclaimed issue number. This is a zero-inference plumbing run with reviewed seeds; its report says reuse. A claimed issue never starts a second research run, whichever mode is subsequently selected.
+For a zero-inference rehearsal, first create a **blank issue without the `codec-request` label**, using the same `### Plugin name` and `### Dataset manifest URL` headings. Then select `mode: reuse` under **Actions → Codec request → Run workflow** and supply that issue number. The special issue form starts normal generation automatically, so it is not the way to prepare an unclaimed rehearsal issue. Reuse mode uses reviewed seeds and says so in the report. A claimed issue never starts a second research run, whichever mode is subsequently selected.
 
 Local checks, with no Docker:
 
