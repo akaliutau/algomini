@@ -30,9 +30,19 @@ def snapshot(monkeypatch):
 @pytest.mark.parametrize("url", ["http://raw.githubusercontent.com/a/b/" + SHA + "/x", "https://127.0.0.1/x",
     "https://raw.githubusercontent.com/a/b/main/x", "https://key@raw.githubusercontent.com/a/b/" + SHA + "/x",
     "https://raw.githubusercontent.com/a/b/" + SHA + "/x?token=secret", "https://raw.githubusercontent.com:444/a/b/" + SHA + "/x"])
-def test_dataset_urls_are_public_immutable_and_credential_free(url):
-    with pytest.raises(ValueError):
-        contracts.public_url(url, contracts.policy(ROOT))
+def test_dataset_urls_have_no_host_commit_or_query_restriction(url):
+    assert contracts.public_url(url, contracts.policy(ROOT)) == url
+
+
+@pytest.mark.parametrize("url", ["https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip",
+                                  "https://another-site.example/download?file=books.zip&signature=example#download"])
+def test_general_web_links_pass_the_issue_gate_without_url_policy(url, tmp_path):
+    issue = {"number": 7, "body": f"### Plugin name\n\ntext-demo\n\n### Dataset archive URL\n\n{url}", "labels": [{"name": "codec-request"}]}
+    event = {"repository": {"full_name": "akaliutau/algomini"}, "issue": issue, "action": "opened", "sender": {"login": "maintainer"}}
+    gh = MemoryGit()
+    coordinator.gate(ROOT, event, "issues", tmp_path/"intake.json", gh)
+    assert (tmp_path/"intake.json").is_file()
+    assert gh.titles[7] == "[codec] Develop plugin: text-demo"
 
 
 @pytest.mark.parametrize("change", ["same", "oversize", "bad-hash", "missing-license", "extra-key", "bool-size"])

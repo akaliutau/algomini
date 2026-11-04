@@ -15,7 +15,7 @@ body:
     id: dataset
     attributes:
       label: Dataset archive URL
-      description: Public ZIP URL on raw.githubusercontent.com, pinned to a full commit. Include at least two data files; the larger of two trains, otherwise files split about 70:30. Each partition may be up to 64 MiB; research uses its first 2 MiB. A manifest is generated automatically.
-      placeholder: https://raw.githubusercontent.com/OWNER/datasets/FULL_COMMIT/samples.zip
+      description: Public ZIP download link from any web host; redirects and query parameters work. Include at least two data files; the larger of two trains, otherwise files split about 70:30. Each partition may be up to 64 MiB; research uses its first 2 MiB. A manifest is generated automatically.
+      placeholder: https://github.com/OWNER/datasets/raw/refs/heads/main/samples.zip
     validations:
       required: true

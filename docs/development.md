@@ -1,6 +1,6 @@
 # Local development
 
-Run these commands from the repository root. Use Linux, Python 3.12+, Rust 1.92+ and the `gzip`, `xz`, `zstd` command-line tools. Native containment requires Landlock ABI 6+ and libseccomp; cloud smoke checks the actual host. Local work uses no Docker.
+Run these commands from the repository root. Use Linux, Python 3.12+, Rust 1.92+ and the `gzip`, `xz`, `zstd`, `wget` and `prlimit` command-line tools. Native containment requires Landlock ABI 6+ and libseccomp; cloud smoke checks the actual host. Local work uses no Docker.
 
 ```bash
 python -m pip install -r requirements.lock

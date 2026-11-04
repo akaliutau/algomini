@@ -1,0 +1,69 @@
+{
+  "base_revision": "e47aac1a71d2e0b08aeef10134715083a73706e0",
+  "checks": {
+    "budget_ledgers_and_consumed_marker_unchanged": true,
+    "rust_codecs_and_registry_unchanged": true,
+    "workflow_lint": true,
+    "workflow_lint_exception": "Only unrecognized concurrency.queue in actionlint 1.7.12"
+  },
+  "docker_used": false,
+  "final_focused": {
+    "command": "python -m pytest -q tests/test_downloads.py tests/test_cloud_contracts.py tests/test_dataset_zip.py tests/test_research_flow.py tests/test_cloud_release.py tests/test_repository.py",
+    "passed": 78,
+    "seconds": 1.31
+  },
+  "full_regression": {
+    "command": "python -m pytest -q",
+    "note": "Run before the final additional Azure host-node address exclusion; the final focused checks include that refinement",
+    "passed": 152,
+    "seconds": 405.59
+  },
+  "github_runs_started": false,
+  "live_download": {
+    "bytes": 3091319,
+    "family": "text",
+    "redirects": "GitHub raw branch link to raw.githubusercontent.com",
+    "sha256": "c8a4fdb491eb5a3985338b0ca99ff7ac3e084720b6283cbd36f68aa650b626fe",
+    "test_bytes": 2704417,
+    "train_bytes": 5422721,
+    "url": "https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip"
+  },
+  "model_calls": 0,
+  "pushed": false,
+  "scope": "Local downloader fix; supplied public GitHub URL fetched and ZIP prepared without inference or cloud workflow execution",
+  "source_sha256": {
+    "algomini/cloud/contracts.py": "0125e0052205f8a9c9bbea15c90570e60c5af2f58e69a84d8d706f2f525fab4a",
+    "algomini/cloud/downloads.py": "d7bd9b48ce6caa703bc27ccba6936863db6ee5fdcccd00d10d3bcd09b9876381",
+    "algomini/environment.py": "8e647ce054d9bcda9e6ad2c791de7047d0b7a508b8b37b3e54d4d8293c1d50f8",
+    "cloud/Dockerfile": "2294e4f6b7d84933366417aab0a4767bc6fe3f69580b80005b1ec46de242673a",
+    "cloud/policy.json": "cda24cba14c68022b685f9fe93a241c0a2a58a698edeff2309fb7ddb12838cbc"
+  },
+  "system_tools": {
+    "prlimit": {
+      "sha256": "17064f67e650d6152a6902b013aab496b54c87587c8eea6f5023aafee6154069",
+      "version": "prlimit from util-linux 2.39.3"
+    },
+    "wget": {
+      "sha256": "6e47207f7a759f371ff895817f4ec9bad9b6eae6be1cc30a091d6743293ef9f3",
+      "version": "GNU Wget 1.21.4 built on linux-gnu."
+    }
+  },
+  "transport": {
+    "ambient_credentials_inherited": false,
+    "byte_and_hash_limits_retained": true,
+    "commit_pinning_required": false,
+    "dns_ip_pinned_per_connection": true,
+    "fragments": true,
+    "host_allowlist": false,
+    "max_redirects": 10,
+    "opaque_zip_endpoints": true,
+    "public_http_https_only": true,
+    "query_strings": true,
+    "tls_verification": true
+  },
+  "wheel": {
+    "all_sources_match": true,
+    "modules": 28,
+    "sha256": "ff20387d0681f107d3fb2687e2a72136a64f8c5a9a24c026a2c3b7651c73176b"
+  }
+}

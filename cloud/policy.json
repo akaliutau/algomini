@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
   "repository": "akaliutau/algomini",
-  "allowed_dataset_hosts": ["raw.githubusercontent.com"],
   "maximum_input_bytes": 67108864,
   "maximum_manifest_bytes": 32768,
   "maximum_archive_bytes": 134217728,

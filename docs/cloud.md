@@ -20,10 +20,10 @@ Require CI and human review before merging codec PRs. The App needs access to `a
 
 ## Dataset and issue
 
-The two issue fields are **Plugin name** (for example `json-v1`) and **Dataset archive URL**. Supply a public ZIP on `raw.githubusercontent.com`, pinned to a full 40-character commit:
+The two issue fields are **Plugin name** (for example `json-v1`) and **Dataset archive URL**. Supply a public HTTP/HTTPS link that downloads a ZIP. Any web host, branch URL, signed query and ordinary redirect is accepted; no host allowlist or commit-pinned URL is required:
 
 ```text
-https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/samples.zip
+https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip
 ```
 
 Put at least two data files in the ZIP. You can create one from the existing regression fixtures:
@@ -32,7 +32,7 @@ Put at least two data files in the ZIP. You can create one from the existing reg
 python -m zipfile -c /tmp/samples.zip datasets/sample/train-1mb.json datasets/sample/test-512kb.json
 ```
 
-Commit the ZIP in your public dataset repository, copy its immutable raw URL, and open **Develop a compression plugin**. A repository writer/maintainer/admin starts the workflow automatically; otherwise a maintainer adds `codec-run`. The workflow checks actual repository permission and sets a title such as **[codec] Develop plugin: json-v1**. One issue is one immutable request; edits, comments or reopening do not restart it.
+Upload the ZIP to a public web location, copy its download link, and open **Develop a compression plugin**. A repository writer/maintainer/admin starts the workflow automatically; otherwise a maintainer adds `codec-run`. The workflow checks actual repository permission and sets a title such as **[codec] Develop plugin: json-v1**. One issue is one immutable request; edits, comments or reopening do not restart it.
 
 The intake job downloads and validates the ZIP, then generates `dataset-manifest.json` automatically:
 
@@ -46,20 +46,20 @@ The generated manifest includes the archive hash, member hashes, sizes, split po
 
 Only the intake job handles the complete ZIP for splitting and checksums. Development bytes and final bytes are uploaded as **separate artifacts**. Research receives development bytes only. The final artifact is retrieved by the verifier after the durable final claim. Raw inputs are excluded from checkpoint exports and PRs. Release rebuilds verify the archive hash and read only the declared development members.
 
-ZIP URLs use the existing approved public HTTPS host and immutable-commit rules, without credentials, query strings or fragments. Private repository access does not make datasets anonymously downloadable. Invalid datasets produce an issue explanation before inference or a spending reservation.
+Downloads use wget with redirect support, bounded size/time and the existing SHA-256 checks. The supplied URL is retained as given, including query strings and fragments. Archive links do not need a `.zip` filename: the issue field determines that ZIP bytes are expected. Each connection is restricted to public IP addresses through a local transport proxy, including redirect targets; there is no domain allowlist. The proxy connects to the IP it checked so DNS changes cannot redirect a connection into a private network. Wget receives no repository/provider credentials and TLS certificate verification remains enabled. Invalid datasets produce an issue explanation before inference or a spending reservation. Later downloads must match the recorded content hashes; changed remote bytes fail verification.
 
 <details>
 <summary>Compatibility: explicit two-file manifests</summary>
 
-Existing issues using **Dataset manifest URL** remain supported. Their public, immutable JSON descriptor has this shape:
+Existing issues using **Dataset manifest URL** remain supported. Their JSON descriptor has this shape; file links may use any public web host:
 
 ```json
 {
   "schema_version": 1,
   "family": "json",
   "provenance": {"source": "Dataset title and upstream URL", "license": "Actual dataset license"},
-  "train": {"url": "IMMUTABLE_PUBLIC_URL", "bytes": 12345, "sha256": "64_LOWERCASE_HEX_CHARACTERS"},
-  "test": {"url": "DIFFERENT_IMMUTABLE_PUBLIC_URL", "bytes": 12346, "sha256": "64_LOWERCASE_HEX_CHARACTERS"}
+  "train": {"url": "PUBLIC_DOWNLOAD_URL", "bytes": 12345, "sha256": "64_LOWERCASE_HEX_CHARACTERS"},
+  "test": {"url": "DIFFERENT_PUBLIC_DOWNLOAD_URL", "bytes": 12346, "sha256": "64_LOWERCASE_HEX_CHARACTERS"}
 }
 ```
 

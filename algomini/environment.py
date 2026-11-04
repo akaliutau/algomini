@@ -19,6 +19,7 @@ from .common import digest, download, sha256, worker_environment, write_json
 
 PACKAGES = ("python-dotenv", "pytest")
 TOOLS = {"rustc": ["rustc", "--version"], "cargo": ["cargo", "--version"],
+         "wget": ["wget", "--version"],
          "gzip": ["gzip", "--version"], "xz": ["xz", "--version"],
          "zstd": ["zstd", "--version"], "file": ["file", "--version"],
          "xxd": ["xxd", "-v"], "strings": ["strings", "--version"],
@@ -152,7 +153,7 @@ def snapshot(root, cfg, *, destination="repro/environment.json", write_locks=Tru
                     raise ValueError("Refusing to export a potentially credential-bearing Conda channel")
         (root / "repro/conda-linux-64.lock").write_text(explicit + "\n")
     if shutil.which("dpkg-query"):
-        packages = ("gzip", "zstd", "file", "xxd", "binutils", "util-linux", "time")
+        packages = ("gzip", "zstd", "wget", "file", "xxd", "binutils", "util-linux", "time")
         lines = command_output(["dpkg-query", "-W", "-f", "${Package}\t${Version}\n", *packages]).splitlines()
         (root / "repro/system-packages.lock").write_text("\n".join(line.replace("\t", "=") for line in lines) + "\n")
     return result
@@ -172,6 +173,8 @@ def verify_versions(root, cfg):
             differences[name] = {"expected": version, "actual": actual}
     for name, argv in {**TOOLS, "muse": [str(root / cfg["coder"]["executable"]), "--version"]}.items():
         actual = command_output(argv).splitlines()[0] if shutil.which(argv[0]) else None
+        if name not in expected["tools"]:
+            continue  # Older reproducibility snapshots predate added tools such as wget.
         version = expected["tools"][name].get("version")
         if actual != version:
             differences[name] = {"expected": version, "actual": actual}

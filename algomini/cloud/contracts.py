@@ -1,11 +1,10 @@
-"""Bounded public request inputs and immutable campaign identities."""
+"""Bounded datasets and content-hashed campaign identities."""
 
 from dataclasses import dataclass
 import json
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
-from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from ..common import digest, sha256, write_json
 
@@ -25,29 +24,18 @@ def policy(root):
 
 
 def public_url(url, rules):
-    if not isinstance(url, str) or len(url) > 2048:
-        raise ValueError("Invalid dataset URL")
-    parsed = urlsplit(url)
-    if (parsed.scheme != "https" or parsed.hostname not in rules["allowed_dataset_hosts"]
-            or parsed.username or parsed.password or parsed.port not in (None, 443) or parsed.query or parsed.fragment):
-        raise ValueError("Dataset URLs require an approved public HTTPS host without credentials/query/fragment")
-    if parsed.hostname == "raw.githubusercontent.com":
-        pieces = parsed.path.split("/")
-        if len(pieces) < 5 or not COMMIT.fullmatch(pieces[3]):
-            raise ValueError("GitHub dataset URLs must pin a full 40-character commit")
+    # Accept the link as supplied; there is no domain, commit, query or redirect policy.
+    if not isinstance(url, str) or not url.strip():
+        raise ValueError("Dataset URL must be nonempty text")
     return url
 
 
 def download(url, rules, maximum, expected=None):
+    from .downloads import fetch
     public_url(url, rules)
-    class Redirect(HTTPRedirectHandler):
-        def redirect_request(self, req, fp, code, msg, headers, newurl):
-            public_url(newurl, rules)
-            return super().redirect_request(req, fp, code, msg, headers, newurl)
-    with build_opener(Redirect()).open(Request(url, headers={"User-Agent": "algomini-cloud/1"}), timeout=60) as response:
-        data = response.read(maximum + 1)
-    if len(data) > maximum or expected and digest(data) != expected:
-        raise ValueError("Dataset download exceeded its limit or failed SHA-256 verification")
+    data = fetch(url, maximum)
+    if expected and digest(data) != expected:
+        raise ValueError("Dataset download failed SHA-256 verification")
     return data
 
 
@@ -116,7 +104,7 @@ def fetch_dataset(request, part, workspace):
 def issue_fields(body):
     if not isinstance(body, str) or len(body) > 8192:
         raise ValueError("Invalid issue form body")
-    matches = re.findall(r"^### ([^\n]+)\n+([^#]*?)(?=^### |\Z)", body, flags=re.M | re.S)
+    matches = re.findall(r"^### ([^\n]+)\n+(.*?)(?=^### |\Z)", body, flags=re.M | re.S)
     fields = {key.strip(): value.strip() for key, value in matches}
     label = "Dataset archive URL" if "Dataset archive URL" in fields else "Dataset manifest URL"
     if len(matches) != 2 or set(fields) != {"Plugin name", label}:
@@ -131,7 +119,8 @@ def snapshot(root, issue, repository, base_commit, image, *, staging=None):
     if repository != rules["repository"] or not COMMIT.fullmatch(base_commit) or not IMAGE.fullmatch(image):
         raise ValueError("Untrusted repository, base commit or cloud image")
     name, url = issue_fields(issue["body"])
-    if urlsplit(url).path.lower().endswith(".zip"):
+    archive_request = re.search(r"^### Dataset archive URL\s*$", issue["body"], flags=re.M)
+    if archive_request or urlsplit(url).path.lower().endswith(".zip"):
         from .datasets import prepare
         archive = download(url, rules, rules["maximum_archive_bytes"])
         dataset, payloads = prepare(archive, url, rules)
