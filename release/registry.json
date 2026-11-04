@@ -13,6 +13,18 @@
       "source_sha256": "0c679d666dc043d788834be54a916c804a0274614659e9c33f5011775d551bca"
     }
   ],
-  "requests": [],
+  "requests": [
+    {
+      "freeze": "reports/campaigns/issue-9/freeze.json",
+      "freeze_id": "06c0348eed4ed7239fb9dd0dcb1d99ad2f8f8b1a789d79ce61815610aba99995",
+      "id": "issue-9",
+      "image": "ghcr.io/akaliutau/algomini-lab@sha256:8e7985fc23c0d526ce5ff3741e0e12902ade450dc3529f07a15b5d44a707fdea",
+      "issue": 9,
+      "qualification": "reports/campaigns/issue-9/final.json",
+      "receipt": "reports/campaigns/issue-9/receipt.json",
+      "request": "reports/campaigns/issue-9/request.json",
+      "selected": "cx-0c679d666dc043d788834be54a916c80-3bd2df8c3bf47c1d"
+    }
+  ],
   "schema_version": 1
 }
