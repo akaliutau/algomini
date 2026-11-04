@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import tomllib
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import Request, build_opener
@@ -131,6 +132,8 @@ def publish_release(library, destination, gh):
             for row in original["codecs"]]}
         if comparable != expected:
             raise ValueError("Release tag source is not the qualified catalog")
+        version = tomllib.loads(gh.file("crates/algomini-cli/Cargo.toml", record["source_commit"]).decode())["package"]["version"]
+        title = f"Algomini v{version}"
         try:
             ref = gh.repo("GET", "git/ref/tags/" + record["tag"])
             if ref["object"]["type"] != "commit" or ref["object"]["sha"] != record["source_commit"]:
@@ -150,7 +153,7 @@ def publish_release(library, destination, gh):
             release = next((item for item in drafts if item["tag_name"] == record["tag"]), None)
             if release is None:
                 release = gh.repo("POST", "releases", {"tag_name": record["tag"], "target_commitish": record["source_commit"],
-                    "name": "Algomini " + record["request_id"], "draft": True, "body": (directory / "report.md").read_text()})
+                    "name": title, "draft": True, "body": (directory / "report.md").read_text()})
         assets = {row["name"]: row for row in gh.repo("GET", f"releases/{release['id']}/assets?per_page=100")}
         for name in ("algomini-linux-x86_64", "report.md", "registry.json", "manifest.json", "SHA256SUMS"):
             path = directory / name
@@ -161,8 +164,8 @@ def publish_release(library, destination, gh):
                 uploaded = upload(gh, release, path)
                 if uploaded.get("digest") != "sha256:" + sha256(path):
                     raise ValueError("Uploaded release asset digest mismatch")
-        if release["draft"]:
-            release = gh.repo("PATCH", f"releases/{release['id']}", {"draft": False})
+        if release["draft"] or release.get("name") != title:
+            release = gh.repo("PATCH", f"releases/{release['id']}", {"draft": False, "name": title})
         store = coordinator.state(library, gh)
         row = store.value["requests"].get(record["request_id"])
         if row:
