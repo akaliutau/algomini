@@ -253,5 +253,13 @@ The same research loop can keep improving as its collection of skills, tools and
 
 ---
 
-**Algomini: will make every byte count.**
+*Algomini: will make every byte count.*
+
+Built exclusively for:
+
+Meta Global AI Developer Hackathon
+
+
+
+
 
