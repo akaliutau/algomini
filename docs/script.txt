@@ -1,0 +1,178 @@
+ALGOMINI — THREE-MINUTE DEMO
+
+Read the SAY paragraphs only. SCREEN, CAPTION and COMMANDS are production cues.
+The narration is 335 words. Speak conversationally, around 135 words per minute;
+that leaves about 31 seconds for the terminal and page changes. The seven scenes
+total exactly 3:00.
+
+00:00–00:22 | The problem
+
+SCREEN: README hero and tagline; then the issue template link.
+
+SAY:
+Moving data costs time and bandwidth, especially on constrained links like
+satellite internet. Compression can save storage and reduce the bytes we send.
+We built Algomini to automate the search for compressors tailored to your
+data, turning a research problem into software you can install.
+
+00:22–00:48 | Two fields in GitHub
+
+SCREEN: Briefly show the two books inside books2.zip. Open the issue form, with
+plugin name text-v2 and the archive URL already filled in. Point to both fields.
+
+SAY:
+Let's pick two text files and put them in a ZIP. Ideally, they're different
+samples of the same kind of data. With two files, the larger is for development;
+the other is reserved for the final check. In GitHub, I enter a plugin name and
+paste the archive link. That's the request.
+
+00:48–01:18 | The research loop
+
+SCREEN: Cut to completed issue #6 and its Actions run. Show the research step,
+the generated Rust candidate, and briefly the .agents/skills directory.
+CAPTION: Completed run #6 • Cloud waiting time omitted
+CAPTION: Research: first 2 MiB of development data • Qualification: complete files
+
+SAY:
+Submitting kicks off the pipeline. Let's look at a completed run. Behind the
+scenes, the lab probes the data and retrieves relevant skills. Meta's Muse Spark
+writes Rust candidates and refines them using measured feedback. We compile and
+test its proposals, with spending and execution limits. The final file stays
+outside that coding loop.
+
+01:18–01:46 | Show the evidence
+
+SCREEN: Issue #6 result table. Highlight Final: 644,368 bytes versus xz's
+764,445 bytes, saving 15.71%, Exact: yes. Briefly open Candidate trials and
+highlight the Muse-generated candidate and the winning reviewed seed.
+CAPTION: Recorded book sample • Complete archive bytes • Decoder size separate
+
+SAY:
+Let's see what happened. On this recorded book sample, the archive is fifteen
+point seven percent smaller than xz, the strongest baseline we tested. Every
+byte must be reconstructed, and models and framing count toward size. Muse
+generated a candidate, but a reviewed codec won this run. We ship the measured
+winner, and the report shows that decision.
+
+01:46–02:05 | From research to a release
+
+SCREEN: Merged PR #7, its report and source link; then Algomini v0.3.1 on the
+Releases page. Show the Cargo installation command from the issue.
+
+SAY:
+Everything stays in GitHub: the request, experiments, results, and review.
+That's where our development already happens. A passing result opens a pull
+request; after human review and merge, the release workflow publishes an
+installable Rust client.
+
+02:05–02:40 | Use the actual compressor
+
+SCREEN: Terminal, with the release already installed. Run the commands below.
+Pause on the compressed byte count and the final "Exact match" message.
+CAPTION: Dumas book sample • text-v2 • Installed from Algomini v0.3.1
+
+SAY:
+Now let's use it. Cargo installs the reviewed release. I select the plugin by
+name and compress the book. Then I decompress it and compare it with the
+original. Exact match. The compressor runs offline, with no model calls or
+Python. The research produces software you can actually install and use.
+
+COMMANDS:
+algomini --version
+algomini compress --plugin text-v2 sample.bin book.alc
+algomini decompress book.alc restored.bin
+cmp sample.bin restored.bin && echo "Exact match"
+
+02:40–03:00 | Why it can improve
+
+SCREEN: .agents/skills and the memory index, then return to the README hero.
+Hold the closing tagline and repository URL until 03:00.
+
+SAY:
+We built the research lab, GitHub automation and Rust delivery during this
+hackathon. Skills and development results stay reusable, so later experiments
+can build on earlier evidence. Algomini: give your data its own compressor,
+and make every byte count.
+
+
+RECORDING PREPARATION — NOT SPOKEN
+
+Use the completed text-v2 campaign throughout. The form demonstrates a new
+request; the spoken transition explicitly switches to the completed run.
+Use its actual results and merged PR. No new paid campaign is needed to record
+this walkthrough. A fresh submission starts generation; leave Submit untouched
+when demonstrating the form or rehearsing.
+
+Open these tabs before recording:
+- README: https://github.com/akaliutau/algomini
+- Form: https://github.com/akaliutau/algomini/issues/new?template=codec.yml
+- Issue: https://github.com/akaliutau/algomini/issues/6
+- Actions: https://github.com/akaliutau/algomini/actions/runs/41820180316
+- PR: https://github.com/akaliutau/algomini/pull/7
+- Release: https://github.com/akaliutau/algomini/releases/tag/codec-issue-6
+- Skills: https://github.com/akaliutau/algomini/tree/main/.agents/skills
+- Index: https://github.com/akaliutau/algomini/tree/main/memory
+
+Form values:
+Plugin name: text-v2
+Dataset archive URL:
+https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip
+
+Install before the timed recording; show the command when introducing the
+release. If filming compilation, cut it with a visible "Build time omitted"
+caption. The command requires Linux, Rust 1.92+, a C compiler and Git access:
+
+CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install \
+  --git https://github.com/akaliutau/algomini.git \
+  --tag codec-issue-6 algomini-cli --locked --force
+
+From the repository root, prepare a fresh terminal directory for each take:
+
+algomini --version
+algomini plugins
+algomini_demo_dir=$(mktemp -d /tmp/algomini-demo.XXXXXX)
+cp datasets/sample/Dumas-1.txt "$algomini_demo_dir/sample.bin"
+cd "$algomini_demo_dir"
+
+Confirm version 0.3.1 and the text-v2 alias before recording. Use a fresh
+directory because the console refuses to overwrite output files. The input
+name sample.bin matches the filename framing used in the report. Expected
+output: 2,704,417 -> 644,368 bytes; decoded 2,704,417 bytes; Exact match.
+
+Evidence to have ready:
+- reports/campaigns/issue-6/report.md: the table, reuse disclosure and trials.
+- reports/campaigns/issue-6/attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/codec.rs:
+  the actual Muse-generated candidate from this run.
+- plugins/wk-3169dda381d9c072/codec.rs: the reviewed winning implementation.
+- docs/laboratory.md: skills, tools, retrieval and accumulated development evidence.
+- docs/benchmarks.md: complete archive accounting and known-sample limitations.
+
+Keep these distinctions clear in captions and delivery:
+- This is a known book sample, not evidence of a universal or unseen-data win.
+- The release reused a reviewed winner; Muse generated a competing candidate.
+  A registry/report PR is expected for reuse. Open the source link to show Rust.
+- The measurements show fewer archive bytes. End-to-end network latency was
+  not benchmarked; compression does not remove satellite propagation delay.
+- Skills and evidence accumulate; the coding model's weights are not retrained.
+- Our hackathon contributions are the lab, probes, research memory, candidate
+  coding loop, GitHub automation and Rust delivery. Credit the existing
+  compression methods and zstd dependency when discussing the algorithms.
+
+
+SUBMISSION PROMPTS FROM THE ORIGINAL NOTES — NOT SPOKEN
+
+Suggested problem statement: Push the Frontier — use Meta models for compression
+research and software engineering. The timed narration covers the problem,
+working demo, use of Muse Spark, our contributions and the route to improvement.
+
+Keep the remaining form answers and links outside the three-minute narration:
+- Which problem statement did you build towards?
+- If entering Most Viral, supply the actual X post link.
+- Project description: what the project does and the problem it solves.
+- Public GitHub repository: https://github.com/akaliutau/algomini
+- Three-minute demo video: add the uploaded video's actual URL.
+- Describe your use of Meta products to build the submitted project.
+- Why are Meta's models important to your solution?
+- Feedback on partner technologies: Fireworks, Modal, Baseten, if used.
+- How likely are you to build with Meta Model API?
+- How would you describe your overall opinion of Meta Model API?
