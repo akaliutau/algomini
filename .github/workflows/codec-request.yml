@@ -125,7 +125,7 @@ jobs:
     needs: [gate, image, claim]
     if: needs.claim.outputs.claimed == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 110
     permissions:
       contents: read
       packages: read

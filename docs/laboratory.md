@@ -26,6 +26,8 @@ Preparation is credential-free and makes no model calls. Each campaign owns its 
 
 Built-in tools cover byte structure, repeated words, quoted CSV structure, JSON lexemes, repeated records and finite-order byte entropy. Parsed numbers and schemas are research evidence: original bytes remain the reconstruction authority. Unsupported fragments are reported rather than normalized into acceptance data.
 
+The coding prompt also includes a [published-method research brief](../laboratory/algorithms.md). It guides exploration of stronger predictors, entropy coders and reversible layouts under the actual resource limits. Extend its cited mechanisms when a missing algorithm family would change a research decision; it is trusted reference material, with no executable permissions or live web access.
+
 ## Define or improve a skill
 
 Create `.agents/skills/json-example/SKILL.md`:

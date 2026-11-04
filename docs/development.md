@@ -65,6 +65,10 @@ python -m algomini versions
 
 The coder boundary is configured by command arguments and a usage adapter in `algomini/coder.py`; the provider catalog preflight is in `environment.py`. A different provider/CLI needs the corresponding preflight and usage parsing, while retaining independent native compilation, budget holds and exact reconstruction. Research procedures and tool extension are documented in [the laboratory guide](laboratory.md).
 
+The default coding profile uses Spark 1.3 with high reasoning. `[coder.profiles.evolved]` selects Wonder 1.0 with max reasoning; `[coder.profiles.repair]` selects Wonder with high reasoning. Each alternate model requires an explicit rate table under `[pricing.models."MODEL_ID"]`; preflight checks every configured model. The [cloud guide](cloud.md#research-and-results) lists candidate counts, session and job deadlines. The sourced [algorithm brief](../laboratory/algorithms.md) and actual toolkit source accompany coding prompts without enabling web tools.
+
+`[pricing].model` identifies the model covered by the top-level rates. A model-specific table takes precedence, including when that model becomes the default, so changing model selection cannot silently reuse Spark's prices.
+
 ## Before merging and pushing
 
 Run the maintained tests, Cargo formatting and workflow lint. Pinned Actions use GitHub's queued concurrency; actionlint 1.7.12 needs the narrow exception for the newer `queue` field:

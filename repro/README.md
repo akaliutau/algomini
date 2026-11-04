@@ -6,6 +6,7 @@ The maintained cloud pipeline pins its Python/Rust base images by digest in `clo
 - `requirements-memory.lock`: the separate optional embedding environment.
 - `memory-model.json`: embedding model revision, file checksums, dimensions and library version.
 - `muse-release.json`: coding CLI artifacts and checksums.
+- `coding-models.json`: verified API model availability, coding profiles and dated standard-mode token prices.
 - `crates/algomini-cli/Cargo.lock`: the Rust client and bundled-zstd dependencies.
 - `environment.json`: retained historical local reference; current captures are written under `.cache/`.
 

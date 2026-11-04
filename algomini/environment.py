@@ -70,9 +70,11 @@ def check_api(root, cfg):
             catalog = json.loads(body)
         if not isinstance(catalog, dict) or not isinstance(catalog.get("data"), list):
             return {"ok": False, "reason": "Invalid model catalog response", "inference_calls": 0}
-        available = any(isinstance(model, dict) and model.get("id") == coder["model"] for model in catalog["data"])
-        return {"ok": available, "http_status": 200, "selected_model": coder["model"],
-                "selected_model_available": available, "inference_calls": 0,
+        identifiers = {model["id"] for model in catalog["data"] if isinstance(model, dict) and isinstance(model.get("id"), str)}
+        required = {coder["model"], *(profile.get("model", coder["model"]) for profile in coder.get("profiles", {}).values())}
+        availability = {model: model in identifiers for model in sorted(required)}
+        return {"ok": all(availability.values()), "http_status": 200, "selected_model": coder["model"],
+                "selected_model_available": availability[coder["model"]], "configured_models": availability, "inference_calls": 0,
                 "operation": "GET /v1/models"}
     except HTTPError as error:
         # Never expose headers, response bodies, key fingerprints, or raw exception text.

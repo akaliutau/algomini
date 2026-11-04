@@ -79,9 +79,19 @@ Each original file is 0–64 MiB; the manifest is at most 32 KiB. Development an
 
 ## Research and results
 
-One repository-wide queue serializes campaigns. Each accepted request reserves $20 against shared accounting, preserving the $20 account reserve below the verified provider ceiling. Existing local budget ledgers seed a new state branch once. Unknown inference usage retains its $5 per-call reservation; estimates are distinguished from unknown holds.
+One repository-wide queue serializes campaigns. Each accepted request reserves $40 against shared accounting, preserving the $20 account reserve below the verified $150 provider ceiling. This is a ceiling/hold, not an automatic charge. Existing local budget ledgers seed a new state branch once. Unknown inference usage retains its $5 per-call reservation; estimates are distinguished from unknown holds. Spark and Wonder use their own declared token prices.
 
-The default policy allows two initial candidates, one evolved candidate and one repair, with a 90-minute research deadline. A repair uses an actual failing source artifact; infrastructure failures do not consume a repair as if they were codec bugs. The coding CLI has its own step/time limits. See [cloud/policy.json](../cloud/policy.json) and [run.toml](../run.toml).
+The default policy allows four initial candidates, eight evolved candidates and two repairs: at most 14 coding sessions, within a 90-minute search window. The GitHub research job has 110 minutes so image startup, the last native checks, complete-development qualification and checkpoint export have headroom. New coding turns stop when fewer than 60 seconds remain; each admitted turn is bounded by its remaining search time and the 600-second session cap. Counts, time and budget are independent upper limits. A repair uses an actual failing source artifact; infrastructure failures do not consume a repair as if they were codec bugs.
+
+| Session | Model | Reasoning | Purpose |
+| --- | --- | --- | --- |
+| Initial, up to 4 | `muse-spark-1.3` | `high` | Explore different compression families without parent source |
+| Evolved, up to 8 | `muse-wonder-1.0` | `max` | Refine the best eligible source using measured feedback |
+| Repair, up to 2 | `muse-wonder-1.0` | `high` | Repair a source artifact that failed compilation or controls |
+
+Every session permits up to 32 model steps and a 16 KiB training excerpt. The provider catalog preflight checks both configured models before inference. Profiles, session limits and separate Wonder prices live in [run.toml](../run.toml); cloud candidate counts, request exposure and the search deadline live in [cloud/policy.json](../cloud/policy.json). Cloud counts override the compatibility budget counts in `run.toml`. Change and merge configuration before creating a new issue; an existing issue retains its snapshot.
+
+The prompt includes the actual Rust toolkit declarations and a [reviewed algorithm brief](../laboratory/algorithms.md), covering PPM, context mixing, DMC, BWT, rANS and byte-exact structured layouts. Coding workers keep web tools disabled; the brief supplies published references and states their limits. Initial trials explore distinct families; evolution receives the best measured source and earlier mechanism descriptions. Reaching the 10% validation target does not truncate the remaining search: final qualification still depends on complete development. Reports state the actual coding-session count, models used and whether candidate, time or budget limits ended research.
 
 Research uses **only the first 2 MiB of the development partition** for profiling, model training and candidate selection. That prefix and its hash/size are recorded in `sampling.json`. JSON arrays/JSONL and consistent CSV use complete record groups; duplicates stay on one side. CSV headers are retained and JSON array views wrap unchanged record lexemes. Single documents or opaque bytes have an explicit fallback sampling policy. Those views select candidates; the complete original development bytes are measured unchanged. Larger development/final files use the actual Rust client with independent 2 MiB chunks. Baselines compress each complete file as one normal stream. All framing/model bytes count, and full-file qualification still requires a win. Final content never participates in research sampling.
 

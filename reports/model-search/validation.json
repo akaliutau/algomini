@@ -1,0 +1,75 @@
+{
+  "base_revision": "821dd668d8adaa9b7642bc681fae60b5ae3b914a",
+  "coverage": [
+    "Per-model prices remain correct when changing the default model",
+    "Unknown pricing is rejected before paid generation",
+    "Both configured models are required by catalog preflight",
+    "Reasoning effort changes generation cache identity",
+    "Initial, evolved and repair sessions route to their configured models",
+    "Reaching the validation target does not truncate remaining trials",
+    "JSON and text codecs compile, verify exactly and rebuild the qualified release without reopening final data"
+  ],
+  "docker_used": false,
+  "empty_catalog_smoke": {
+    "codecs": 0,
+    "containment": {
+      "fork_denied": true,
+      "network_denied": true,
+      "original_read_denied": true
+    },
+    "passed": true
+  },
+  "github_runs_started": false,
+  "inference_calls": 0,
+  "job_timeout_minutes": 110,
+  "profiles": {
+    "evolved": {
+      "max_model_steps": 32,
+      "model": "muse-wonder-1.0",
+      "reasoning_effort": "max",
+      "timeout_seconds": 600
+    },
+    "initial": {
+      "max_model_steps": 32,
+      "model": "muse-spark-1.3",
+      "reasoning_effort": "high",
+      "timeout_seconds": 600
+    },
+    "repair": {
+      "max_model_steps": 32,
+      "model": "muse-wonder-1.0",
+      "reasoning_effort": "high",
+      "timeout_seconds": 600
+    }
+  },
+  "python": {
+    "command": "python -m pytest -q",
+    "passed": 164,
+    "seconds": 628.65
+  },
+  "scope": "Offline coding simulation with real native compilation, qualification and release rebuilds; API model availability checked without inference",
+  "search": {
+    "account_reserve_usd": 20.0,
+    "maximum_evolved_candidates": 8,
+    "maximum_initial_candidates": 4,
+    "maximum_repairs": 2,
+    "maximum_research_seconds": 5400,
+    "provider_limit_usd": 150.0,
+    "request_reservation_usd": 40.0
+  },
+  "source_sha256": {
+    ".github/workflows/codec-request.yml": "04a37bc5790a74f2ebf6c5d9f6732c07669af750eb91efcf3422ce460ba752bf",
+    "algomini/cloud/presentation.py": "30851138e912b254f2192ce0f851f862994716fb24b5e72c6b6ccfb1fa515e47",
+    "algomini/cloud/research.py": "c9217dafdf635459259cbdabbee6c0910b8bd04e25720bd5f8ac1ffc0c4f466f",
+    "algomini/coder.py": "cf94b422213a67de9042fcd3ea14263539d614e2c92a85fb79497584073fcc39",
+    "algomini/environment.py": "486986a52ce65bcaa664c74e433122f61ebdb50f617e97521a73452df01a272e",
+    "cloud/policy.json": "36762b215fa79cd912737195a79d16d91bd80340a194ee0809203236d70ce696",
+    "laboratory/algorithms.md": "4e72f4467b4ac4e98f6356550b2c20fd1f0772d7200685f60329606bf8b947d4",
+    "repro/coding-models.json": "3431962453662016bafa2d3e6ceff2a395c6f15d97ae30e452b1411d446078d8",
+    "run.toml": "a4262e9b7c8cbeafe29152157b04122e51303959c8c77fa22aa0ac4ca34eca61"
+  },
+  "workflow_lint": {
+    "exception": "Only unrecognized concurrency.queue in actionlint 1.7.12",
+    "passed": true
+  }
+}

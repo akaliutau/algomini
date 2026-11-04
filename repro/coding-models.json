@@ -1,0 +1,52 @@
+{
+  "inference_calls": 0,
+  "mode": "Standard; contributor mode off",
+  "model_source": "https://dev.meta.ai/docs/models",
+  "prices_usd_per_million_tokens": {
+    "muse-spark-1.3": {
+      "cached_input_usd_per_million": 0.15,
+      "input_usd_per_million": 1.25,
+      "output_usd_per_million": 4.25
+    },
+    "muse-wonder-1.0": {
+      "cached_input_usd_per_million": 0.2,
+      "input_usd_per_million": 4.0,
+      "output_usd_per_million": 20.0
+    }
+  },
+  "pricing_source": "https://dev.meta.ai/docs/pricing-rate-limits",
+  "profiles": {
+    "evolved": {
+      "max_model_steps": 32,
+      "model": "muse-wonder-1.0",
+      "reasoning_effort": "max",
+      "timeout_seconds": 600
+    },
+    "initial": {
+      "max_model_steps": 32,
+      "model": "muse-spark-1.3",
+      "reasoning_effort": "high",
+      "timeout_seconds": 600
+    },
+    "repair": {
+      "max_model_steps": 32,
+      "model": "muse-wonder-1.0",
+      "reasoning_effort": "high",
+      "timeout_seconds": 600
+    }
+  },
+  "reasoning_source": "https://dev.meta.ai/docs/reasoning",
+  "verification": {
+    "configured_models": {
+      "muse-spark-1.3": true,
+      "muse-wonder-1.0": true
+    },
+    "http_status": 200,
+    "inference_calls": 0,
+    "ok": true,
+    "operation": "GET /v1/models",
+    "selected_model": "muse-spark-1.3",
+    "selected_model_available": true
+  },
+  "verified_at": "2026-11-04T17:23:19.621316+00:00"
+}

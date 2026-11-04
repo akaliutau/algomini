@@ -44,14 +44,15 @@ def test_cloud_reset_clears_research_once_preserving_spending_requests_and_tests
     assert gh.commits == commits
 
 
-def test_empty_catalog_can_generate_freeze_and_verify_its_first_codec(empty_library, monkeypatch, tmp_path):
+@pytest.mark.parametrize("family", ["json", "text"])
+def test_empty_catalog_can_generate_freeze_and_verify_its_first_codec(empty_library, monkeypatch, tmp_path, family):
     request = snapshot(monkeypatch)
-    request["dataset"]["family"] = "json"
+    request["dataset"]["family"] = family
     request["execution"] = {"run_id": "17", "run_attempt": 1}
     monkeypatch.setenv("ALGOMINI_RUN_ID", "17")
     monkeypatch.setenv("ALGOMINI_RUN_ATTEMPT", "1")
-    train = (ROOT / "datasets/sample/train-1mb.json").read_bytes()
-    final_bytes = (ROOT / "datasets/sample/test-512kb.json").read_bytes()
+    train = (ROOT / "datasets/sample" / ("Shakespeare-1.txt" if family == "text" else "train-1mb.json")).read_bytes()[:2*1024**2]
+    final_bytes = (ROOT / "datasets/sample" / ("Dumas-1.txt" if family == "text" else "test-512kb.json")).read_bytes()[:2*1024**2]
     for part, data in (("train", train), ("test", final_bytes)):
         request["dataset"][part].update(bytes=len(data), sha256=digest(data))
     opened = []
@@ -64,18 +65,27 @@ def test_empty_catalog_can_generate_freeze_and_verify_its_first_codec(empty_libr
         return train
     monkeypatch.setattr(research.DatasetFile, "fetch", fetch)
     monkeypatch.setattr(research, "check_api", lambda *_: {"ok": True})
-    fixture = ROOT / "tests/fixtures/plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/codec.rs"
-    prompts = []
+    fixture_id = "wk-3169dda381d9c072" if family == "text" else "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14"
+    fixture = ROOT / "tests/fixtures/plugins" / fixture_id / "codec.rs"
+    prompts, sessions = [], []
     def generate(workspace, _cfg, prompt, _sample, **_kwargs):
         # Simulate coding only; real compilation, baselines, controls and final
         # verification run below. No provider call or production seed is used.
         prompts.append(prompt)
+        sessions.append((_kwargs["kind"], _cfg["coder"]["model"], _cfg["coder"]["reasoning_effort"]))
         source = workspace / "generated.rs"
-        source.write_text("// Deterministic test candidate.\n" + fixture.read_text())
-        return source, {"attempt_id": "a" * 64}
+        source.write_text("pub struct Candidate;" if len(sessions) == 1 else "// Deterministic test candidate.\n" + fixture.read_text())
+        return source, {"attempt_id": "a" * 64, "model": _cfg["coder"]["model"]}
     monkeypatch.setattr(research.coder, "generate", generate)
     result = research.search(empty_library, tmp_path, request)
     assert "No parent source" in prompts[0]
+    assert "pub fn zstd_compress" in prompts[0] and "state-of-the-art" in prompts[0]
+    assert sessions.count(("initial", "muse-spark-1.3", "high")) == request["policy"]["maximum_initial_candidates"]
+    assert sessions.count(("evolved", "muse-wonder-1.0", "max")) == request["policy"]["maximum_evolved_candidates"]
+    assert ("repair", "muse-wonder-1.0", "high") in sessions
+    assert result["search"]["stop_reason"] == "candidate-limit"
+    if family == "text":
+        assert result["validation"]["score"]["archive_gain"] >= request["policy"]["archive_gain_target"]  # A validation target does not truncate the search.
     assert all(not row["origin"].startswith("reused") for row in result["trials"])
     assert result["development_gate"]["passed"] and len(opened) == 1
     assert result["origin"].startswith("Muse-generated")

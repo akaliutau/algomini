@@ -97,6 +97,12 @@ def report(request, research, final=None):
     source = selected.get("source")
     if source:
         text += f"\n\n[Review Rust source](https://github.com/{request['repository']}/blob/codec/{request['id']}/{source})"
+    search = research.get("search")
+    if search:
+        text += "\n\n" + rows_table([
+            ("Coding sessions", f"{search['coding_sessions']} of at most {search['session_limit']}"),
+            ("Search stopped", search["stop_reason"]),
+            ("Models used", ", ".join(search["models_used"]) or "No paid sessions")])
     text += f"\n\n[Dataset manifest and file split](https://github.com/{request['repository']}/blob/codec/{request['id']}/reports/campaigns/{request['id']}/dataset-manifest.json)"
     text += ("\n\nThis request qualifies an existing implementation; no new winning algorithm was generated." if reused
              else "\n\nThe selected implementation is included in this request's review evidence.")

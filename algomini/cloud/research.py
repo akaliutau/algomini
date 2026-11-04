@@ -62,12 +62,18 @@ def registry_for(base, item, name):
 
 def prompt(library, request, prepared, previous=None, failure=None, feedback=None):
     api = (Path(library) / "crates/algomini-cli/src/api.rs").read_text()
+    toolkit = (Path(library) / "crates/algomini-cli/src/toolkit.rs").read_text()
+    reference = Path(library) / "laboratory/algorithms.md"
+    algorithms = reference.read_text() if reference.is_file() else "Investigate published predictors and reversible transforms appropriate to the measured structure."
     parent = previous.read_text() if previous else "No parent source; choose a reversible representation."
     return f"""Write exactly one file codec.rs implementing a lossless compressor for {request['dataset']['family']} bytes.
 Interface supplied by the trusted crate (do not redefine it):
 {api}
 Use `use crate::{{Codec, CodecError}};`, export `pub struct Candidate;`, and implement Codec.
-Allowed safe helpers: crate::toolkit::zstd_compress(input, level), zstd_decompress(input), crc32(input).
+Trusted toolkit source (call its functions; do not redefine the toolkit):
+{toolkit}
+Propagate Result errors with ?; zstd helpers return Result<Vec<u8>, CodecError>, not Vec<u8>.
+Start with ordinary // comments describing the algorithm, inverse and counted costs. Do not use //! inner doc comments: this file is included inside a module.
 No external crates, unsafe code, files, processes, environment, network, or extra modules. Maximum source 65536 bytes.
 All transform tables, exceptions and learned models must be serialized and counted. Do not embed sample records.
 Preserve arbitrary bytes, whitespace, numeric spellings, quoting and line endings. Handle empty/binary/malformed input exactly.
@@ -79,6 +85,9 @@ The host trains on one development partition and measures on the other. Learned 
 Compare model + payload + native frame + collection identity, not the transformed payload alone.
 Implement a reversible mechanism supported by the measured gap. A zstd wrapper alone is not a new algorithm.
 If parent source is supplied, improve its mechanism instead of returning it unchanged.
+Investigate state-of-the-art compression mechanisms relevant to this workload and the enforced resource bounds.
+Use this reviewed literature brief to choose a feasible algorithm; do not claim a universal or current leaderboard result:
+{algorithms}
 If useful, start encode output with a documented mode byte so source review can distinguish structured and fallback paths.
 Development probe evidence and bounded retrieved knowledge:
 {json.dumps({'probes': prepared['probes'], 'retrieved': prepared['retrieved']}, sort_keys=True)}
@@ -92,7 +101,8 @@ Previous failure, if any: {failure or 'none'}
 
 def trial_summary(row):
     candidate = row["result"]["candidate"]
-    return {"id": row["item"]["id"], "origin": row["origin"], "eligible": row["result"]["eligible"],
+    return {"id": row["item"]["id"], "origin": row["origin"], "mechanism": row["item"].get("description", "Not described"),
+            "eligible": row["result"]["eligible"],
             "archive_gain": row["result"]["score"]["archive_gain"],
             **{key: candidate.get(key) for key in ("archive_bytes", "block_bytes", "payload_bytes", "model_bytes", "collection_bytes", "encoding_mode", "raw_escape")}}
 
@@ -231,39 +241,55 @@ def search(library, workspace, request):
             evaluate(workspace / item["source"], "reused reviewed seed; not a newly generated algorithm")
         except ValueError as error:
             failures.append({"origin": "seed", "id": identifier, "failure": str(error)})
+    stop_reason = "reuse-only" if not cfg["budget"]["generation_enabled"] else "framing-floor"
     if cfg["budget"]["generation_enabled"] and baseline["best_bytes"] > framing_floor:
+        for kind in ("initial", "evolved", "repair"):
+            coder.session_configuration(cfg, kind)  # Refuse unknown pricing before any paid session.
         preflight = check_api(library, cfg)
         if not preflight["ok"]:
             raise ValueError("Model catalog preflight failed before inference: " + json.dumps(preflight, sort_keys=True))
         write_json(workspace / "model-preflight.json", preflight)
-        # Each launch also reserves against the request-local $20 ledger in coder.generate.
+        # Each launch also reserves against the request-local ledger in coder.generate.
         attempts = ["initial"] * request["policy"]["maximum_initial_candidates"] + ["evolved"] * request["policy"]["maximum_evolved_candidates"]
         repair_used = 0
+        stop_reason = "candidate-limit"
         for attempt, kind in enumerate(attempts):
-            if time.monotonic() - started >= request["policy"]["maximum_research_seconds"]:
+            remaining = request["policy"]["maximum_research_seconds"] - (time.monotonic() - started)
+            if remaining < 60:
+                stop_reason = "time-limit"
                 break
             best = min((row for row in candidates if row["result"]["eligible"]), key=lambda row: row["result"]["candidate"]["archive_bytes"], default=None)
-            parent = workspace / best["item"]["source"] if best else workspace / seed["source"] if seed else None
+            parent_item = best["item"] if best else seed
+            parent = workspace / parent_item["source"] if parent_item and kind != "initial" else None
             feedback = {"sampling": sampling, "best_baseline_bytes": baseline["best_bytes"], "best_baseline": baseline["best_id"],
                 "target_gain": request["policy"]["archive_gain_target"], "trials": [trial_summary(row) for row in candidates], "failures": failures[-3:]}
-            action = "mechanism" if parent is None else "refinement"
+            action = "mechanism from a different algorithm family than earlier trials" if kind == "initial" else "refinement of the best measured mechanism"
             text = prompt(library, request, preparation, parent, feedback=feedback) + f"\nTrial {attempt + 1}: propose a distinct reversible {action}, and explain its applicability briefly in source comments.\n"
             source = None
+            session = coder.session_configuration(cfg, kind)
+            session["coder"]["timeout_seconds"] = min(session["coder"]["timeout_seconds"], int(remaining))
             try:
-                source, record = coder.generate(workspace, cfg, text, training, attempt=attempt, phase="discovery", kind=kind)
+                source, record = coder.generate(workspace, session, text, training, attempt=attempt, phase="discovery", kind=kind)
                 evaluate(source, "Muse-generated " + kind, record)
+            except coder.BudgetExhausted:
+                stop_reason = "budget-limit"
+                break
             except ValueError as error:
                 failures.append({"origin": kind, "failure": str(error)})
-                if source is not None and repair_used < request["policy"]["maximum_repairs"] and time.monotonic() - started < request["policy"]["maximum_research_seconds"]:
+                remaining = request["policy"]["maximum_research_seconds"] - (time.monotonic() - started)
+                if source is not None and repair_used < request["policy"]["maximum_repairs"] and remaining >= 60:
                     repair_used += 1
                     try:
                         repair_prompt = prompt(library, request, preparation, source, str(error), feedback)
-                        repaired, record = coder.generate(workspace, cfg, repair_prompt, training, attempt=attempt, phase="discovery", kind="repair")
+                        repair_session = coder.session_configuration(cfg, "repair")
+                        repair_session["coder"]["timeout_seconds"] = min(repair_session["coder"]["timeout_seconds"], int(remaining))
+                        repaired, record = coder.generate(workspace, repair_session, repair_prompt, training, attempt=attempt, phase="discovery", kind="repair")
                         evaluate(repaired, "Muse-generated repair", record)
+                    except coder.BudgetExhausted:
+                        stop_reason = "budget-limit"
+                        break
                     except ValueError as repair_error:
                         failures.append({"origin": "repair", "failure": str(repair_error)})
-            if candidates and any(row["generation"] for row in candidates) and min(row["result"]["candidate"]["archive_bytes"] for row in candidates) <= baseline["best_bytes"] * (1 - request["policy"]["archive_gain_target"]):
-                break
     passing = [row for row in candidates if row["result"]["eligible"]]
     if not passing:
         if baseline["best_bytes"] <= framing_floor:
@@ -291,6 +317,10 @@ def search(library, workspace, request):
               "mode": request.get("mode", "generate"), "split": "validation", "retrieved": preparation["retrieved"]}
     result["validation"] = selected["result"]
     result["sampling"] = sampling
+    result["search"] = {"stop_reason": stop_reason, "coding_sessions": len(usage),
+                        "session_limit": sum(request["policy"][key] for key in ("maximum_initial_candidates", "maximum_evolved_candidates", "maximum_repairs")),
+                        "deadline_seconds": request["policy"]["maximum_research_seconds"],
+                        "models_used": sorted({entry["model"] for entry in usage if entry.get("model")})}
     result["minimum_candidate_archive_bytes"] = framing_floor
     result["generation_skipped_for_framing_floor"] = baseline["best_bytes"] <= framing_floor
     result["development_gate"] = {"passed": all(value["eligible"] and value["score"]["archive_gain"] > request["policy"]["release_minimum_archive_gain"] for value in (selected["result"], development)),
