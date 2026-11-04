@@ -78,6 +78,8 @@
     },
     "issue-3": {
       "charged_usd": 20.0,
+      "freeze_id": "117334c10d16ab909d49aa5e050a38821c43407b56c4576b659409f9434b150e",
+      "frozen_commit": "73a482fdd0eab572d87c57e5941e0757677e41cb",
       "reserved_at": "2026-11-04T01:23:23.011552+00:00",
       "run_attempt": 1,
       "run_id": "41753536875",
@@ -138,7 +140,7 @@
         "repository": "akaliutau/algomini",
         "schema_version": 1
       },
-      "status": "researching",
+      "status": "frozen",
       "terminal": false
     }
   },
