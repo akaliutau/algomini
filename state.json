@@ -1,5 +1,66 @@
 {
-  "development_evidence": [],
+  "development_evidence": [
+    {
+      "evidence": "reports/campaigns/issue-8/research.json",
+      "id": "issue-8/trial-0",
+      "interpretation": "Development evidence only; applicability must be remeasured",
+      "measurements": {
+        "archive_bytes": 345422,
+        "encoding_mode": "codec-specific; see source",
+        "model_bytes": 2003,
+        "payload_bytes": 343295
+      },
+      "mechanism": "Muse-generated repair",
+      "outcome": "no-win",
+      "split": "validation",
+      "tags": [
+        "text"
+      ]
+    },
+    {
+      "evidence": "reports/campaigns/issue-8/research.json",
+      "id": "issue-8/trial-1",
+      "interpretation": "Development evidence only; applicability must be remeasured",
+      "measurements": {
+        "archive_bytes": 340436,
+        "encoding_mode": "codec-specific; see source",
+        "model_bytes": 915,
+        "payload_bytes": 339397
+      },
+      "mechanism": "Muse-generated initial",
+      "outcome": "no-win",
+      "split": "validation",
+      "tags": [
+        "text"
+      ]
+    },
+    {
+      "evidence": "reports/campaigns/issue-8/research.json",
+      "id": "issue-8/trial-2",
+      "interpretation": "Development evidence only; applicability must be remeasured",
+      "measurements": {
+        "archive_bytes": 339767,
+        "encoding_mode": "codec-specific; see source",
+        "model_bytes": 868,
+        "payload_bytes": 338775
+      },
+      "mechanism": "Muse-generated evolved",
+      "outcome": "no-win",
+      "split": "validation",
+      "tags": [
+        "text"
+      ]
+    },
+    {
+      "failure": "Contained release build failed: ----------------------------------------- the inner doc comment doesn't annotate this `use` import\n   |\nhelp: to annotate the `use` import, change the doc comment from inner to outer style\n   |\n22 - //! numeric spellings, quoting, and line endings bit-for-bit.\n22 + /// numeric spellings, quoting, and line endings bit-for-bit.\n   |\n\nerror[E0599]: no method named `len` found for enum `Result<T, E>` in the current scope\n   --> /algomini-work/builds/ba228fc3d090248df194cdc734925d5d74868d7d20d68bbcc48e19bdc38234fe/plugins/cx-29227a9b6ec4005e06a02ee0e6ae024a-e3b0c44298fc1c14/codec.rs:299:49\n    |\n299 |         let mut best = Vec::with_capacity(raw_z.len() + 1);\n    |                                                 ^^^\n    |\nhelp: there is a method `le` with a similar name, but with different arguments\n   --> /rustc/ded5c06cf21d2b93bffd5d884aa6e96934ee4234/library/core/src/cmp.rs:1416:5\n\nerror[E0308]: mismatched types\n   --> /algomini-work/builds/ba228fc3d09024",
+      "id": "issue-8/failure-0",
+      "outcome": "failed",
+      "split": "validation",
+      "tags": [
+        "text"
+      ]
+    }
+  ],
   "development_reset_id": "empty-plugins-20261104",
   "historical_charged_usd": 11.989932049999998,
   "requests": {
@@ -256,7 +317,9 @@
       "test_previously_used": false
     },
     "issue-8": {
-      "charged_usd": 20.0,
+      "charged_usd": 0.4616186,
+      "report": "# Plugin: text-v3\n\n| Detail | Value |\n| --- | --- |\n| Outcome | Stopped at development |\n| Algorithm | Independent 2 MiB chunks. Custom lossless Rust codec. Source note: Candidate text codec: space-anchored phrase dictionary + zstd.  Applicability (development probes): LF English text (~74k short lines in 2 MiB, max line 81 B, 101 distinct bytes, all ASCII), heavy repetition: ~28k repeated lines over ~46k d |\n| Selected candidate | cx-efd854de-5ce0 |\n| Origin | Muse-generated evolved |\n| Request mode | generate |\n| Generation failures | 1 |\n| Target | 10% saving; strictly positive saving qualifies |\n| Target reached | Not measured |\n| Model estimate / held reserve | $0.4616 |\n| Client executable | 986,480 bytes; separate from archive size |\n\n[Review Rust source](https://github.com/akaliutau/algomini/blob/codec/issue-8/plugins/cx-efd854ded4545f2bf4ebc4b0d15f0bd6-5ce05880c06f95f0/codec.rs)\n\n[Dataset manifest and file split](https://github.com/akaliutau/algomini/blob/codec/issue-8/reports/campaigns/issue-8/dataset-manifest.json)\n\nThe selected implementation is included in this request's review evidence.\n\nArchive size ranks first. Exact reconstruction and memory/time limits are mandatory.\n\n| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Validation | cx-efd854de-5ce0 | 339,767 | -0.13% | 0.710 | 72.15 | 89.96 | yes |\n| Validation | gzip-9 | 408,732 | -20.45% | 0.097 | 99.47 | 89.96 | yes |\n| Validation | xz-9e | 339,329 | 0.00% | 0.571 | 46.39 | 89.96 | yes |\n| Validation | zstd-19 | 343,653 | -1.27% | 0.565 | 119.91 | 89.96 | yes |\n| Validation | zstd-22 | 343,653 | -1.27% | 0.540 | 145.39 | 89.96 | yes |\n| Validation | zstd-dict-19 | 392,360 | -15.63% | 0.185 | 132.98 | 89.96 | yes |\n| Validation | zstd-dict-22 | 392,360 | -15.63% | 0.191 | 134.01 | 89.96 | yes |\n\n| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Development | cx-efd854de-5ce0 | 1,723,623 | -4.07% | 4.864 | 57.24 | 89.96 | yes |\n| Development | gzip-9 | 2,096,483 | -26.58% | 0.488 | 125.46 | 89.96 | yes |\n| Development | xz-9e | 1,656,213 | 0.00% | 4.767 | 58.28 | 89.96 | yes |\n| Development | zstd-19 | 1,675,443 | -1.16% | 4.230 | 286.08 | 89.96 | yes |\n| Development | zstd-22 | 1,675,440 | -1.16% | 4.735 | 234.14 | 89.96 | yes |\n| Development | zstd-dict-19 | 1,986,230 | -19.93% | 0.969 | 260.96 | 89.96 | yes |\n| Development | zstd-dict-22 | 1,986,230 | -19.93% | 0.981 | 244.77 | 89.96 | yes |\n\n| Detail | Value |\n| --- | --- |\n| Final | Not evaluated |\n\n| Detail | Value |\n| --- | --- |\n| Final access | Not evaluated; final claim not consumed |\n| Development files | 1 files; 5,422,721 bytes |\n| Final files | 1 files; 2,704,417 bytes |\n\n<details>\n<summary>Candidate trials and build details</summary>\n\n| Trial | Origin | Archive bytes | Payload bytes | Model bytes | Mode |\n| --- | --- | --- | --- | --- | --- |\n| cx-7b5445ad-08f3 | Muse-generated repair | 345,422 | 343295 | 2003 | codec-specific; see source |\n| cx-672d70a9-737f | Muse-generated initial | 340,436 | 339397 | 915 | codec-specific; see source |\n| cx-efd854de-5ce0 | Muse-generated evolved | 339,767 | 338775 | 868 | codec-specific; see source |\n\n| Detail | Value |\n| --- | --- |\n| Cloud image | lab@57a07a07 |\n| Source SHA-256 | efd854de |\n| Model SHA-256 | 5ce05880 |\n| Host | AMD EPYC 7763 64-Core Processor |\n| Kernel | 7.0.0-1017-azure |\n| Generation failures | 1 |\n\n| Attempt | Failure |\n| --- | --- |\n| initial | Contained release build failed: ----------------------------------------- the inner doc comment doesn't annotate this &#96;use&#96; import    &#124; help: to annotate the &#96;use&#96; import, change the doc comment from inner to outer style    &#124; 22 - //! numer |\n\nFull identities and detailed evidence are retained in the campaign JSON files. Unknown provider usage remains reserved.\n\n</details>\n",
+      "report_commit": "46e0380256ae2bbc7aca3c4dc2eb80b74c914369",
       "reserved_at": "2026-11-04T16:44:02.672338+00:00",
       "run_attempt": 1,
       "run_id": "41869863663",
@@ -338,8 +401,8 @@
         "repository": "akaliutau/algomini",
         "schema_version": 1
       },
-      "status": "researching",
-      "terminal": false
+      "status": "no-development-gain",
+      "terminal": true
     }
   },
   "schema_version": 1,
