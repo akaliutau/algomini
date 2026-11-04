@@ -14,7 +14,7 @@ from ..campaigns import Campaign
 from ..common import digest, load_config, sha256, write_json
 from ..environment import check_api
 from . import native
-from .contracts import DatasetFile, execution_guard, validate_snapshot
+from .contracts import DatasetFile, execution_guard, fetch_dataset, validate_snapshot
 
 
 def configuration(library, request):
@@ -44,8 +44,12 @@ def persist_asset(workspace, source, model, base):
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "codec.rs").write_bytes(source.read_bytes())
     (directory / "model.bin").write_bytes(model)
-    return {"id": identifier, "codec_id": checksum[:32], "source": f"plugins/{identifier}/codec.rs", "source_sha256": checksum,
+    item = {"id": identifier, "codec_id": checksum[:32], "source": f"plugins/{identifier}/codec.rs", "source_sha256": checksum,
             "model": f"plugins/{identifier}/model.bin", "model_sha256": model_hash}
+    note = " ".join(line.lstrip()[2:].strip() for line in source.read_text().splitlines()[:6] if line.lstrip().startswith("//"))[:240]
+    if note:
+        item["description"] = note
+    return item
 
 
 def registry_for(base, item, name):
@@ -160,7 +164,8 @@ def search(library, workspace, request):
     if cfg["budget"]["generation_enabled"]:
         if not request.get("execution"):
             raise ValueError("Paid cloud research requires its durable Actions execution claim")
-    train = DatasetFile.parse(request["dataset"]["train"], request["policy"]).fetch(request["policy"])
+    train = fetch_dataset(request, "train", workspace)
+    write_json(workspace / "dataset-manifest.json", request["dataset"])
     original = workspace / "train.bin"
     original.write_bytes(train)
     knowledge = knowledge_library(library, workspace)
@@ -281,7 +286,7 @@ def search(library, workspace, request):
     result["environment"] = native.host_environment()
     write_json(terminal, result)
     freeze_record = {"schema_version": 1, "request_sha256": sha256(workspace / "request.json"),
-        "files": {name: sha256(workspace / name) for name in ("algomini", "registry.json", "build.json", "research.json", "development.json", "development.alc", "sampling.json", "development-signatures.json", "attempts.json", "preparation.json", "cloud-runtime.json", "dictionary.json", "dictionary/dictionary.bin", item["source"], item["model"])},
+        "files": {name: sha256(workspace / name) for name in ("algomini", "registry.json", "build.json", "research.json", "development.json", "development.alc", "sampling.json", "development-signatures.json", "attempts.json", "preparation.json", "cloud-runtime.json", "dataset-manifest.json", "dictionary.json", "dictionary/dictionary.bin", item["source"], item["model"])},
         "runtime": native.runtime(library, request["image"]), "selected": item}
     write_json(workspace / "freeze.json", freeze_record)
     return result
@@ -321,7 +326,7 @@ def verify(library, workspace, request, receipt):
     result["environment"] = native.host_environment()
     try:
         cfg = configuration(library, request)
-        data = DatasetFile.parse(request["dataset"]["test"], request["policy"]).fetch(request["policy"])
+        data = fetch_dataset(request, "test", workspace)
         result["record_overlap"] = overlap(json.loads((workspace / "development-signatures.json").read_text()), data, request["dataset"]["family"])
         item = frozen["selected"]
         model = (workspace / item["model"]).read_bytes()

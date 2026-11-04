@@ -18,7 +18,7 @@ from .github import GitHub
 def export(workspace, destination):
     workspace, destination = Path(workspace), Path(destination)
     destination.mkdir(parents=True, exist_ok=True)
-    names = ["request.json", "failure.json", "attempts.json"]
+    names = ["request.json", "failure.json", "attempts.json", "dataset-manifest.json"]
     if (workspace / "freeze.json").exists():
         names += ["freeze.json", "registry.json", "build.json", "research.json", "development.json", "development.alc",
                   "dictionary.json", "dictionary/dictionary.bin", "cloud-runtime.json", "algomini", "preparation.json",

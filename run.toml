@@ -73,7 +73,7 @@ timeout_seconds = 300
 max_model_steps = 12
 trace_transport = false
 excerpt_bytes = 12288
-command = ["{executable}", "exec", "--provider", "meta", "--model", "{model}", "--reasoning-effort", "medium", "--max-model-steps", "{max_model_steps}", "--prompt-file", "{prompt_file}", "--workspace", "{workspace}", "--json", "--contributor-mode", "off", "--disable-shell", "--disable-web-tools", "--disable-reminders", "--no-foreign-personal-context", "--no-session-log", "--disable-request-user-input", "--approval-mode", "never", "--approval-judge", "off", "-c", "agents.execution_capacity=1"]
+command = ["{executable}", "exec", "--provider", "meta", "--model", "{model}", "--reasoning-effort", "medium", "--max-model-steps", "{max_model_steps}", "--prompt-file", "{prompt_file}", "--workspace", "{workspace}", "--json", "--contributor-mode", "off", "--disable-shell", "--disable-web-tools", "--disable-reminders", "--no-foreign-personal-context", "--disable-request-user-input", "--approval-mode", "never", "--approval-judge", "off", "-c", "agents.execution_capacity=1"]
 
 [[baselines]]
 id = "gzip-9"

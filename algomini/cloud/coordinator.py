@@ -7,6 +7,7 @@ from pathlib import Path
 
 from ..common import digest, sha256, write_json
 from . import contracts, native
+from .presentation import report, status_comment
 from .github import APIError, GitHub, State, now
 
 
@@ -103,12 +104,19 @@ def gate(root, event, event_name, destination, gh):
             gh.comment(issue["number"], status_comment(existing))
         output(start=False, issue=issue["number"])
         return
+    gh.repo("PATCH", f"issues/{issue['number']}", {"title": f"[codec] Develop plugin: {name}"})
     write_json(destination, {"issue": issue, "mode": mode})
     output(start=True, issue=issue["number"], mode=mode, base=gh.head("main"))
 
 
 def claim(root, intake, image, destination, gh):
-    request = contracts.snapshot(root, intake["issue"], gh.repository, os.environ.get("ALGOMINI_BASE_COMMIT", os.environ["GITHUB_SHA"]), image)
+    try:
+        request = contracts.snapshot(root, intake["issue"], gh.repository, os.environ.get("ALGOMINI_BASE_COMMIT", os.environ["GITHUB_SHA"]), image,
+                                     staging=Path(destination).parent)
+    except (ValueError, OSError) as error:
+        gh.comment(intake["issue"]["number"], "Dataset preparation stopped before inference or a spending reservation:\n\n" + str(error))
+        output(claimed=False)
+        return
     request["mode"] = intake["mode"]
     request["execution"] = {"run_id": os.environ["GITHUB_RUN_ID"], "run_attempt": int(os.environ.get("GITHUB_RUN_ATTEMPT", "1"))}
     store = state(root, gh)
@@ -122,7 +130,7 @@ def claim(root, intake, image, destination, gh):
     write_json(destination, request)
     write_json(Path(destination).with_name("prior-observations.json"), store.value.get("development_evidence", [])[-128:])
     gh.comment(request["issue"], status_comment(row))
-    output(claimed=True)
+    output(claimed=True, archive=bool(request["dataset"]["train"].get("archive")))
 
 
 def checked_checkpoint(root, workspace, request):
@@ -172,7 +180,7 @@ def review_files(root, workspace, request, *, final=False):
     selected = frozen["selected"]
     prefix = f"reports/campaigns/{request['id']}/"
     names = ["request.json", "freeze.json", "research.json", "development.json", "build.json", "dictionary.json", "cloud-runtime.json"]
-    names += [name for name in ("sampling.json", "development-signatures.json", "attempts.json", "preparation.json") if (workspace / name).is_file()]
+    names += [name for name in ("sampling.json", "development-signatures.json", "attempts.json", "preparation.json", "dataset-manifest.json") if (workspace / name).is_file()]
     if final:
         names += ["final.json", "terminal.json"]
     files = {prefix + name: (workspace / name).read_bytes() for name in names}
@@ -227,37 +235,6 @@ def freeze(root, workspace, request, receipt_path, gh):
     output(verify=True)
 
 
-def status_comment(row):
-    request = row["snapshot"]
-    text = f"**Algomini: {row['status']}** — `{request['id']}`, plugin `{request['plugin']}`.\n\n"
-    text += f"[Actions run]({row['run_url']}). Reserved/charged exposure: ${row['charged_usd']:.4f}. Size first; speed secondary."
-    if row.get("pr_url"):
-        text += f"\n\n[Review PR]({row['pr_url']}). Closing this issue is optional."
-    if row.get("release_url"):
-        text += f"\n\n[Release]({row['release_url']})."
-    if row["status"] == "interrupted":
-        text += "\n\nThe previous run stopped without a complete terminal publication. Reservations and test claims are retained; no automatic paid retry is allowed."
-    if row.get("failure"):
-        text += "\n\nFailure:\n```\n" + row["failure"][:2000].replace("```", "'''") + "\n```"
-    if row.get("report"):
-        text += "\n\n" + row["report"]
-    return text
-
-
-def table(result, scope):
-    candidate = result.get("candidate")
-    if not candidate:
-        return f"{scope}: no completed benchmark ({result.get('failure', 'unavailable')})."
-    baseline = result["baselines"]
-    rows = [candidate, *baseline["results"]]
-    lines = ["| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |", "|---|---|---:|---:|---:|---:|---:|---|"]
-    for row in rows:
-        metrics = row["files"][0]
-        saving = 1 - row["archive_bytes"] / baseline["best_bytes"]
-        lines.append(f"| {scope} | `{row['id']}` | {row['archive_bytes']:,} | {saving:.2%} | {metrics['encode']['execution_seconds']:.3f} | {metrics['decode']['decode_mib_per_second']:.2f} | {metrics['decode']['peak_rss_kib']/1024:.2f} | yes |")
-    return "\n".join(lines)
-
-
 def development_ready(research, request):
     return all(result and result.get("eligible") and result["candidate"]["archive_bytes"] < result["baselines"]["best_bytes"] * (1 - request["policy"]["release_minimum_archive_gain"])
                for result in (research.get("validation"), research.get("development")))
@@ -281,33 +258,6 @@ def remember(store, request, research):
     records = {entry["id"]: entry for entry in store.value.get("development_evidence", [])}
     records.update({entry["id"]: entry for entry in development_evidence(request, research)})
     store.value["development_evidence"] = list(records.values())[-128:]
-
-
-def report(request, research, final=None):
-    final = final or {}
-    text = f"# Codec request {request['id']}\n\nPlugin: `{request['plugin']}`. Mode: `{request.get('mode', 'generate')}`. Selected origin: {research['origin']}.\n\n"
-    text += "Size ranks first; throughput is secondary. Hard correctness, memory and time limits remain mandatory.\n\n"
-    if research.get("validation"):
-        text += table(research["validation"], "Validation") + "\n\n"
-    text += table(research["development"], "Development") + "\n\n" + table(final, "Final")
-    text += f"\n\nFinal size-first win: **{bool(final.get('size_first_win'))}**. The 10% target was {'met' if final.get('score',{}).get('archive_gain',0)>=.1 else 'not met'}. "
-    text += f"Estimated/reserved model usage: ${research['charged_usd']:.6f}. Executable: {research['development']['candidate']['decoder_package_bytes']:,} bytes, separate from archive sizes. "
-    text += (f"One declared final file was used after source/model/client freezing; no tuning followed. Previously used test hash: **{final.get('test_previously_used', False)}**.\n" if final else "Development did not qualify. The final file was not opened and its test claim was not consumed.\n")
-    for notice in research.get("sampling", {}).get("notices", []):
-        text += "\nSampling: " + notice + "\n"
-    if final.get("record_overlap"):
-        overlap = final["record_overlap"]
-        text += (f"\nFinal record overlap: {overlap['shared_with_development']} of {overlap['distinct_sample_groups']} distinct groups also occur in development. No exact record overlap: **{overlap['no_exact_record_overlap']}**. This check alone does not establish statistical independence.\n"
-                 if overlap["supported"] else "\nFinal record overlap was not measured: " + overlap["reason"] + ".\n")
-    if research.get("trials"):
-        text += "\n| Trial | Origin | Archive bytes | Payload bytes | Model bytes | Mode |\n|---|---|---:|---:|---:|---|\n"
-        for trial in research["trials"]:
-            candidate = trial["result"]["candidate"]
-            text += f"| `{trial['item']['id']}` | {trial['origin']} | {candidate['archive_bytes']:,} | {candidate.get('payload_bytes', 'unreported')} | {candidate['model_bytes']:,} | {candidate.get('encoding_mode', 'unreported')} |\n"
-    text += f"\nPinned cloud image: `{request['image']}`. Source: `{research['selected']['source_sha256']}`. Model: `{research['selected']['model_sha256']}`.\n"
-    environment = final.get("environment", research.get("environment", {}))
-    text += f"\nMeasured host: {environment.get('cpu', 'see workflow log')}; kernel `{environment.get('kernel', 'unknown')}`. Generation failures: {len(research.get('failures', []))}; details remain in research.json.\n"
-    return text
 
 
 def publish(root, workspace, issue_number, gh):
@@ -393,7 +343,9 @@ def publish(root, workspace, issue_number, gh):
     if final.get("size_first_win"):
         owner = request["repository"].split("/")[0]
         existing = gh.repo("GET", f"pulls?state=all&head={owner}:{branch}")
-        pr = existing[0] if existing else gh.repo("POST", "pulls", {"title": f"Add {request['plugin']} codec ({identifier})", "head": branch, "base": "main",
+        reused = research["origin"].startswith("reused")
+        title = f"[codec] {'Qualify' if reused else 'Develop'} plugin: {request['plugin']} (#{issue_number})"
+        pr = existing[0] if existing else gh.repo("POST", "pulls", {"title": title, "head": branch, "base": "main",
             "body": f"{row['report']}\n\nRelated to #{issue_number}.\n\nSource/model and the release client were frozen before the single final measurement. No model calls occur during PR checks or release."})
         row.update(status="pr-open", pr_url=pr["html_url"], pr_number=pr["number"])
     else:

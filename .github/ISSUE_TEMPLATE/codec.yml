@@ -1,21 +1,21 @@
-name: Build a compression codec
-description: Run bounded development and one final benchmark, then propose a codec PR.
-title: "[codec] "
+name: Develop a compression plugin
+description: Supply a plugin name and a ZIP dataset; receive benchmark results and a qualified PR.
+title: "[codec] Develop plugin"
 labels: [codec-request]
 body:
   - type: input
     id: plugin
     attributes:
       label: Plugin name
-      description: Logical lowercase name to create or extend, for example wiki-xml.
-      placeholder: wiki-xml
+      description: Lowercase name to create or extend. The workflow adds it to this issue's title automatically.
+      placeholder: json-v1
     validations:
       required: true
   - type: input
     id: dataset
     attributes:
-      label: Dataset manifest URL
-      description: Public raw.githubusercontent.com URL pinned to a full commit; JSON must name different train/test files, byte counts, SHA-256 checksums and provenance.
-      placeholder: https://raw.githubusercontent.com/OWNER/datasets/FULL_COMMIT/manifest.json
+      label: Dataset archive URL
+      description: Public ZIP URL on raw.githubusercontent.com, pinned to a full commit. Include at least two data files; the larger of two trains, otherwise files split about 70:30. Each partition must fit 2 MiB. A manifest is generated automatically.
+      placeholder: https://raw.githubusercontent.com/OWNER/datasets/FULL_COMMIT/samples.zip
     validations:
       required: true

@@ -1,4 +1,5 @@
 name: Codec request
+run-name: "Develop compression plugin · issue #${{ inputs.issue || github.event.issue.number }}"
 on:
   issues:
     types: [opened, labeled]
@@ -21,6 +22,7 @@ concurrency:
   queue: max
 jobs:
   gate:
+    name: Read request
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
@@ -56,6 +58,7 @@ jobs:
           path: ${{ runner.temp }}/intake.json
           retention-days: 7
   image:
+    name: Prepare laboratory
     needs: gate
     if: needs.gate.outputs.start == 'true'
     permissions:
@@ -65,11 +68,13 @@ jobs:
     with:
       base: ${{ needs.gate.outputs.base }}
   claim:
+    name: Prepare dataset and reserve research
     needs: [gate, image]
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     outputs:
       claimed: ${{ steps.claim.outputs.claimed }}
+      archive: ${{ steps.claim.outputs.archive }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -101,9 +106,22 @@ jobs:
         if: steps.claim.outputs.claimed == 'true'
         with:
           name: claimed-request
-          path: ${{ runner.temp }}/claimed/
+          path: |
+            ${{ runner.temp }}/claimed/request.json
+            ${{ runner.temp }}/claimed/prior-observations.json
+            ${{ runner.temp }}/claimed/dataset-manifest.json
+            ${{ runner.temp }}/claimed/dataset/train.bin
+          retention-days: 30
+      - name: Keep the final ZIP partition separate from research
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: steps.claim.outputs.claimed == 'true' && steps.claim.outputs.archive == 'true'
+        with:
+          name: final-dataset
+          path: ${{ runner.temp }}/claimed/dataset/test.bin
+          if-no-files-found: error
           retention-days: 30
   research:
+    name: Research and benchmark candidates
     needs: [gate, image, claim]
     if: needs.claim.outputs.claimed == 'true'
     runs-on: ubuntu-24.04
@@ -144,6 +162,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
   freeze:
+    name: Freeze candidate and claim final benchmark
     needs: [gate, research]
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -176,7 +195,8 @@ jobs:
           path: ${{ runner.temp }}/receipt.json
           retention-days: 30
   verify:
-    needs: [gate, image, freeze]
+    name: Run final benchmark
+    needs: [gate, image, claim, freeze]
     if: needs.freeze.outputs.verify == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -196,6 +216,12 @@ jobs:
         with:
           name: test-receipt
           path: ${{ runner.temp }}/receipt
+      - name: Retrieve final ZIP bytes only after the durable test claim
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        if: needs.claim.outputs.archive == 'true'
+        with:
+          name: final-dataset
+          path: ${{ runner.temp }}/verify-work/dataset
       - name: Consume final verification without model or repository write credentials
         env:
           GHCR_TOKEN: ${{ github.token }}
@@ -220,8 +246,9 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
   publish:
+    name: Publish report and review PR
     needs: [gate, image, claim, research, freeze, verify]
-    if: always() && needs.gate.outputs.start == 'true' && needs.gate.outputs.issue != ''
+    if: always() && needs.gate.outputs.start == 'true' && needs.gate.outputs.issue != '' && !(needs.claim.result == 'success' && needs.claim.outputs.claimed != 'true')
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:

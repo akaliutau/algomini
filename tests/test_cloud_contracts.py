@@ -110,6 +110,7 @@ class MemoryGit:
         self.commits = 0
         self.comments = []
         self.permission = "write"
+        self.titles = {}
 
     def head(self, branch):
         return self.branches.get(branch)
@@ -132,6 +133,9 @@ class MemoryGit:
         self.comments[:] = [(issue, body)]
 
     def repo(self, method, path, value=None):
+        if method == "PATCH" and path.startswith("issues/"):
+            self.titles[int(path.split("/")[1])] = value["title"]
+            return value
         if "/permission" in path:
             return {"permission": self.permission}
         raise AssertionError((method, path))
@@ -176,3 +180,14 @@ def test_external_request_needs_actual_write_permission_before_model_work(monkey
     coordinator.gate(ROOT, event, "issues", tmp_path / "intake", gh)
     assert "start=false" in output.read_text()
     assert not gh.branches and "Waiting for approval" in gh.comments[0][1]
+
+
+def test_gate_renames_the_new_zip_form_without_reserving_spend(tmp_path):
+    issue = {"number": 7, "body": f"### Plugin name\n\njson-demo\n\n### Dataset archive URL\n\nhttps://raw.githubusercontent.com/example/data/{SHA}/samples.zip",
+             "labels": [{"name": "codec-request"}]}
+    event = {"repository": {"full_name": "akaliutau/algomini"}, "issue": issue, "action": "opened", "sender": {"login": "maintainer"}}
+    gh = MemoryGit()
+    coordinator.gate(ROOT, event, "issues", tmp_path / "intake.json", gh)
+    assert gh.titles[7] == "[codec] Develop plugin: json-demo"
+    assert json.loads((tmp_path / "intake.json").read_text())["issue"] == issue
+    assert not gh.branches  # Renaming is independent of spending reservations.

@@ -179,6 +179,15 @@ def test_coder_cannot_modify_protected_evidence(fake_coder):
         coder.generate(root, cfg, "write a codec", b"a,b\n1,2\n")
 
 
+def test_cli_logging_is_compatible_without_relaxing_tool_or_approval_limits(configuration):
+    command = configuration["coder"]["command"]
+    # Muse local session messaging requires its isolated session log.
+    assert "--no-session-log" not in command
+    for flag in ("--disable-shell", "--disable-web-tools", "--no-foreign-personal-context", "--disable-request-user-input"):
+        assert flag in command
+    assert command[command.index("--approval-mode") + 1] == "never"
+
+
 def test_concurrent_builds_share_one_verified_artifact(tmp_path, configuration):
     source = tmp_path / "codec.rs"
     source.write_text((ROOT / "rust/codec-worker/src/codec.rs").read_text() + "\n// " + uuid.uuid4().hex + "\n")

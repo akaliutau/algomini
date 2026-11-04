@@ -4,6 +4,8 @@
   "allowed_dataset_hosts": ["raw.githubusercontent.com"],
   "maximum_input_bytes": 2097152,
   "maximum_manifest_bytes": 32768,
+  "maximum_archive_bytes": 8388608,
+  "maximum_archive_members": 64,
   "maximum_research_seconds": 5400,
   "maximum_initial_candidates": 2,
   "maximum_evolved_candidates": 1,

@@ -20,7 +20,38 @@ Require CI and human review before merging codec PRs. The App needs access to `a
 
 ## Dataset and issue
 
-The two issue fields are **Plugin name** and **Dataset manifest URL**. The manifest defines the format hint and two files:
+The two issue fields are **Plugin name** (for example `json-v1`) and **Dataset archive URL**. Supply a public ZIP on `raw.githubusercontent.com`, pinned to a full 40-character commit:
+
+```text
+https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/samples.zip
+```
+
+Put at least two data files in the ZIP. You can create one from the existing regression fixtures:
+
+```bash
+python -m zipfile -c /tmp/samples.zip datasets/sample/train-1mb.json datasets/sample/test-512kb.json
+```
+
+Commit the ZIP in your public dataset repository, copy its immutable raw URL, and open **Develop a compression plugin**. A repository writer/maintainer/admin starts the workflow automatically; otherwise a maintainer adds `codec-run`. The workflow checks actual repository permission and sets a title such as **[codec] Develop plugin: json-v1**. One issue is one immutable request; edits, comments or reopening do not restart it.
+
+The intake job downloads and validates the ZIP, then generates `dataset-manifest.json` automatically:
+
+- With two data files, the larger is development data and the other is final-test data. Equal sizes use path order as a deterministic tie-breaker.
+- With more files, approximately 70% go to development and 30% to final, by file count. The order is deterministic; exact duplicate files stay together, so the proportion can vary. At least two distinct files are required.
+- Extensions infer `json`, `csv`, `xml`, `text` or `binary`; mixed/unknown formats use `binary`. A family is research guidance, not a restriction on exact reconstruction.
+- Each partition sorts its members by path and concatenates their original bytes without separators. The manifest retains file names, sizes, individual hashes and ordered boundaries. This uses the existing single-input research engine; it does not change the Rust archive format.
+- The ZIP download is at most 8 MiB, with 2–64 data files, at most 4 MiB expanded in total, and at most **2 MiB per partition**. README/license files, hidden entries and macOS metadata are ignored. Nested folders are supported; archive paths are never extracted onto the filesystem. Links, traversal, duplicate paths, encryption and unsupported compression methods are rejected. Use ordinary stored/deflated ZIPs.
+
+The generated manifest includes the archive hash, member hashes, sizes, split policy and source URL. A license is not inferred: it is marked unspecified for upstream review. The result links the manifest so reviewers can inspect the split. Prefer independent shards or time ranges with new records; repeating a small dataset does not create independent evidence.
+
+Only the intake job handles the complete ZIP for splitting and checksums. Development bytes and final bytes are uploaded as **separate artifacts**. Research receives development bytes only. The final artifact is retrieved by the verifier after the durable final claim. Raw inputs are excluded from checkpoint exports and PRs. Release rebuilds verify the archive hash and read only the declared development members.
+
+ZIP URLs use the existing approved public HTTPS host and immutable-commit rules, without credentials, query strings or fragments. Private repository access does not make datasets anonymously downloadable. Invalid datasets produce an issue explanation before inference or a spending reservation.
+
+<details>
+<summary>Compatibility: explicit two-file manifests</summary>
+
+Existing issues using **Dataset manifest URL** remain supported. Their public, immutable JSON descriptor has this shape:
 
 ```json
 {
@@ -32,22 +63,9 @@ The two issue fields are **Plugin name** and **Dataset manifest URL**. The manif
 }
 ```
 
-Use real values. Supported families are `json`, `csv`, `xml`, `text` and `binary`; the family guides investigation rather than restricting codec correctness. Each file is 0–2 MiB; the manifest is at most 32 KiB. Development and final descriptors must differ. URLs must be anonymously accessible `raw.githubusercontent.com` paths pinned to a full 40-character commit, with no credentials, query or fragment. A private code repository does not grant anonymous access to private dataset files. No dataset archive extraction or dataset-supplied commands run.
+Each original file is 0–2 MiB; the manifest is at most 32 KiB. Development and final descriptors must differ. `python -m tools.make_cloud_manifest --help` explains the existing local helper; it computes sizes/checksums and uploads nothing.
 
-Create the descriptor from existing local files:
-
-```bash
-python -m tools.make_cloud_manifest \
-  --family json --train datasets/sample/train-1mb.json --test datasets/sample/test-512kb.json \
-  --train-url https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/train.json \
-  --test-url https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/test.json \
-  --source 'Actual dataset title and upstream URL' --license 'Actual license' \
-  --output /tmp/codec-manifest.json
-```
-
-`--train` and `--test` are local file paths used for size/checksum calculation. Their URL arguments identify those same bytes in the cloud. Publish the descriptor in the dataset repository and use its own immutable raw URL in the issue. The helper uploads nothing. Prefer different source shards or time ranges with new records. Repeating a small dataset into larger files does not create independent evidence.
-
-The special **Build a compression codec** form starts generation when opened by a repository writer/maintainer/admin. Otherwise a maintainer adds `codec-run`. Actual repository permission is checked. One issue is one immutable request; edits, comments or reopening do not restart it.
+</details>
 
 ## Research and results
 
@@ -57,11 +75,13 @@ The default policy allows two initial candidates, one evolved candidate and one 
 
 The laboratory profiles the complete bounded development sample. JSON arrays/JSONL and consistent CSV use complete record groups; duplicates stay on one side. CSV headers are retained and JSON array views wrap unchanged record lexemes. Single documents or opaque bytes have an explicit fallback sampling policy. Those views select candidates; the complete original development bytes are also measured unchanged.
 
-Prompts include relevant skills, probe findings and measured trial feedback: complete sizes, baseline gap, payload/model costs and known modes. Reviewed seeds are eligible; the report identifies reuse. Losing candidates and redacted CLI diagnostics remain available. Successful and unsuccessful development observations feed later campaigns; final measurements are excluded from proposal retrieval.
+Prompts include relevant skills, probe findings and measured trial feedback: complete sizes, baseline gap, payload/model costs and known modes. Reviewed seeds are eligible; the report identifies reuse. A reused winner creates a **Qualify plugin** PR and may only change the registry/evidence because its Rust source is already present. A new winner creates a **Develop plugin** PR with its source/model. Losing candidates and redacted CLI diagnostics remain available. Successful and unsuccessful development observations feed later campaigns; final measurements are excluded from proposal retrieval.
 
-A candidate must reconstruct exactly, fit the resource limits and beat the strongest complete baseline on **both validation and full development** before the final file is claimed. Otherwise the issue receives a terminal no-win report and the final file remains unopened. Tiny inputs whose baseline is already below the native framing floor skip inference too.
+A candidate must reconstruct exactly, fit the resource limits and beat the strongest complete baseline on **both validation and full development** before the final file is claimed. Otherwise the issue receives a terminal no-win report and the final input is not evaluated. Tiny inputs whose baseline is already below the native framing floor skip inference too.
 
-For a qualifying candidate, the coordinator commits its source/model/client hashes, then consumes one durable final claim. A separate job downloads the final file once, measures complete archives, and verifies the public console after deleting its supplied original copy. No tuning follows. Positive archive gain opens one PR; failed final measurements remain reports. The 10% gain is a target, while strictly positive gain is the release threshold. Throughput is secondary; correctness and memory/time bounds remain mandatory.
+For a qualifying candidate, the coordinator commits its source/model/client hashes, then consumes one durable final claim. A separate job retrieves the final input after the claim, measures complete archives, and verifies the public console after deleting its supplied original copy. No tuning follows. Positive archive gain opens one PR; failed final measurements remain reports. The 10% gain is a target, while strictly positive gain is the release threshold. Throughput is secondary; correctness and memory/time bounds remain mandatory.
+
+Reports start with an outcome/algorithm table and use short display IDs, such as `cx-4c16b773-e3b0`. Full IDs and SHA-256 digests stay in the JSON receipts and registry; shortening the display does not rename codecs or change archive compatibility. Known algorithm summaries come from reviewed metadata and measured modes. New candidates can provide a source-comment note, labeled as such; unknown mechanisms remain described as custom Rust codecs. No extra model call is used for reporting. Source and generated-manifest links make the evidence directly reviewable.
 
 Reports expose repeated test hashes and bounded record-overlap diagnostics. No exact record overlap is a useful check, not proof of statistical independence. Previously examined sample files remain regression evidence even when a newer codec compresses them better.
 

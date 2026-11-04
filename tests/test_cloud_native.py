@@ -1,7 +1,9 @@
 import json
+import io
 from pathlib import Path
 import random
 import shutil
+import zipfile
 
 import pytest
 
@@ -88,7 +90,8 @@ impl Codec for Candidate {
     assert native.console_roundtrip(binary, cfg, data, item["id"], packed)["exact"]
 
 
-def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path):
+@pytest.mark.parametrize("zip_input", [False, True], ids=["manifest", "zip"])
+def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path, zip_input):
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)
     request["mode"] = "reuse"
@@ -97,13 +100,31 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     test = (ROOT / "datasets/sample/test-512kb.json").read_bytes()
     request["dataset"]["train"].update(bytes=len(train), sha256=digest(train))
     request["dataset"]["test"].update(bytes=len(test), sha256=digest(test))
+    if zip_input:
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("development.json", train)
+            archive.writestr("final.json", test)
+        monkeypatch.setattr(contracts, "download", lambda *_: buffer.getvalue())
+        url = request["dataset_manifest_url"].replace("manifest.json", "dataset.zip")
+        issue = {"number": request["issue"], "body": f"### Plugin name\n\njson-demo\n\n### Dataset archive URL\n\n{url}"}
+        request = contracts.snapshot(ROOT, issue, request["repository"], request["base_commit"], request["image"], staging=tmp_path / "claim")
+        request["mode"] = "reuse"
+        (tmp_path / "dataset").mkdir()
+        shutil.copyfile(tmp_path / "claim/dataset/train.bin", tmp_path / "dataset/train.bin")
+        assert not (tmp_path / "dataset/test.bin").exists()
     reads = []
     allow_final = False
-    def fetch(self, rules):
+    original_fetch = contracts.DatasetFile.fetch
+    def fetch(self, rules, **kwargs):
         reads.append(self.url)
-        if self.url.endswith("test.txt"):
+        if self.sha256 == digest(test):
             assert allow_final, "Final bytes opened before frozen claim"
+            if zip_input:
+                return original_fetch(self, rules, **kwargs)
             return test
+        if zip_input:
+            return original_fetch(self, rules, **kwargs)
         return train
     monkeypatch.setattr(contracts.DatasetFile, "fetch", fetch)
     monkeypatch.setattr(research.coder, "generate", lambda *_a, **_k: pytest.fail("Reuse mode attempted generation"))
@@ -118,6 +139,9 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     assert len(reads) == 1
     _, freeze_id = research.check_freeze(ROOT, tmp_path, request)
     allow_final = True
+    if zip_input:
+        # The verify job alone downloads this artifact after the durable claim.
+        shutil.copyfile(tmp_path / "claim/dataset/test.bin", tmp_path / "dataset/test.bin")
     receipt = {"request_id": request["id"], "freeze_id": freeze_id, "test_consumed_at": "now", "frozen_commit": "e" * 40, "test_previously_used": True}
     final = research.verify(ROOT, tmp_path, request, receipt)
     assert final["candidate"]["roundtrip"] and final["console"]["original_deleted"]
@@ -126,7 +150,7 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     with pytest.raises(ValueError, match="consumed"):
         research.verify(ROOT, tmp_path, request, receipt)
     assert len(reads) == 2
-    assert "Previously used test hash: **True**" in coordinator.report(request, result, final)
+    assert "| Previously used test hash | True |" in coordinator.report(request, result, final)
     assert not final["record_overlap"]["no_exact_record_overlap"]
     # Rebuild the qualified source snapshot without opening final data again.
     allow_final = False
@@ -151,7 +175,7 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     releasing.build_release(merged, output)
     manifest = json.loads((output / request["id"] / "manifest.json").read_text())
     assert manifest["binary_sha256"] == sha256(tmp_path / "algomini")
-    assert manifest["console"]["exact"] and len(reads) == 3
+    assert manifest["console"]["exact"] and len(reads) == (2 if zip_input else 3)
 
 
 def test_general_codec_reconstructs_maximum_binary_input_and_rejects_oversize(release_client):

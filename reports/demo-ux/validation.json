@@ -1,0 +1,111 @@
+{
+  "base_revision": "8592cce830620b5de458963921699a528875b2da",
+  "captured_at": "2026-11-04T02:44:10.449980+00:00",
+  "checks": {
+    "budget_ledgers_consumed_marker_unchanged": true,
+    "cargo_fmt": true,
+    "full_identities_preserved": true,
+    "python_wheel_modules": 27,
+    "wheel_matches_current_sources": true,
+    "wheel_sha256": "9313a2dca5b5b5fce274906b14bcff286c400c6695b5538f2155ffce2f1b2709",
+    "workflow_lint": true,
+    "workflow_lint_exception": "Only the unrecognized concurrency.queue field in actionlint 1.7.12"
+  },
+  "docker_used": false,
+  "github_runs_started": false,
+  "model_calls": 0,
+  "pushed": false,
+  "python": {
+    "command": "python -m pytest -q",
+    "passed": 124,
+    "seconds": 238.65
+  },
+  "runtime": {
+    "python": {
+      "implementation": "CPython",
+      "sqlite": "3.53.4",
+      "version": "3.12.16"
+    },
+    "tools": {
+      "cargo": {
+        "sha256": "20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c",
+        "version": "cargo 1.92.0 (344c4567c 2025-10-21)"
+      },
+      "file": {
+        "sha256": "6741f44dde8e51309325c8bcf88ee16bc1e022985d584415680484c11ee89e0d",
+        "version": "file-5.45"
+      },
+      "gzip": {
+        "sha256": "afea077ce127d4fa9ad410d3066ba2b54dea19c0b44f04adf56c72d5f7b7a9bb",
+        "version": "gzip 1.12"
+      },
+      "muse": {
+        "sha256": "0809aac7cb58d18f5022b6d05e02aa1974683c0ec430e5f04d25b60ed17de2da",
+        "version": "Muse Code 1.4.14 (1.4.14-R7309.1)"
+      },
+      "prlimit": {
+        "sha256": "17064f67e650d6152a6902b013aab496b54c87587c8eea6f5023aafee6154069",
+        "version": "prlimit from util-linux 2.39.3"
+      },
+      "rustc": {
+        "sha256": "20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c",
+        "version": "rustc 1.92.0 (ded5c06cf 2025-12-08)"
+      },
+      "strings": {
+        "sha256": "04c76ab1b6e5039c321259351e8d576a597f60c45e41ff543dda5c8680256039",
+        "version": "GNU strings (GNU Binutils for Ubuntu) 2.42"
+      },
+      "time": {
+        "sha256": "3b11dec50514a8473e9f6efa7a34d584d0657538c09988f61b72d38ad4991a10",
+        "version": "time (GNU Time) UNKNOWN"
+      },
+      "xxd": {
+        "sha256": "b18a89abfa47b36fc3f3516e6672cbf2c8e10c7b19c9787a96b9254c6f76a457",
+        "version": "xxd 2023-10-25 by Juergen Weigert et al."
+      },
+      "xz": {
+        "sha256": "29ee53bceb19c26aea74998cc37e29c4ef282a805fd51e1361762a109ea58a9e",
+        "version": "xz (XZ Utils) 5.8.4"
+      },
+      "zstd": {
+        "sha256": "7c5468b370f7c47eda07281e3437fafc568f95d10420051e3aa522709f9342c5",
+        "version": "*** Zstandard CLI (64-bit) v1.5.5, by Yann Collet ***"
+      }
+    }
+  },
+  "rust": {
+    "commands": [
+      "cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml",
+      "cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml"
+    ],
+    "passed": 8,
+    "sources_and_registry_unchanged": true
+  },
+  "scope": "Local working-tree validation; GitHub CI and Cloud smoke qualify the new image after merge/push",
+  "source_sha256": {
+    ".github/ISSUE_TEMPLATE/codec.yml": "ec9551778bbaf49d70abbdd65bf2703f10cfa3ae0ac6ba1321b35cc9a4a2adae",
+    ".github/workflows/codec-request.yml": "eabbcfd317d906b86ae921498c0a54498b3b894cd3cab944fa397c86a9e4e403",
+    "algomini/cloud/__init__.py": "3fadd7b104bc6ccb62955807cc049ed215e89a70b033cbc3798885f438ed7aad",
+    "algomini/cloud/__main__.py": "36e45928a216a53a77eefa870bc2292c161a9d9ffc99e9c1fd9fecc05e9e6161",
+    "algomini/cloud/contracts.py": "e4afaf46a282da269845d3cfcbb93b8e785ca985e5bd9aca8cf013414ad258ff",
+    "algomini/cloud/coordinator.py": "d21405180cbf62bf132cf557e6c0c7508dfe9daf5157145572e8d0a012962f52",
+    "algomini/cloud/datasets.py": "3daa87193f3df665e3a50321cbc0465c11fa93a7bd1e5c3751a94aa7c0392ac2",
+    "algomini/cloud/github.py": "61f99a0187df9c548ffbc0812cd8bff4f2638687d36ab80a02dac44b6eb0c5e5",
+    "algomini/cloud/native.py": "8ee5173daaa9dd285263fdc44eca4959b2b19a278ffa835683ac5e6c19810ac9",
+    "algomini/cloud/presentation.py": "d994f98ee5f08595699116c9c1c5002603234cdf696c7da1b544f8378b7e4166",
+    "algomini/cloud/releasing.py": "1280c6d149c3d7b88cfe7e505e3b60b7e7bf2640c28a8e2290db18a66c106a7f",
+    "algomini/cloud/research.py": "9e4e07ddeaffb05277b07321ee4ad923fed2d5a0af1bbb33db80b6203cc901aa",
+    "cloud/policy.json": "6a3b33d3f90475de9a6aba1a32b65df6eb4bc096ea5c9ffad9cc4cd2fb5d5163",
+    "run.toml": "e0082d59449e0767c25088fccc94b87e39e7d4c7bea898f67ba9ff73f7d31a58"
+  },
+  "zip_integration": {
+    "development_input_bytes": 1026294,
+    "family": "json",
+    "final_claim_and_duplicate_denial_verified": true,
+    "final_input_bytes": 513148,
+    "final_staging_separate_from_research": true,
+    "legacy_manifest_and_zip_research_verified": true,
+    "release_never_opens_final_members": true,
+    "release_rebuild_exact": true
+  }
+}

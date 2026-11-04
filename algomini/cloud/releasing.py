@@ -49,7 +49,12 @@ def build_release(library, destination):
         _, cfg = load_config(qualified_library / "run.toml")
         item = next(row for row in qualified["codecs"] if row["id"] == entry["selected"])
         model = (library / item["model"]).read_bytes()
-        development = DatasetFile.parse(request["dataset"]["train"], request["policy"]).fetch(request["policy"])
+        dataset = DatasetFile.parse(request["dataset"]["train"], request["policy"])
+        if dataset.archive:
+            from .datasets import refetch_development
+            development = refetch_development(dataset, request["policy"])
+        else:
+            development = dataset.fetch(request["policy"])
         encoded, _ = native.invoke(binary, item["id"], cfg, 6, development, model=model, source_sha256=item["source_sha256"])
         packed = archive.pack(item["id"], [("sample.bin", encoded)], model if encoded[4] == 2 else b"")
         measured = json.loads((prefix / "development.json").read_text())

@@ -37,7 +37,7 @@ def test_development_loss_never_consumes_final_and_negative_evidence_reaches_nex
     current = State(gh, "automation-state", 0).value
     assert current["requests"][request["id"]]["status"] == "no-development-gain"
     assert current["requests"][request["id"]]["charged_usd"] == 0
-    assert "not opened" in current["requests"][request["id"]]["report"]
+    assert "not opened" in current["requests"][request["id"]]["report"].lower()
     assert not current["tests"]
     assert all(row["split"] == "validation" for row in current["development_evidence"])
     commits = gh.commits

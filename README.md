@@ -1,6 +1,6 @@
 # Algomini
 
-Algomini researches specialized lossless compressors, measures them against strong baselines, and ships reviewed algorithms in a Rust console client. A GitHub issue supplies a plugin name and a dataset manifest. Research runs in a pinned cloud laboratory; installed compressors run locally without Python, AI credentials or network access.
+Algomini researches specialized lossless compressors, measures them against strong baselines, and ships reviewed algorithms in a Rust console client. A GitHub issue supplies a plugin name and a ZIP dataset URL. Intake splits its files into development/final partitions and generates the manifest automatically. Research runs in a pinned cloud laboratory; installed compressors run locally without Python, AI credentials or network access.
 
 ```mermaid
 flowchart TD
