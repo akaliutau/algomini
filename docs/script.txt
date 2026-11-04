@@ -2,9 +2,9 @@ ALGOMINI — THREE-MINUTE DEMO
 
 00:00–00:22 | The problem
 
-Data bloat is a massive problem—wasting precious time and bandwidth, especially on constrained links like satellite internet. Smarter compression saves storage and slashes the compute costs of data transfer and processing.
+Data bloat is a massive problem—wasting precious time and bandwidth, especially on constrained links like satellite or mobile internet. Smarter compression saves storage and slashes the compute costs of data transfer and processing.
 
-We built Algomini to automatically invent brand-new algorithms and build custom compressors fine-tuned specifically to your data, outperforming existing SOTA-level tools.
+We built Algomini to automatically invent brand-new algorithms and build custom compressors which are fine-tuned specifically to your data, beating every single existing SOTA-level tool.
 
 Our product deeply integrates the whole workflow into the GitHub ecosystem, so your compression software evolves naturally right where it feels most at home.
 
