@@ -1,4 +1,50 @@
 {
+  "development_evidence": [
+    {
+      "evidence": "reports/campaigns/issue-3/research.json",
+      "id": "issue-3/trial-0",
+      "interpretation": "Development evidence only; applicability must be remeasured",
+      "measurements": {
+        "archive_bytes": 5045,
+        "encoding_mode": "json-lexical",
+        "model_bytes": 0,
+        "payload_bytes": 4921
+      },
+      "mechanism": "reused reviewed seed; not a newly generated algorithm",
+      "outcome": "win",
+      "split": "validation",
+      "tags": [
+        "json"
+      ]
+    },
+    {
+      "failure": "Coder generation failed: muse: local session messaging disabled: session logging is required",
+      "id": "issue-3/failure-0",
+      "outcome": "failed",
+      "split": "validation",
+      "tags": [
+        "json"
+      ]
+    },
+    {
+      "failure": "Coder generation failed: muse: local session messaging disabled: session logging is required",
+      "id": "issue-3/failure-1",
+      "outcome": "failed",
+      "split": "validation",
+      "tags": [
+        "json"
+      ]
+    },
+    {
+      "failure": "Coder generation failed: muse: local session messaging disabled: session logging is required",
+      "id": "issue-3/failure-2",
+      "outcome": "failed",
+      "split": "validation",
+      "tags": [
+        "json"
+      ]
+    }
+  ],
   "historical_charged_usd": 11.989932049999998,
   "requests": {
     "issue-2": {
@@ -77,9 +123,13 @@
       "test_previously_used": false
     },
     "issue-3": {
-      "charged_usd": 20.0,
+      "charged_usd": 15,
       "freeze_id": "117334c10d16ab909d49aa5e050a38821c43407b56c4576b659409f9434b150e",
       "frozen_commit": "73a482fdd0eab572d87c57e5941e0757677e41cb",
+      "pr_number": 4,
+      "pr_url": "https://github.com/akaliutau/algomini/pull/4",
+      "report": "# Codec request issue-3\n\nPlugin: `json-v1`. Mode: `generate`. Selected origin: reused reviewed seed; not a newly generated algorithm.\n\nSize ranks first; throughput is secondary. Hard correctness, memory and time limits remain mandatory.\n\n| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |\n|---|---|---:|---:|---:|---:|---:|---|\n| Validation | `cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14` | 5,045 | 3.74% | 0.047 | 102.20 | 38.74 | yes |\n| Validation | `gzip-9` | 19,930 | -280.27% | 0.007 | 181.68 | 37.27 | yes |\n| Validation | `xz-9e` | 5,241 | 0.00% | 0.067 | 249.32 | 37.27 | yes |\n| Validation | `zstd-19` | 5,375 | -2.56% | 0.025 | 226.58 | 37.74 | yes |\n| Validation | `zstd-22` | 5,375 | -2.56% | 0.025 | 213.61 | 38.74 | yes |\n| Validation | `zstd-dict-19` | 12,289 | -134.48% | 0.015 | 205.35 | 38.74 | yes |\n| Validation | `zstd-dict-22` | 12,289 | -134.48% | 0.015 | 232.16 | 38.74 | yes |\n\n| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |\n|---|---|---:|---:|---:|---:|---:|---|\n| Development | `cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14` | 8,269 | 6.04% | 0.120 | 121.18 | 41.19 | yes |\n| Development | `gzip-9` | 126,871 | -1341.55% | 0.035 | 190.39 | 38.74 | yes |\n| Development | `xz-9e` | 8,801 | 0.00% | 0.146 | 354.40 | 39.19 | yes |\n| Development | `zstd-19` | 9,187 | -4.39% | 0.069 | 364.09 | 40.19 | yes |\n| Development | `zstd-22` | 9,187 | -4.39% | 0.069 | 375.61 | 41.19 | yes |\n| Development | `zstd-dict-19` | 15,225 | -72.99% | 0.045 | 356.44 | 41.19 | yes |\n| Development | `zstd-dict-22` | 15,220 | -72.93% | 0.049 | 361.21 | 41.19 | yes |\n\n| Scope | Method | Archive bytes | Saving | Encode s | Decode MiB/s | RSS MiB | Exact |\n|---|---|---:|---:|---:|---:|---:|---|\n| Final | `cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14` | 8,217 | 5.82% | 0.075 | 100.88 | 35.15 | yes |\n| Final | `gzip-9` | 64,221 | -636.06% | 0.018 | 148.26 | 31.36 | yes |\n| Final | `xz-9e` | 8,725 | 0.00% | 0.077 | 182.04 | 32.65 | yes |\n| Final | `zstd-19` | 9,123 | -4.56% | 0.047 | 170.77 | 34.15 | yes |\n| Final | `zstd-22` | 9,123 | -4.56% | 0.046 | 175.21 | 35.15 | yes |\n| Final | `zstd-dict-19` | 15,147 | -73.60% | 0.027 | 172.71 | 35.15 | yes |\n| Final | `zstd-dict-22` | 15,142 | -73.55% | 0.031 | 175.14 | 35.15 | yes |\n\nFinal size-first win: **True**. The 10% target was not met. Estimated/reserved model usage: $15.000000. Executable: 1,001,800 bytes, separate from archive sizes. One declared final file was used after source/model/client freezing; no tuning followed. Previously used test hash: **True**.\n\nSampling: 3168 records contain 197 distinct lexical groups; duplicate groups stay in one partition.\n\nFinal record overlap: 197 of 197 distinct groups also occur in development. No exact record overlap: **False**. This check alone does not establish statistical independence.\n\n| Trial | Origin | Archive bytes | Payload bytes | Model bytes | Mode |\n|---|---|---:|---:|---:|---|\n| `cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14` | reused reviewed seed; not a newly generated algorithm | 5,045 | 4921 | 0 | json-lexical |\n\nPinned cloud image: `ghcr.io/akaliutau/algomini-lab@sha256:23229a604e5c907ae1e966cd3101a3d32e1297cf2f373698a64742dda4b19a31`. Source: `4c16b773d1840d2130089affeddad6c75484788b0af161c42bb93d4163bdd43a`. Model: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.\n\nMeasured host: AMD EPYC 9V74 80-Core Processor; kernel `7.0.0-1017-azure`. Generation failures: 3; details remain in research.json.\n",
+      "report_commit": "ab01d279264df7f7b3dd34e0d0eb5bc684fe0846",
       "reserved_at": "2026-11-04T01:23:23.011552+00:00",
       "run_attempt": 1,
       "run_id": "41753536875",
@@ -140,8 +190,8 @@
         "repository": "akaliutau/algomini",
         "schema_version": 1
       },
-      "status": "test-consumed",
-      "terminal": false,
+      "status": "pr-open",
+      "terminal": true,
       "test_consumed_at": "2026-11-04T01:25:00.385945+00:00",
       "test_execution": {
         "run_attempt": 1,
