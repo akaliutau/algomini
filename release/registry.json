@@ -2,6 +2,7 @@
   "aliases": {
     "general": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
     "json-lexical": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+    "json-v1": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
     "telemetry-csv": "s4-98e12bcd61e8117b0",
     "wiki-xml": "wk-3169dda381d9c072"
   },

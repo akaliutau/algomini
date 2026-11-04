@@ -1,0 +1,264 @@
+{
+  "campaign": {
+    "family": "json",
+    "id": "issue-3",
+    "input_bytes": 1026294,
+    "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+    "probe_bytes": 2097152,
+    "sample_name": "train.bin",
+    "schema_version": 1,
+    "scope": "Research/integration sample; not unseen acceptance evidence",
+    "split": "train"
+  },
+  "coder_model_calls": 0,
+  "docker_used": false,
+  "paid_model_calls": 0,
+  "probes": [
+    {
+      "elapsed_seconds": 0.050597023000001684,
+      "facts": {
+        "crlf": 0,
+        "distinct_bytes": 87,
+        "entropy_bits_per_byte": 4.746579029162827,
+        "entropy_scope": "Empirical independent-byte entropy; not a compression lower bound",
+        "lf": 22169,
+        "lines": 22170,
+        "maximum_line_bytes": 399,
+        "nul": 0,
+        "repeated_lines": 21386,
+        "utf8": true
+      },
+      "family": "json",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "probe_id": "byte-structure",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.04942723199999932,
+      "facts": {
+        "common_words": [
+          [
+            "id",
+            4568
+          ],
+          [
+            "name",
+            3168
+          ],
+          [
+            "language",
+            3168
+          ],
+          [
+            "bio",
+            3168
+          ],
+          [
+            "version",
+            3168
+          ],
+          [
+            "ligula",
+            2392
+          ],
+          [
+            "eu",
+            1724
+          ],
+          [
+            "ut",
+            1588
+          ],
+          [
+            "sit",
+            1428
+          ],
+          [
+            "amet",
+            1428
+          ],
+          [
+            "eget",
+            1404
+          ],
+          [
+            "efficitur",
+            1240
+          ]
+        ],
+        "display_token_limit_bytes": 96,
+        "distinct_words": 758,
+        "hypothesis": "Compare dictionary/template savings after counting literals, IDs and exceptions",
+        "repeated_word_pairs": 117252,
+        "words": 119132
+      },
+      "family": "json",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "probe_id": "text-repetition",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 2,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.01416655700000291,
+      "facts": {
+        "common_keys": [
+          [
+            "name",
+            3168
+          ],
+          [
+            "language",
+            3168
+          ],
+          [
+            "id",
+            3168
+          ],
+          [
+            "bio",
+            3168
+          ],
+          [
+            "version",
+            3168
+          ]
+        ],
+        "display_key_limit_characters": 96,
+        "distinct_number_spellings": 177,
+        "duplicate_keys": 0,
+        "exponent_numbers": 0,
+        "hypothesis": "Test repeated-key templates while retaining key order, duplicates and exact lexemes",
+        "negative_zero_spellings": 0,
+        "objects": 3168,
+        "records": 1,
+        "supported": true
+      },
+      "family": "json",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "probe_id": "json-lexemes",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 2,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.08647330999999525,
+      "facts": {
+        "distinct_lines": 784,
+        "distinct_record_groups": 197,
+        "json_array_records": 3168,
+        "lines": 22170,
+        "repeated_records": 2971,
+        "scope": "Empirical repetition, not a theoretical compression bound"
+      },
+      "family": "json",
+      "implementation_sha256": "75f092b4b47b31ac100a231a1efbbe5904d192b4f183b192bb18311aa5ff6343",
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "probe_id": "content-redundancy",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.6615337439999962,
+      "facts": {
+        "models": [
+          {
+            "bits_per_observation": 4.746579029162826,
+            "contexts": 1,
+            "ideal_bytes_without_model": 608923.1972694541,
+            "order": 0
+          },
+          {
+            "bits_per_observation": 3.3643874863016365,
+            "contexts": 86,
+            "ideal_bytes_without_model": 431605.9158098707,
+            "order": 1
+          },
+          {
+            "bits_per_observation": 1.7833181567377496,
+            "contexts": 1934,
+            "ideal_bytes_without_model": 228775.6447143373,
+            "order": 2
+          }
+        ],
+        "scope": "In-sample empirical byte models; exclude model cost and long-range dependencies. Not a theoretical compression minimum."
+      },
+      "family": "json",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 1026294,
+      "input_sha256": "a8866ee433936e02af9115d6c09ecc1394042b2e3c6ec38cbb198e027b5cec22",
+      "probe_id": "entropy-models",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    }
+  ],
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "campaign",
+    "prepare",
+    "/work/campaign"
+  ],
+  "research_query": "json Compare dictionary/template savings after counting literals, IDs and exceptions Test repeated-key templates while retaining key order, duplicates and exact lexemes",
+  "retrieved": [
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "Repeated words and schemas suggest dictionary, prefix or template experiments. Count literal tables, IDs, exceptions, escapes and model bytes. Preserve whitespace, numeric spellings, key order, duplicate keys and XML entity spelling. Measure actual reconstructed archives; byte entropy and occurrence counts do not establish a gain.",
+      "id": "text-structure-probes",
+      "kind": "skill",
+      "path": ".agents/skills/text-structure-probes/SKILL.md",
+      "retrieval": "hybrid",
+      "section": 1,
+      "source_sha256": "97aeb3946019c41328becdfef743976ffe5426d377328ed1d073009662d467d5"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "Compare the reviewed `json-lexical` seed with a measured alternative. Its reversible channels group raw lexemes by the preceding key and retain all gaps, order and spelling. Preserve whitespace, duplicate keys, numeric lexemes and escapes. Keep a byte fallback for nested, malformed, binary or unsupported inputs; a successful fallback is not evidence that the structured path helped.",
+      "id": "json-lexical-layouts",
+      "kind": "skill",
+      "path": ".agents/skills/json-lexical-layouts/SKILL.md",
+      "retrieval": "hybrid",
+      "section": 1,
+      "source_sha256": "6248e119b903aba97275c8b004c317a40ea74e36f26871f2d57a0f02804237d5"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "{\"description\": \"Investigate repeated words, adjacent phrases and dictionary candidates\", \"families\": [\"text\", \"xml\", \"json\", \"csv\"], \"id\": \"text-repetition\", \"max_input_bytes\": 2097152, \"version\": 2}",
+      "id": "text-repetition",
+      "kind": "tool",
+      "path": "laboratory/tools.json",
+      "retrieval": "hybrid",
+      "section": 0,
+      "source_sha256": "5431dd18dc0432cd2f792148782d4fc07dc52b8159940cd94c19d23b81dd6839"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "{\"description\": \"Inspect JSON/JSONL keys, duplicate keys and exact numeric spellings\", \"families\": [\"json\"], \"id\": \"json-lexemes\", \"max_input_bytes\": 2097152, \"version\": 2}",
+      "id": "json-lexemes",
+      "kind": "tool",
+      "path": "laboratory/tools.json",
+      "retrieval": "hybrid",
+      "section": 0,
+      "source_sha256": "5431dd18dc0432cd2f792148782d4fc07dc52b8159940cd94c19d23b81dd6839"
+    }
+  ],
+  "retrieved_characters": 1088,
+  "schema_version": 1
+}

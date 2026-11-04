@@ -1,0 +1,25 @@
+{
+  "artifact_valid": false,
+  "attempt": 0,
+  "attempt_id": "0b29e669b7dbb8bdd6a58805c5c4daf7b3ae5d0c902907bfce3b01060a614791",
+  "benchmark_sample_sha256": "02835831d3f5bd8f722dbf0accd4d980b8c25aa2cfcf1d680f27fe98336f6bc2",
+  "cli_turn_completed": false,
+  "excerpt_bytes": 12166,
+  "executable_sha256": "0809aac7cb58d18f5022b6d05e02aa1974683c0ec430e5f04d25b60ed17de2da",
+  "exit_code": 1,
+  "failure": "muse: local session messaging disabled: session logging is required",
+  "isolation": "landlock-abi6+-libseccomp",
+  "kind": "initial",
+  "model": "muse-spark-1.3",
+  "ok": false,
+  "phase": "discovery",
+  "prompt_sha256": "f052cd76ab2afe7acbbd8d6dd9f6f88e6c222da7f3d25838420f945190cde347",
+  "protected_inputs_unchanged": true,
+  "sample_sha256": "c7310cac6a1bee36891da98ee0548b11593985d291f7d945ef8f0284be21d7a1",
+  "timed_out": false,
+  "usage": {
+    "available": false,
+    "estimated_usd": null
+  },
+  "wall_seconds": 0.5319742539999908
+}

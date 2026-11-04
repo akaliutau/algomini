@@ -1,0 +1,17 @@
+{
+  "distinct_record_groups": 197,
+  "notices": [
+    "3168 records contain 197 distinct lexical groups; duplicate groups stay in one partition."
+  ],
+  "records": 3168,
+  "scope": "Development views retain record lexemes; JSON array delimiters are assembled, not acceptance inputs.",
+  "shared_header_bytes": 0,
+  "shared_record_groups": 0,
+  "strategy": "json-array-record-groups",
+  "training_bytes": 502865,
+  "training_groups": 98,
+  "training_sha256": "02835831d3f5bd8f722dbf0accd4d980b8c25aa2cfcf1d680f27fe98336f6bc2",
+  "validation_bytes": 513933,
+  "validation_groups": 99,
+  "validation_sha256": "7e8f0ffd3eb39bfd6211f16da635b3ee17f7b5c554bc38d632989ebe76ec83cc"
+}
