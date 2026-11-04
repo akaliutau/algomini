@@ -1,11 +1,11 @@
 {
   "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
   "files": {
-    "catalog.jsonl": "0893b83669cb4fc6a6836c99f2151e855bfd6d1164e1b7f5f99634e30774d302",
-    "vectors.jsonl": "2073168be3021b12a8bc7e5fb160c26dd5ec5b7c3d0edccf23ff67be0ea8bd7a"
+    "catalog.jsonl": "a1237e3f4615b3fb4ea0a8dd70d6e76a9287cf18ac7a4dc0e907faabaf567d69",
+    "vectors.jsonl": "b3758bd01b7ef8374da327db96709feae4122ca4f6bfe2b404df6c4f3feac52c"
   },
   "index_schema": 3,
   "schema_version": 1,
-  "sections": 81,
-  "source_sha256": "05bf7fade905e4ee8260c04ec022c9bbb57bc09b5ee831b1ed432a14659ec56d"
+  "sections": 75,
+  "source_sha256": "afe292aa1632de9f9c78f9bb6583cd51bcdb586b22f4d3c3cbdeb0dc04adb39d"
 }

@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 import fcntl
 import json
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -61,6 +62,9 @@ def usage_from_events(events, cfg):
     models = summary.get("models", [])
     if not models or any(item.get("model") != cfg["coder"]["model"] for item in models):
         return {"available": False, "estimated_usd": None, "calls": summary.get("calls")}
+    if any(any(type(item.get(key, 0)) is not int or item.get(key, 0) < 0 for key in ("input_tokens", "cached_tokens", "output_tokens"))
+           or item.get("cached_tokens", 0) > item.get("input_tokens", 0) for item in models):
+        return {"available": False, "estimated_usd": None, "reason": "Invalid token totals; retain the reservation"}
     input_tokens = sum(item.get("input_tokens", 0) for item in models)
     cached_tokens = sum(item.get("cached_tokens", 0) for item in models)
     output_tokens = sum(item.get("output_tokens", 0) for item in models)
@@ -68,71 +72,26 @@ def usage_from_events(events, cfg):
     estimated = ((input_tokens - cached_tokens) * prices["input_usd_per_million"]
                  + cached_tokens * prices["cached_input_usd_per_million"]
                  + output_tokens * prices["output_usd_per_million"]) / 1_000_000
+    if not math.isfinite(estimated) or estimated < 0:
+        return {"available": False, "estimated_usd": None, "reason": "Invalid price/usage estimate; retain the reservation"}
     return {"available": True, "input_tokens": input_tokens, "cached_input_tokens": cached_tokens,
             "output_tokens": output_tokens, "calls": summary.get("calls"),
             "estimated_usd": round(estimated, 8), "cost_source": "CLI token totals and declared standard-mode prices"}
 
 
-def brief(root, cfg, profile, baseline, feedback=None):
-    api = (root / "rust/codec-worker/src/api.rs").read_text()
-    evidence = {"input": profile["input"], "identical_columns": profile["identical_lexeme_columns"],
-                "timestamp": profile["timestamp"], "strongest_pairs": profile["strongest_numeric_pairs"][:4],
-                "hypotheses": profile["hypotheses"], "baseline": baseline}
-    return f"""Write exactly one Rust source file, codec.rs, in this workspace.
-You are developing a lossless compressor for numeric CSV telemetry. Produce a compact
-first working mechanism, preferably below 150 lines; later research will improve it.
-Choose and explain
-a mechanism in source comments, implement it, and ensure its inverse is exact. Aim to
-improve the measured baseline; performance is determined by an independent evaluator.
-
-Fixed interface (already provided by the parent crate; do not redefine it):
-{api}
-Your file must use `use crate::{{Codec, CodecError}};`, export `pub struct Candidate;`,
-and implement Codec for Candidate. Stateless codecs use the default train method.
-Safe shared helpers are available as crate::toolkit::zstd_compress(input, level)
-and crate::toolkit::zstd_decompress(encoded). The latter reads the frame content size
-and rejects outputs above 4 MiB. Both return Result<Vec<u8>, CodecError>.
-No external crates, unsafe code, files, processes, environment, networking, or extra
-modules. Your module is compiled under forbid(unsafe_code). CodecError is String.
-Keep the implementation compact and check lengths before allocation/indexing.
-
-Training evidence only:
-{json.dumps(evidence, indent=2)}
-
-sample.csv is a small training excerpt. The evidence above is sufficient: use at
-most one optional read_file call, then write_file to create codec.rs immediately.
-Do not spend the session rereading data or looking for other project files.
-You may inspect sample.csv, but do not embed its
-records in source or assume observed relationships always hold. For structured data,
-consider representations, field/temporal prediction, exact duplicated columns, and
-exceptions. Preserve raw numeric spellings, whitespace, quoting, line endings, and
-final-newline presence. All information needed to reverse a transform belongs in
-its payload or counted model. Handle empty, arbitrary binary, malformed, and
-unsupported inputs with a reversible fallback. A stored original-length prefix or
-other transform metadata must be included in your output. Do not use floating-point
-reserialization to reconstruct the original bytes.
-
-The runtime adds a 40-byte frame, checksum, codec ID, and raw escape. The evaluator
-also tests encode/decode directly to prevent a broken algorithm hiding behind raw
-escape. Tests and the Rust compiler are run by the harness after you write the file;
-shell execution is disabled. Use native file-writing tools to create codec.rs now.
-Write no other project files and leave prompt.txt, api.rs, and sample.csv unchanged.
-{('Previous attempt feedback (repair the mechanism/code): ' + feedback) if feedback else ''}
-"""
 
 
 def generation_request(root, cfg, prompt, sample, *, attempt=0, phase="framework", kind="initial"):
     coder = cfg["coder"]
-    excerpt = sample[:4096]
+    excerpt = sample[:min(16384, coder.get("excerpt_bytes", 12288))]
     if len(sample) > len(excerpt) and b"\n" in excerpt and not excerpt.endswith(b"\n"):
         excerpt = excerpt.rsplit(b"\n", 1)[0] + b"\n"
-    definition = {"prompt": prompt, "sample_sha256": digest(excerpt), "model": coder["model"],
+    definition = {"prompt": prompt, "sample_sha256": digest(excerpt), "training_sha256": digest(sample), "model": coder["model"],
+                  "adapter_sha256": sha256(__file__), "api_sha256": sha256(coder["api_source"]),
                   "command": coder["command"], "executable_sha256": sha256(root / coder["executable"]),
                   "max_model_steps": coder["max_model_steps"], "timeout_seconds": coder["timeout_seconds"],
                   "attempt": attempt}
-    # Preserve Stage 1 cache keys while separating later phase reservations.
-    if phase != "framework" or kind != "initial":
-        definition.update(budget_phase=phase, candidate_kind=kind)
+    definition.update(budget_phase=phase, candidate_kind=kind)
     attempt_id = digest(json.dumps(definition, sort_keys=True).encode())
     return attempt_id, excerpt, definition
 
@@ -162,9 +121,9 @@ def generate(root, cfg, prompt, sample, *, attempt=0, phase="framework", kind="i
     directory.chmod(0o700)
     subprocess.run(["git", "init", "--quiet", str(work)], check=True, capture_output=True)
     (work / "prompt.txt").write_text(prompt)
-    (work / "sample.csv").write_bytes(excerpt)
-    (work / "api.rs").write_bytes((root / "rust/codec-worker/src/api.rs").read_bytes())
-    protected = {name: sha256(work / name) for name in ("prompt.txt", "sample.csv", "api.rs")}
+    (work / "sample.bin").write_bytes(excerpt)
+    (work / "api.rs").write_bytes(Path(coder["api_source"]).read_bytes())
+    protected = {name: sha256(work / name) for name in ("prompt.txt", "sample.bin", "api.rs")}
     env = worker_environment()
     # Preserve the actual user-home identity required by native file mediation.
     # Landlock still denies its file contents; XDG state stays in the job tree.

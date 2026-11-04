@@ -1,5 +1,0 @@
-{
-  "accepted": false,
-  "attempt": 1,
-  "reason": "Coder generation failed: muse: local session messaging disabled: registry_io: local Session registry IO failed during create registry root: Permission denied (os error 13)\nmuse: workspace root: /media/DATA/repos-my/algomini/.cache/coder/c970e058c39e78983fe52c7b197ae555c75fd8409a9d87ec58c4c605ddf0e33a/workspace (explicit)\nmuse: Agent delegation: auto unavailable: workspace is untrusted."
-}

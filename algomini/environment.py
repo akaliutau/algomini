@@ -17,7 +17,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 from .common import digest, download, sha256, worker_environment, write_json
 
 
-PACKAGES = ("python-dotenv", "duckdb", "numpy", "scipy", "scikit-learn", "pytest")
+PACKAGES = ("python-dotenv", "pytest")
 TOOLS = {"rustc": ["rustc", "--version"], "cargo": ["cargo", "--version"],
          "gzip": ["gzip", "--version"], "xz": ["xz", "--version"],
          "zstd": ["zstd", "--version"], "file": ["file", "--version"],
@@ -67,7 +67,9 @@ def check_api(root, cfg):
             if len(body) > 2 * 1024**2:
                 raise ValueError("Model catalog exceeds the response cap")
             catalog = json.loads(body)
-        available = any(model.get("id") == coder["model"] for model in catalog.get("data", []))
+        if not isinstance(catalog, dict) or not isinstance(catalog.get("data"), list):
+            return {"ok": False, "reason": "Invalid model catalog response", "inference_calls": 0}
+        available = any(isinstance(model, dict) and model.get("id") == coder["model"] for model in catalog["data"])
         return {"ok": available, "http_status": 200, "selected_model": coder["model"],
                 "selected_model_available": available, "inference_calls": 0,
                 "operation": "GET /v1/models"}

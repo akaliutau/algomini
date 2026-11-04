@@ -16,7 +16,8 @@ def historical(root):
 
 
 def state(root, gh):
-    known = {}
+    history = Path(root) / "cloud/history.json"
+    known = json.loads(history.read_text())["known_tests"] if history.is_file() else {}
     def collect(value):
         if isinstance(value, dict):
             for key, item in value.items():
@@ -119,6 +120,7 @@ def claim(root, intake, image, destination, gh):
     row.update(run_id=run_id, run_attempt=int(os.environ.get("GITHUB_RUN_ATTEMPT", "1")), status="researching")
     store.save("Start claimed " + request["id"])
     write_json(destination, request)
+    write_json(Path(destination).with_name("prior-observations.json"), store.value.get("development_evidence", [])[-128:])
     gh.comment(request["issue"], status_comment(row))
     output(claimed=True)
 
@@ -170,9 +172,21 @@ def review_files(root, workspace, request, *, final=False):
     selected = frozen["selected"]
     prefix = f"reports/campaigns/{request['id']}/"
     names = ["request.json", "freeze.json", "research.json", "development.json", "build.json", "dictionary.json", "cloud-runtime.json"]
+    names += [name for name in ("sampling.json", "development-signatures.json", "attempts.json", "preparation.json") if (workspace / name).is_file()]
     if final:
         names += ["final.json", "terminal.json"]
     files = {prefix + name: (workspace / name).read_bytes() for name in names}
+    audit = workspace / "attempts.json"
+    if audit.is_file():
+        for name, checksum in json.loads(audit.read_text())["files"].items():
+            relative = Path(name)
+            path = workspace / relative
+            if (len(relative.parts) != 3 or relative.parts[0] != "attempts" or not contracts.HASH.fullmatch(relative.parts[1])
+                    or relative.name not in {"codec.rs", "generation.json", "model.bin"}):
+                continue  # Verbose redacted CLI tails stay in Actions artifacts.
+            if path.is_symlink() or not path.resolve().is_relative_to(workspace.resolve()) or path.stat().st_size > 65536 or sha256(path) != checksum:
+                raise ValueError("Attempt evidence checksum/path mismatch")
+            files[prefix + name] = path.read_bytes()
     for name in (selected["source"], selected["model"]):
         files[name] = (workspace / name).read_bytes()
     files["release/registry.json"] = (workspace / "registry.json").read_bytes()
@@ -185,6 +199,11 @@ def freeze(root, workspace, request, receipt_path, gh):
     row = store.value["requests"][request["id"]]
     if row["snapshot"] != request:
         raise ValueError("Remote request differs from checkpoint")
+    research = json.loads((Path(workspace) / "research.json").read_text())
+    if not development_ready(research, request):
+        write_json(receipt_path, {"request_id": request["id"], "verify": False, "reason": "No qualifying development gain; final file remains unopened"})
+        output(verify=False)
+        return
     branch = "codec/" + request["id"]
     if row.get("test_consumed_at"):
         write_json(receipt_path, {"request_id": request["id"], "freeze_id": row["freeze_id"], "test_consumed_at": row["test_consumed_at"], "frozen_commit": row["frozen_commit"], "test_previously_used": row["test_previously_used"], "execution": row["test_execution"]})
@@ -239,13 +258,52 @@ def table(result, scope):
     return "\n".join(lines)
 
 
-def report(request, research, final):
+def development_ready(research, request):
+    return all(result and result.get("eligible") and result["candidate"]["archive_bytes"] < result["baselines"]["best_bytes"] * (1 - request["policy"]["release_minimum_archive_gain"])
+               for result in (research.get("validation"), research.get("development")))
+
+
+def development_evidence(request, research):
+    rows = []
+    for index, trial in enumerate(research.get("trials", [])):
+        candidate = trial["result"]["candidate"]
+        rows.append({"id": f"{request['id']}/trial-{index}", "tags": [request["dataset"]["family"]], "split": "validation",
+            "mechanism": trial["origin"], "outcome": "win" if trial["result"]["size_first_win"] else "no-win",
+            "measurements": {key: candidate.get(key) for key in ("archive_bytes", "model_bytes", "payload_bytes", "encoding_mode")},
+            "interpretation": "Development evidence only; applicability must be remeasured", "evidence": f"reports/campaigns/{request['id']}/research.json"})
+    for index, failure in enumerate(research.get("failures", [])):
+        rows.append({"id": f"{request['id']}/failure-{index}", "tags": [request["dataset"]["family"]], "split": "validation",
+                     "outcome": "failed", "failure": failure["failure"][:1000]})
+    return rows
+
+
+def remember(store, request, research):
+    records = {entry["id"]: entry for entry in store.value.get("development_evidence", [])}
+    records.update({entry["id"]: entry for entry in development_evidence(request, research)})
+    store.value["development_evidence"] = list(records.values())[-128:]
+
+
+def report(request, research, final=None):
+    final = final or {}
     text = f"# Codec request {request['id']}\n\nPlugin: `{request['plugin']}`. Mode: `{request.get('mode', 'generate')}`. Selected origin: {research['origin']}.\n\n"
     text += "Size ranks first; throughput is secondary. Hard correctness, memory and time limits remain mandatory.\n\n"
+    if research.get("validation"):
+        text += table(research["validation"], "Validation") + "\n\n"
     text += table(research["development"], "Development") + "\n\n" + table(final, "Final")
     text += f"\n\nFinal size-first win: **{bool(final.get('size_first_win'))}**. The 10% target was {'met' if final.get('score',{}).get('archive_gain',0)>=.1 else 'not met'}. "
     text += f"Estimated/reserved model usage: ${research['charged_usd']:.6f}. Executable: {research['development']['candidate']['decoder_package_bytes']:,} bytes, separate from archive sizes. "
-    text += f"One declared final file was used after source/model/client freezing; no tuning followed. Previously used test hash: **{final.get('test_previously_used', False)}**.\n"
+    text += (f"One declared final file was used after source/model/client freezing; no tuning followed. Previously used test hash: **{final.get('test_previously_used', False)}**.\n" if final else "Development did not qualify. The final file was not opened and its test claim was not consumed.\n")
+    for notice in research.get("sampling", {}).get("notices", []):
+        text += "\nSampling: " + notice + "\n"
+    if final.get("record_overlap"):
+        overlap = final["record_overlap"]
+        text += (f"\nFinal record overlap: {overlap['shared_with_development']} of {overlap['distinct_sample_groups']} distinct groups also occur in development. No exact record overlap: **{overlap['no_exact_record_overlap']}**. This check alone does not establish statistical independence.\n"
+                 if overlap["supported"] else "\nFinal record overlap was not measured: " + overlap["reason"] + ".\n")
+    if research.get("trials"):
+        text += "\n| Trial | Origin | Archive bytes | Payload bytes | Model bytes | Mode |\n|---|---|---:|---:|---:|---|\n"
+        for trial in research["trials"]:
+            candidate = trial["result"]["candidate"]
+            text += f"| `{trial['item']['id']}` | {trial['origin']} | {candidate['archive_bytes']:,} | {candidate.get('payload_bytes', 'unreported')} | {candidate['model_bytes']:,} | {candidate.get('encoding_mode', 'unreported')} |\n"
     text += f"\nPinned cloud image: `{request['image']}`. Source: `{research['selected']['source_sha256']}`. Model: `{research['selected']['model_sha256']}`.\n"
     environment = final.get("environment", research.get("environment", {}))
     text += f"\nMeasured host: {environment.get('cpu', 'see workflow log')}; kernel `{environment.get('kernel', 'unknown')}`. Generation failures: {len(research.get('failures', []))}; details remain in research.json.\n"
@@ -259,11 +317,30 @@ def publish(root, workspace, issue_number, gh):
     if not row:
         gh.comment(issue_number, "Cloud setup/intake failed before a durable spending reservation. Check the Actions run; no research was authorized.")
         return
-    if row.get("pr_url") or row.get("release_url"):
+    if row.get("pr_url") or row.get("release_url") or row.get("status") == "no-development-gain":
         gh.comment(issue_number, status_comment(row))
         return
     request = row["snapshot"]
     workspace = Path(workspace)
+    if (workspace / "freeze.json").is_file() and (workspace / "research.json").is_file():
+        research = json.loads((workspace / "research.json").read_text())
+        if not row.get("test_consumed_at") and not development_ready(research, request):
+            checked_checkpoint(root, workspace, request)
+            amount = research["charged_usd"]
+            if not 0 <= amount <= request["policy"]["request_reservation_usd"]:
+                raise ValueError("Invalid development spending receipt")
+            row.update(status="no-development-gain", terminal=True, charged_usd=amount, report=report(request, research))
+            files = review_files(root, workspace, request)
+            files.pop("release/registry.json")
+            prefix = f"reports/campaigns/{identifier}/"
+            files[prefix + "report.md"] = row["report"].encode()
+            files[prefix + "observations.jsonl"] = "".join(json.dumps(entry, sort_keys=True) + "\n" for entry in development_evidence(request, research)).encode()
+            branch = "codec/" + identifier
+            row["report_commit"] = gh.commit(branch, gh.head(branch) or request["base_commit"], files, "Record development stop for " + identifier, tree_base=gh.head(branch) or request["base_commit"])
+            remember(store, request, research)
+            store.save("Stop before final access for " + identifier)
+            gh.comment(issue_number, status_comment(row))
+            return
     if not (workspace / "final.json").is_file() or not (workspace / "terminal.json").is_file():
         failure = workspace / "failure.json"
         if failure.is_file() and (workspace / "request.json").is_file() and json.loads((workspace / "request.json").read_text()) == request:
@@ -284,15 +361,21 @@ def publish(root, workspace, issue_number, gh):
     if (freeze_id != row["freeze_id"] or terminal["freeze_id"] != freeze_id or terminal["result_sha256"] != sha256(workspace / "final.json")
             or final["freeze_id"] != freeze_id or final["request_id"] != identifier):
         raise ValueError("Final evidence does not match the remotely consumed freeze")
+    expected_receipt = {"request_id": identifier, "freeze_id": row["freeze_id"], "test_consumed_at": row["test_consumed_at"],
+                        "frozen_commit": row["frozen_commit"], "test_previously_used": row["test_previously_used"], "execution": row["test_execution"]}
+    if terminal["receipt"] != expected_receipt:
+        raise ValueError("Final execution receipt differs from the durable test claim")
     amount = research["charged_usd"]
     if not isinstance(amount, (int, float)) or not 0 <= amount <= request["policy"]["request_reservation_usd"]:
         raise ValueError("Research usage exceeds its reservation")
     row.update(status="reported", terminal=True, charged_usd=amount, report=report(request, research, final))
+    remember(store, request, research)
     branch = "codec/" + identifier
     files = review_files(root, workspace, request, final=True)
     prefix = f"reports/campaigns/{identifier}/"
     files[prefix + "report.md"] = row["report"].encode()
     files[prefix + "receipt.json"] = (json.dumps(terminal["receipt"], indent=2, sort_keys=True) + "\n").encode()
+    files[prefix + "observations.jsonl"] = "".join(json.dumps(entry, sort_keys=True) + "\n" for entry in development_evidence(request, research)).encode()
     if final.get("size_first_win"):
         if final["candidate"]["archive_bytes"] >= final["baselines"]["best_bytes"] or not final["eligible"] or final["input_sha256"] != request["dataset"]["test"]["sha256"]:
             raise ValueError("Invalid release qualification")
@@ -301,11 +384,6 @@ def publish(root, workspace, issue_number, gh):
                  "freeze": prefix + "freeze.json", "request": prefix + "request.json", "receipt": prefix + "receipt.json", "selected": research["selected"]["id"], "image": request["image"]}
         registry["requests"] = [*registry.get("requests", []), entry]
         files["release/registry.json"] = (json.dumps(registry, indent=2, sort_keys=True) + "\n").encode()
-        observation = {"id": identifier + "/development", "tags": [request["dataset"]["family"]], "split": "validation",
-            "hypothesis": "A bounded generated or reused lossless representation selected on development data",
-            "measurements": {"archive_bytes": research["development"]["candidate"]["archive_bytes"], "archive_gain": research["development"]["score"]["archive_gain"]},
-            "outcome": research["origin"], "evidence": prefix + "development.json"}
-        files[prefix + "observations.jsonl"] = (json.dumps(observation, sort_keys=True) + "\n").encode()
     else:
         # Failed final measurements preserve reports but never propose a release registry update.
         files.pop("release/registry.json")

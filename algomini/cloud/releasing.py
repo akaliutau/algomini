@@ -28,7 +28,7 @@ def build_release(library, destination):
         frozen = json.loads((prefix / "freeze.json").read_text())
         receipt = json.loads((prefix / "receipt.json").read_text())
         build = json.loads((prefix / "build.json").read_text())
-        if (not final.get("size_first_win") or digest((prefix / "freeze.json").read_bytes()) != entry["freeze_id"]
+        if (not final.get("size_first_win") or not final.get("eligible") or digest((prefix / "freeze.json").read_bytes()) != entry["freeze_id"]
                 or final["freeze_id"] != entry["freeze_id"] or receipt["freeze_id"] != entry["freeze_id"]
                 or entry["image"] != request["image"] or final["input_sha256"] != request["dataset"]["test"]["sha256"]
                 or final["candidate"]["archive_bytes"] >= final["baselines"]["best_bytes"]):
@@ -46,7 +46,7 @@ def build_release(library, destination):
         binary, rebuilt = native.build(qualified_library, workspace, qualified, asset_root=library, image=entry["image"])
         if rebuilt["binary_sha256"] != frozen["files"]["algomini"]:
             raise ValueError("Clean release rebuild differs from the qualified executable")
-        _, cfg = load_config(library / "run.toml")
+        _, cfg = load_config(qualified_library / "run.toml")
         item = next(row for row in qualified["codecs"] if row["id"] == entry["selected"])
         model = (library / item["model"]).read_bytes()
         development = DatasetFile.parse(request["dataset"]["train"], request["policy"]).fetch(request["policy"])
@@ -98,15 +98,21 @@ def publish_release(library, destination, gh):
         store = coordinator.state(library, gh)
         remote = store.value["requests"].get(record["request_id"])
         if (not remote or remote.get("freeze_id") != record["freeze_id"] or remote.get("frozen_commit") != record["source_commit"]
-                or not remote.get("pr_number")):
+                or not remote.get("pr_number") or not remote.get("test_consumed_at") or not remote.get("terminal")
+                or remote.get("status") not in {"pr-open", "released"}):
             raise ValueError("Release has no durable, consumed request/PR record")
         merged = gh.repo("GET", f"pulls/{remote['pr_number']}")
         if not merged.get("merged") or merged["base"]["ref"] != "main" or merged["base"]["repo"]["full_name"] != gh.repository:
             raise ValueError("Release PR has not been merged into this repository's main branch")
+        expected_names = {"algomini-linux-x86_64", "report.md", "registry.json", "manifest.json"}
+        checked_names = set()
         for line in (directory / "SHA256SUMS").read_text().splitlines():
             checksum, name = line.split("  ", 1)
-            if name not in {"algomini-linux-x86_64", "report.md", "registry.json", "manifest.json"} or sha256(directory / name) != checksum:
+            if name not in expected_names or name in checked_names or sha256(directory / name) != checksum:
                 raise ValueError("Release artifact checksum mismatch")
+            checked_names.add(name)
+        if checked_names != expected_names or sha256(directory / "algomini-linux-x86_64") != record["binary_sha256"] or sha256(directory / "registry.json") != record["registry_sha256"]:
+            raise ValueError("Incomplete release checksums or manifest mismatch")
         # The tag identifies the exact qualified source already included in the
         # merged PR, so Cargo installation builds that snapshot, not a newer catalog.
         tagged = gh.file("release/registry.json", record["source_commit"])
@@ -154,5 +160,5 @@ def publish_release(library, destination, gh):
         if row:
             row.update(status="released", release_url=release["html_url"])
             store.save("Publish release for " + record["request_id"])
-            command = f"cargo install --git https://github.com/{gh.repository} --tag {record['tag']} algomini-cli --locked --force"
+            command = f"CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install --git https://github.com/{gh.repository} --tag {record['tag']} algomini-cli --locked --force"
             gh.comment(record["issue"], coordinator.status_comment(row) + "\n\n```bash\n" + command + "\n```\nThis repository is private; installation needs Git access. No model credentials are needed by the compressor.")

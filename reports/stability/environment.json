@@ -1,0 +1,123 @@
+{
+  "captured_at": "2026-11-04T01:13:14.756117+00:00",
+  "configuration_sha256": "0fd0d85a406e1079cd71bf240615cce2ca976e658dac22cace5d8c7239169a32",
+  "git_head": "bfc3df96fa8182d0a6f7a0fdfa8417ca015a724c",
+  "hardware": {
+    "affinity_cpus": 12,
+    "cpu": "Intel(R) Core(TM) 5 120U",
+    "logical_cpus": 12
+  },
+  "kernel": "7.0.0-34-generic",
+  "libc": [
+    "glibc",
+    "2.39"
+  ],
+  "machine": "x86_64",
+  "os_release": {
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "ID": "ubuntu",
+    "ID_LIKE": "debian",
+    "LOGO": "ubuntu-logo",
+    "NAME": "Ubuntu",
+    "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "UBUNTU_CODENAME": "noble",
+    "VERSION": "24.04.5 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "VERSION_ID": "24.04"
+  },
+  "packages": {
+    "PyYAML": "6.0.3",
+    "Pygments": "2.21.0",
+    "algomini": "0.2.0",
+    "cloudpickle": "3.1.2",
+    "duckdb": "1.5.6",
+    "iniconfig": "2.3.1",
+    "joblib": "1.6.0",
+    "narwhals": "2.28.0",
+    "numpy": "2.5.4",
+    "packaging": "26.3",
+    "pip": "26.2.2",
+    "pluggy": "1.7.0",
+    "pytest": "9.2.0",
+    "python-dotenv": "1.2.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "setuptools": "84.2.1",
+    "threadpoolctl": "3.7.0",
+    "wheel": "0.48.0"
+  },
+  "python": {
+    "implementation": "CPython",
+    "sqlite": "3.53.4",
+    "version": "3.12.16"
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "algomini/__init__.py": "7666c0951c48ef7cae1f39a41ca299e0ed5bc25444e087775b07ef21e61cec52",
+    "algomini/__main__.py": "7c2518efbdbb6dfc58f2fb108b5a63480dc2b2046fe4ec6c3e747cc3d0f8c4dd",
+    "algomini/_embed.py": "54d18536d3805039d1660e44f1acb1ccd385934714910e2c05269f4ad54c1a36",
+    "algomini/_isolate.py": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+    "algomini/archive.py": "51c49c669e5305a0b0330c527e18233755d11f4c7999331f0658b379ab23312f",
+    "algomini/campaigns.py": "f1761ef2d507a7aebcae1e5e06071a851002b8b784e4fdc5ead6238aca394172",
+    "algomini/cli.py": "10a6ba89cd8e8b1c1e1658be6414f37ae9e6bb53238eb58ba9fb11dfd6364581",
+    "algomini/coder.py": "32e5796e46e2f869732b0019ce5b0fcd95ab8cc50d0539560cd8c76b5a27ce69",
+    "algomini/common.py": "863df20295cee434c26b75707c0655e08b763a67ddba1211c69274d91ccfe9c1",
+    "algomini/environment.py": "357cdcccfe91e11a5a78099633d5577e42ac223d81c1814327866551b5538df5",
+    "algomini/execution.py": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+    "algomini/lab_cli.py": "b7a836be9423c852f63a4173b9ded36197a1fd84bcf7eee11af17aa20ab5eb2c",
+    "algomini/labtools.py": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+    "algomini/measurement.py": "11b5f7775973df7ca92f99a797b23662595e670060da35e43a82d33a7e57e623",
+    "algomini/memory.py": "31564f7eebfff7aa4adb81449a6a667df937da180aafcbc8962386abfb60fdc1",
+    "algomini/sampling.py": "75f092b4b47b31ac100a231a1efbbe5904d192b4f183b192bb18311aa5ff6343",
+    "algomini/semantic.py": "46da067bc3cc4d94dad5ec636debe59e52f9af378b37ee6dbf7479f5f20fcb36"
+  },
+  "tools": {
+    "cargo": {
+      "sha256": "20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c",
+      "version": "cargo 1.92.0 (344c4567c 2025-10-21)"
+    },
+    "file": {
+      "sha256": "6741f44dde8e51309325c8bcf88ee16bc1e022985d584415680484c11ee89e0d",
+      "version": "file-5.45"
+    },
+    "gzip": {
+      "sha256": "afea077ce127d4fa9ad410d3066ba2b54dea19c0b44f04adf56c72d5f7b7a9bb",
+      "version": "gzip 1.12"
+    },
+    "muse": {
+      "sha256": "0809aac7cb58d18f5022b6d05e02aa1974683c0ec430e5f04d25b60ed17de2da",
+      "version": "Muse Code 1.4.14 (1.4.14-R7309.1)"
+    },
+    "prlimit": {
+      "sha256": "17064f67e650d6152a6902b013aab496b54c87587c8eea6f5023aafee6154069",
+      "version": "prlimit from util-linux 2.39.3"
+    },
+    "rustc": {
+      "sha256": "20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c",
+      "version": "rustc 1.92.0 (ded5c06cf 2025-12-08)"
+    },
+    "strings": {
+      "sha256": "04c76ab1b6e5039c321259351e8d576a597f60c45e41ff543dda5c8680256039",
+      "version": "GNU strings (GNU Binutils for Ubuntu) 2.42"
+    },
+    "time": {
+      "sha256": "3b11dec50514a8473e9f6efa7a34d584d0657538c09988f61b72d38ad4991a10",
+      "version": "time (GNU Time) UNKNOWN"
+    },
+    "xxd": {
+      "sha256": "b18a89abfa47b36fc3f3516e6672cbf2c8e10c7b19c9787a96b9254c6f76a457",
+      "version": "xxd 2023-10-25 by Juergen Weigert et al."
+    },
+    "xz": {
+      "sha256": "29ee53bceb19c26aea74998cc37e29c4ef282a805fd51e1361762a109ea58a9e",
+      "version": "xz (XZ Utils) 5.8.4"
+    },
+    "zstd": {
+      "sha256": "7c5468b370f7c47eda07281e3437fafc568f95d10420051e3aa522709f9342c5",
+      "version": "*** Zstandard CLI (64-bit) v1.5.5, by Yann Collet ***"
+    }
+  }
+}

@@ -21,7 +21,7 @@ from algomini.common import digest, sha256, write_json
 from algomini.labtools import MAX_INPUT, run
 
 
-TOKEN = re.compile(rb'"(?:[^"\\]|\\.)*"|-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?|true|false|null')
+SCALAR = re.compile(rb'-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?|true|false|null')
 PROSPECTIVE_ID = "cx-" + "0" * 32 + "-" + "0" * 16
 
 
@@ -74,6 +74,30 @@ def array_records(data):
             "scope": "Within this development file only; equal file hashes are not required for record overlap"}
 
 
+def lexemes(data):
+    position = 0
+    while position < len(data):
+        if data[position] == 34:
+            end = position + 1
+            while end < len(data):
+                if data[end] == 34:
+                    yield position, end + 1
+                    position = end + 1
+                    break
+                if data[end] == 92:
+                    end += 1
+                end += 1
+            else:
+                return  # Keep an unterminated tail opaque; never rescan its quotes.
+        else:
+            match = SCALAR.match(data, position)
+            if match:
+                yield position, match.end()
+                position = match.end()
+            else:
+                position += 1
+
+
 def transpose_lexemes(data):
     """Group raw lexemes by preceding key; retain all gaps and their order.
 
@@ -84,8 +108,8 @@ def transpose_lexemes(data):
         raise ValueError("Lexical reference requires NUL-free input")
     groups, streams, layout = {}, [], bytearray()
     previous, end = b"", 0
-    for match in TOKEN.finditer(data):
-        raw, gap = match.group(), data[end:match.start()]
+    for start, finish in lexemes(data):
+        raw, gap = data[start:finish], data[end:start]
         key = previous if previous.startswith(b'"') and gap.strip() == b":" else None
         if key not in groups:
             if len(groups) == 255:
@@ -96,7 +120,7 @@ def transpose_lexemes(data):
         layout.extend(gap)
         layout.extend((0, channel))
         streams[channel].append(raw)
-        previous, end = raw, match.end()
+        previous, end = raw, finish
     layout.extend(data[end:])
     parts = [bytes(layout)] + [b"\0".join(values) for values in streams]
     return b"JCL1" + bytes([len(streams)]) + b"".join(struct.pack("<I", len(part)) for part in parts) + b"".join(parts)

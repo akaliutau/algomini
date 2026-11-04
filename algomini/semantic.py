@@ -28,7 +28,7 @@ class Embedder:
             raise ValueError("Embedding batch exceeds 2 MiB")
         script = Path(__file__).with_name("_embed.py")
         result = subprocess.run([str(self.python), "-I", str(script), str(self.model), self.spec["library"].split("==")[1]], input=payload,
-                                capture_output=True, timeout=120, check=True, env=worker_environment())
+                                capture_output=True, timeout=120, check=True, env={**worker_environment(), "HF_HUB_OFFLINE": "1"})
         vectors = json.loads(result.stdout)
         if (len(vectors) != len(texts) or any(len(vector) != self.spec["dimensions"]
                 or any(not isinstance(x, (int, float)) or not math.isfinite(x) for x in vector) for vector in vectors)):

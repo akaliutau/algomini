@@ -5,9 +5,10 @@ import shutil
 
 import pytest
 
-from algomini import archive, codecs
-from algomini.common import digest, load_config, write_json
-from algomini.cloud import contracts, coordinator, native, research
+from algomini import archive
+import legacy_worker as codecs
+from algomini.common import digest, load_config, sha256, write_json
+from algomini.cloud import contracts, coordinator, native, releasing, research
 
 
 ROOT = Path(__file__).parents[1]
@@ -91,9 +92,9 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)
     request["mode"] = "reuse"
-    rng = random.Random(71)
-    train = (" ".join(rng.choice(["alpha", "delta", "record", "value", "time", "sample"]) for _ in range(2800)) + "\n").encode()
-    test = (" ".join(rng.choice(["alpha", "delta", "record", "value", "time", "sample"]) for _ in range(2700)) + "\n").encode()
+    request["dataset"]["family"] = "json"
+    train = (ROOT / "datasets/sample/train-1mb.json").read_bytes()
+    test = (ROOT / "datasets/sample/test-512kb.json").read_bytes()
     request["dataset"]["train"].update(bytes=len(train), sha256=digest(train))
     request["dataset"]["test"].update(bytes=len(test), sha256=digest(test))
     reads = []
@@ -109,13 +110,15 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     result = research.search(ROOT, tmp_path, request)
     assert result["charged_usd"] == 0 and len(reads) == 1
     assert result["origin"].startswith("reused")
+    assert result["sampling"]["shared_record_groups"] == 0
+    assert result["development_gate"]["passed"]
     assert not (tmp_path / "final.json").exists()
     with pytest.raises(ValueError, match="claim"):
         research.verify(ROOT, tmp_path, request, {"request_id": request["id"], "freeze_id": "wrong"})
     assert len(reads) == 1
     _, freeze_id = research.check_freeze(ROOT, tmp_path, request)
     allow_final = True
-    receipt = {"request_id": request["id"], "freeze_id": freeze_id, "test_consumed_at": "now", "frozen_commit": "e" * 40, "test_previously_used": False}
+    receipt = {"request_id": request["id"], "freeze_id": freeze_id, "test_consumed_at": "now", "frozen_commit": "e" * 40, "test_previously_used": True}
     final = research.verify(ROOT, tmp_path, request, receipt)
     assert final["candidate"]["roundtrip"] and final["console"]["original_deleted"]
     assert final["size_first_win"] == (final["score"]["archive_gain"] > 0 and final["eligible"])
@@ -123,4 +126,66 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     with pytest.raises(ValueError, match="consumed"):
         research.verify(ROOT, tmp_path, request, receipt)
     assert len(reads) == 2
-    assert "Previously used test hash: **False**" in coordinator.report(request, result, final)
+    assert "Previously used test hash: **True**" in coordinator.report(request, result, final)
+    assert not final["record_overlap"]["no_exact_record_overlap"]
+    # Rebuild the qualified source snapshot without opening final data again.
+    allow_final = False
+    merged, output = tmp_path / "merged", tmp_path / "release-output"
+    files = coordinator.review_files(ROOT, tmp_path, request, final=True)
+    for name, data in native.assets(ROOT, json.loads((ROOT / "release/registry.json").read_text())).items():
+        files.setdefault(name, data)
+    prefix = f"reports/campaigns/{request['id']}/"
+    files[prefix + "receipt.json"] = json.dumps(receipt).encode()
+    files[prefix + "report.md"] = coordinator.report(request, result, final).encode()
+    registry = json.loads(files["release/registry.json"])
+    registry["requests"] = [{"id": request["id"], "issue": request["issue"], "freeze_id": freeze_id,
+        "image": request["image"], "selected": result["selected"]["id"]}]
+    files["release/registry.json"] = json.dumps(registry).encode()
+    # main's later configuration must not replace the qualified image's config.
+    files["run.toml"] = b"deliberately incompatible later main configuration"
+    for name, data in files.items():
+        target = merged / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+    monkeypatch.setenv("ALGOMINI_BUILD_WORKSPACE", str(tmp_path / "release-build"))
+    releasing.build_release(merged, output)
+    manifest = json.loads((output / request["id"] / "manifest.json").read_text())
+    assert manifest["binary_sha256"] == sha256(tmp_path / "algomini")
+    assert manifest["console"]["exact"] and len(reads) == 3
+
+
+def test_general_codec_reconstructs_maximum_binary_input_and_rejects_oversize(release_client):
+    _, registry, binary, _ = release_client
+    _, cfg = load_config(ROOT / "run.toml")
+    item = next(row for row in registry["codecs"] if row["id"] == registry["aliases"]["general"])
+    data = random.Random(73).randbytes(2 * 1024**2)
+    encoded, _ = native.invoke(binary, item["id"], cfg, 6, data, source_sha256=item["source_sha256"])
+    assert native.invoke(binary, item["id"], cfg, 2, encoded, source_sha256=item["source_sha256"])[0] == data
+    packed = archive.pack(item["id"], [("sample.bin", encoded)])
+    assert native.console_roundtrip(binary, cfg, data, item["id"], packed)["exact"]
+    with pytest.raises(ValueError, match="limits"):
+        native.invoke(binary, item["id"], cfg, 4, data + b"x")
+    prefix = b'{"x":"'
+    malformed = prefix + b'\\"' * ((2 * 1024**2 - len(prefix)) // 2)
+    encoded, _ = native.invoke(binary, item["id"], cfg, 6, malformed, source_sha256=item["source_sha256"])
+    assert native.invoke(binary, item["id"], cfg, 2, encoded, source_sha256=item["source_sha256"])[0] == malformed
+
+
+def test_empty_development_cannot_spend_or_consume_a_final_file(monkeypatch, tmp_path):
+    from test_cloud_contracts import snapshot
+    request = snapshot(monkeypatch)
+    request["dataset"]["family"] = "binary"
+    request["execution"] = {"run_id": "17", "run_attempt": 1}
+    request["dataset"]["train"].update(bytes=0, sha256=digest(b""))
+    request["dataset"]["test"].update(bytes=1, sha256=digest(b"x"))
+    monkeypatch.setenv("ALGOMINI_RUN_ID", "17")
+    monkeypatch.setenv("ALGOMINI_RUN_ATTEMPT", "1")
+    def fetch(self, _rules):
+        assert self.url.endswith("train.txt"), "Final input was opened"
+        return b""
+    monkeypatch.setattr(contracts.DatasetFile, "fetch", fetch)
+    monkeypatch.setattr(research, "check_api", lambda *_: pytest.fail("An impossible framing gain contacted the provider"))
+    monkeypatch.setattr(research.coder, "generate", lambda *_a, **_kw: pytest.fail("Empty input caused inference"))
+    result = research.search(ROOT, tmp_path, request)
+    assert result["generation_skipped_for_framing_floor"] and result["charged_usd"] == 0
+    assert not result["development_gate"]["passed"] and not (tmp_path / "final.json").exists()

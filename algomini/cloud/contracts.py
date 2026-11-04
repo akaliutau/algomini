@@ -16,8 +16,12 @@ COMMIT = re.compile(r"[a-f0-9]{40}\Z")
 IMAGE = re.compile(r"ghcr\.io/akaliutau/algomini-lab@sha256:[a-f0-9]{64}\Z")
 
 
+def reject_constant(value):
+    raise ValueError("Non-finite JSON numbers are unsupported: " + value)
+
+
 def policy(root):
-    return json.loads((Path(root) / "cloud/policy.json").read_text())
+    return json.loads((Path(root) / "cloud/policy.json").read_text(), parse_constant=reject_constant)
 
 
 def public_url(url, rules):
@@ -57,8 +61,8 @@ class DatasetFile:
     def parse(cls, value, rules):
         if not isinstance(value, dict) or set(value) != {"url", "bytes", "sha256"}:
             raise ValueError("Dataset file needs exactly url, bytes and sha256")
-        if type(value["bytes"]) is not int or not 1 <= value["bytes"] <= rules["maximum_input_bytes"]:
-            raise ValueError("Dataset input must contain 1 byte to 2 MiB")
+        if type(value["bytes"]) is not int or not 0 <= value["bytes"] <= rules["maximum_input_bytes"]:
+            raise ValueError("Dataset input must contain 0 bytes to 2 MiB")
         if not isinstance(value["sha256"], str) or not HASH.fullmatch(value["sha256"]):
             raise ValueError("Dataset SHA-256 must contain 64 lowercase hexadecimal characters")
         return cls(public_url(value["url"], rules), value["bytes"], value["sha256"])
@@ -71,7 +75,7 @@ class DatasetFile:
 
 
 def manifest(raw, rules):
-    value = json.loads(raw)
+    value = json.loads(raw, parse_constant=reject_constant)
     if (not isinstance(value, dict) or value.get("schema_version") != 1
             or value.get("family") not in {"csv", "json", "xml", "text", "binary"}
             or set(value) != {"schema_version", "family", "provenance", "train", "test"}

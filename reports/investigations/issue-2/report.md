@@ -1,5 +1,7 @@
 # JSON campaign diagnosis
 
+This report records the diagnosis at revision `bfc3df9`, before the [stability implementation](../../stability/report.md). Its original diagnostic source remains available [at that revision](https://github.com/akaliutau/algomini/blob/bfc3df9/tools/json_campaign_diagnostics.py); the maintained helper now also bounds malformed-string lexing.
+
 File size alone does not explain this loss. The evidence identifies weaknesses in sampling and search feedback, and a very repetitive dataset. A reversible lexical-layout reference already improves development compression by about 5%, with prospective production framing counted. This is research evidence, not a new final-test win or a qualified Rust codec.
 
 The original [campaign report](../../campaigns/issue-2/report.md), freeze and final measurement are unchanged. This investigation opened only the declared development file, verified its SHA-256 and used the saved final numbers. It made no model calls and used no Docker.

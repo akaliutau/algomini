@@ -5,7 +5,18 @@ on:
     paths:
       - 'cloud/**'
       - 'crates/**'
-      - 'algomini/cloud/**'
+      - 'algomini/**'
+      - 'plugins/**'
+      - 'release/**'
+      - 'repro/**'
+      - 'memory/**'
+      - '.agents/**'
+      - 'laboratory/**'
+      - 'datasets/sample/**'
+      - 'tools/**'
+      - 'requirements.lock'
+      - 'pyproject.toml'
+      - 'run.toml'
       - '.github/workflows/**'
   workflow_dispatch:
 permissions:

@@ -1,0 +1,71 @@
+{
+  "scope": "Local uncommitted source snapshot based on bfc3df96fa8182d0a6f7a0fdfa8417ca015a724c; evidence binds current source hashes, not a cloud qualification",
+  "date_utc": "2026-11-04",
+  "model_calls": 0,
+  "docker_used": false,
+  "github_campaign_started": false,
+  "published": false,
+  "python": {
+    "command": "python -m pytest -q",
+    "passed": 95,
+    "seconds": 173.9
+  },
+  "rust": [
+    {
+      "command": "cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml",
+      "passed": 5
+    },
+    {
+      "command": "cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml",
+      "passed": 3
+    }
+  ],
+  "native_smoke": {
+    "command": "python -m algomini.cloud smoke --workspace .cache/stability-smoke",
+    "passed": true,
+    "codecs": 3,
+    "cases_per_codec": 13,
+    "containment": {
+      "fork_denied": true,
+      "network_denied": true,
+      "original_read_denied": true
+    },
+    "report": "smoke.json"
+  },
+  "provided_samples": {
+    "command": "python -m tools.check_samples --development datasets/sample/train-1mb.json --regression datasets/sample/test-512kb.json --workspace .cache/stability-samples",
+    "passed": true,
+    "report": "samples.json",
+    "fresh_final_qualification": false
+  },
+  "packaging": {
+    "command": "python -m pip wheel --no-index --no-deps --no-build-isolation --wheel-dir .cache/stability-wheel .",
+    "modules": 25,
+    "all_sources_match": true,
+    "obsolete_modules": 0,
+    "entry_point": "algomini-lab",
+    "wheel_sha256": "b52c3588b0bea015ffa9ba0b8f216bb051502d36fd540b7a90f2bc6e12808a96",
+    "cargo_local_install_verified": true
+  },
+  "skills": {
+    "validated": 4,
+    "semantic_documents": 57,
+    "semantic_sections": 75,
+    "source_sha256": "afe292aa1632de9f9c78f9bb6583cd51bcdb586b22f4d3c3cbdeb0dc04adb39d",
+    "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89"
+  },
+  "checks": {
+    "cargo_fmt": true,
+    "workflow_lint": true,
+    "workflow_lint_exception": "actionlint 1.7.12 does not yet recognize concurrency.queue; only that diagnostic is suppressed",
+    "protected_budget_ledgers_and_consumed_marker_unchanged": true
+  },
+  "python_cleanup": {
+    "before_modules": 45,
+    "modules": 25,
+    "before_lines": 6729,
+    "lines": 3263,
+    "line_reduction_percent": 51.51
+  },
+  "cloud_next": "After merge/push, CI and Cloud smoke must qualify the new image; then use the credential-free reuse campaign rehearsal before paid research."
+}

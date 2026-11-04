@@ -10,9 +10,14 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     && if [ ! -e /usr/bin/python3 ]; then ln -s /usr/local/bin/python3 /usr/bin/python3; fi
 WORKDIR /opt/algomini
 COPY . .
-RUN python -m pip install --no-cache-dir '.[analytics,coder,test]' \
+RUN python -m pip install --no-cache-dir -r requirements.lock \
+    && python -m pip install --no-cache-dir --no-deps --no-build-isolation . \
+    && python -m venv .tools/memory-env \
+    && .tools/memory-env/bin/python -m pip install --no-cache-dir -r repro/requirements-memory.lock \
+    && python tools/bootstrap_memory.py \
     && cargo fetch --locked --manifest-path crates/algomini-cli/Cargo.toml \
     && python -c "from pathlib import Path; from algomini.common import load_config; from algomini.environment import bootstrap_muse; root,cfg=load_config('run.toml'); bootstrap_muse(root,cfg)" \
     && dpkg-query -W > cloud/image-packages.lock \
-    && python -m pip freeze > cloud/image-python.lock
+    && python -m pip freeze > cloud/image-python.lock \
+    && .tools/memory-env/bin/python -m pip freeze > cloud/image-memory.lock
 CMD ["python", "-m", "algomini.cloud", "smoke", "--workspace", "/work"]

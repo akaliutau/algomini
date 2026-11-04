@@ -21,4 +21,4 @@ jobs:
       - name: Python and Rust contracts
         run: |
           docker run --rm --cap-drop ALL --security-opt no-new-privileges --network none --pids-limit 256 --memory 4g \
-            algomini-ci sh -eu -c 'python -m pytest -q -k "not test_tiny_native_integration_and_replay_without_new_work and not test_native_package_installs_and_decodes_without_repo_or_original" && cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml && cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml'
+            algomini-ci sh -eu -c 'python -m pytest -q && cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml && cargo test --offline --locked --manifest-path rust/codec-worker/Cargo.toml'

@@ -5,12 +5,10 @@ from pathlib import Path
 from . import campaigns, labtools, memory, semantic
 
 
-COMMANDS = {"lab", "memory", "campaign", "text-e2e"}
+COMMANDS = {"lab", "memory", "campaign"}
 
 
 def configure(commands):
-    integration = commands.add_parser("text-e2e", help="Run/replay isolated Wikipedia-prefix package integration")
-    integration.add_argument("--output", help="A separate report directory for a new integration run")
     lab = commands.add_parser("lab", help="Discover/run bounded deterministic research probes")
     actions = lab.add_subparsers(dest="action", required=True)
     actions.add_parser("list")
@@ -30,7 +28,7 @@ def configure(commands):
     create.add_argument("sample")
     create.add_argument("--id", required=True)
     create.add_argument("--family", required=True, choices=sorted(memory.FAMILIES))
-    create.add_argument("--probe-bytes", type=int, default=65536)
+    create.add_argument("--probe-bytes", type=int, default=labtools.MAX_INPUT)
     actions.add_parser("prepare").add_argument("workspace")
     export = actions.add_parser("export")
     export.add_argument("workspace")
@@ -38,10 +36,6 @@ def configure(commands):
 
 
 def run(args, root, cfg):
-    if args.command == "text-e2e":
-        from .text_e2e import run as integration
-        result = integration(root, cfg, output=args.output)
-        return {key: result[key] for key in ("ok", "input_bytes", "input_sha256", "archive_bytes", "best_baseline", "archive_gain", "package_id", "paid_model_calls", "docker_used", "scope")}
     if args.command == "lab":
         if args.action == "list":
             return {"probes": labtools.catalog()}

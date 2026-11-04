@@ -1,25 +1,8 @@
 schema_version = 1
 seed = 20261102
-report_dir = "reports/stage0"
+report_dir = ".cache/preflight"
 
-[dataset]
-id = "uci-appliances-energy"
-title = "Appliances Energy Prediction"
-url = "https://archive.ics.uci.edu/static/public/374/appliances%2Benergy%2Bprediction.zip"
-homepage = "https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction"
-doi = "10.24432/C5VC8G"
-citation = "Candanedo, L. (2017). Appliances Energy Prediction [Dataset]. UCI Machine Learning Repository."
-license = "CC-BY-4.0"
-license_url = "https://creativecommons.org/licenses/by/4.0/"
-archive_sha256 = "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a"
-member = "energydata_complete.csv"
-manifest = "datasets/appliances/manifest.json"
-cache = ".cache/datasets/appliances-energy-prediction.zip"
-development_dir = "data/development/appliances"
-sealed_dir = "data/sealed/appliances"
-max_download_bytes = 20971520
-max_source_bytes = 33554432
-
+# Schema-1 compatibility validation; cloud partitions are recorded in sampling.json.
 [split]
 method = "chronological-day-groups"
 train_fraction = 0.6
@@ -89,7 +72,8 @@ executable = ".tools/bin/muse-bin-1.4.14-R7309.1"
 timeout_seconds = 300
 max_model_steps = 12
 trace_transport = false
-command = ["{executable}", "exec", "--provider", "meta", "--model", "{model}", "--reasoning-effort", "medium", "--max-model-steps", "{max_model_steps}", "--prompt-file", "{prompt_file}", "--workspace", "{workspace}", "--json", "--contributor-mode", "off", "--disable-shell", "--disable-web-tools", "--disable-reminders", "--no-foreign-personal-context", "--disable-request-user-input", "--approval-mode", "never", "--approval-judge", "off", "-c", "agents.execution_capacity=1"]
+excerpt_bytes = 12288
+command = ["{executable}", "exec", "--provider", "meta", "--model", "{model}", "--reasoning-effort", "medium", "--max-model-steps", "{max_model_steps}", "--prompt-file", "{prompt_file}", "--workspace", "{workspace}", "--json", "--contributor-mode", "off", "--disable-shell", "--disable-web-tools", "--disable-reminders", "--no-foreign-personal-context", "--no-session-log", "--disable-request-user-input", "--approval-mode", "never", "--approval-judge", "off", "-c", "agents.execution_capacity=1"]
 
 [[baselines]]
 id = "gzip-9"

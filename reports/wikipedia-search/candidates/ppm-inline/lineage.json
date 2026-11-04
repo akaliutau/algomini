@@ -1,9 +1,0 @@
-{
-  "author": "host storage optimization of Muse mechanism",
-  "changes": [
-    "Store the first two symbols inline to avoid a heap allocation per sparse context",
-    "Use cached terminal totals minus excluded frequencies instead of scanning all 256 entries"
-  ],
-  "expected_bitstream": "Identical to ppm-visited payload",
-  "parent_sha256": "7df997ef70ebb9801005d703eff976424c05e51d15fa6d53bb1e6db914a50a32"
-}

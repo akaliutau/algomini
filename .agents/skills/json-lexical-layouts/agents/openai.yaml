@@ -1,0 +1,4 @@
+interface:
+  display_name: "JSON lexical layouts"
+  short_description: "Measure reversible JSON layouts and counted model costs"
+  default_prompt: "Investigate exact JSON lexemes, record repetition and complete archive costs."

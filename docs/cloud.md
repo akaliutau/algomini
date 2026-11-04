@@ -1,101 +1,82 @@
-# Running codec requests on GitHub
+# GitHub workflow
 
-The implementation uses GitHub Actions, a digest-pinned laboratory container and the Rust `algomini` client. It follows the [cloud demo plan](github-cloud-demo.md), keeping the original local evaluator, selected codecs and sealed results intact. Docker runs on GitHub only; local Python/Rust tests require no Docker.
+The repository is `akaliutau/algomini`. Merge the implementation before pushing and starting a new request: issue events use workflows on the default branch. Docker runs on GitHub; local development uses Python and Rust directly.
 
-## Setup after merging
+## Credentials
 
-The repository is `akaliutau/algomini` and is currently private. Configure these repository Actions secrets; the client ID can alternatively be an Actions variable:
+Supply repository Actions secrets:
 
-| Name | Value |
+| Name | Purpose |
 | --- | --- |
-| `ALGOMINI_APP_CLIENT_ID` | GitHub App client ID. |
-| `ALGOMINI_APP_PRIVATE_KEY` | Complete PEM private key. |
-| `META_API_KEY` | Existing dedicated Meta credential with the verified provider spending ceiling. |
+| `ALGOMINI_APP_CLIENT_ID` | GitHub App client ID; an Actions variable with the same name also works. |
+| `ALGOMINI_APP_PRIVATE_KEY` | Complete private-key PEM for that App. |
+| `META_API_KEY` | Dedicated Meta credential with the verified $150 provider ceiling. |
 
-Install the App on this repository with Contents, Pull requests and Issues read/write. No separate bot account, OAuth client secret, webhook server, Docker Hub account or crates.io token is required. The workflows mint installation tokens in coordinator/publisher jobs only. Research gets the Meta key alone; final verification and release builds get neither credential.
+Install the App on this repository with Contents, Issues and Pull requests read/write, plus Metadata read. A separate bot account, webhook service, OAuth client secret and crates.io token are unnecessary. The normal Actions token publishes the private GHCR image. Keep the package linked to the repository and allow its Actions jobs to read/write packages.
 
-Enable Actions and grant its image job permission to publish GitHub Packages. GHCR access uses the job's automatically issued token. Keep the generated package linked to this repository. The first `Cloud smoke` run creates `codec-request`/`codec-run` labels and checks App access, offline compilation, fresh-process reconstruction and file/network/process denial. A separate job checks the Meta model catalog, with zero inference. It also publishes a private laboratory image tagged by source commit, then records its immutable digest. Set GitHub compute/storage budgets separately from the provider cap.
+Coordinator and publisher jobs mint App installation tokens. Research receives the model key, and its coding process is isolated. Final verification and release builds receive no model key or App token. Native workers have no network access and cannot read original files or parent credentials. Configure GitHub compute/storage budgets separately from the provider limit.
 
-Require the `CI / checks` status and human review before merging codec PRs. Allow the App to write `automation-state` and `codec/issue-*` branches, not bypass review on `main`. The state branch is initialized automatically on the first accepted request. Do not delete or force-reset it: it contains spending holds and test-consumption receipts.
+Require CI and human review before merging codec PRs. The App needs access to `automation-state` and `codec/issue-*` branches; it does not need to bypass main review. Do not delete or reset `automation-state`: its spending records and consumed-test receipts are authoritative.
 
-The workflow files must reach the default branch before issue events can start requests. Use `Cloud smoke` and `CI` results as the host qualification; a successful local suite alone is not proof of Docker/kernel compatibility.
+## Dataset and issue
 
-## Supply the two dataset files
+The two issue fields are **Plugin name** and **Dataset manifest URL**. The manifest defines the format hint and two files:
 
-The first version accepts public, raw `raw.githubusercontent.com` URLs pinned to a full 40-character commit. Each file is at most 2 MiB. Dataset files and the manifest must be publicly retrievable without the repository bot's credentials; the code repository can remain private. No archive extraction or dataset-supplied commands run. Keep raw files out of this code repository.
+```json
+{
+  "schema_version": 1,
+  "family": "json",
+  "provenance": {"source": "Dataset title and upstream URL", "license": "Actual dataset license"},
+  "train": {"url": "IMMUTABLE_PUBLIC_URL", "bytes": 12345, "sha256": "64_LOWERCASE_HEX_CHARACTERS"},
+  "test": {"url": "DIFFERENT_IMMUTABLE_PUBLIC_URL", "bytes": 12346, "sha256": "64_LOWERCASE_HEX_CHARACTERS"}
+}
+```
 
-For example, place `train.xml` and `test.xml` in a separate public dataset repository, retain provenance/license information, and obtain their committed raw URLs. Create the manifest locally:
+Use real values. Supported families are `json`, `csv`, `xml`, `text` and `binary`; the family guides investigation rather than restricting codec correctness. Each file is 0–2 MiB; the manifest is at most 32 KiB. Development and final descriptors must differ. URLs must be anonymously accessible `raw.githubusercontent.com` paths pinned to a full 40-character commit, with no credentials, query or fragment. A private code repository does not grant anonymous access to private dataset files. No dataset archive extraction or dataset-supplied commands run.
+
+Create the descriptor from existing local files:
 
 ```bash
 python -m tools.make_cloud_manifest \
-  --family xml --train /path/train.xml --test /path/test.xml \
-  --train-url https://raw.githubusercontent.com/OWNER/DATASET/TRAIN_COMMIT/train.xml \
-  --test-url https://raw.githubusercontent.com/OWNER/DATASET/TEST_COMMIT/test.xml \
-  --source 'Dataset title and upstream URL' --license 'Applicable upstream license' \
+  --family json --train datasets/sample/train-1mb.json --test datasets/sample/test-512kb.json \
+  --train-url https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/train.json \
+  --test-url https://raw.githubusercontent.com/OWNER/DATASET/FULL_COMMIT/test.json \
+  --source 'Actual dataset title and upstream URL' --license 'Actual license' \
   --output /tmp/codec-manifest.json
 ```
 
-Use actual full commit hashes in place of `TRAIN_COMMIT`/`TEST_COMMIT`. This helper hashes the test file for its descriptor; it does not profile or select a codec from it. Publish this small JSON descriptor to the public dataset repository too, then copy its immutable raw URL. Candidate research never downloads the final file before its durable claim.
+`--train` and `--test` are local file paths used for size/checksum calculation. Their URL arguments identify those same bytes in the cloud. Publish the descriptor in the dataset repository and use its own immutable raw URL in the issue. The helper uploads nothing. Prefer different source shards or time ranges with new records. Repeating a small dataset into larger files does not create independent evidence.
 
-Create an issue using **Build a compression codec**, with only:
+The special **Build a compression codec** form starts generation when opened by a repository writer/maintainer/admin. Otherwise a maintainer adds `codec-run`. Actual repository permission is checked. One issue is one immutable request; edits, comments or reopening do not restart it.
 
-1. A logical plugin name such as `wiki-xml` or `telemetry-lab`.
-2. The manifest URL.
+## Research and results
 
-A user with actual repository write/maintain/admin permission starts immediately. Otherwise a maintainer adds `codec-run`. Editing, reopening or adding other comments/labels does not restart the request. One issue is one immutable request; create another issue for new inputs. Reusing a recorded test hash is disclosed in the receipt/report and is never described as new unseen evidence.
+One repository-wide queue serializes campaigns. Each accepted request reserves $20 against shared accounting, preserving the $20 account reserve below the verified provider ceiling. Existing local budget ledgers seed a new state branch once. Unknown inference usage retains its $5 per-call reservation; estimates are distinguished from unknown holds.
 
-## What the workflows do
+The default policy allows two initial candidates, one evolved candidate and one repair, with a 90-minute research deadline. A repair uses an actual failing source artifact; infrastructure failures do not consume a repair as if they were codec bugs. The coding CLI has its own step/time limits. See [cloud/policy.json](../cloud/policy.json) and [run.toml](../run.toml).
 
-`Codec request` authorizes and validates the issue, qualifies/fetches the cloud image, reserves $20 durably, and starts a fresh campaign. Both existing local ledgers seed the shared accounting once; the $150 provider ceiling retains a $20 account reserve. Subsequent cloud accounting comes from `automation-state`, not checkout caches. Coder calls retain the existing $5 per-call reservation and unknown-usage holds. The research job has a 90-minute deadline and at most two initial, one evolved and one repair session. See [cloud/policy.json](../cloud/policy.json).
+The laboratory profiles the complete bounded development sample. JSON arrays/JSONL and consistent CSV use complete record groups; duplicates stay on one side. CSV headers are retained and JSON array views wrap unchanged record lexemes. Single documents or opaque bytes have an explicit fallback sampling policy. Those views select candidates; the complete original development bytes are also measured unchanged.
 
-The development file is split deterministically in half: the first half supplies training/model/dictionary bytes, the remainder selects among candidates. The complete development file is also reported after selection. Very small samples reuse their nonempty training bytes for the control probe and make no independent validation claim. Preparation retrieves at most four skill/evidence excerpts with the existing context bounds. The container uses keyword retrieval when the optional local semantic environment is absent; the portable semantic index and reviewed skill library remain committed and available for later exports.
+Prompts include relevant skills, probe findings and measured trial feedback: complete sizes, baseline gap, payload/model costs and known modes. Reviewed seeds are eligible; the report identifies reuse. Losing candidates and redacted CLI diagnostics remain available. Successful and unsuccessful development observations feed later campaigns; final measurements are excluded from proposal retrieval.
 
-Reviewed CSV/text codecs are seeds. Muse can improve or replace them. If the seed wins, the report explicitly calls that reuse; paid calls and failed candidates remain visible. New codecs are compiled into the real release client. Direct tiny tests bypass raw fallback. Reference measurements include gzip, xz, zstd levels 19/22 and both dictionary configurations; all frames, labels and shared models count. If the development prefix is too small for statistical dictionary training, the reference uses a counted raw prefix dictionary and discloses that fact.
+A candidate must reconstruct exactly, fit the resource limits and beat the strongest complete baseline on **both validation and full development** before the final file is claimed. Otherwise the issue receives a terminal no-win report and the final file remains unopened. Tiny inputs whose baseline is already below the native framing floor skip inference too.
 
-After selection, the coordinator commits the source, model, client/build hashes and development evidence on `codec/issue-N`, then durably consumes the final test. A separate job fetches that one file and measures the exact executable. Its public `compress` command must emit the same counted archive; `decompress` reconstructs it in a fresh restricted process after the supplied original is deleted. No tuning follows. A size win opens a PR; failures still update the issue and retain terminal evidence without proposing a release.
+For a qualifying candidate, the coordinator commits its source/model/client hashes, then consumes one durable final claim. A separate job downloads the final file once, measures complete archives, and verifies the public console after deleting its supplied original copy. No tuning follows. Positive archive gain opens one PR; failed final measurements remain reports. The 10% gain is a target, while strictly positive gain is the release threshold. Throughput is secondary; correctness and memory/time bounds remain mandatory.
 
-The acceptance policy requires exact reconstruction, the existing memory/time caps and strictly fewer complete archive bytes than the best configured baseline. A 10% gain is a visible target. Speed is secondary, with the historical speed gate preserved as a diagnostic. This does not modify the closed telemetry experiment's gates.
+Reports expose repeated test hashes and bounded record-overlap diagnostics. No exact record overlap is a useful check, not proof of statistical independence. Previously examined sample files remain regression evidence even when a newer codec compresses them better.
 
-## Retry and cancellation behavior
+## Retry, interruption and rehearsal
 
-The authoritative identity is repository plus issue number. Remote Git updates are conditional fast-forwards. Duplicate events return the existing report/branch/PR; ordinary concurrency does not replace durable state. GitHub's repository-wide queue serializes paid campaigns. The `queue: max` field follows current GitHub syntax; actionlint 1.7.12 needs a narrow exception for that newer field.
+Remote Git updates use conditional fast-forwards. Request identity is repository plus issue number, with a run/attempt lease for paid work and final access. Duplicate deliveries reuse the existing result. A new Actions attempt cannot reuse an old execution claim to infer again or reopen a consumed final file.
 
-Each spending/test authorization also records its Actions run and attempt. “Re-run failed jobs” cannot use an earlier attempt's claim to generate again or re-open the final file on a fresh runner. A lost run preserves its exposure and test receipt. If complete terminal artifacts exist, publication can recover without inference or test access. Otherwise the issue reports interruption; inspect provider usage and the durable record before reconciling it. Do not delete consumed-test markers to retry a failed measurement.
+When only publication failed, rerun that publisher job while its artifacts are retained. It can recover a branch/PR or partial draft release without generation or test access. If research disappeared before producing usable terminal artifacts, retain the exposure and inspect provider usage before reconciliation. Create a new issue for new work; preserve existing test receipts. Artifacts have limited retention; durable reports, source and accounting live in Git. The state file has a 2 MiB bound, and recent cross-campaign development context is bounded to 128 records.
 
-Artifacts are transports with limited retention. Frozen source/model/evidence and final reports are committed; the qualified binary and encoded collections stay in Actions artifacts until release. `Publish` runs after ordinary job failures. If the whole workflow disappears, a later delivery records the interruption without starting more research.
+For a zero-inference rehearsal, create a **blank issue without `codec-request`**, using the same two Markdown headings. Then dispatch **Actions → Codec request**, supplying that issue and `mode: reuse`. The special issue form starts normal generation automatically, so use the blank issue for this rehearsal.
 
-## Merge, publish and install
+## Merge, release and install
 
-Merging a qualified registry update triggers `Release qualified codecs`. It rebuilds the exact catalog in the recorded container, checks the executable hash and the development archive fingerprint, and proves console reconstruction without reading the final file. The publisher verifies the durable consumed claim and merged PR, creates `codec-issue-N`, and publishes the binary, source/model registry, report, manifest and `SHA256SUMS`. An existing asset must match its digest; it is never overwritten with different bytes.
+Merging a qualified registry update triggers **Release qualified codecs**. It rebuilds the exact catalog in the recorded image, checks the executable hash and development archive fingerprint, and verifies reconstruction without opening the final file. Publication requires the durable consumed claim, a merged PR and a complete checksum set. Partial drafts recover only when existing assets match their digests.
 
-Each issue tag points to the exact frozen source commit reviewed through the merged PR. This keeps the Cargo install and release executable aligned even when later merges extend the main catalog. Release creation happens only after the qualifying PR merges. The issue comment links the release and prints its install command. It remains open unless a user closes it.
+The `codec-issue-N` tag identifies the frozen source snapshot reviewed through that PR. Its release contains the Linux x86_64 binary, registry, report, manifest and `SHA256SUMS`. Cargo installs that source tag as shown in the [README](../README.md). The issue comment links the release and install command; closing the issue is optional.
 
-For this private repository, authenticate Git once before installing source:
-
-```bash
-gh auth login
-gh auth setup-git
-CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install \
-  --git https://github.com/akaliutau/algomini \
-  --tag codec-issue-123 algomini-cli --locked --force
-
-algomini plugins
-algomini compress --plugin wiki-xml sample.xml sample.alc
-algomini decompress sample.alc restored.xml
-```
-
-Replace `123` with a released issue number. Source installation needs Rust 1.92+ and a C compiler. Compression needs no Python, model key or network. Updates use another install command for the new tag. The first CLI supports single-file inputs up to 2 MiB and refuses to overwrite output. Historical multi-file collections retain their Python utility. Publishing to crates.io, runtime module downloading, streaming larger files and other OS targets remain outside this demo.
-
-## Rehearsal and checks
-
-For a zero-inference rehearsal, first create a **blank issue without the `codec-request` label**, using the same `### Plugin name` and `### Dataset manifest URL` headings. Then select `mode: reuse` under **Actions → Codec request → Run workflow** and supply that issue number. The special issue form starts normal generation automatically, so it is not the way to prepare an unclaimed rehearsal issue. Reuse mode uses reviewed seeds and says so in the report. A claimed issue never starts a second research run, whichever mode is subsequently selected.
-
-Local checks, with no Docker:
-
-```bash
-python -m pytest -q
-cargo test --offline --locked --manifest-path crates/algomini-cli/Cargo.toml
-python -m algomini.cloud smoke --workspace .cache/cloud-smoke
-```
-
-CI additionally executes the original Rust worker tests inside the cloud image. Two historical installed-package integration tests require the original local binary/library pins and are deselected in the new cloud reference; they still run in the full local suite. New native cloud tests prove equivalent console reconstruction for the new runtime. Coverage includes malformed/public URL rules, shared budget/CAS behavior, duplicate claims, retry-attempt rejection, old/new frame compatibility, deterministic binary rebuilds, a real reusable campaign with test-fetch denial until freeze, one final read and output integrity. No test needs a model credential.
+Each tag contains the codecs known in that qualified snapshot. Updates use another Cargo installation for the new tag. Runtime module downloads, crates.io publication, streaming beyond 2 MiB and other OS targets remain future work. `Cloud smoke` qualifies the current image, App access, offline compilation and containment, plus a separate zero-inference provider catalog check. CI runs every maintained Python/Rust test with no model credentials.

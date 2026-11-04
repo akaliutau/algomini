@@ -1,6 +1,7 @@
 {
   "aliases": {
-    "json-t1": "wk-3169dda381d9c072",
+    "general": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+    "json-lexical": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
     "telemetry-csv": "s4-98e12bcd61e8117b0",
     "wiki-xml": "wk-3169dda381d9c072"
   },
@@ -22,6 +23,16 @@
       "origin": "Previously measured local codec; cloud runtime qualification pending",
       "source": "plugins/s4-98e12bcd61e8117b0/codec.rs",
       "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+    },
+    {
+      "codec_id": "4c16b773d1840d2130089affeddad6c7",
+      "id": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+      "mechanism": "json-lexical-v1",
+      "model": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/model.bin",
+      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "Reviewed development seed; not an independent final-test win",
+      "source": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/codec.rs",
+      "source_sha256": "4c16b773d1840d2130089affeddad6c75484788b0af161c42bb93d4163bdd43a"
     }
   ],
   "requests": [],

@@ -9,7 +9,7 @@ import shutil
 import struct
 import tempfile
 
-from .. import archive, baselines, codecs, evaluator
+from .. import archive, measurement as metrics
 from ..common import digest, sha256, worker_environment, write_json
 from ..environment import command_output
 from ..execution import run_isolated
@@ -125,9 +125,9 @@ def invoke(binary, identifier, cfg, operation, data, *, original_len=0, model=b"
             or struct.unpack("<I", value[5:9])[0] != len(value) - 9):
         raise ValueError("Contained release worker failed: " + (value[9:] + error).decode(errors="replace")[-1500:])
     if operation in (1, 6):
-        codecs.frame_metadata(value[9:], model=model, source_sha256=source_sha256, restored=data)
+        metrics.frame_metadata(value[9:], model=model, source_sha256=source_sha256, restored=data)
     elif operation == 2:
-        codecs.frame_metadata(data, model=model, source_sha256=source_sha256, restored=value[9:])
+        metrics.frame_metadata(data, model=model, source_sha256=source_sha256, restored=value[9:])
     elif operation == 3 and len(value) - 9 > 65536:
         raise ValueError("Candidate model exceeds 64 KiB")
     elif operation == 5 and len(value) - 9 != original_len:
@@ -137,7 +137,10 @@ def invoke(binary, identifier, cfg, operation, data, *, original_len=0, model=b"
 
 def correctness(binary, item, cfg, sample, model):
     cases = [b"", b"\0", b"a" * 63, bytes(range(256)), b"a,b\r\n1.00,-0\r\n",
-             b'{"x":1.0,"x":-0}\n', random.Random(cfg["seed"]).randbytes(127), sample[:2048]]
+             b'{"x":1.0,"x":-0}\n', b'[{"escaped":"a\\\"b","number":1e+03},',
+             b'{"x":true}\n{"x":null}\r\n', b'"a,b",c\r\n"two\nlines",-0.00\r\n',
+             '<x>\u00e9\u6f22</x>\r\n'.encode(), 'hello\u00e9'.encode('utf-16'),
+             random.Random(cfg["seed"]).randbytes(127), sample[:2048]]
     for data in cases:
         encoded, _ = invoke(binary, item["id"], cfg, 4, data, model=model)
         decoded, _ = invoke(binary, item["id"], cfg, 5, encoded, model=model, original_len=len(data))
@@ -155,9 +158,12 @@ def reference_dictionary(workspace, cfg, training):
         path.write_bytes(training[index * len(training) // 16:(index + 1) * len(training) // 16])
         paths.append(path)
     model = directory / "dictionary.bin"
+    if not training:
+        model.write_bytes(b"")
+        return model, {"kind": "unavailable: empty development training partition", "bytes": 0, "sha256": digest(b""), "training_sha256": digest(training)}
     kind = "trained on development training prefix only"
     try:
-        baselines.measure(["zstd", "-q", "--train", "-T1", "--dictID=1", "--maxdict=8192", "-o", str(model), *map(str, paths)], b"", cfg, ro=paths, rw=[directory])
+        metrics.measure(["zstd", "-q", "--train", "-T1", "--dictID=1", "--maxdict=8192", "-o", str(model), *map(str, paths)], b"", cfg, ro=paths, rw=[directory])
     except ValueError:
         model.write_bytes(training[:8192])
         kind = "raw training-prefix dictionary; sample too small for statistical dictionary training"
@@ -165,22 +171,25 @@ def reference_dictionary(workspace, cfg, training):
 
 
 def references(cfg, data, dictionary):
-    rows = []
+    rows, skipped = [], []
     for baseline in cfg["baselines"]:
+        if baseline.get("dictionary") and not dictionary.stat().st_size:
+            skipped.append({"id": baseline["id"], "reason": "No nonempty development training dictionary"})
+            continue
         model = dictionary.read_bytes() if baseline.get("dictionary") else b""
         args = lambda key: [part.replace("{dictionary}", str(dictionary)).replace("{input_bytes}", str(len(data))) for part in baseline[key]]
-        encoded, encoding = baselines.measure(args("encode"), data, cfg, ro=[dictionary] if model else [])
+        encoded, encoding = metrics.measure(args("encode"), data, cfg, ro=[dictionary] if model else [])
         decodes = []
         for _ in range(cfg["evaluation"]["decode_repetitions"]):
-            restored, measurement = baselines.measure(args("decode"), encoded, cfg, ro=[dictionary] if model else [])
+            restored, measurement = metrics.measure(args("decode"), encoded, cfg, ro=[dictionary] if model else [])
             if restored != data:
                 raise ValueError("Cloud baseline reconstruction failed")
             decodes.append(measurement)
-        row, _ = evaluator.counted(baseline["id"], [("sample.bin", encoded)], model, [{"label": "sample.bin", "input_bytes": len(data),
-            "block_bytes": len(encoded), "encode": encoding, "decode": evaluator.resources(decodes, len(data))}])
+        row, _ = metrics.counted(baseline["id"], [("sample.bin", encoded)], model, [{"label": "sample.bin", "input_bytes": len(data),
+            "block_bytes": len(encoded), "encode": encoding, "decode": metrics.resources(decodes, len(data))}])
         rows.append(row)
     best = min(rows, key=lambda row: row["archive_bytes"])
-    return {"results": rows, "best_id": best["id"], "best_bytes": best["archive_bytes"]}
+    return {"results": rows, "best_id": best["id"], "best_bytes": best["archive_bytes"], "skipped": skipped}
 
 
 def measure(binary, item, cfg, data, model, baseline, *, checks):
@@ -192,10 +201,19 @@ def measure(binary, item, cfg, data, model, baseline, *, checks):
             raise ValueError("Cloud candidate reconstruction failed")
         decodes.append(measurement)
     used_model = model if encoded[4] == 2 else b""
-    candidate, packed = evaluator.counted(item["id"], [("sample.bin", encoded)], used_model, [{"label": "sample.bin", "input_bytes": len(data),
-        "input_sha256": digest(data), "block_bytes": len(encoded), "encode": encoding, "decode": evaluator.resources(decodes, len(data))}])
+    candidate, packed = metrics.counted(item["id"], [("sample.bin", encoded)], used_model, [{"label": "sample.bin", "input_bytes": len(data),
+        "input_sha256": digest(data), "block_bytes": len(encoded), "encode": encoding, "decode": metrics.resources(decodes, len(data))}])
     candidate.update(source_sha256=item["source_sha256"], model_sha256=digest(model), correctness=checks, decoder_package_bytes=binary.stat().st_size)
-    score = evaluator.score(cfg, baseline, candidate)
+    meta = metrics.frame_metadata(encoded, model=model, source_sha256=item["source_sha256"])
+    candidate.update(payload_bytes=meta["payload_bytes"], native_frame_bytes=40,
+                     raw_escape=meta["flag"] == 1, trained_model_bytes=len(model))
+    if meta["flag"] == 1:
+        candidate["encoding_mode"] = "raw"
+    elif item.get("mechanism") == "json-lexical-v1":
+        candidate["encoding_mode"] = {0: "zstd", 1: "json-lexical"}.get(encoded[40], "unknown")
+    else:
+        candidate["encoding_mode"] = "codec-specific; see source"
+    score = metrics.score(cfg, baseline, candidate)
     return {"input_sha256": digest(data), "input_bytes": len(data), "candidate": candidate, "baselines": baseline, "score": score,
             "eligible": score["gates"]["exact_reconstruction"] and score["gates"]["decode_rss"],
             "size_first_win": score["archive_gain"] > 0 and score["gates"]["decode_rss"], "speed_priority": "secondary"}, packed

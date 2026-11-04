@@ -18,7 +18,7 @@
     ],
     "id": "text-repetition",
     "max_input_bytes": 2097152,
-    "version": 1
+    "version": 2
   },
   {
     "description": "Inspect quoted CSV structure and duplicate records without reserialization",
@@ -35,6 +35,24 @@
       "json"
     ],
     "id": "json-lexemes",
+    "max_input_bytes": 2097152,
+    "version": 2
+  },
+  {
+    "description": "Count repeated lines and exact JSON record groups before selecting development views",
+    "families": [
+      "*"
+    ],
+    "id": "content-redundancy",
+    "max_input_bytes": 2097152,
+    "version": 1
+  },
+  {
+    "description": "Compare finite-order empirical byte entropy; estimates are not universal compression bounds",
+    "families": [
+      "*"
+    ],
+    "id": "entropy-models",
     "max_input_bytes": 2097152,
     "version": 1
   }

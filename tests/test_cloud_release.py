@@ -44,18 +44,20 @@ def test_release_requires_merge_and_recovers_an_existing_draft_without_uploads(m
     (root / "cloud/policy.json").write_bytes((ROOT / "cloud/policy.json").read_bytes())
     directory = output / "issue-7";directory.mkdir(parents=True)
     record = {"request_id": "issue-7", "issue": 7, "freeze_id": "f" * 64, "tag": "codec-issue-7", "source_commit": "a" * 40}
-    write_json(directory / "manifest.json", record)
     qualified = {"schema_version": 1, "aliases": {}, "codecs": []}
     write_json(directory / "registry.json", qualified)
     (directory / "report.md").write_text("Measured report")
     (directory / "algomini-linux-x86_64").write_bytes(b"qualified binary fixture; not executed")
+    record.update(binary_sha256=sha256(directory / "algomini-linux-x86_64"), registry_sha256=sha256(directory / "registry.json"))
+    write_json(directory / "manifest.json", record)
     names = ["manifest.json", "registry.json", "report.md", "algomini-linux-x86_64"]
     (directory / "SHA256SUMS").write_text("".join(f"{sha256(directory / name)}  {name}\n" for name in names))
     write_json(root / "release/registry.json", {**qualified, "requests": [{"id": "issue-7", "freeze_id": "f" * 64}]})
     gh = ReleaseGit([{"name": name, "digest": "sha256:" + sha256(directory / name)} for name in [*names, "SHA256SUMS"]])
     store = State(gh, "automation-state", 0)
     store.reserve(request, "run")
-    store.value["requests"]["issue-7"].update(freeze_id="f" * 64, frozen_commit="a" * 40, pr_number=9, report="Measured report")
+    store.consume("issue-7", "f" * 64)
+    store.value["requests"]["issue-7"].update(freeze_id="f" * 64, frozen_commit="a" * 40, pr_number=9, report="Measured report", status="pr-open", terminal=True)
     store.save("Fixture PR")
     gh.files["a" * 40] = {"release/registry.json": json.dumps(qualified).encode()}
     monkeypatch.setattr(releasing, "upload", lambda *_: pytest.fail("Matching draft asset was uploaded again"))
@@ -63,6 +65,20 @@ def test_release_requires_merge_and_recovers_an_existing_draft_without_uploads(m
         releasing.publish_release(root, output, gh)
     assert gh.tag is None
     gh.merged = True
+    sums = (directory / "SHA256SUMS").read_text()
+    (directory / "SHA256SUMS").write_text("")
+    with pytest.raises(ValueError, match="Incomplete release checksums"):
+        releasing.publish_release(root, output, gh)
+    assert gh.tag is None
+    (directory / "SHA256SUMS").write_text(sums)
+    durable = State(gh, "automation-state", 0)
+    consumed = durable.value["requests"]["issue-7"].pop("test_consumed_at")
+    durable.save("Fixture missing consumption")
+    with pytest.raises(ValueError, match="consumed request"):
+        releasing.publish_release(root, output, gh)
+    assert gh.tag is None
+    durable.value["requests"]["issue-7"]["test_consumed_at"] = consumed
+    durable.save("Restore fixture consumption")
     releasing.publish_release(root, output, gh)
     releasing.publish_release(root, output, gh)
     assert gh.created_releases == 0 and gh.tag == "a" * 40

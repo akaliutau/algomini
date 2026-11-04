@@ -10,13 +10,12 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.optional-dependencies]
-analytics = ["duckdb==1.5.6", "numpy==2.5.4", "scipy==1.18.1", "scikit-learn==1.9.1"]
 coder = ["python-dotenv==1.2.4"]
 memory = ["model2vec==0.10.0"]
-test = ["pytest==9.2.0"]
+test = ["pytest==9.2.0", "PyYAML==6.0.3"]
 
 [project.scripts]
-algomini = "algomini.cli:main"
+algomini-lab = "algomini.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["algomini*"]

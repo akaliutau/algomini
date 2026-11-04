@@ -275,4 +275,50 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn general_codec_handles_binary_lexical_edges_and_fragments() {
+        let codec = resolve("general").unwrap();
+        let mut cases = vec![
+            Vec::new(),
+            vec![0],
+            (0..=255).collect(),
+            br#"[{"x":1.00,"x":-0,"escape":"a\"b","n":1e+03},"#.to_vec(),
+            "<x>é漢</x>\r\n".as_bytes().to_vec(),
+        ];
+        let mut state = 71u64;
+        for length in 1..64 {
+            cases.push(
+                (0..length)
+                    .map(|_| {
+                        state ^= state << 13;
+                        state ^= state >> 7;
+                        state ^= state << 17;
+                        state as u8
+                    })
+                    .collect(),
+            );
+        }
+        for data in cases {
+            let encoded = (codec.encode)(&data, codec.model).unwrap();
+            assert_eq!(
+                (codec.decode)(&encoded, codec.model, data.len()).unwrap(),
+                data
+            );
+        }
+    }
+
+    #[test]
+    fn general_codec_rejects_corrupt_layout_dimensions_without_allocating_them() {
+        let codec = resolve("general").unwrap();
+        for layout in [
+            b"JCL1\x01\xff\xff\xff\xff\x00\x00\x00\x00".as_slice(),
+            b"JCL1\x00\x00\x00\x00\x00",
+            b"bad",
+        ] {
+            let mut encoded = vec![1];
+            encoded.extend(toolkit::zstd_compress(layout, 19).unwrap());
+            assert!((codec.decode)(&encoded, codec.model, 10).is_err());
+        }
+    }
 }

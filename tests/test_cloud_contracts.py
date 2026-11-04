@@ -1,4 +1,5 @@
 import copy
+import base64
 import json
 from pathlib import Path
 
@@ -6,6 +7,7 @@ import pytest
 
 from algomini.cloud import contracts, coordinator, research
 from algomini.cloud.github import APIError, State
+from algomini.cloud.github import GitHub
 
 
 ROOT = Path(__file__).parents[1]
@@ -46,6 +48,13 @@ def test_manifest_rejects_ambiguous_or_invalid_inputs(change):
         contracts.manifest(json.dumps(value), contracts.policy(ROOT))
 
 
+def test_nonfinite_policy_cannot_bypass_a_budget_comparison(tmp_path):
+    (tmp_path / "cloud").mkdir()
+    (tmp_path / "cloud/policy.json").write_text('{"provider_limit_usd":NaN}')
+    with pytest.raises(ValueError, match="Non-finite"):
+        contracts.policy(tmp_path)
+
+
 def test_form_has_two_fields_and_snapshot_refuses_changes(monkeypatch):
     value = snapshot(monkeypatch)
     assert contracts.validate_snapshot(value, ROOT) == value
@@ -76,6 +85,21 @@ def test_coder_uses_image_tools_when_checkout_is_a_readonly_mount(monkeypatch, t
     config = research.configuration(tmp_path, request)
     assert Path(config["coder"]["executable"]).parent == ROOT / ".tools/bin"
     assert not str(config["coder"]["executable"]).startswith(str(tmp_path))
+
+
+def test_large_state_blob_uses_git_api_without_relaxing_the_file_bound(monkeypatch):
+    payload = b"x" * (1024**2 + 1)
+    gh = GitHub("akaliutau/algomini", "fake-test-token")
+    calls = []
+    def repo(method, path, value=None):
+        calls.append(path)
+        if path.startswith("contents/"):
+            return {"encoding": "none", "size": len(payload), "sha": "f" * 40}
+        assert path == "git/blobs/" + "f" * 40
+        return {"encoding": "base64", "content": base64.b64encode(payload).decode()}
+    monkeypatch.setattr(gh, "repo", repo)
+    assert gh.file("state.json", "automation-state") == payload
+    assert len(calls) == 2
 
 
 class MemoryGit:

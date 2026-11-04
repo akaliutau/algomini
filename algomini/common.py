@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import tempfile
@@ -52,6 +53,9 @@ def load_config(path="run.toml"):
                 or not 0 < evaluation["probe_bytes"] <= cap or not 1 <= evaluation["decode_repetitions"] <= 7):
             raise ValueError("Invalid evaluation probe/timing policy")
     budget = cfg["budget"]
+    money = [budget["total_usd"], budget["attempt_reservation_usd"], *(budget[f"{phase}_usd"] for phase in ("framework", "discovery", "refinement", "reserve"))]
+    if any(type(value) not in (int, float) or not math.isfinite(value) or value < 0 for value in money) or budget["attempt_reservation_usd"] <= 0:
+        raise ValueError("Budget values must be finite and nonnegative, with a positive attempt reservation")
     if sum(budget[f"{phase}_usd"] for phase in ("framework", "discovery", "refinement", "reserve")) > budget["total_usd"]:
         raise ValueError("Budget allocations exceed the total spending limit")
     return path.parent, cfg

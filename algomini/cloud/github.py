@@ -3,7 +3,9 @@
 import base64
 from datetime import datetime, timezone
 import json
+import math
 import os
+import re
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -34,7 +36,7 @@ class GitHub:
     def call(self, method, path, value=None):
         raw = json.dumps(value).encode() if value is not None else None
         request = Request("https://api.github.com/" + path, data=raw, method=method,
-            headers={"Authorization": "Bearer " + self.token, "Accept": "application/vnd.github+json",
+            headers={"Authorization": "Bearer " + self.token, "Accept": "application/vnd.github.object+json" if "/contents/" in path else "application/vnd.github+json",
                      "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "algomini-cloud/1"})
         try:
             with build_opener(NoRedirect()).open(request, timeout=60) as response:
@@ -51,9 +53,17 @@ class GitHub:
 
     def file(self, path, ref):
         item = self.repo("GET", "contents/" + quote(path, safe="/") + "?ref=" + quote(ref, safe=""))
-        if item.get("encoding") != "base64" or item.get("size", 0) > 2 * 1024**2:
+        size = item.get("size")
+        if type(size) is not int or not 0 <= size <= 2 * 1024**2:
             raise ValueError("GitHub file exceeds supported bounds")
-        return base64.b64decode(item["content"], validate=False)
+        if item.get("encoding") == "none" and re.fullmatch(r"[0-9a-f]{40}", item.get("sha", "")):
+            item = self.repo("GET", "git/blobs/" + item["sha"])
+        if item.get("encoding") != "base64" or not isinstance(item.get("content"), str):
+            raise ValueError("Unsupported GitHub blob encoding")
+        value = base64.b64decode("".join(item["content"].split()), validate=True)
+        if len(value) != size:
+            raise ValueError("GitHub blob size differs from its metadata")
+        return value
 
     def head(self, branch):
         try:
@@ -115,7 +125,12 @@ class State:
         identifier, rules = request["id"], request["policy"]
         if identifier in self.value["requests"]:
             return False
-        exposure = self.value["historical_charged_usd"] + sum(row["charged_usd"] for row in self.value["requests"].values())
+        charges = [self.value["historical_charged_usd"], *(row["charged_usd"] for row in self.value["requests"].values())]
+        if any(type(value) not in (int, float) or not math.isfinite(value) or value < 0 for value in charges):
+            raise ValueError("Invalid durable spending exposure; reconcile it before another reservation")
+        exposure = sum(charges)
+        if not math.isfinite(exposure):
+            raise ValueError("Invalid durable spending exposure")
         if exposure + rules["request_reservation_usd"] > rules["provider_limit_usd"] - rules["account_reserve_usd"]:
             raise ValueError("Shared provider budget minus account reserve would be exceeded")
         self.value["requests"][identifier] = {"snapshot": request, "status": "reserved", "charged_usd": rules["request_reservation_usd"],

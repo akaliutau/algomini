@@ -18,7 +18,7 @@ STOP_WORDS = set("a an and are as at be by for from in is it of on or the to wit
 SCHEMA = 3
 
 
-def append(root, record, *, run_id="stage3", directory=None):
+def append(root, record, *, run_id="research", directory=None):
     path = (Path(directory) if directory else Path(root) / "reports" / run_id) / "observations.jsonl"
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a+") as stream:

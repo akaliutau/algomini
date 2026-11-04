@@ -234,11 +234,13 @@ jobs:
           python-version: '3.12'
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         continue-on-error: true
+        if: needs.research.result != 'skipped'
         with:
           name: research-checkpoint
           path: ${{ runner.temp }}/publish-work
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         continue-on-error: true
+        if: needs.verify.result != 'skipped'
         with:
           name: final-checkpoint
           path: ${{ runner.temp }}/publish-work

@@ -15,7 +15,7 @@ class Campaign:
     library: Path
 
     @classmethod
-    def create(cls, workspace, library, sample, *, campaign_id, family, probe_bytes=65536):
+    def create(cls, workspace, library, sample, *, campaign_id, family, probe_bytes=labtools.MAX_INPUT):
         workspace, library, sample = Path(workspace).resolve(), Path(library).resolve(), Path(sample)
         if (not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", campaign_id)
                 or family not in memory.FAMILIES
@@ -56,7 +56,7 @@ class Campaign:
             raise ValueError("Campaign sample changed")
         return manifest
 
-    def prepare(self):
+    def prepare(self, *, embedder=None):
         manifest = self.manifest()
         output = self.workspace / "reports/preparation.json"
         terminal = output.with_suffix(".sha256")
@@ -75,7 +75,7 @@ class Campaign:
         if manifest["family"] == "csv":
             hints.append("column layouts exact numeric spellings quoted tokens")
         query = manifest["family"] + " " + " ".join(hints or ["byte structure repetition"])
-        retrieved = memory.search(self.library, query, family=manifest["family"], cache_dir=self.workspace / ".cache/memory")
+        retrieved = memory.search(self.library, query, family=manifest["family"], cache_dir=self.workspace / ".cache/memory", embedder=embedder)
         result = {"schema_version": 1, "campaign": manifest, "probes": probes, "research_query": query, "retrieved": retrieved,
                   "retrieved_characters": sum(len(row["excerpt"]) for row in retrieved),
                   "paid_model_calls": 0, "coder_model_calls": 0, "docker_used": False,

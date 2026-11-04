@@ -18,13 +18,25 @@ from .github import GitHub
 def export(workspace, destination):
     workspace, destination = Path(workspace), Path(destination)
     destination.mkdir(parents=True, exist_ok=True)
-    names = ["request.json", "failure.json"]
+    names = ["request.json", "failure.json", "attempts.json"]
     if (workspace / "freeze.json").exists():
         names += ["freeze.json", "registry.json", "build.json", "research.json", "development.json", "development.alc",
                   "dictionary.json", "dictionary/dictionary.bin", "cloud-runtime.json", "algomini", "preparation.json",
-                  "final.json", "terminal.json", "verification-started.json", "model-preflight.json"]
+                  "final.json", "terminal.json", "verification-started.json", "model-preflight.json", "sampling.json", "development-signatures.json"]
         registry = json.loads((workspace / "registry.json").read_text())
         names += list(native.assets(workspace, registry))
+    audit = workspace / "attempts.json"
+    if audit.is_file():
+        for name, checksum in json.loads(audit.read_text())["files"].items():
+            relative = Path(name)
+            path = workspace / relative
+            if (len(relative.parts) != 3 or relative.parts[0] != "attempts" or not path.resolve().is_relative_to(workspace.resolve())
+                    or path.is_symlink() or path.stat().st_size > 65536):
+                raise ValueError("Invalid exported attempt evidence")
+            from ..common import sha256
+            if sha256(path) != checksum:
+                raise ValueError("Changed exported attempt evidence")
+            names.append(name)
     for name in names:
         source = workspace / name
         if source.is_file() and not source.is_symlink():
@@ -122,6 +134,7 @@ def main():
                 write_json(args.workspace / "failure.json", {"failure": str(error), "usage": usage, "charged_usd": sum(row["charged_usd"] for row in usage)})
                 raise
             finally:
+                write_json(args.workspace / "attempts.json", research.audit_attempts(args.workspace))
                 export(args.workspace, args.export)
         elif args.command == "freeze":
             request = json.loads((args.workspace / "request.json").read_text())

@@ -11,6 +11,7 @@ from tools.json_campaign_diagnostics import array_records, conditional_entropy, 
     b"", b"arbitrary text 123\xff", b"[\n", b'{"truncated": "tail',
     b'[{"x":1.00,"x":-0.0,"escaped":"a\\\"b","n":1e+03},\r\n{"x":null}]',
     b'\n  {"field":1},\n  {"field":2}\n]',
+    b'{"tail":"' + b'\\"' * 10000,
 ])
 def test_lexical_layout_reconstructs_exact_bytes(data):
     assert restore_lexemes(transpose_lexemes(data)) == data

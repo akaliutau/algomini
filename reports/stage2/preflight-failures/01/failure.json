@@ -1,8 +1,0 @@
-{
-  "stage": "first bounded validation corpus before Stage 2 acceptance",
-  "error": "Conda xz could not read its matching liblzma and fell back to an incompatible system library",
-  "resolution": "Grant trusted baseline binaries read access to their dedicated environment; also add a parent acknowledgement before native exec for exact timing start",
-  "sealed_test_opened": false,
-  "inference_calls": 0,
-  "status": "superseded preflight freeze; final freeze is created after correction"
-}
