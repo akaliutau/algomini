@@ -28,11 +28,12 @@ After that it's just a  compression tools that you can run locally; no Python, m
 
 ## Why
 
-General-purpose compressors are strong. However, a specific format and content of files that comprises enormous organization's datalikes can still offer useful structure: repeated JSON keys, exact numeric spellings, column layouts or predictable language contexts. Finding an advantage requires a reversible representation, working code and careful accounting.
+General-purpose compressors are strong. However, a specific format and content of files that comprises enormous organization's datalikes can still offer useful structure: repeated JSON keys, exact numeric spellings, column layouts or predictable language contexts. Finding an optimum requires a reversible representation, working code and careful accounting.
+This is a very open-ended problem, the optimal solution for each case is not known, and general-purpose compressors do not guarantee that optimum.
 
-**Algomini automates that research loop and keeps all notes in GitHub.** It combines candidate coding, deterministic probes, measured feedback, reusable knowledge and a path from experiment to installed software.
+**Algomini automates that research loop and keeps all notes in GitHub.** It combines candidate coding, numerical research and statistics experiments with data samples, analysing  feedback.
 
-In addition, Algomini is becoming better on each iteration, formulating and collecting research heauristics and skill.
+In addition, Algomini becomes better on each iteration, formulating and collecting research heauristics and skill.
 
 Embedded Data Lab is extensible as well - you can literally install any analytical tools that can run in CLI mode.
 
@@ -44,11 +45,11 @@ Embedded Data Lab is extensible as well - you can literally install any analytic
    | Field | Example |
    | --- | --- |
    | Plugin name | `text-demo` |
-   | Dataset archive URL | [books2.zip](https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip) |
+   | Dataset archive URL (this one was used to film a video) | [books2.zip](https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip) |
 
 3. Watch the linked Actions run prepare the dataset, investigate patterns and benchmark candidates.
 4. Read the issue's result table, algorithm summary and source links.
-5. Review and merge a qualifying PR.
+5. Review and merge a PR, if benchmark shows the adventage and you are happy with algorithm (Muse describes it in source code docstring).
 6. Copy the Cargo installation command posted to the issue, then use your plugin:
 
    ```bash
@@ -57,15 +58,15 @@ Embedded Data Lab is extensible as well - you can literally install any analytic
    cmp input.txt restored.txt
    ```
 
-With two dataset files, the larger becomes development data and the other becomes final data. Larger collections split approximately 70:30 by file count. The manifest is generated automatically; public HTTP/HTTPS downloads support redirects and query parameters.
+With two dataset files, the larger one becomes development data and the other becomes final data. Larger collections split as 70:30 by file count. The manifest is generated automatically; public HTTP/HTTPS downloads support redirects and query parameters. Note: currently only public URLs are supported, subject to fix this limitation in future variants.
 
 **Research sees the first 2 MiB of development data. Qualification measures the complete files.** A maintainer's request starts automatically; other requests need maintainer authorization. A run that cannot beat the baseline produces a report. Reusing a reviewed winner produces a qualification PR; a newly generated winner includes its Rust source.
 
 [Dataset preparation, permissions and retries →](docs/cloud.md#dataset-and-issue)
 
-## Measured results
+## Experiments with different types of data
 
-Earlier reviewed Rust codecs beat the strongest configured baseline on these supplied samples. They now live in test fixtures; the development catalog starts empty:
+Earlier reviewed Rust codecs beat the strongest configured baseline on these supplied samples:
 
 | Workload | Input bytes | Algomini archive | Best baseline archive | Smaller archive |
 | --- | ---: | ---: | ---: | ---: |
@@ -78,6 +79,18 @@ These are complete archive sizes, including framing and shared models, with exac
 The measurements use existing reviewed codecs on known local regression samples. The JSON fixtures contain repeated records; these figures do not establish unseen-data performance or guarantee a win on another dataset.
 
 [Measurement method, artifacts and reproduction →](docs/benchmarks.md)
+
+## Stack
+
+| Layer | Technology |
+| --- | --- |
+| Candidate coding | Meta Muse Spark 1.3 through the Muse CLI |
+| Laboratory and orchestration | Python 3.12+, deterministic probes and native process measurements |
+| Research memory | Markdown skills, SQLite FTS5/BM25, Model2Vec embeddings (pinned potion-base-2M with 64 dimensions) and a Git-versioned index |
+| Compression runtime | Rust, bundled zstd and reviewed specialized codecs |
+| Cloud execution | GitHub Actions, Docker and GHCR images pinned by digest |
+| Review and delivery | GitHub App, pull requests, release artifacts and Cargo source installation |
+| Native containment | Linux Landlock and seccomp |
 
 ## How it works
 
@@ -213,17 +226,6 @@ To run research in GitHub, configure the GitHub App credentials and Meta API key
 
 [Cloud credentials and setup →](docs/cloud.md#credentials) · [Local laboratory and tests →](docs/development.md) · [Rust client →](crates/algomini-cli/README.md)
 
-## Stack
-
-| Layer | Technology |
-| --- | --- |
-| Candidate coding | Meta Muse Spark 1.3 through the Muse CLI |
-| Laboratory and orchestration | Python 3.12+, deterministic probes and native process measurements |
-| Research memory | Markdown skills, SQLite FTS5/BM25, Model2Vec embeddings and a Git-versioned index |
-| Compression runtime | Rust, bundled zstd and reviewed specialized codecs |
-| Cloud execution | GitHub Actions, Docker and GHCR images pinned by digest |
-| Review and delivery | GitHub App, pull requests, release artifacts and Cargo source installation |
-| Native containment | Linux Landlock and seccomp |
 
 ## PoC scope
 
