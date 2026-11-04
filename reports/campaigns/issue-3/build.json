@@ -1,0 +1,101 @@
+{
+  "binary_bytes": 1001800,
+  "binary_sha256": "783da5bbf6652920bcf51a91370f78f4b182d897e6d742615a9ead73ca933679",
+  "build_seconds": 25.898847631000002,
+  "definition": {
+    "registry": {
+      "aliases": {
+        "general": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+        "json-lexical": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+        "json-v1": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+        "telemetry-csv": "s4-98e12bcd61e8117b0",
+        "wiki-xml": "wk-3169dda381d9c072"
+      },
+      "codecs": [
+        {
+          "codec_id": "3169dda381d9c07279def7e8e37cc6cc",
+          "id": "wk-3169dda381d9c072",
+          "model": "plugins/wk-3169dda381d9c072/model.bin",
+          "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source": "plugins/wk-3169dda381d9c072/codec.rs",
+          "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
+        },
+        {
+          "codec_id": "98e12bcd61e8117b0c9f3cc6b4edfbc3",
+          "id": "s4-98e12bcd61e8117b0",
+          "model": "plugins/s4-98e12bcd61e8117b0/model.bin",
+          "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source": "plugins/s4-98e12bcd61e8117b0/codec.rs",
+          "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
+        },
+        {
+          "codec_id": "4c16b773d1840d2130089affeddad6c7",
+          "id": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
+          "model": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/model.bin",
+          "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/codec.rs",
+          "source_sha256": "4c16b773d1840d2130089affeddad6c75484788b0af161c42bb93d4163bdd43a"
+        }
+      ],
+      "schema_version": 1
+    },
+    "runtime": {
+      "adapter_sha256": "8ee5173daaa9dd285263fdc44eca4959b2b19a278ffa835683ac5e6c19810ac9",
+      "driver": {
+        "crates/algomini-cli/Cargo.lock": "2b6e70d4dbe92cf234107abb3ee82b35c5bfe2e3c1e64c5c26b060b0f11a1ec0",
+        "crates/algomini-cli/Cargo.toml": "fe1d8944087d942f5e1c162a35e2f6fef1be5bfcc6b38a6022124168257db4f2",
+        "crates/algomini-cli/build.rs": "8ca5dedae2b1312533e718e09484e46102a2d60b0b0b22ae2c66cfb642565800",
+        "crates/algomini-cli/src/api.rs": "fc3f0232db688a21f69616540da64ccc015eb2bad2a6ab857586d83d296c220e",
+        "crates/algomini-cli/src/frame.rs": "e84855c191d3037e64f5dbff390e9fa8a8af08f91977a2516d96347c98f1efe3",
+        "crates/algomini-cli/src/main.rs": "3472a52f4ca37bb8a375e6bb355d671111110bdbebfe1bf38633028d77447b4f",
+        "crates/algomini-cli/src/toolkit.rs": "cbf04e10d03c2cea2fa3f75f171e21bc7d79fd1d43c43967ff4a474052b34e3a"
+      },
+      "execution_sha256": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+      "image": "ghcr.io/akaliutau/algomini-lab@sha256:23229a604e5c907ae1e966cd3101a3d32e1297cf2f373698a64742dda4b19a31",
+      "isolation_sha256": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+      "schema_version": 1,
+      "tools": {
+        "cargo": {
+          "path": "/root/.rustup/toolchains/1.92.0-x86_64-unknown-linux-gnu/bin/cargo",
+          "sha256": "310fa46c7903259368c0df3dbb3f4f52759563f3c9ce53b500404b7741fb6860",
+          "version": "cargo 1.92.0 (344c4567c 2025-10-21)"
+        },
+        "rustc": {
+          "path": "/root/.rustup/toolchains/1.92.0-x86_64-unknown-linux-gnu/bin/rustc",
+          "sha256": "028fd60b0e0add5505c661cd3ccde91393d615c8729bd95d94ab1e91409b36a1",
+          "version": "rustc 1.92.0 (ded5c06cf 2025-12-08)"
+        }
+      },
+      "trusted_sources": {
+        "algomini/__init__.py": "7666c0951c48ef7cae1f39a41ca299e0ed5bc25444e087775b07ef21e61cec52",
+        "algomini/__main__.py": "7c2518efbdbb6dfc58f2fb108b5a63480dc2b2046fe4ec6c3e747cc3d0f8c4dd",
+        "algomini/_embed.py": "54d18536d3805039d1660e44f1acb1ccd385934714910e2c05269f4ad54c1a36",
+        "algomini/_isolate.py": "9f2b68e79d6367f88e429c1560de24f089e2d924dd14970aa76e3ec3ace72e62",
+        "algomini/archive.py": "51c49c669e5305a0b0330c527e18233755d11f4c7999331f0658b379ab23312f",
+        "algomini/campaigns.py": "f1761ef2d507a7aebcae1e5e06071a851002b8b784e4fdc5ead6238aca394172",
+        "algomini/cli.py": "10a6ba89cd8e8b1c1e1658be6414f37ae9e6bb53238eb58ba9fb11dfd6364581",
+        "algomini/cloud/__init__.py": "3fadd7b104bc6ccb62955807cc049ed215e89a70b033cbc3798885f438ed7aad",
+        "algomini/cloud/__main__.py": "4bddd7fa5731ab7c2b67afd5e2930f4fe9c0fdcf3550c35ab0e068ebbab58476",
+        "algomini/cloud/contracts.py": "3290e13f8a1fc3db7c112810a84df44620c5e970f32fb676ea3f45048452b05f",
+        "algomini/cloud/coordinator.py": "dd2902628f97a71c5ff769ef9a250c306c0628971c0ad8186c5851ad9015a337",
+        "algomini/cloud/github.py": "61f99a0187df9c548ffbc0812cd8bff4f2638687d36ab80a02dac44b6eb0c5e5",
+        "algomini/cloud/native.py": "8ee5173daaa9dd285263fdc44eca4959b2b19a278ffa835683ac5e6c19810ac9",
+        "algomini/cloud/releasing.py": "f8d5538c3dadb6f7b983fd65e6f750ebb565cd8ddf16a8131ffcc1308f0c40bd",
+        "algomini/cloud/research.py": "cd277bc494b132a9345f3800b9787ffa950ee8037900f52d1864af7a4256a6da",
+        "algomini/coder.py": "32e5796e46e2f869732b0019ce5b0fcd95ab8cc50d0539560cd8c76b5a27ce69",
+        "algomini/common.py": "863df20295cee434c26b75707c0655e08b763a67ddba1211c69274d91ccfe9c1",
+        "algomini/environment.py": "357cdcccfe91e11a5a78099633d5577e42ac223d81c1814327866551b5538df5",
+        "algomini/execution.py": "99ca197331d0fb4adf6b5f50f42936890964a62dfcaa8f2c8263d595247cc473",
+        "algomini/lab_cli.py": "b7a836be9423c852f63a4173b9ded36197a1fd84bcf7eee11af17aa20ab5eb2c",
+        "algomini/labtools.py": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+        "algomini/measurement.py": "11b5f7775973df7ca92f99a797b23662595e670060da35e43a82d33a7e57e623",
+        "algomini/memory.py": "31564f7eebfff7aa4adb81449a6a667df937da180aafcbc8962386abfb60fdc1",
+        "algomini/sampling.py": "75f092b4b47b31ac100a231a1efbbe5904d192b4f183b192bb18311aa5ff6343",
+        "algomini/semantic.py": "46da067bc3cc4d94dad5ec636debe59e52f9af378b37ee6dbf7479f5f20fcb36",
+        "cloud/policy.json": "f6a3020fd6d1b09c157efcc7e74b6caa2c59d96e4c839fb6c911c0cfa6bb7a38",
+        "run.toml": "5bd67e13588660179d4391e0ec5b9c29bb655f7acab4aad083896bba0eb76328"
+      }
+    }
+  },
+  "isolation": "landlock-abi6+-libseccomp"
+}

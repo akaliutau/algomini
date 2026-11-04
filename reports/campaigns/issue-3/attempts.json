@@ -1,0 +1,15 @@
+{
+  "files": {
+    "attempts/0b29e669b7dbb8bdd6a58805c5c4daf7b3ae5d0c902907bfce3b01060a614791/events-tail.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "attempts/0b29e669b7dbb8bdd6a58805c5c4daf7b3ae5d0c902907bfce3b01060a614791/generation.json": "52c8ca11f26b050e2392eda93e27675ae04e0d9e7da8b763516b3afd51d8af51",
+    "attempts/0b29e669b7dbb8bdd6a58805c5c4daf7b3ae5d0c902907bfce3b01060a614791/stderr.txt": "187adb17f879fe2928efbe9922f7c69a698c56619425adc30a1b60be055b6970",
+    "attempts/79a30b2ba9afcf219df18c401995646febfc485fdd7dd22dd27c2ab241eaba51/events-tail.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "attempts/79a30b2ba9afcf219df18c401995646febfc485fdd7dd22dd27c2ab241eaba51/generation.json": "e15350c61de5229345915300a971492dd50e8a1a6c36a1bb6edd3c015da19442",
+    "attempts/79a30b2ba9afcf219df18c401995646febfc485fdd7dd22dd27c2ab241eaba51/stderr.txt": "c4ffa685fc1bbe46255c81f316c1ba7ef2d37bd72d78adad4dd65fd319f4857f",
+    "attempts/c206dfa6faa4207002c590a524a1a333dbbb9d2394f25be1dc68bc15f75af9c9/events-tail.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "attempts/c206dfa6faa4207002c590a524a1a333dbbb9d2394f25be1dc68bc15f75af9c9/generation.json": "291dd062bdffae73748fbc06e8ab55ab4a5d81562462e0a25e4ac1ebe950b992",
+    "attempts/c206dfa6faa4207002c590a524a1a333dbbb9d2394f25be1dc68bc15f75af9c9/stderr.txt": "0a858619de3fb30f00d4cfa93c3f699003d63298428a30ece64854b28b162845"
+  },
+  "schema_version": 1,
+  "scope": "Bounded source and redacted CLI diagnostics; losing attempts included"
+}
