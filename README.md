@@ -17,7 +17,7 @@
 
 Demo on YT: https://youtu.be/W4ovaZ9cb3E
 
-Algomini is an automated discovery of novel compression algorithms, turining them into growing collection of plugins for the Rust-based universal compressor.
+Algomini is an automated discovery of novel compression algorithms, turning them into growing collection of plugins for the Rust-based universal compressor.
 
 Designing a new algorithm now is as easy as this: just invent a new plugin name and provide an archive of training samples. That's all.
 The dedicated Data Lab will investigate patterns, retrieve relevant research skills, ask **Meta Muse Spark 1.3** to write and refine Rust candidates, and benchmark against current sota baselines (`gzip`, `xz` and `zstd`).
@@ -38,6 +38,8 @@ This is a very open-ended problem, the optimal solution for each case is not kno
 In addition, Algomini becomes better on each iteration, formulating and collecting research heauristics and skill.
 
 Embedded Data Lab is extensible as well - you can literally install any analytical tools that can run in CLI mode.
+
+Why do we even need to bother about data compression? Because of [this](docs/asset/algomini_slide_0.png)
 
 ## Demo
 
