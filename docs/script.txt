@@ -2,53 +2,53 @@ ALGOMINI — THREE-MINUTE DEMO
 
 00:00–00:22 | The problem
 
-Too much data has always been a problem, costing time and bandwidth, especially on constrained links like
-satellite internet. Compression can save storage and reduce the computing cost on data transfer and operations.
-We built Algomini to automatically invent new algorithms and build compressors fine tuned specifically to your
-data, beating any existing SOTA-level tools.
+Data bloat is a massive problem—wasting precious time and bandwidth, especially on constrained links like satellite internet. Smarter compression saves storage and slashes the compute costs of data transfer and processing.
 
-We created a fully automated pipeline deeply integrating the whole workflow into GitHub ecosystem, so the software is self-developed 
-naturally and lives where it feels the best. 
+We built Algomini to automatically invent brand-new algorithms and build custom compressors fine-tuned specifically to your data, outperforming existing SOTA-level tools.
+
+Our product deeply integrates the whole workflow into the GitHub ecosystem, so your compression software evolves naturally right where it feels most at home.
 
 Here is how it works.
 
 00:22–00:48 | Setting the constraints
 
-Let's pick a training dataset in ZIP archive. Ideally, it should contain different
-samples of the same kind of data. Here we have two files from Gutenberg library. 
-I enter a plugin name and paste the archive link. 
-That's it. Submitting kicks off the pipeline. The Muse is on it.
+Let's pick a training dataset in a ZIP archive. Ideally, it should contain different samples of the same type of data. Here we have two files from the Gutenberg library.
+
+I enter a plugin name and paste the archive link. That's it. Submitting kicks off the pipeline—and The Muse is on it.
 
 00:48–01:18 | The research loop
 
-Behind the scenes, the data lab probes and conducts experiments on data and retrieves relevant skills from library. 
-Skills library is extensible, so is the lab itself - one can install additional tools to check statistical characteristics and distribution shapes of data,
-helping Muse to design the best algorithm. 
+The R&D loop takes some time to cook up a new plugin, so let's take a look behind the scenes.
 
-Meta's Muse Spark writes Rust candidates and refines them using measured feedback in the loop. We compile and
-test interim versions against a diverse cluster of baseliens, with spending and execution limits. 
+The data lab probes and conducts experiments on the data, retrieving relevant skills from our library. The skills library is fully extensible, and so is the lab itself—you can plug in additional tools to analyze statistical characteristics and distribution shapes, helping Muse design the ultimate algorithm.
+
+Meta's Muse Spark writes Rust candidates and refines them using measured feedback loops. We compile and test interim versions against a diverse cluster of baselines with strict spending and execution limits. Muse only needs to implement a single function—the core engine remains intact. This keeps autonomous development incredibly fast and cheap.
 
 01:18–01:46 | New algorithm!
 
-Let's see what happened. On this recorded book sample, the archive is fifteen
-point seven percent smaller than xz, the strongest baseline we tested. 
+Let's see what happened.
 
+The R&D phase is complete. On this recorded book sample, the archive is 15.7% smaller than xz—the strongest baseline we tested.
 
-01:46–02:05 | From research to a release
+01:46–02:05 | From research to release
 
-Everything stays in GitHub: the request, experiments, results, and review.
-That's where our development already happens. A passing result opens a pull
-request; after human review and merge, the release workflow publishes an
-installable Rust client.
+Everything stays in GitHub: the experiments, the results, and the code review.
+
+Once finished, algomini-bot opens a pull request. After human review and merge, the release workflow automatically publishes an installable Rust client.
+
+And here it is—the new release was just published!
 
 02:05–02:40 | Let's try it
 
+Okay, let's try it out. Cargo installs and syncs all newly added plugins. I can select the plugin by name and compress the book. Then I decompress it and compare it to the original. An exact match.
 
-Okay, let's try it. Cargo installs the reviewed release. I select the plugin by
-name and compress the book. Then I decompress it and compare it with the
-original. Exact match. 
-The research produces software you can actually install and use. At this point, it's just a Rust-based tool ready to use, 
-you can use it everywhere in your organization or integrate into other software.
+This research loop produces software you can actually install and deploy. At this point, it’s a lightweight, production-ready Rust tool you can roll out across your entire organization or integrate straight into other systems.
+
+02:40–03:00 | Self-improving, self-maintaining
+
+Skills and development results stay reusable, allowing future experiments to build on earlier evidence. Everything is fully extensible, meaning Algomini's compression expertise grows indefinitely over time.
+
+Just give it a sample, and it will make every single byte count.
 
 COMMANDS:
 algomini --version
@@ -56,11 +56,7 @@ algomini compress --plugin text-v2 sample.bin book.alc
 algomini decompress book.alc restored.bin
 cmp sample.bin restored.bin && echo "Exact match"
 
-02:40–03:00 | Self-improving, Self-maintenance
 
-Skills and development results stay reusable, so later experiments
-can build on earlier evidence. Everything is extensible, and the compression expertise of algomini grows indefinetely over time. 
-Just give it a sample, and it will make every byte count.
 
 
 
