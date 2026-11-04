@@ -13,7 +13,7 @@
   <img src="docs/assets/algomini_logo.png" width="480" alt="Algomini — a mechanical clamp and neural network on an engineering blueprint" />
 </p>
 
-### [Build a compression plugin](https://github.com/akaliutau/algomini/issues/new?template=codec.yml) · [See the results](#measured-results) · [Cloud setup](docs/cloud.md)
+### [Build a compression plugin](https://github.com/akaliutau/algomini/issues/new?template=codec.yml) · [See the results](#experiments) · [Cloud setup](docs/cloud.md)
 
 Demo on YT: https://youtu.be/W4ovaZ9cb3E
 
@@ -66,7 +66,7 @@ With two dataset files, the larger one becomes development data and the other be
 
 [Dataset preparation, permissions and retries →](docs/cloud.md#dataset-and-issue)
 
-## Experiments with different types of data
+## Experiments
 
 Earlier reviewed Rust codecs beat the strongest configured baseline on these supplied samples:
 
@@ -78,7 +78,7 @@ Earlier reviewed Rust codecs beat the strongest configured baseline on these sup
 
 These are complete archive sizes, including framing and shared models, with exact reconstruction. The text files use three and two independent chunks respectively. Executable size is reported separately.
 
-The measurements use existing reviewed codecs on known local regression samples. The JSON fixtures contain repeated records; these figures do not establish unseen-data performance or guarantee a win on another dataset.
+The measurements use existing reviewed codecs on known local regression samples. The JSON fixtures contain repeated records.
 
 [Measurement method, artifacts and reproduction →](docs/benchmarks.md)
 
