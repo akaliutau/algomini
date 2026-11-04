@@ -78,19 +78,70 @@ The measurements use existing reviewed codecs on known local regression samples.
 ## How it works
 
 ```mermaid
-flowchart TD
-    A["Issue: plugin name + ZIP"] --> B["Prepare data, run probes, retrieve skills"]
-    B --> C["Muse Spark: propose and refine Rust"]
-    C --> D["Compile and measure development candidates"]
-    D -->|"Bounded feedback"| C
-    D --> E{"Development gain?"}
-    E -->|"No"| R["Issue report"]
-    E -->|"Yes"| F["Freeze source, model and client"]
-    F --> G["One full-file final benchmark"]
-    G --> H{"Correct and smaller?"}
-    H -->|"No"| R
-    H -->|"Yes"| I["Review PR → human merge"]
-    I --> J["Reproducible Rust release → Cargo → offline CLI"]
+flowchart TB
+    A["GitHub issue: plugin name + ZIP"]
+
+    subgraph R["01 · Research loop"]
+        direction LR
+        C["Muse Spark<br/>Design + refine Rust"]
+
+        subgraph LAB["Data Lab + evaluation"]
+            direction TB
+            B["Prepare data<br/>Probes + skills"]
+            D["Compile + benchmark"]
+        end
+
+        C -->|"Investigate patterns"| B
+        B -.->|"Statistical insights"| C
+        C -->|"Rust candidate"| D
+        D -.->|"Measured feedback"| C
+    end
+
+    subgraph Q["02 · Qualification"]
+        direction LR
+        F["Freeze source,<br/>model + client"]
+        G["Full-file<br/>final benchmark"]
+        H{"Correct +<br/>smaller?"}
+
+        F --> G --> H
+    end
+
+    subgraph S["03 · Release"]
+        direction LR
+        I["Review PR"]
+        J["Human merge"]
+        K["Reproducible<br/>Rust release"]
+        L["Cargo install<br/>Offline CLI"]
+
+        I --> J --> K --> L
+    end
+
+    X["Issue report"]
+
+    A --> R
+    R -->|"Development passes"| Q
+    Q -->|"Final passes"| S
+    R -.->|"No gain"| X
+    Q -.->|"Final fails"| X
+
+    classDef input fill:#EDF4FC,stroke:#4776A8,color:#263243
+    classDef research fill:#EDF4FC,stroke:#4776A8,color:#263243
+    classDef qualify fill:#FFF4E3,stroke:#C79545,color:#263243
+    classDef release fill:#E6F3F1,stroke:#278C83,color:#263243
+    classDef decision fill:#FFFFFF,stroke:#64748B,color:#263243
+    classDef fail fill:#F3F4F6,stroke:#9CA3AF,color:#374151
+
+    class A input
+    class B,C,D research
+    class H decision
+    class F,G qualify
+    class I,J,K,L release
+    class X fail
+
+    style R fill:#F8FBFF,stroke:#A8BFDC,stroke-width:1px
+    style LAB fill:#FFFFFF,stroke:#C7D7E9,stroke-width:1px
+    style Q fill:#FFFCF5,stroke:#E4C992,stroke-width:1px
+    style S fill:#F3FAF7,stroke:#9AC6B6,stroke-width:1px
 ```
 
 The laboratory uses deterministic byte, entropy, repetition and structure probes to guide experiments. Muse receives relevant skills, parent source, measured archive costs and failure feedback. Candidate generation and repair cycles are bounded by configuration and spending reservations.
@@ -199,3 +250,8 @@ The same research loop can keep improving as its collection of skills, tools and
 ## License
 
 [MIT](LICENSE). Dataset provenance and embedded notices are described with the [supplied samples](datasets/sample/README.md).
+
+---
+
+**Algomini: will make every byte count.**
+
