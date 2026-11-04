@@ -1,0 +1,40 @@
+{
+  "family": "text",
+  "provenance": {
+    "assembly": "Members sorted by path and concatenated byte-for-byte; member sizes preserve boundaries.",
+    "license": "Not supplied; review the upstream dataset license",
+    "source": "https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip",
+    "split": "Two files: larger for development. Otherwise approximately 70:30 by file count, keeping exact duplicate files together."
+  },
+  "schema_version": 1,
+  "test": {
+    "archive": {
+      "members": [
+        {
+          "bytes": 2704417,
+          "name": "Dumas-1.txt",
+          "sha256": "649dc5b18efc095035fd29216bdcdfca6744ed3dccacd7bfc11859451004e327"
+        }
+      ],
+      "sha256": "c8a4fdb491eb5a3985338b0ca99ff7ac3e084720b6283cbd36f68aa650b626fe"
+    },
+    "bytes": 2704417,
+    "sha256": "649dc5b18efc095035fd29216bdcdfca6744ed3dccacd7bfc11859451004e327",
+    "url": "https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip"
+  },
+  "train": {
+    "archive": {
+      "members": [
+        {
+          "bytes": 5422721,
+          "name": "Shakespeare-1.txt",
+          "sha256": "a023115c2d4e2ee12221bdd780fdf2ac5a864fe225948656f51f8be462c7fffb"
+        }
+      ],
+      "sha256": "c8a4fdb491eb5a3985338b0ca99ff7ac3e084720b6283cbd36f68aa650b626fe"
+    },
+    "bytes": 5422721,
+    "sha256": "a023115c2d4e2ee12221bdd780fdf2ac5a864fe225948656f51f8be462c7fffb",
+    "url": "https://github.com/akaliutau/algomini-datasets/raw/refs/heads/main/gutenberg.org/books2.zip"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "campaign": {
+    "family": "text",
+    "id": "issue-6",
+    "input_bytes": 2097152,
+    "input_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+    "probe_bytes": 2097152,
+    "sample_name": "train.bin",
+    "schema_version": 1,
+    "scope": "Research/integration sample; not unseen acceptance evidence",
+    "split": "train"
+  },
+  "coder_model_calls": 0,
+  "docker_used": false,
+  "paid_model_calls": 0,
+  "probes": [
+    {
+      "elapsed_seconds": 0.11266098499999799,
+      "facts": {
+        "crlf": 0,
+        "distinct_bytes": 101,
+        "entropy_bits_per_byte": 4.837740419112134,
+        "entropy_scope": "Empirical independent-byte entropy; not a compression lower bound",
+        "lf": 74245,
+        "lines": 74246,
+        "maximum_line_bytes": 81,
+        "nul": 0,
+        "repeated_lines": 28248,
+        "utf8": true
+      },
+      "family": "text",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 2097152,
+      "input_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+      "probe_id": "byte-structure",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.21686448399999847,
+      "facts": {
+        "common_words": [
+          [
+            "the",
+            10270
+          ],
+          [
+            "I",
+            8805
+          ],
+          [
+            "and",
+            7952
+          ],
+          [
+            "of",
+            7190
+          ],
+          [
+            "to",
+            6750
+          ],
+          [
+            "a",
+            5084
+          ],
+          [
+            "you",
+            4759
+          ],
+          [
+            "my",
+            4481
+          ],
+          [
+            "in",
+            4471
+          ],
+          [
+            "that",
+            3406
+          ],
+          [
+            "is",
+            3343
+          ],
+          [
+            "And",
+            3296
+          ]
+        ],
+        "display_token_limit_bytes": 96,
+        "distinct_words": 20832,
+        "hypothesis": "Compare dictionary/template savings after counting literals, IDs and exceptions",
+        "repeated_word_pairs": 185217,
+        "words": 380275
+      },
+      "family": "text",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 2097152,
+      "input_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+      "probe_id": "text-repetition",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 2,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 0.017479993000002025,
+      "facts": {
+        "distinct_lines": 45998,
+        "lines": 74246,
+        "scope": "Empirical repetition, not a theoretical compression bound"
+      },
+      "family": "text",
+      "implementation_sha256": "75f092b4b47b31ac100a231a1efbbe5904d192b4f183b192bb18311aa5ff6343",
+      "input_bytes": 2097152,
+      "input_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+      "probe_id": "content-redundancy",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    },
+    {
+      "elapsed_seconds": 1.3909775779999975,
+      "facts": {
+        "models": [
+          {
+            "bits_per_observation": 4.837740419112134,
+            "contexts": 1,
+            "ideal_bytes_without_model": 1268184.6244277311,
+            "order": 0
+          },
+          {
+            "bits_per_observation": 3.5560158156447095,
+            "contexts": 101,
+            "ideal_bytes_without_model": 932187.7654743898,
+            "order": 1
+          },
+          {
+            "bits_per_observation": 2.779418676791399,
+            "contexts": 2053,
+            "ideal_bytes_without_model": 728607.2347541354,
+            "order": 2
+          }
+        ],
+        "scope": "In-sample empirical byte models; exclude model cost and long-range dependencies. Not a theoretical compression minimum."
+      },
+      "family": "text",
+      "implementation_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214",
+      "input_bytes": 2097152,
+      "input_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+      "probe_id": "entropy-models",
+      "schema_version": 1,
+      "scope": "Research findings; not an acceptance score or compression gain",
+      "version": 1,
+      "wrapper_sha256": "216b81e2a2c5991eff10646cd3e5f1b68fd024810284c1d28307df9400484214"
+    }
+  ],
+  "reproduce": [
+    "python",
+    "-m",
+    "algomini",
+    "campaign",
+    "prepare",
+    "/work/campaign"
+  ],
+  "research_query": "text Compare dictionary/template savings after counting literals, IDs and exceptions",
+  "retrieved": [
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "Repeated words and schemas suggest dictionary, prefix or template experiments. Count literal tables, IDs, exceptions, escapes and model bytes. Preserve whitespace, numeric spellings, key order, duplicate keys and XML entity spelling. Measure actual reconstructed archives; byte entropy and occurrence counts do not establish a gain.",
+      "id": "text-structure-probes",
+      "kind": "skill",
+      "path": ".agents/skills/text-structure-probes/SKILL.md",
+      "retrieval": "hybrid",
+      "section": 1,
+      "source_sha256": "97aeb3946019c41328becdfef743976ffe5426d377328ed1d073009662d467d5"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "{\"description\": \"Investigate repeated words, adjacent phrases and dictionary candidates\", \"families\": [\"text\", \"xml\", \"json\", \"csv\"], \"id\": \"text-repetition\", \"max_input_bytes\": 2097152, \"version\": 2}",
+      "id": "text-repetition",
+      "kind": "tool",
+      "path": "laboratory/tools.json",
+      "retrieval": "hybrid",
+      "section": 0,
+      "source_sha256": "5431dd18dc0432cd2f792148782d4fc07dc52b8159940cd94c19d23b81dd6839"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "{\"description\": \"Compare finite-order empirical byte entropy; estimates are not universal compression bounds\", \"families\": [\"*\"], \"id\": \"entropy-models\", \"max_input_bytes\": 2097152, \"version\": 1}",
+      "id": "entropy-models",
+      "kind": "tool",
+      "path": "laboratory/tools.json",
+      "retrieval": "hybrid",
+      "section": 0,
+      "source_sha256": "5431dd18dc0432cd2f792148782d4fc07dc52b8159940cd94c19d23b81dd6839"
+    },
+    {
+      "embedding_model_id": "1225e8f744bb2939332854501bff540b8a246ee11f1cd3dc3ea6c58ea7cc4a89",
+      "excerpt": "{\"description\": \"Count repeated lines and exact JSON record groups before selecting development views\", \"families\": [\"*\"], \"id\": \"content-redundancy\", \"max_input_bytes\": 2097152, \"version\": 1}",
+      "id": "content-redundancy",
+      "kind": "tool",
+      "path": "laboratory/tools.json",
+      "retrieval": "hybrid",
+      "section": 0,
+      "source_sha256": "5431dd18dc0432cd2f792148782d4fc07dc52b8159940cd94c19d23b81dd6839"
+    }
+  ],
+  "retrieved_characters": 919,
+  "schema_version": 1
+}
