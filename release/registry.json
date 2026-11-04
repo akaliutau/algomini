@@ -1,6 +1,18 @@
 {
-  "aliases": {},
-  "codecs": [],
+  "aliases": {
+    "text-v4": "cx-0c679d666dc043d788834be54a916c80-3bd2df8c3bf47c1d"
+  },
+  "codecs": [
+    {
+      "codec_id": "0c679d666dc043d788834be54a916c80",
+      "description": "Candidate text codec: adaptive PPM context model with exact arithmetic coding, reversible line-MTF and raw fallbacks coded with zstd, plus a distinct whole-block exact-line dictionary whose literals are PPM coded. Family: PPM / context mode",
+      "id": "cx-0c679d666dc043d788834be54a916c80-3bd2df8c3bf47c1d",
+      "model": "plugins/cx-0c679d666dc043d788834be54a916c80-3bd2df8c3bf47c1d/model.bin",
+      "model_sha256": "3bd2df8c3bf47c1dd461088affda93ae3190a0ccc8c3a6b4b4b60c6c6be457e6",
+      "source": "plugins/cx-0c679d666dc043d788834be54a916c80-3bd2df8c3bf47c1d/codec.rs",
+      "source_sha256": "0c679d666dc043d788834be54a916c804a0274614659e9c33f5011775d551bca"
+    }
+  ],
   "requests": [],
   "schema_version": 1
 }
