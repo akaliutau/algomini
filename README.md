@@ -15,9 +15,11 @@
 
 ### [Build a compression plugin](https://github.com/akaliutau/algomini/issues/new?template=codec.yml) · [See the results](#measured-results) · [Cloud setup](docs/cloud.md)
 
+Demo on YT: https://youtu.be/W4ovaZ9cb3E
+
 Algomini is an automated discovery of novel compression algorithms, turining them into growing collection of plugins for the Rust-based universal compressor.
 
-To design a new algorithm is as easy as this: invent a new plugin name and provide an archive with training samples. That's all.
+Designing a new algorithm now is as easy as this: just invent a new plugin name and provide an archive of training samples. That's all.
 The dedicated Data Lab will investigate patterns, retrieve relevant research skills, ask **Meta Muse Spark 1.3** to write and refine Rust candidates, and benchmark against current sota baselines (`gzip`, `xz` and `zstd`).
 
 Algomini bot will generate a PR with plugin code. After merge, the release workflow rebuilds the qualified implementation and publishes a console client that you can install with Cargo. 
