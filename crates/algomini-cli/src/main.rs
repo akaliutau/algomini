@@ -1,9 +1,10 @@
 #![forbid(unsafe_code)]
 mod api;
+mod chunks;
 mod frame;
 pub mod toolkit;
 pub use api::{Codec, CodecError};
-use api::{MAX_INPUT, MAX_MODEL, MAX_PAYLOAD};
+use api::{MAX_ARCHIVE, MAX_FILE, MAX_INPUT, MAX_MODEL, MAX_PAYLOAD};
 use std::{
     env,
     fs::{File, OpenOptions},
@@ -42,6 +43,9 @@ fn label_valid(label: &str) -> bool {
 }
 
 fn pack(codec: &CodecInfo, label: &str, data: &[u8]) -> Result<Vec<u8>, CodecError> {
+    if data.len() > MAX_INPUT {
+        return chunks::pack(codec, label, data);
+    }
     if !label_valid(label) {
         return Err("invalid archive label".into());
     }
@@ -62,6 +66,9 @@ fn pack(codec: &CodecInfo, label: &str, data: &[u8]) -> Result<Vec<u8>, CodecErr
 }
 
 fn unpack(input: &[u8]) -> Result<Vec<u8>, CodecError> {
+    if input.starts_with(b"ALC2") {
+        return chunks::unpack(input);
+    }
     if input.len() < 16
         || &input[..4] != b"ALC1"
         || input[6..8] != [0; 2]
@@ -198,12 +205,12 @@ fn run(args: &[String]) -> Result<(), CodecError> {
         ["plugins"] => { for (alias,id) in ALIASES { println!("{alias}\t{id}"); } },
         ["--version"] => println!("algomini {}",env!("CARGO_PKG_VERSION")),
         ["compress","--plugin",name,input,output] => {
-            let codec=resolve(name)?; let data=read(input,MAX_INPUT)?;
+            let codec=resolve(name)?; let data=read(input,MAX_FILE)?;
             let label=Path::new(input).file_name().and_then(|v|v.to_str()).ok_or("invalid input filename")?;
             let packed=pack(codec,label,&data)?; save(output,&packed)?;
             println!("{} -> {} bytes ({})",data.len(),packed.len(),codec.id);
         },
-        ["decompress",input,output] => { let packed=read(input,MAX_PAYLOAD+MAX_MODEL+1024)?; let data=unpack(&packed)?; save(output,&data)?; println!("decoded {} bytes",data.len()); },
+        ["decompress",input,output] => { let packed=read(input,MAX_ARCHIVE)?; let data=unpack(&packed)?; save(output,&data)?; println!("decoded {} bytes",data.len()); },
         _ => return Err("usage: algomini plugins | compress --plugin NAME INPUT OUTPUT | decompress ARCHIVE OUTPUT | --version".into())
     }
     Ok(())

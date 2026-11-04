@@ -19,6 +19,8 @@ dictionary_samples = 16
 dictionary_sample_bytes = 65536
 
 [limits]
+file_max_input_bytes = 67108864
+file_memory_mib = 1024
 baseline_timeout_seconds = 120
 baseline_memory_mib = 2048
 candidate_encode_timeout_seconds = 30

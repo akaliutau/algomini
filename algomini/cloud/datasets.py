@@ -43,7 +43,7 @@ def archive_spec(value, size, rules):
 def members(raw, rules):
     """Read regular data members only; never extract archive-provided paths."""
     if len(raw) > rules["maximum_archive_bytes"]:
-        raise ValueError("ZIP exceeds the 8 MiB download limit")
+        raise ValueError("ZIP exceeds the configured download limit")
     try:
         with zipfile.ZipFile(io.BytesIO(raw)) as archive:
             entries = archive.infolist()
@@ -66,7 +66,7 @@ def members(raw, rules):
                     continue
                 total += item.file_size
                 if item.file_size > rules["maximum_input_bytes"] or total > 2 * rules["maximum_input_bytes"]:
-                    raise ValueError("ZIP data exceeds 2 MiB per file or 4 MiB in total")
+                    raise ValueError("ZIP data exceeds the configured file or total expansion limit")
                 selected.append(item)
             if not 2 <= len(selected) <= rules["maximum_archive_members"]:
                 raise ValueError("ZIP needs 2–64 data files; README/license/hidden entries are ignored")
@@ -115,7 +115,7 @@ def prepare(raw, url, rules):
         rows = sorted(rows, key=lambda row: row[0]["name"])
         data = b"".join(data for _, data in rows)
         if len(data) > rules["maximum_input_bytes"]:
-            raise ValueError(f"ZIP {part} partition exceeds 2 MiB; use smaller sample files")
+            raise ValueError(f"ZIP {part} partition exceeds {rules['maximum_input_bytes']//1024**2} MiB; use smaller sample files")
         dataset[part] = {"url": url, "bytes": len(data), "sha256": digest(data),
                          "archive": {"sha256": digest(raw), "members": [row for row, _ in rows]}}
         payloads[part] = data

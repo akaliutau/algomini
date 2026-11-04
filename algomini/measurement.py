@@ -61,8 +61,9 @@ def frame_metadata(frame, *, model=b"", source_sha256=None, restored=None):
     return {"original_bytes": original, "model_bytes": model_len, "payload_bytes": payload_len, "flag": flag}
 
 def measure(argv, data, cfg, *, ro=(), rw=()):
-    if len(data) > cfg["lab"]["max_input_bytes"]:
-        raise ValueError("Compression input exceeds the 2 MiB cap")
+    cap = cfg["limits"].get("file_max_input_bytes", cfg["lab"]["max_input_bytes"])
+    if len(data) > cap * 2:
+        raise ValueError("Trusted compression stream exceeds the configured file cap")
     limits = cfg["limits"]
     executable = shutil.which(argv[0])
     if executable is None:
@@ -73,7 +74,7 @@ def measure(argv, data, cfg, *, ro=(), rw=()):
         result = run_isolated([executable, *argv[1:]], cwd=directory, ro=[executable, *reads, *ro], rw=rw,
                               data=data, timeout=limits["baseline_timeout_seconds"],
                               memory_mib=limits["baseline_memory_mib"],
-                              output_bytes=cfg["lab"]["max_input_bytes"] * 2, mode="baseline")
+                              output_bytes=cap * 2, mode="baseline")
     if result["timed_out"]:
         raise ValueError(f"Trusted tool exceeded the wall-time limit: {argv[0]}")
     if result["returncode"]:

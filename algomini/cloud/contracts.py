@@ -63,7 +63,7 @@ class DatasetFile:
         if not isinstance(value, dict) or set(value) not in ({"url", "bytes", "sha256"}, {"url", "bytes", "sha256", "archive"}):
             raise ValueError("Dataset file needs url, bytes, sha256 and optional ZIP source details")
         if type(value["bytes"]) is not int or not 0 <= value["bytes"] <= rules["maximum_input_bytes"]:
-            raise ValueError("Dataset input must contain 0 bytes to 2 MiB")
+            raise ValueError(f"Dataset input must contain 0 bytes to {rules['maximum_input_bytes']//1024**2} MiB")
         if not isinstance(value["sha256"], str) or not HASH.fullmatch(value["sha256"]):
             raise ValueError("Dataset SHA-256 must contain 64 lowercase hexadecimal characters")
         archive = value.get("archive")

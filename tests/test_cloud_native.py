@@ -88,23 +88,31 @@ impl Codec for Candidate {
     packed = archive.pack(item["id"], [("sample.bin", encoded)], model)
     assert archive.unpack(packed)[1] == model
     assert native.console_roundtrip(binary, cfg, data, item["id"], packed)["exact"]
+    large = (data * (archive.CHUNK_BYTES // len(data) + 1)) + b"last bytes"
+    packed, _ = native.file_cli(binary, cfg, large, identifier=item["id"])
+    info = archive.unpack_chunked(packed)
+    assert info["model"] == b"G" and all(frame[4] == 2 for frame in info["frames"])
+    assert archive.pack_chunked(item["id"], "sample.bin", info["frames"], large, b"G") == packed
+    assert native.file_cli(binary, cfg, packed)[0] == large
 
 
-@pytest.mark.parametrize("zip_input", [False, True], ids=["manifest", "zip"])
+@pytest.mark.parametrize("zip_input", [False, True, "text"], ids=["manifest", "zip", "large-text-zip"])
 def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path, zip_input):
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)
     request["mode"] = "reuse"
-    request["dataset"]["family"] = "json"
-    train = (ROOT / "datasets/sample/train-1mb.json").read_bytes()
-    test = (ROOT / "datasets/sample/test-512kb.json").read_bytes()
+    text_case = zip_input == "text"
+    request["dataset"]["family"] = "text" if text_case else "json"
+    train = (ROOT / "datasets/sample" / ("Shakespeare-1.txt" if text_case else "train-1mb.json")).read_bytes()
+    test = (ROOT / "datasets/sample" / ("Dumas-1.txt" if text_case else "test-512kb.json")).read_bytes()
     request["dataset"]["train"].update(bytes=len(train), sha256=digest(train))
     request["dataset"]["test"].update(bytes=len(test), sha256=digest(test))
     if zip_input:
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
-            archive.writestr("development.json", train)
-            archive.writestr("final.json", test)
+            extension = "txt" if text_case else "json"
+            archive.writestr("development." + extension, train)
+            archive.writestr("final." + extension, test)
         monkeypatch.setattr(contracts, "download", lambda *_: buffer.getvalue())
         url = request["dataset_manifest_url"].replace("manifest.json", "dataset.zip")
         issue = {"number": request["issue"], "body": f"### Plugin name\n\njson-demo\n\n### Dataset archive URL\n\n{url}"}
@@ -131,7 +139,15 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     result = research.search(ROOT, tmp_path, request)
     assert result["charged_usd"] == 0 and len(reads) == 1
     assert result["origin"].startswith("reused")
-    assert result["sampling"]["shared_record_groups"] == 0
+    if text_case:
+        assert result["sampling"]["research_bytes"] == 2 * 1024**2
+        assert result["sampling"]["development_bytes"] == len(train)
+        assert (tmp_path / "campaign/sample.bin").read_bytes() == train[:2*1024**2]
+        assert all(trial["result"]["input_bytes"] <= 2*1024**2 for trial in result["trials"])
+        assert result["development"]["input_bytes"] == len(train)
+        assert result["development"]["candidate"]["chunk_count"] == 3
+    else:
+        assert result["sampling"]["shared_record_groups"] == 0
     assert result["development_gate"]["passed"]
     assert not (tmp_path / "final.json").exists()
     with pytest.raises(ValueError, match="claim"):
@@ -151,7 +167,10 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
         research.verify(ROOT, tmp_path, request, receipt)
     assert len(reads) == 2
     assert "| Previously used test hash | True |" in coordinator.report(request, result, final)
-    assert not final["record_overlap"]["no_exact_record_overlap"]
+    if text_case:
+        assert final["input_bytes"] == len(test) and final["candidate"]["chunk_count"] == 2
+    else:
+        assert not final["record_overlap"]["no_exact_record_overlap"]
     # Rebuild the qualified source snapshot without opening final data again.
     allow_final = False
     merged, output = tmp_path / "merged", tmp_path / "release-output"

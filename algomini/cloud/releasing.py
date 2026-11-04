@@ -55,8 +55,11 @@ def build_release(library, destination):
             development = refetch_development(dataset, request["policy"])
         else:
             development = dataset.fetch(request["policy"])
-        encoded, _ = native.invoke(binary, item["id"], cfg, 6, development, model=model, source_sha256=item["source_sha256"])
-        packed = archive.pack(item["id"], [("sample.bin", encoded)], model if encoded[4] == 2 else b"")
+        if len(development) > archive.CHUNK_BYTES:
+            packed, _ = native.file_cli(binary, cfg, development, identifier=item["id"])
+        else:
+            encoded, _ = native.invoke(binary, item["id"], cfg, 6, development, model=model, source_sha256=item["source_sha256"])
+            packed = archive.pack(item["id"], [("sample.bin", encoded)], model if encoded[4] == 2 else b"")
         measured = json.loads((prefix / "development.json").read_text())
         if digest(packed) != measured["candidate"]["archive_sha256"]:
             raise ValueError("Release development archive differs from frozen qualification")

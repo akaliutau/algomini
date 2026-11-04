@@ -1,2 +1,4 @@
 *.bin binary
 *.alc binary
+# Regression text must retain its supplied bytes, including original whitespace.
+datasets/sample/*.txt -text -whitespace

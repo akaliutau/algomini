@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 
+from .. import archive
 from ..common import digest, sha256, write_json
 from . import contracts, native
 from .presentation import report, status_comment
@@ -151,7 +152,8 @@ def checked_checkpoint(root, workspace, request):
         relative = Path(name)
         path = workspace / relative
         if (relative.is_absolute() or ".." in relative.parts or path.is_symlink() or not path.resolve().is_relative_to(workspace.resolve())
-                or not path.is_file() or path.stat().st_size > 6 * 1024**2 or sha256(path) != checksum):
+                or not path.is_file() or path.stat().st_size > (archive.MAX_CHUNKED_ARCHIVE if name == "development.alc" else 6 * 1024**2)
+                or sha256(path) != checksum):
             raise ValueError("Checkpoint file path, size or checksum mismatch")
     registry = json.loads((workspace / "registry.json").read_text())
     selected = frozen["selected"]

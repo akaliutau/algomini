@@ -43,6 +43,12 @@ def load_config(path="run.toml"):
     parts = cfg["split"]
     if not 0 < parts["train_fraction"] < 1 or not 0 < parts["validation_fraction"] < 1 - parts["train_fraction"]:
         raise ValueError("Training/validation fractions must leave a nonempty test split")
+    limits = cfg["limits"]
+    if (type(limits.get("file_max_input_bytes", cap)) is not int
+            or not cap <= limits.get("file_max_input_bytes", cap) <= 64 * 1024**2
+            or type(limits.get("file_memory_mib", 1024)) is not int
+            or not 256 <= limits.get("file_memory_mib", 1024) <= 1024):
+        raise ValueError("PoC files are bounded to 64 MiB and the file process to 1 GiB")
     if parts["gap_days"] < 0:
         raise ValueError("Gap days must be nonnegative")
     if "evaluation" in cfg:

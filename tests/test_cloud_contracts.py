@@ -39,7 +39,7 @@ def test_dataset_urls_are_public_immutable_and_credential_free(url):
 def test_manifest_rejects_ambiguous_or_invalid_inputs(change):
     value = descriptor()
     if change == "same": value["test"] = value["train"]
-    elif change == "oversize": value["train"]["bytes"] = 2097153
+    elif change == "oversize": value["train"]["bytes"] = contracts.policy(ROOT)["maximum_input_bytes"] + 1
     elif change == "bad-hash": value["train"]["sha256"] = "wrong"
     elif change == "missing-license": del value["provenance"]["license"]
     elif change == "extra-key": value["command"] = "execute me"

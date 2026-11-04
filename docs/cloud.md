@@ -40,7 +40,7 @@ The intake job downloads and validates the ZIP, then generates `dataset-manifest
 - With more files, approximately 70% go to development and 30% to final, by file count. The order is deterministic; exact duplicate files stay together, so the proportion can vary. At least two distinct files are required.
 - Extensions infer `json`, `csv`, `xml`, `text` or `binary`; mixed/unknown formats use `binary`. A family is research guidance, not a restriction on exact reconstruction.
 - Each partition sorts its members by path and concatenates their original bytes without separators. The manifest retains file names, sizes, individual hashes and ordered boundaries. This uses the existing single-input research engine; it does not change the Rust archive format.
-- The ZIP download is at most 8 MiB, with 2–64 data files, at most 4 MiB expanded in total, and at most **2 MiB per partition**. README/license files, hidden entries and macOS metadata are ignored. Nested folders are supported; archive paths are never extracted onto the filesystem. Links, traversal, duplicate paths, encryption and unsupported compression methods are rejected. Use ordinary stored/deflated ZIPs.
+- The ZIP download is at most 128 MiB, with 2–64 data files, at most 128 MiB expanded in total, and at most **64 MiB per file and partition**. README/license files, hidden entries and macOS metadata are ignored. Nested folders are supported; archive paths are never extracted onto the filesystem. Links, traversal, duplicate paths, encryption and unsupported compression methods are rejected. Use ordinary stored/deflated ZIPs.
 
 The generated manifest includes the archive hash, member hashes, sizes, split policy and source URL. A license is not inferred: it is marked unspecified for upstream review. The result links the manifest so reviewers can inspect the split. Prefer independent shards or time ranges with new records; repeating a small dataset does not create independent evidence.
 
@@ -63,7 +63,7 @@ Existing issues using **Dataset manifest URL** remain supported. Their public, i
 }
 ```
 
-Each original file is 0–2 MiB; the manifest is at most 32 KiB. Development and final descriptors must differ. `python -m tools.make_cloud_manifest --help` explains the existing local helper; it computes sizes/checksums and uploads nothing.
+Each original file is 0–64 MiB; the manifest is at most 32 KiB. Development and final descriptors must differ. `python -m tools.make_cloud_manifest --help` explains the existing local helper; it computes sizes/checksums and uploads nothing.
 
 </details>
 
@@ -73,7 +73,7 @@ One repository-wide queue serializes campaigns. Each accepted request reserves $
 
 The default policy allows two initial candidates, one evolved candidate and one repair, with a 90-minute research deadline. A repair uses an actual failing source artifact; infrastructure failures do not consume a repair as if they were codec bugs. The coding CLI has its own step/time limits. See [cloud/policy.json](../cloud/policy.json) and [run.toml](../run.toml).
 
-The laboratory profiles the complete bounded development sample. JSON arrays/JSONL and consistent CSV use complete record groups; duplicates stay on one side. CSV headers are retained and JSON array views wrap unchanged record lexemes. Single documents or opaque bytes have an explicit fallback sampling policy. Those views select candidates; the complete original development bytes are also measured unchanged.
+Research uses **only the first 2 MiB of the development partition** for profiling, model training and candidate selection. That prefix and its hash/size are recorded in `sampling.json`. JSON arrays/JSONL and consistent CSV use complete record groups; duplicates stay on one side. CSV headers are retained and JSON array views wrap unchanged record lexemes. Single documents or opaque bytes have an explicit fallback sampling policy. Those views select candidates; the complete original development bytes are measured unchanged. Larger development/final files use the actual Rust client with independent 2 MiB chunks. Baselines compress each complete file as one normal stream. All framing/model bytes count, and full-file qualification still requires a win. Final content never participates in research sampling.
 
 Prompts include relevant skills, probe findings and measured trial feedback: complete sizes, baseline gap, payload/model costs and known modes. Reviewed seeds are eligible; the report identifies reuse. A reused winner creates a **Qualify plugin** PR and may only change the registry/evidence because its Rust source is already present. A new winner creates a **Develop plugin** PR with its source/model. Losing candidates and redacted CLI diagnostics remain available. Successful and unsuccessful development observations feed later campaigns; final measurements are excluded from proposal retrieval.
 
@@ -99,4 +99,8 @@ Merging a qualified registry update triggers **Release qualified codecs**. It re
 
 The `codec-issue-N` tag identifies the frozen source snapshot reviewed through that PR. Its release contains the Linux x86_64 binary, registry, report, manifest and `SHA256SUMS`. Cargo installs that source tag as shown in the [README](../README.md). The issue comment links the release and install command; closing the issue is optional.
 
-Each tag contains the codecs known in that qualified snapshot. Updates use another Cargo installation for the new tag. Runtime module downloads, crates.io publication, streaming beyond 2 MiB and other OS targets remain future work. `Cloud smoke` qualifies the current image, App access, offline compilation and containment, plus a separate zero-inference provider catalog check. CI runs every maintained Python/Rust test with no model credentials.
+Each tag contains the codecs known in that qualified snapshot. Updates use another Cargo installation for the new tag. Runtime module downloads, crates.io publication, streaming with bounded memory beyond the 64 MiB PoC cap and other OS targets remain future work. `Cloud smoke` qualifies the current image, App access, offline compilation and containment, plus a separate zero-inference provider catalog check. CI runs every maintained Python/Rust test with no model credentials.
+
+The 64 MiB file path requires client 0.3.1 and a campaign qualified after that change. Older pinned release tags/images keep their original limits; merging the client change does not rewrite previous qualifications.
+
+Large-file CLI measurements run in fresh contained processes with a 1 GiB address-space cap and time allowances proportional to chunk count. The bounded codec worker remains at 2 MiB / 256 MiB. Encoding and decoding use different temporary directories; only the archive reaches decoding. The implementation buffers whole files for simplicity. Record-overlap diagnostics inspect only the first 2 MiB on large inputs and disclose that scope.

@@ -22,6 +22,9 @@ def rows_table(rows, headings=("Detail", "Value")):
 
 def algorithm(selected, candidate):
     mode = candidate.get("encoding_mode")
+    if mode == "chunked":
+        detail = "JSON lexical/zstd codec with byte fallback." if selected.get("mechanism") == "json-lexical-v1" else algorithm(selected, {})
+        return "Independent 2 MiB chunks. " + detail
     if mode == "raw":
         return "Exact raw-byte fallback; no structured transform selected."
     if mode == "json-lexical":

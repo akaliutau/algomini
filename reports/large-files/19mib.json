@@ -1,0 +1,34 @@
+{
+  "archive_bytes": 5245339,
+  "binary_sha256": "d46347c089ea8b9075fc4e4a9dbcdb0e1c71f1e4c0c107ba6970525b58d04bd2",
+  "chunks": 10,
+  "decode": {
+    "execution_seconds": 8.181004535999818,
+    "isolation": "landlock-abi6+-libseccomp",
+    "mode": "worker",
+    "peak_rss_kib": 123128,
+    "returncode": 0,
+    "setup_seconds": 0.10796788500010734,
+    "system_seconds": 0.16300299999999998,
+    "timed_out": false,
+    "user_seconds": 8.099159,
+    "wall_seconds": 8.288972420999926
+  },
+  "encode": {
+    "execution_seconds": 14.109609338000155,
+    "isolation": "landlock-abi6+-libseccomp",
+    "mode": "worker",
+    "peak_rss_kib": 126620,
+    "returncode": 0,
+    "setup_seconds": 0.10797755800012965,
+    "system_seconds": 0.260982,
+    "timed_out": false,
+    "user_seconds": 13.95413,
+    "wall_seconds": 14.217586896000284
+  },
+  "exact": true,
+  "input_bytes": 19922944,
+  "input_sha256": "6504ca1982a64dbf9ae4331a05605911499b482fa2a73a2820fc45ec95b90b6b",
+  "model_calls": 0,
+  "scope": "Synthetic repeated text for 19 MiB reconstruction coverage; not an independent compression benchmark"
+}

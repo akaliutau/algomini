@@ -110,12 +110,12 @@ def test_archive_descriptors_reject_overlapping_members_and_wrong_member_sizes()
 @pytest.mark.parametrize("files,reason", [
     ([("only", b"one")], "2–64"),
     ([(str(n), bytes([n])) for n in range(65)], "2–64"),
-    ([("large", b"x" * (2097152 + 1)), ("small", b"y")], "2 MiB per file"),
+    ([("large", b"x" * (2097152 + 1)), ("small", b"y")], "file or total expansion"),
     ([(str(n), bytes([n]) * 330000) for n in range(10)], "partition exceeds"),
 ])
 def test_zip_bounds_expansion_file_count_and_each_partition(files, reason):
     with pytest.raises(ValueError, match=reason):
-        datasets.prepare(zipped(files), URL, RULES)
+        datasets.prepare(zipped(files), URL, {**RULES, "maximum_input_bytes": 2097152, "maximum_archive_bytes": 8388608})
 
 
 def test_staged_partitions_are_required_and_hash_checked_without_network(monkeypatch, tmp_path):

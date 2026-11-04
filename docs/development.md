@@ -25,11 +25,16 @@ python -m tools.check_samples \
   --workspace .cache/sample-check
 
 python -m algomini.cloud smoke --workspace .cache/cloud-smoke
+
+# Full-file text check; research remains limited to the first 2 MiB.
+python -m tools.check_samples --development datasets/sample/Shakespeare-1.txt \
+  --regression datasets/sample/Dumas-1.txt --family text --plugin wiki-xml \
+  --workspace .cache/large-text
 ```
 
 The first command builds the actual client, measures record-aware validation and the complete development sample, and optionally checks a known regression file. It counts complete archives against all configured baselines and verifies public-console reconstruction after deleting a supplied input copy. It makes no AI calls and grants no release qualification. The sample files were already examined in issue-2; keep them as regression fixtures.
 
-`tools.json_campaign_diagnostics` provides a separate Python representation/entropy investigation. Its prospective frame estimates are research guidance. Use `check_samples` for actual Rust archives and resource checks. Inputs are bounded at 2 MiB, and shared models at 64 KiB.
+`tools.json_campaign_diagnostics` provides a separate Python representation/entropy investigation. Its prospective frame estimates are research guidance. Use `check_samples` for actual Rust archives and resource checks. Files are bounded at 64 MiB, research uses only the first 2 MiB, and shared models remain bounded at 64 KiB. Files over 2 MiB use independent chunks in the Rust client; the PoC buffers whole files.
 
 ## Optional semantic environment
 

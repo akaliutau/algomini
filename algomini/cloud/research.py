@@ -164,7 +164,8 @@ def search(library, workspace, request):
     if cfg["budget"]["generation_enabled"]:
         if not request.get("execution"):
             raise ValueError("Paid cloud research requires its durable Actions execution claim")
-    train = fetch_dataset(request, "train", workspace)
+    full_train = fetch_dataset(request, "train", workspace)
+    train = full_train[:archive.CHUNK_BYTES]
     write_json(workspace / "dataset-manifest.json", request["dataset"])
     original = workspace / "train.bin"
     original.write_bytes(train)
@@ -178,6 +179,8 @@ def search(library, workspace, request):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(data)
     training, validation, sampling = partition(train, request["dataset"]["family"])
+    sampling.update(research_bytes=len(train), research_sha256=digest(train), development_bytes=len(full_train),
+                    scope="Research uses the first 2 MiB of development; complete files are used for qualification")
     write_json(workspace / "sampling.json", sampling)
     write_json(workspace / "development-signatures.json", fingerprints(train, request["dataset"]["family"]))
     dictionary, dictionary_record = native.reference_dictionary(workspace, cfg, training)
@@ -260,8 +263,8 @@ def search(library, workspace, request):
     item, registry = selected["item"], selected["registry"]
     binary, build = native.build(library, workspace, registry, asset_root=workspace, image=request["image"])
     model = (workspace / item["model"]).read_bytes()
-    development, packed = native.measure(binary, item, cfg, train, model, native.references(cfg, train, dictionary), checks=selected["result"]["candidate"]["correctness"])
-    development["console"] = native.console_roundtrip(binary, cfg, train, item["id"], packed)
+    development, packed = native.measure(binary, item, cfg, full_train, model, native.references(cfg, full_train, dictionary), checks=selected["result"]["candidate"]["correctness"])
+    development["console"] = native.console_roundtrip(binary, cfg, full_train, item["id"], packed)
     write_json(workspace / "development.json", development)
     (workspace / "development.alc").write_bytes(packed)
     shutil.copyfile(binary, workspace / "algomini")
@@ -327,7 +330,9 @@ def verify(library, workspace, request, receipt):
     try:
         cfg = configuration(library, request)
         data = fetch_dataset(request, "test", workspace)
-        result["record_overlap"] = overlap(json.loads((workspace / "development-signatures.json").read_text()), data, request["dataset"]["family"])
+        result["record_overlap"] = overlap(json.loads((workspace / "development-signatures.json").read_text()), data[:archive.CHUNK_BYTES], request["dataset"]["family"])
+        if len(data) > archive.CHUNK_BYTES:
+            result["record_overlap"]["scope"] = "First 2 MiB of development and final files only"
         item = frozen["selected"]
         model = (workspace / item["model"]).read_bytes()
         measured, packed = native.measure(workspace / "algomini", item, cfg, data, model,

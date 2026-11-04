@@ -16,7 +16,7 @@ flowchart TD
   M --> L[Rust release and Cargo installation]
 ```
 
-The client preserves arbitrary bytes, including malformed text and binary data, within the **2 MiB per-file demo limit**. JSON, JSONL, CSV, XML and text guide research and seed selection. A codec uses a byte fallback when its specialized representation does not help. Compression wins depend on the data; a valid no-win report is a supported outcome. Archive size ranks first and speed is secondary, with hard time/memory limits.
+The client preserves arbitrary bytes, including malformed text and binary data, within the **64 MiB per-file PoC limit**. JSON, JSONL, CSV, XML and text guide research and seed selection. Files larger than 2 MiB use independent 2 MiB chunks; small files retain their existing format. The PoC holds whole files in memory. A codec uses a byte fallback when its specialized representation does not help. Compression wins depend on the data; a valid no-win report is a supported outcome. Archive size ranks first and speed is secondary, with hard time/memory limits.
 
 The reviewed JSON lexical codec uses **8,269 bytes versus xz's 8,801** on the included 1 MB development fixture, and **8,217 versus 8,725** on the known 0.5 MB regression fixture. These are complete archives, with exact console reconstruction. The fixtures repeat the same object population; they are regression evidence, not a new unseen-data claim. See [validation and limitations](reports/stability/report.md).
 

@@ -6,15 +6,16 @@ from pathlib import Path
 
 from algomini.common import load_config, sha256, write_json
 from algomini.cloud import native
+from algomini import archive
 from algomini.labtools import MAX_INPUT
 from algomini.sampling import fingerprints, overlap, partition
 
 
 def bounded(path):
     with Path(path).open("rb") as stream:
-        value = stream.read(MAX_INPUT + 1)
-    if len(value) > MAX_INPUT:
-        raise ValueError("Sample exceeds 2 MiB")
+        value = stream.read(archive.MAX_FILE + 1)
+    if len(value) > archive.MAX_FILE:
+        raise ValueError("Sample exceeds 64 MiB")
     return value
 
 
@@ -26,7 +27,9 @@ def check(root, workspace, development, *, family="json", plugin="general", regr
     identifier = registry["aliases"].get(plugin, plugin)
     item = next(row for row in registry["codecs"] if row["id"] == identifier)
     data = bounded(development)
-    training, validation, sampling = partition(data, family)
+    research = data[:MAX_INPUT]
+    training, validation, sampling = partition(research, family)
+    sampling.update(research_bytes=len(research), development_bytes=len(data), scope="Research uses first 2 MiB; complete files measured")
     dictionary, dictionary_record = native.reference_dictionary(workspace, cfg, training)
     binary, build = native.build(root, workspace, registry)
     model = (root / item["model"]).read_bytes()
@@ -48,7 +51,7 @@ def check(root, workspace, development, *, family="json", plugin="general", regr
     if regression:
         sample = bounded(regression)
         measure("known_regression", sample)
-        result["regression_record_overlap"] = overlap(fingerprints(data, family), sample, family)
+        result["regression_record_overlap"] = overlap(fingerprints(research, family), sample[:MAX_INPUT], family)
     write_json(workspace / "result.json", result)
     return result
 

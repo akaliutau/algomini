@@ -1,5 +1,6 @@
 """Build and measure the actual Rust release client under existing containment."""
 
+import copy
 import json
 import os
 import platform
@@ -8,6 +9,7 @@ import random
 import shutil
 import struct
 import tempfile
+import zlib
 
 from .. import archive, measurement as metrics
 from ..common import digest, sha256, worker_environment, write_json
@@ -171,6 +173,8 @@ def reference_dictionary(workspace, cfg, training):
 
 
 def references(cfg, data, dictionary):
+    if len(data) > cfg["limits"].get("file_max_input_bytes", cfg["lab"]["max_input_bytes"]):
+        raise ValueError("Baseline input exceeds the configured file cap")
     rows, skipped = [], []
     for baseline in cfg["baselines"]:
         if baseline.get("dictionary") and not dictionary.stat().st_size:
@@ -185,7 +189,11 @@ def references(cfg, data, dictionary):
             if restored != data:
                 raise ValueError("Cloud baseline reconstruction failed")
             decodes.append(measurement)
-        row, _ = metrics.counted(baseline["id"], [("sample.bin", encoded)], model, [{"label": "sample.bin", "input_bytes": len(data),
+        # Split only the counted container, never the baseline compression stream.
+        blocks = [("sample.bin", encoded)] if len(encoded) <= archive.MAX_BLOCK else [
+            (f"sample.bin.part-{index//archive.MAX_BLOCK:03d}", encoded[index:index+archive.MAX_BLOCK])
+            for index in range(0, len(encoded), archive.MAX_BLOCK)]
+        row, _ = metrics.counted(baseline["id"], blocks, model, [{"label": "sample.bin", "input_bytes": len(data),
             "block_bytes": len(encoded), "encode": encoding, "decode": metrics.resources(decodes, len(data))}])
         rows.append(row)
     best = min(rows, key=lambda row: row["archive_bytes"])
@@ -193,6 +201,8 @@ def references(cfg, data, dictionary):
 
 
 def measure(binary, item, cfg, data, model, baseline, *, checks):
+    if len(data) > archive.CHUNK_BYTES:
+        return measure_large(binary, item, cfg, data, model, baseline, checks=checks)
     encoded, encoding = invoke(binary, item["id"], cfg, 6, data, model=model, source_sha256=item["source_sha256"])
     decodes = []
     for _ in range(cfg["evaluation"]["decode_repetitions"]):
@@ -219,18 +229,74 @@ def measure(binary, item, cfg, data, model, baseline, *, checks):
             "size_first_win": score["archive_gain"] > 0 and score["gates"]["decode_rss"], "speed_priority": "secondary"}, packed
 
 
-def console_roundtrip(binary, cfg, data, identifier, packed):
-    with tempfile.TemporaryDirectory(prefix="algomini-console-") as temporary:
+def file_cli(binary, cfg, data, *, identifier=None):
+    """Each encode/decode has a fresh directory; no encoder side files reach decoding."""
+    encoding = identifier is not None
+    info = archive.unpack_chunked(data) if not encoding and data.startswith(b"ALC2") else None
+    size = len(data) if encoding else info["original_bytes"] if info else 0
+    large = size > archive.CHUNK_BYTES
+    if size > cfg["limits"].get("file_max_input_bytes", archive.MAX_FILE):
+        raise ValueError("Input exceeds the configured PoC file cap")
+    chunks = max(1, (size + archive.CHUNK_BYTES - 1) // archive.CHUNK_BYTES)
+    limit = archive.MAX_CHUNKED_ARCHIVE if large else 4 * 1024**2 + 65536
+    with tempfile.TemporaryDirectory(prefix="algomini-file-") as temporary:
         directory = Path(temporary)
-        original, encoded, restored = (directory / name for name in ("sample.bin", "sample.alc", "restored.bin"))
+        original = directory / ("sample.bin" if encoding else "sample.alc")
+        output = directory / ("sample.alc" if encoding else "restored.bin")
         original.write_bytes(data)
-        result = run_isolated([binary, "compress", "--plugin", identifier, original, encoded], cwd=directory, ro=[binary, original], rw=[directory],
-            timeout=cfg["limits"]["candidate_encode_timeout_seconds"], memory_mib=cfg["limits"]["candidate_memory_mib"])
-        if result["returncode"] or encoded.read_bytes() != packed:
-            raise ValueError("Public CLI bytes differ from measured worker archive")
+        argv = [binary, "compress", "--plugin", identifier, original, output] if encoding else [binary, "decompress", original, output]
+        result = run_isolated(argv, cwd=directory, ro=[binary, original], rw=[directory],
+            timeout=cfg["limits"]["candidate_encode_timeout_seconds" if encoding else "candidate_decode_timeout_seconds"] * chunks,
+            memory_mib=cfg["limits"].get("file_memory_mib", 1024) if large else cfg["limits"]["candidate_memory_mib"],
+            output_bytes=limit)
+        if result["returncode"] or result["timed_out"] or not output.is_file() or output.is_symlink():
+            raise ValueError("Contained file CLI failed: " + result["stderr"].decode(errors="replace")[-1000:])
+        with output.open("rb") as stream:
+            value = stream.read(limit + 1)
+        if len(value) > limit:
+            raise ValueError("File CLI exceeded its output cap")
         original.unlink()
-        result = run_isolated([binary, "decompress", encoded, restored], cwd=directory, ro=[binary, encoded], rw=[directory],
-            timeout=cfg["limits"]["candidate_decode_timeout_seconds"], memory_mib=cfg["limits"]["candidate_memory_mib"])
-        if result["returncode"] or restored.read_bytes() != data:
-            raise ValueError("Public CLI reconstruction failed after original deletion")
-    return {"exact": True, "original_deleted": True, "same_archive_as_worker": True, "isolation": result["isolation"]}
+    result.pop("stdout"); result.pop("stderr")
+    return value, result
+
+
+def measure_large(binary, item, cfg, data, model, baseline, *, checks):
+    packed, encoding = file_cli(binary, cfg, data, identifier=item["id"])
+    info = archive.unpack_chunked(packed)
+    if info["method"] != item["id"] or info["model"] != model or info["original_bytes"] != len(data) or info["checksum"] != zlib.crc32(data):
+        raise ValueError("Chunked archive differs from the frozen codec/model/input")
+    decodes = []
+    for _ in range(cfg["evaluation"]["decode_repetitions"]):
+        restored, measurement = file_cli(binary, cfg, packed)
+        if restored != data:
+            raise ValueError("Large file reconstruction failed")
+        decodes.append(measurement)
+    frames = info["frames"]
+    metadata = [metrics.frame_metadata(frame, model=model, source_sha256=item["source_sha256"],
+                restored=data[index*archive.CHUNK_BYTES:(index+1)*archive.CHUNK_BYTES]) for index, frame in enumerate(frames)]
+    frame_bytes = sum(map(len, frames))
+    candidate = {"id": item["id"], "archive_bytes": len(packed), "archive_sha256": digest(packed),
+        "block_bytes": frame_bytes, "model_bytes": len(model), "collection_bytes": len(packed)-frame_bytes-len(model),
+        "files": [{"label": "sample.bin", "input_bytes": len(data), "input_sha256": digest(data), "block_bytes": frame_bytes,
+                   "encode": encoding, "decode": metrics.resources(decodes, len(data))}],
+        "roundtrip": True, "correctness": checks, "source_sha256": item["source_sha256"], "model_sha256": digest(model),
+        "decoder_package_bytes": binary.stat().st_size, "payload_bytes": sum(row["payload_bytes"] for row in metadata),
+        "native_frame_bytes": 40*len(frames), "raw_escape": all(row["flag"] == 1 for row in metadata),
+        "trained_model_bytes": len(model), "encoding_mode": "chunked", "chunk_count": len(frames), "chunk_bytes": archive.CHUNK_BYTES}
+    file_cfg = copy.deepcopy(cfg)
+    file_cfg["limits"]["candidate_memory_mib"] = cfg["limits"].get("file_memory_mib", 1024)
+    score = metrics.score(file_cfg, baseline, candidate)
+    return {"input_sha256": digest(data), "input_bytes": len(data), "candidate": candidate, "baselines": baseline, "score": score,
+            "eligible": score["gates"]["exact_reconstruction"] and score["gates"]["decode_rss"],
+            "size_first_win": score["archive_gain"] > 0 and score["gates"]["decode_rss"], "speed_priority": "secondary"}, packed
+
+
+def console_roundtrip(binary, cfg, data, identifier, packed):
+    encoded, _ = file_cli(binary, cfg, data, identifier=identifier)
+    if encoded != packed:
+        raise ValueError("Public CLI bytes differ from the counted archive")
+    restored, result = file_cli(binary, cfg, packed)
+    if restored != data:
+        raise ValueError("Public CLI reconstruction failed after original deletion")
+    return {"exact": True, "original_deleted": True, "same_archive_as_worker": len(data) <= archive.CHUNK_BYTES,
+            "same_archive_as_measurement": True, "isolation": result["isolation"]}
