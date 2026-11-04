@@ -39,7 +39,7 @@ In addition, Algomini becomes better on each iteration, formulating and collecti
 
 Embedded Data Lab is extensible as well - you can literally install any analytical tools that can run in CLI mode.
 
-Why do we even need to bother about data compression? Because of [this](docs/asset/algomini_slide_0.png)
+Why do we even need to bother about data compression? Because of [this](docs/assets/algomini_slide_0.png)
 
 ## Demo
 
