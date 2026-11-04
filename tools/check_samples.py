@@ -19,20 +19,24 @@ def bounded(path):
     return value
 
 
-def check(root, workspace, development, *, family="json", plugin="general", regression=None):
+def check(root, workspace, development, *, family="json", plugin="general", regression=None, registry_path=None):
     root, workspace = Path(root).resolve(), Path(workspace).resolve()
     workspace.mkdir(parents=True, exist_ok=True)
     _, cfg = load_config(root / "run.toml")
-    registry = json.loads((root / "release/registry.json").read_text())
+    registry_path = Path(registry_path).resolve() if registry_path else root / "release/registry.json"
+    asset_root = registry_path.parent.parent
+    registry = json.loads(registry_path.read_text())
     identifier = registry["aliases"].get(plugin, plugin)
-    item = next(row for row in registry["codecs"] if row["id"] == identifier)
+    item = next((row for row in registry["codecs"] if row["id"] == identifier), None)
+    if item is None:
+        raise ValueError(f"Plugin {plugin!r} is not registered. Create a codec request, or select a fixture with --registry.")
     data = bounded(development)
     research = data[:MAX_INPUT]
     training, validation, sampling = partition(research, family)
     sampling.update(research_bytes=len(research), development_bytes=len(data), scope="Research uses first 2 MiB; complete files measured")
     dictionary, dictionary_record = native.reference_dictionary(workspace, cfg, training)
-    binary, build = native.build(root, workspace, registry)
-    model = (root / item["model"]).read_bytes()
+    binary, build = native.build(root, workspace, registry, asset_root=asset_root)
+    model = (asset_root / item["model"]).read_bytes()
     controls = native.correctness(binary, item, cfg, data, model)
     result = {"scope": "Known local development/regression fixtures; not fresh final-test qualification",
               "model_calls": 0, "docker_used": False, "tool_sha256": sha256(__file__),
@@ -63,8 +67,10 @@ def main():
     parser.add_argument("--family", choices=("json", "csv", "text", "xml", "binary"), default="json")
     parser.add_argument("--plugin", default="general")
     parser.add_argument("--workspace", type=Path, required=True)
+    parser.add_argument("--registry", type=Path, help="Explicit alternate release/registry.json, for test fixtures")
     args = parser.parse_args()
-    result = check(Path.cwd(), args.workspace, args.development, family=args.family, plugin=args.plugin, regression=args.regression)
+    result = check(Path.cwd(), args.workspace, args.development, family=args.family, plugin=args.plugin, regression=args.regression,
+                   registry_path=args.registry)
     for name, measured in result["results"].items():
         print(f"{name}: {measured['candidate']['archive_bytes']:,} vs {measured['baselines']['best_bytes']:,} bytes; "
               f"gain {measured['score']['archive_gain']:.2%}; mode {measured['candidate']['encoding_mode']}")

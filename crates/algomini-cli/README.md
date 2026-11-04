@@ -2,10 +2,17 @@
 
 This crate builds the `algomini` binary. Approved source/model versions and human-friendly aliases come from `../../release/registry.json`; the build checks every asset SHA-256 and prohibits unsafe code in generated codecs. The zstd dependency builds its bundled native library. A Rust 1.92+ toolchain and C compiler are needed for source installation. Compression itself needs no Python, API key, compiler or network access.
 
+The development catalog starts empty. `plugins` reports this state; create a GitHub compression request to generate its first implementation, then install the qualified release. Legacy codecs are isolated regression fixtures under `tests/fixtures/`, with no automatic production registration.
+
 ```bash
 cargo install --path crates/algomini-cli --locked
 algomini plugins
-algomini compress --plugin wiki-xml sample.xml sample.alc
+```
+
+After installing a release containing your requested plugin:
+
+```bash
+algomini compress --plugin your-plugin sample.xml sample.alc
 algomini decompress sample.alc restored.xml
 ```
 
@@ -19,4 +26,4 @@ ALC2 uses a 28-byte little-endian header: magic, codec-ID length (u16), filename
 
 `__worker CODEC_ID` implements the bounded ALQ1/ALR1 protocol for independent contained evaluation. Cloud reports measure this exact executable in fresh restricted processes and separately prove the public console writes identical archive bytes and decodes after original deletion. The standalone console executes reviewed, compiled codecs; it does not install or execute downloaded plugins at runtime.
 
-The shipped aliases initially reference the previously measured CSV and Wikipedia mechanisms. Their old local benchmark numbers are provenance, not cloud qualification of this new static runtime. A request produces its own committed cloud evidence before a release can be published.
+Historical fixture benchmark numbers are provenance. Each new request produces its own committed cloud evidence before a release can be published.

@@ -85,7 +85,7 @@ python -m algomini.cloud smoke --workspace .cache/smoke
 python -m tools.check_samples --development /path/development.json --family json --plugin experiment --workspace .cache/experiment
 ```
 
-Registration hashes source and model, creates an immutable version and updates the alias locally. It neither publishes nor qualifies a release. The source/model are each at most 64 KiB; the catalog holds at most 128 codecs. Keep existing versions so their archives remain decodable. Adding a selectable seed also requires updating the family choice in `cloud/research.py` if it should participate automatically.
+Registration hashes source and model, creates an immutable version and updates the alias locally. It neither publishes nor qualifies a release. The source/model are each at most 64 KiB; the catalog holds at most 128 codecs. Keep existing versions so their archives remain decodable. Research prefers known family aliases, otherwise considers up to two registered codecs. An empty catalog starts generation without a parent; test fixtures are never selectable seeds.
 
 The request loop supplies measured parent feedback before refinement. Failed code can use a bounded repair; unknown provider usage retains its reservation. Validation and complete development must improve before final access. Keep the smallest qualifying complete archive; speed breaks secondary comparisons. A final loss remains a result, not permission to retune on that file.
 

@@ -14,13 +14,14 @@ from algomini.cloud import contracts, coordinator, native, releasing, research
 
 
 ROOT = Path(__file__).parents[1]
+FIXTURES = ROOT / "tests/fixtures"
 
 
 @pytest.fixture(scope="module")
 def release_client(tmp_path_factory):
     workspace = tmp_path_factory.mktemp("cloud-native")
-    registry = json.loads((ROOT / "release/registry.json").read_text())
-    binary, record = native.build(ROOT, workspace, registry)
+    registry = json.loads((FIXTURES / "release/registry.json").read_text())
+    binary, record = native.build(ROOT, workspace, registry, asset_root=FIXTURES)
     return workspace, registry, binary, record
 
 
@@ -28,7 +29,7 @@ def test_rust_and_original_python_collections_interoperate(release_client):
     _, registry, binary, _ = release_client
     _, cfg = load_config(ROOT / "run.toml")
     item = registry["codecs"][0]
-    old, _ = codecs.build(ROOT, cfg, ROOT / item["source"])
+    old, _ = codecs.build(ROOT, cfg, FIXTURES / item["source"])
     data = b"<record>the quick brown fox jumps over the lazy dog</record>\r\n" * 60
     original, _ = codecs.invoke(ROOT, cfg, old, 6, data, source_sha256=item["source_sha256"])
     restored, _ = native.invoke(binary, item["id"], cfg, 2, original, source_sha256=item["source_sha256"])
@@ -44,7 +45,7 @@ def test_modified_source_and_build_cache_are_rejected(release_client, tmp_path):
     broken = json.loads(json.dumps(registry))
     broken["codecs"][0]["source_sha256"] = "0" * 64
     with pytest.raises(ValueError, match="checksum"):
-        native.build(ROOT, tmp_path, broken)
+        native.build(ROOT, tmp_path, broken, asset_root=FIXTURES)
 
 
 def test_release_binary_rebuild_is_reproducible(release_client):
@@ -52,7 +53,7 @@ def test_release_binary_rebuild_is_reproducible(release_client):
     binary.unlink()
     (binary.parent / "build.json").unlink()
     shutil.rmtree(workspace / "target")
-    _, rebuilt = native.build(ROOT, workspace, registry)
+    _, rebuilt = native.build(ROOT, workspace, registry, asset_root=FIXTURES)
     assert rebuilt["binary_sha256"] == original["binary_sha256"]
 
 
@@ -97,7 +98,7 @@ impl Codec for Candidate {
 
 
 @pytest.mark.parametrize("zip_input", [False, True, "text"], ids=["manifest", "zip", "large-text-zip"])
-def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path, zip_input):
+def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(monkeypatch, tmp_path, zip_input, codec_library):
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)
     request["mode"] = "reuse"
@@ -136,7 +137,7 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
         return train
     monkeypatch.setattr(contracts.DatasetFile, "fetch", fetch)
     monkeypatch.setattr(research.coder, "generate", lambda *_a, **_k: pytest.fail("Reuse mode attempted generation"))
-    result = research.search(ROOT, tmp_path, request)
+    result = research.search(codec_library, tmp_path, request)
     assert result["charged_usd"] == 0 and len(reads) == 1
     assert result["origin"].startswith("reused")
     if text_case:
@@ -151,20 +152,20 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     assert result["development_gate"]["passed"]
     assert not (tmp_path / "final.json").exists()
     with pytest.raises(ValueError, match="claim"):
-        research.verify(ROOT, tmp_path, request, {"request_id": request["id"], "freeze_id": "wrong"})
+        research.verify(codec_library, tmp_path, request, {"request_id": request["id"], "freeze_id": "wrong"})
     assert len(reads) == 1
-    _, freeze_id = research.check_freeze(ROOT, tmp_path, request)
+    _, freeze_id = research.check_freeze(codec_library, tmp_path, request)
     allow_final = True
     if zip_input:
         # The verify job alone downloads this artifact after the durable claim.
         shutil.copyfile(tmp_path / "claim/dataset/test.bin", tmp_path / "dataset/test.bin")
     receipt = {"request_id": request["id"], "freeze_id": freeze_id, "test_consumed_at": "now", "frozen_commit": "e" * 40, "test_previously_used": True}
-    final = research.verify(ROOT, tmp_path, request, receipt)
+    final = research.verify(codec_library, tmp_path, request, receipt)
     assert final["candidate"]["roundtrip"] and final["console"]["original_deleted"]
     assert final["size_first_win"] == (final["score"]["archive_gain"] > 0 and final["eligible"])
     assert len(reads) == 2
     with pytest.raises(ValueError, match="consumed"):
-        research.verify(ROOT, tmp_path, request, receipt)
+        research.verify(codec_library, tmp_path, request, receipt)
     assert len(reads) == 2
     assert "| Previously used test hash | True |" in coordinator.report(request, result, final)
     if text_case:
@@ -174,8 +175,8 @@ def test_real_reuse_campaign_keeps_test_closed_until_claim_and_never_repeats(mon
     # Rebuild the qualified source snapshot without opening final data again.
     allow_final = False
     merged, output = tmp_path / "merged", tmp_path / "release-output"
-    files = coordinator.review_files(ROOT, tmp_path, request, final=True)
-    for name, data in native.assets(ROOT, json.loads((ROOT / "release/registry.json").read_text())).items():
+    files = coordinator.review_files(codec_library, tmp_path, request, final=True)
+    for name, data in native.assets(codec_library, json.loads((codec_library / "release/registry.json").read_text())).items():
         files.setdefault(name, data)
     prefix = f"reports/campaigns/{request['id']}/"
     files[prefix + "receipt.json"] = json.dumps(receipt).encode()
@@ -214,7 +215,7 @@ def test_general_codec_reconstructs_maximum_binary_input_and_rejects_oversize(re
     assert native.invoke(binary, item["id"], cfg, 2, encoded, source_sha256=item["source_sha256"])[0] == malformed
 
 
-def test_empty_development_cannot_spend_or_consume_a_final_file(monkeypatch, tmp_path):
+def test_empty_development_cannot_spend_or_consume_a_final_file(monkeypatch, tmp_path, codec_library):
     from test_cloud_contracts import snapshot
     request = snapshot(monkeypatch)
     request["dataset"]["family"] = "binary"
@@ -229,6 +230,6 @@ def test_empty_development_cannot_spend_or_consume_a_final_file(monkeypatch, tmp
     monkeypatch.setattr(contracts.DatasetFile, "fetch", fetch)
     monkeypatch.setattr(research, "check_api", lambda *_: pytest.fail("An impossible framing gain contacted the provider"))
     monkeypatch.setattr(research.coder, "generate", lambda *_a, **_kw: pytest.fail("Empty input caused inference"))
-    result = research.search(ROOT, tmp_path, request)
+    result = research.search(codec_library, tmp_path, request)
     assert result["generation_skipped_for_framing_floor"] and result["charged_usd"] == 0
     assert not result["development_gate"]["passed"] and not (tmp_path / "final.json").exists()

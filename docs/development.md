@@ -14,12 +14,13 @@ The original Rust worker remains as a small compatibility fixture. Its Python te
 
 Build Python wheels from a clean checkout/build directory. Old setuptools `build/lib` output can otherwise carry removed modules into a wheel. Docker excludes generated `build/` and `dist/` directories; local editable installation reads the maintained source tree.
 
-Fetch Rust dependencies once with `cargo fetch --locked --manifest-path crates/algomini-cli/Cargo.toml` before an offline build. Build the source client with `cargo build --release --locked --manifest-path crates/algomini-cli/Cargo.toml`. Select `general`, `json-lexical`, `telemetry-csv` or `wiki-xml`, or a merged request's alias.
+Fetch Rust dependencies once with `cargo fetch --locked --manifest-path crates/algomini-cli/Cargo.toml` before an offline build. Build the source client with `cargo build --release --locked --manifest-path crates/algomini-cli/Cargo.toml`. The development catalog starts empty; `algomini plugins` explains how to create its first plugin. Legacy codecs are test fixtures, explicitly selected for regression measurements below.
 
 ## Check the provided samples
 
 ```bash
 python -m tools.check_samples \
+  --registry tests/fixtures/release/registry.json \
   --development datasets/sample/train-1mb.json \
   --regression datasets/sample/test-512kb.json \
   --workspace .cache/sample-check
@@ -28,6 +29,7 @@ python -m algomini.cloud smoke --workspace .cache/cloud-smoke
 
 # Full-file text check; research remains limited to the first 2 MiB.
 python -m tools.check_samples --development datasets/sample/Shakespeare-1.txt \
+  --registry tests/fixtures/release/registry.json \
   --regression datasets/sample/Dumas-1.txt --family text --plugin wiki-xml \
   --workspace .cache/large-text
 ```
@@ -72,4 +74,4 @@ cargo fmt --check --manifest-path crates/algomini-cli/Cargo.toml
 .tools/actionlint/actionlint -ignore 'unexpected key "queue" for "concurrency" section'
 ```
 
-After merge/push, let CI and Cloud smoke qualify the new image. Start a blank-issue `reuse` rehearsal before a new paid campaign. Local native success does not prove the cloud kernel/image configuration. No local command here starts a GitHub campaign or publishes a release.
+After merge/push, let CI and Cloud smoke qualify the new image. An empty catalog then needs a normal generation request; after a codec exists, a blank-issue `reuse` rehearsal is available. Local native success does not prove the cloud kernel/image configuration. No local command here starts a GitHub campaign or publishes a release.

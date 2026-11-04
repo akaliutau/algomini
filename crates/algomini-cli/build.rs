@@ -39,7 +39,7 @@ fn main() {
     let config: serde_json::Value = serde_json::from_slice(&raw).unwrap();
     assert_eq!(config["schema_version"], 1);
     let codecs = config["codecs"].as_array().expect("codec array");
-    assert!(!codecs.is_empty() && codecs.len() <= 128);
+    assert!(codecs.len() <= 128);
     let mut ids = BTreeSet::new();
     let mut modules = String::new();
     let mut rows = String::from("static CODECS: &[CodecInfo] = &[\n");

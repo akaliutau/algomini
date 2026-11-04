@@ -33,7 +33,17 @@ def state(root, gh):
         path = Path(root) / relative
         if path.is_file():
             collect(json.loads(path.read_text()))
-    return State(gh, contracts.policy(root)["state_branch"], historical(root), known_tests=known)
+    store = State(gh, contracts.policy(root)["state_branch"], historical(root), known_tests=known)
+    reset = Path(root) / "cloud/development.json"
+    if reset.is_file():
+        identifier = json.loads(reset.read_text())["reset_id"]
+        if not isinstance(identifier, str) or not contracts.SLUG.fullmatch(identifier):
+            raise ValueError("Invalid development reset identity")
+        if store.value.get("development_reset_id") != identifier:
+            store.value.update(development_reset_id=identifier, development_evidence=[])
+            if store.parent:
+                store.save("Start clean plugin development: " + identifier)
+    return store
 
 
 def output(**values):

@@ -47,8 +47,11 @@ def runtime(library, image):
 def assets(library, registry):
     result = {}
     root = Path(library).resolve()
-    if registry.get("schema_version") != 1 or not 1 <= len(registry["codecs"]) <= 128:
+    if registry.get("schema_version") != 1 or not 0 <= len(registry["codecs"]) <= 128:
         raise ValueError("Invalid release registry")
+    identifiers = {item["id"] for item in registry["codecs"]}
+    if any(identifier not in identifiers for identifier in registry["aliases"].values()):
+        raise ValueError("Release alias points to an unknown codec")
     for item in registry["codecs"]:
         for field, checksum, maximum in (("source", "source_sha256", 65536), ("model", "model_sha256", 65536)):
             relative = Path(item[field])

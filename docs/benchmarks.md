@@ -1,6 +1,6 @@
 # Benchmarks and evidence
 
-The headline results are local measurements of the actual Rust client on supplied regression files. They use existing reviewed codecs, make no model calls, and do not constitute a fresh cloud final-test qualification or prove that a new algorithm was generated for each file.
+The headline results are historical local measurements of the actual Rust client on supplied regression files. Those reviewed codecs now live in test fixtures; the active development catalog starts empty. These measurements make no model calls and do not constitute a fresh cloud final-test qualification or prove that a new algorithm was generated for each file.
 
 ## Complete-file results
 
@@ -41,11 +41,13 @@ Use the [local development environment](development.md). These commands invoke t
 
 ```bash
 python -m tools.check_samples \
+  --registry tests/fixtures/release/registry.json \
   --development datasets/sample/Shakespeare-1.txt \
   --regression datasets/sample/Dumas-1.txt \
   --family text --plugin wiki-xml --workspace .cache/large-text
 
 python -m tools.check_samples \
+  --registry tests/fixtures/release/registry.json \
   --development datasets/sample/train-1mb.json \
   --regression datasets/sample/test-512kb.json \
   --family json --plugin json-lexical --workspace .cache/json-check

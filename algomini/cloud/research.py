@@ -77,7 +77,8 @@ You only see development data. Never request test data. sample.bin is a bounded 
 Use complete-record layouts when supported and reversible byte fallbacks for fragments and binary content.
 The host trains on one development partition and measures on the other. Learned state must fit 65536 bytes and is counted in full.
 Compare model + payload + native frame + collection identity, not the transformed payload alone.
-Do not return the parent unchanged or merely wrap zstd again; propose a mechanism supported by the measured gap.
+Implement a reversible mechanism supported by the measured gap. A zstd wrapper alone is not a new algorithm.
+If parent source is supplied, improve its mechanism instead of returning it unchanged.
 If useful, start encode output with a documented mode byte so source review can distinguish structured and fallback paths.
 Development probe evidence and bounded retrieved knowledge:
 {json.dumps({'probes': prepared['probes'], 'retrieved': prepared['retrieved']}, sort_keys=True)}
@@ -173,7 +174,10 @@ def search(library, workspace, request):
     embedder = semantic.load(library) or semantic.load(Path(__file__).parents[2])
     preparation = Campaign.create(workspace / "campaign", knowledge, original, campaign_id=request["id"], family=request["dataset"]["family"]).prepare(embedder=embedder)
     base = json.loads((library / "release/registry.json").read_text())
-    framing_floor = min(len(archive.pack(item["id"], [("sample.bin", bytes(40))])) for item in base["codecs"])
+    if not base["codecs"] and not cfg["budget"]["generation_enabled"]:
+        raise ValueError("No plugins are registered. Use generate mode to create the first codec; cloud smoke needs no plugins.")
+    identifiers = [item["id"] for item in base["codecs"]] or ["cx-" + "0" * 32 + "-" + "0" * 16]
+    framing_floor = min(len(archive.pack(identifier, [("sample.bin", bytes(40))])) for identifier in identifiers)
     for relative, data in native.assets(library, base).items():
         path = workspace / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -216,8 +220,11 @@ def search(library, workspace, request):
         return row
 
     seed_alias = {"csv": "telemetry-csv", "json": "json-lexical", "binary": "json-lexical"}.get(request["dataset"]["family"], "wiki-xml")
-    seeds = list(dict.fromkeys((base["aliases"][seed_alias], base["aliases"]["json-lexical"])))
-    seed = next(row for row in base["codecs"] if row["id"] == seeds[0])
+    preferred = [base["aliases"].get(alias) for alias in (seed_alias, "json-lexical")]
+    seeds = list(dict.fromkeys(identifier for identifier in preferred if identifier))
+    if not seeds:
+        seeds = [item["id"] for item in base["codecs"][:2]]
+    seed = next((row for row in base["codecs"] if seeds and row["id"] == seeds[0]), None)
     for identifier in seeds:
         item = next(row for row in base["codecs"] if row["id"] == identifier)
         try:
@@ -236,10 +243,11 @@ def search(library, workspace, request):
             if time.monotonic() - started >= request["policy"]["maximum_research_seconds"]:
                 break
             best = min((row for row in candidates if row["result"]["eligible"]), key=lambda row: row["result"]["candidate"]["archive_bytes"], default=None)
-            parent = workspace / best["item"]["source"] if best else workspace / seed["source"]
+            parent = workspace / best["item"]["source"] if best else workspace / seed["source"] if seed else None
             feedback = {"sampling": sampling, "best_baseline_bytes": baseline["best_bytes"], "best_baseline": baseline["best_id"],
                 "target_gain": request["policy"]["archive_gain_target"], "trials": [trial_summary(row) for row in candidates], "failures": failures[-3:]}
-            text = prompt(library, request, preparation, parent, feedback=feedback) + f"\nTrial {attempt + 1}: propose a distinct reversible refinement, and explain its mechanism/applicability briefly in source comments.\n"
+            action = "mechanism" if parent is None else "refinement"
+            text = prompt(library, request, preparation, parent, feedback=feedback) + f"\nTrial {attempt + 1}: propose a distinct reversible {action}, and explain its applicability briefly in source comments.\n"
             source = None
             try:
                 source, record = coder.generate(workspace, cfg, text, training, attempt=attempt, phase="discovery", kind=kind)
@@ -258,6 +266,8 @@ def search(library, workspace, request):
                 break
     passing = [row for row in candidates if row["result"]["eligible"]]
     if not passing:
+        if baseline["best_bytes"] <= framing_floor:
+            raise ValueError("Baseline is below the candidate framing floor; no inference or final evaluation was performed")
         raise ValueError("No candidate passed development correctness/resource controls")
     selected = min(passing, key=lambda row: (row["result"]["candidate"]["archive_bytes"], -row["result"]["score"]["minimum_decode_mib_per_second"]))
     item, registry = selected["item"], selected["registry"]

@@ -2,6 +2,16 @@
 
 The repository is `akaliutau/algomini`. Merge the implementation before pushing and starting a new request: issue events use workflows on the default branch. Docker runs on GitHub; local development uses Python and Rust directly.
 
+## Clean plugin development
+
+The active catalog starts empty: no registered codecs, aliases or release requests. Previous implementations are regression fixtures under `tests/fixtures/`; previous campaigns are archived under `reports/archive/`. Neither is a research seed or an input to retrieval. Skills, laboratory probes, datasets, baseline tools and credentials remain available.
+
+After this reset reaches main, open a **new issue** in normal generation mode. The workflow builds the laboratory image for that main commit. Muse receives the current interface, probes and skills, with no parent codec source; later candidates can refine newly measured source. A qualifying PR includes the new Rust implementation. The ordinary freeze, final verification, review and release gates still apply.
+
+`cloud/development.json` supplies a reset identity. The first cloud coordinator operation with that identity clears accumulated development observations once. New observations then accumulate normally. Spending exposure, request identities and consumed final-test hashes remain in `automation-state`; reusing old data is reported honestly. Do not delete that branch or the budget ledgers. Existing published releases and their tags remain valid.
+
+Cloud smoke works with an empty catalog and makes no model calls. `mode: reuse` needs at least one registered codec; use it again after the first codec is merged. To repeat a full reset, archive the active plugin assets/campaigns, empty the registry, rebuild the skills/tools index and commit a new reset identity. A cloud memory reset alone does not remove registered plugins.
+
 ## Credentials
 
 Supply repository Actions secrets:
@@ -91,7 +101,7 @@ Remote Git updates use conditional fast-forwards. Request identity is repository
 
 When only publication failed, rerun that publisher job while its artifacts are retained. It can recover a branch/PR or partial draft release without generation or test access. If research disappeared before producing usable terminal artifacts, retain the exposure and inspect provider usage before reconciliation. Create a new issue for new work; preserve existing test receipts. Artifacts have limited retention; durable reports, source and accounting live in Git. The state file has a 2 MiB bound, and recent cross-campaign development context is bounded to 128 records.
 
-For a zero-inference rehearsal, create a **blank issue without `codec-request`**, using the same two Markdown headings. Then dispatch **Actions → Codec request**, supplying that issue and `mode: reuse`. The special issue form starts normal generation automatically, so use the blank issue for this rehearsal.
+Once a codec is registered, a zero-inference rehearsal can use a **blank issue without `codec-request`**, with the same two Markdown headings. Dispatch **Actions → Codec request**, supplying that issue and `mode: reuse`. An empty catalog uses Cloud smoke for its zero-inference check. The special issue form starts normal generation automatically, so use the blank issue for a reuse rehearsal.
 
 ## Merge, release and install
 

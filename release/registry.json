@@ -1,65 +1,6 @@
 {
-  "aliases": {
-    "general": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
-    "json-lexical": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
-    "json-v1": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
-    "telemetry-csv": "s4-98e12bcd61e8117b0",
-    "text-v2": "wk-3169dda381d9c072",
-    "wiki-xml": "wk-3169dda381d9c072"
-  },
-  "codecs": [
-    {
-      "codec_id": "3169dda381d9c07279def7e8e37cc6cc",
-      "id": "wk-3169dda381d9c072",
-      "model": "plugins/wk-3169dda381d9c072/model.bin",
-      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "origin": "Previously measured local codec; cloud runtime qualification pending",
-      "source": "plugins/wk-3169dda381d9c072/codec.rs",
-      "source_sha256": "3169dda381d9c07279def7e8e37cc6ccfc31200e8de22919b36c7dcb3b88a5fa"
-    },
-    {
-      "codec_id": "98e12bcd61e8117b0c9f3cc6b4edfbc3",
-      "id": "s4-98e12bcd61e8117b0",
-      "model": "plugins/s4-98e12bcd61e8117b0/model.bin",
-      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "origin": "Previously measured local codec; cloud runtime qualification pending",
-      "source": "plugins/s4-98e12bcd61e8117b0/codec.rs",
-      "source_sha256": "98e12bcd61e8117b0c9f3cc6b4edfbc3ebcb13f11d332c39290903ed97cc8cf7"
-    },
-    {
-      "codec_id": "4c16b773d1840d2130089affeddad6c7",
-      "id": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
-      "mechanism": "json-lexical-v1",
-      "model": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/model.bin",
-      "model_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "origin": "Reviewed development seed; not an independent final-test win",
-      "source": "plugins/cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14/codec.rs",
-      "source_sha256": "4c16b773d1840d2130089affeddad6c75484788b0af161c42bb93d4163bdd43a"
-    }
-  ],
-  "requests": [
-    {
-      "freeze": "reports/campaigns/issue-3/freeze.json",
-      "freeze_id": "117334c10d16ab909d49aa5e050a38821c43407b56c4576b659409f9434b150e",
-      "id": "issue-3",
-      "image": "ghcr.io/akaliutau/algomini-lab@sha256:23229a604e5c907ae1e966cd3101a3d32e1297cf2f373698a64742dda4b19a31",
-      "issue": 3,
-      "qualification": "reports/campaigns/issue-3/final.json",
-      "receipt": "reports/campaigns/issue-3/receipt.json",
-      "request": "reports/campaigns/issue-3/request.json",
-      "selected": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14"
-    },
-    {
-      "freeze": "reports/campaigns/issue-6/freeze.json",
-      "freeze_id": "f06a6bd9cff79057b1b0cd15c5a0881f5f547c5e9cdcc34d3946ed9d29c0479e",
-      "id": "issue-6",
-      "image": "ghcr.io/akaliutau/algomini-lab@sha256:885871bf9cef0eb6fb7af8d8d5154857207f99921b4830c8507ae4ad0b90dd77",
-      "issue": 6,
-      "qualification": "reports/campaigns/issue-6/final.json",
-      "receipt": "reports/campaigns/issue-6/receipt.json",
-      "request": "reports/campaigns/issue-6/request.json",
-      "selected": "wk-3169dda381d9c072"
-    }
-  ],
+  "aliases": {},
+  "codecs": [],
+  "requests": [],
   "schema_version": 1
 }

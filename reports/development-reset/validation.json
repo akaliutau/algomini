@@ -1,0 +1,62 @@
+{
+  "active_catalog": {
+    "aliases": 0,
+    "codecs": 0,
+    "release_requests": 0
+  },
+  "base_revision": "a07e8dcf26619f0026bee927b4d0570ce193c10c",
+  "client_version": "0.3.2",
+  "cloud_activation": "After merge, the first coordinator operation clears prior development context for this reset_id",
+  "coverage": [
+    "Empty client builds and rejects unknown codecs without output",
+    "First generated codec compiles, passes controls, freezes and qualifies on complete files",
+    "New Rust source is included in review exports",
+    "Qualified snapshot rebuilds and reconstructs without final access",
+    "Cloud research reset occurs once; later development evidence survives",
+    "Spending exposure, requests and consumed test history are preserved",
+    "Legacy codec fixtures still pass native regression and large-file tests"
+  ],
+  "docker_used": false,
+  "github_runs_started": false,
+  "memory": {
+    "observations": 0,
+    "sections": 21,
+    "skills": 4,
+    "tools": 6
+  },
+  "model_calls": 0,
+  "python": {
+    "command": "python -m pytest -q",
+    "passed": 159,
+    "seconds": 484.48
+  },
+  "reset_id": "empty-plugins-20261104",
+  "rust": {
+    "fmt_check": true,
+    "passed": 10
+  },
+  "scope": "Local no-plugin development reset verification; generated-code flow uses a deterministic test coder, not paid inference",
+  "smoke": {
+    "binary_sha256": "d27e7133f1d73577abb2687fa7b64b9b7727e0f115e3019b048aa29f30a04bb7",
+    "codecs": 0,
+    "containment": {
+      "fork_denied": true,
+      "network_denied": true,
+      "original_read_denied": true
+    },
+    "ok": true
+  },
+  "source_sha256": {
+    "algomini/cloud/coordinator.py": "f9dd524a1f31bc6d2da3bf00116f1d3a96a7dbbdc48d1bc34bc0af30bf36ae53",
+    "algomini/cloud/native.py": "75c09d0a85bee744a44744478525e1237daf9d8287a94656052536ab4f0c6823",
+    "algomini/cloud/research.py": "e35f06d1fa45cda131f9184a401c262d58b16ad1681cc026d7f95f6764fb49df",
+    "cloud/development.json": "e241b5f4c444589cf40a5f4ecb57ea967e7ffa20cae186ee0b85fd5cb1ab0b61",
+    "crates/algomini-cli/Cargo.lock": "c713b8082b2003223c80338a2935fd6f7fa67233aad7974f5dd049cc5707a7b7",
+    "crates/algomini-cli/Cargo.toml": "cabc9b097ca1132988615be940a45886c148ab085c5d7d19c06dd55d42d58a75",
+    "crates/algomini-cli/build.rs": "e5e177fb550cf25e06084b69059ed886229a99ea7b9c372961038de84bfcc74a",
+    "crates/algomini-cli/src/chunks.rs": "df8f1b063d077b86ab54c25f179fcc883eb634c7afa5f6e12066711e1e3cd228",
+    "crates/algomini-cli/src/main.rs": "cba0d6a5b5552b9b983b4a4f67eedbe0ebd7f73c94a2cb0a3304e6aa1a3a65a6",
+    "memory/index-manifest.json": "03694e98b09a68655ce6c1b9ee54afdec756ebaec8c3d7bb9def8f812703be1c",
+    "release/registry.json": "9b0742597a9964d614efce58d7761a038b3ec131ac7e74e3c5a2f72deeaae4b1"
+  }
+}

@@ -61,7 +61,7 @@ With two dataset files, the larger becomes development data and the other become
 
 ## Measured results
 
-The included Rust codecs beat the strongest configured baseline on these supplied samples:
+Earlier reviewed Rust codecs beat the strongest configured baseline on these supplied samples. They now live in test fixtures; the development catalog starts empty:
 
 | Workload | Input bytes | Algomini archive | Best baseline archive | Smaller archive |
 | --- | ---: | ---: | ---: | ---: |
@@ -176,20 +176,18 @@ Extend the system by adding a focused skill, a registered laboratory probe or a 
 
 ## Quick start
 
-Try the existing text codec locally. Use Linux, Rust 1.92+ and a C compiler; repository access is required. GitHub CLI users can configure Git authentication with `gh auth login` and `gh auth setup-git`.
+Build the client locally using Linux, Rust 1.92+ and a C compiler. The development catalog starts with no plugins. GitHub CLI users can configure Git authentication with `gh auth login` and `gh auth setup-git`.
 
 ```bash
 git clone https://github.com/akaliutau/algomini.git
 cd algomini
 cargo install --path crates/algomini-cli --locked --force
 
+algomini --version
 algomini plugins
-algomini compress --plugin wiki-xml datasets/sample/Dumas-1.txt dumas.alc
-algomini decompress dumas.alc dumas.restored.txt
-cmp datasets/sample/Dumas-1.txt dumas.restored.txt
 ```
 
-`wiki-xml` is the existing text/PPM codec alias; it also accepts plain text. Other built-in choices include `json-lexical`, `telemetry-csv` and `general`. A cloud-generated release adds the plugin name from its issue. The issue's installation command selects its exact qualified source tag.
+`plugins` reports that none are installed. Open a compression request to generate the first codec with the current tool and retained research skills. After a qualifying PR merges, its release adds the plugin name from the issue. Previous codecs remain regression fixtures and old releases remain installable. See [clean plugin development](docs/cloud.md#clean-plugin-development).
 
 For a qualified cloud release, copy the command from its issue. It has this form, with `N` replaced by the issue number:
 
@@ -197,6 +195,14 @@ For a qualified cloud release, copy the command from its issue. It has this form
 CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install \
   --git https://github.com/akaliutau/algomini.git \
   --tag codec-issue-N algomini-cli --locked --force
+```
+
+Then compress with the plugin name you requested, for example `text-demo`:
+
+```bash
+algomini compress --plugin text-demo input.txt output.alc
+algomini decompress output.alc restored.txt
+cmp input.txt restored.txt
 ```
 
 To run research in GitHub, configure the GitHub App credentials and Meta API key once. Installed compressors need none of those credentials.
