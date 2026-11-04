@@ -20,13 +20,15 @@ Algomini is an automated discovery of novel compression algorithms, turining the
 To design a new algorithm is as easy as this: invent a new plugin name and provide an archive with training samples. That's all.
 The dedicated Data Lab will investigate patterns, retrieve relevant research skills, ask **Meta Muse Spark 1.3** to write and refine Rust candidates, and benchmark against current sota baselines (`gzip`, `xz` and `zstd`).
 
-Algomini bot will generate a PR with plugin code. After merge, the release workflow rebuilds the qualified implementation and publishes a console client that you can install with Cargo. Compression then runs locally, no Python, model credentials or network connection is needed anymore.
+Algomini bot will generate a PR with plugin code. After merge, the release workflow rebuilds the qualified implementation and publishes a console client that you can install with Cargo. 
+
+After that it's just a  compression tools that you can run locally; no Python, model credentials or network connection is needed anymore.
 
 ---
 
 ## Why
 
-General-purpose compressors are strong. Specialized data can still offer useful structure: repeated JSON keys, exact numeric spellings, column layouts or predictable language contexts. Finding an advantage requires a reversible representation, working code and careful accounting.
+General-purpose compressors are strong. However, a specific format and content of files that comprises enormous organization's datalikes can still offer useful structure: repeated JSON keys, exact numeric spellings, column layouts or predictable language contexts. Finding an advantage requires a reversible representation, working code and careful accounting.
 
 **Algomini automates that research loop and keeps all notes in GitHub.** It combines candidate coding, deterministic probes, measured feedback, reusable knowledge and a path from experiment to installed software.
 
