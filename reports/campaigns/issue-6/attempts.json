@@ -1,0 +1,11 @@
+{
+  "files": {
+    "attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/codec.rs": "a0c0279fb295afe30318b5072693eb0a1b3033be8ff857d40e31bc95e7e201b7",
+    "attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/events-tail.jsonl": "c34f7c5c6807ac33f497b17044679c8a749b9e72a36fb251830229337314a4fd",
+    "attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/generation.json": "6b0ecbcb08600f88261e244434ff8c283c2025216393565126efe5f41e474d26",
+    "attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/model.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "attempts/e41c499eedf3f03a12042c06d423f2f937557cd647a08b3e7dbf8d98eaea667d/stderr.txt": "b00c130cb7baeed584f43cdd379e234eeb9760bbfb71672431e117b9cd2a24f7"
+  },
+  "schema_version": 1,
+  "scope": "Bounded source and redacted CLI diagnostics; losing attempts included"
+}

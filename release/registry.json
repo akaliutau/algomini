@@ -4,6 +4,7 @@
     "json-lexical": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
     "json-v1": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14",
     "telemetry-csv": "s4-98e12bcd61e8117b0",
+    "text-v2": "wk-3169dda381d9c072",
     "wiki-xml": "wk-3169dda381d9c072"
   },
   "codecs": [
@@ -47,6 +48,17 @@
       "receipt": "reports/campaigns/issue-3/receipt.json",
       "request": "reports/campaigns/issue-3/request.json",
       "selected": "cx-4c16b773d1840d2130089affeddad6c7-e3b0c44298fc1c14"
+    },
+    {
+      "freeze": "reports/campaigns/issue-6/freeze.json",
+      "freeze_id": "f06a6bd9cff79057b1b0cd15c5a0881f5f547c5e9cdcc34d3946ed9d29c0479e",
+      "id": "issue-6",
+      "image": "ghcr.io/akaliutau/algomini-lab@sha256:885871bf9cef0eb6fb7af8d8d5154857207f99921b4830c8507ae4ad0b90dd77",
+      "issue": 6,
+      "qualification": "reports/campaigns/issue-6/final.json",
+      "receipt": "reports/campaigns/issue-6/receipt.json",
+      "request": "reports/campaigns/issue-6/request.json",
+      "selected": "wk-3169dda381d9c072"
     }
   ],
   "schema_version": 1

@@ -1,0 +1,11 @@
+{
+  "execution": {
+    "run_attempt": 1,
+    "run_id": "41820180316"
+  },
+  "freeze_id": "f06a6bd9cff79057b1b0cd15c5a0881f5f547c5e9cdcc34d3946ed9d29c0479e",
+  "frozen_commit": "f60c46f68ebba721e8f863a92ff8c736c01b2a09",
+  "request_id": "issue-6",
+  "test_consumed_at": "2026-11-04T11:29:10.113429+00:00",
+  "test_previously_used": false
+}
