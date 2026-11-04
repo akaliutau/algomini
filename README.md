@@ -265,7 +265,7 @@ The same research loop can keep improving as its collection of skills, tools and
 
 ---
 
-*Algomini: will make every byte count.*
+*Algomini: make every byte count.*
 
 Built exclusively for:
 
