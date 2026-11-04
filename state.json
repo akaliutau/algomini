@@ -489,8 +489,14 @@
         "repository": "akaliutau/algomini",
         "schema_version": 1
       },
-      "status": "frozen",
-      "terminal": false
+      "status": "test-consumed",
+      "terminal": false,
+      "test_consumed_at": "2026-11-04T19:41:34.222866+00:00",
+      "test_execution": {
+        "run_attempt": 1,
+        "run_id": "41888730674"
+      },
+      "test_previously_used": true
     }
   },
   "schema_version": 1,
@@ -520,7 +526,8 @@
       "historical-local-evidence"
     ],
     "649dc5b18efc095035fd29216bdcdfca6744ed3dccacd7bfc11859451004e327": [
-      "issue-6"
+      "issue-6",
+      "issue-9"
     ],
     "65c925b4fa3330f387dc2488c2a888bf2f828f0c2830168ea99f6bf3f1ff3308": [
       "historical-local-evidence"
