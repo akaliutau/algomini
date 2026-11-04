@@ -1,0 +1,15 @@
+{
+  "freeze_id": "117334c10d16ab909d49aa5e050a38821c43407b56c4576b659409f9434b150e",
+  "receipt": {
+    "execution": {
+      "run_attempt": 1,
+      "run_id": "41753536875"
+    },
+    "freeze_id": "117334c10d16ab909d49aa5e050a38821c43407b56c4576b659409f9434b150e",
+    "frozen_commit": "73a482fdd0eab572d87c57e5941e0757677e41cb",
+    "request_id": "issue-3",
+    "test_consumed_at": "2026-11-04T01:25:00.385945+00:00",
+    "test_previously_used": true
+  },
+  "result_sha256": "d080f3ad3e3632a75062dce242483a0d3ae6041be391c8353e39dc9fb1a67dad"
+}
