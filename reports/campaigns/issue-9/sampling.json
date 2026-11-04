@@ -1,0 +1,12 @@
+{
+  "development_bytes": 5422721,
+  "notices": [],
+  "research_bytes": 2097152,
+  "research_sha256": "8ae6405c9e354bf248fa864ebb5e5f42825c061f0bea26c9a1a2111bdab71314",
+  "scope": "Research uses the first 2 MiB of development; complete files are used for qualification",
+  "strategy": "byte-halves",
+  "training_bytes": 1048576,
+  "training_sha256": "e5f9fe558995b6862fa06af64c3187aa8f280c805c9f017661afe8bb59a3760c",
+  "validation_bytes": 1048576,
+  "validation_sha256": "c0187299fe934ee418701afc00a11aff8e217a0933a2c289172b2a5b16281262"
+}

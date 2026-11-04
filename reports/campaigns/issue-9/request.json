@@ -1,0 +1,77 @@
+{
+  "base_commit": "44a90602dbebf8a6d7683baf08107ed64d3daa6a",
+  "dataset": {
+    "family": "text",
+    "provenance": {
+      "assembly": "Members sorted by path and concatenated byte-for-byte; member sizes preserve boundaries.",
+      "license": "Not supplied; review the upstream dataset license",
+      "source": "https://github.com/akaliutau/sample-datasets/raw/refs/heads/main/gutenberg.org/books2.zip",
+      "split": "Two files: larger for development. Otherwise approximately 70:30 by file count, keeping exact duplicate files together."
+    },
+    "schema_version": 1,
+    "test": {
+      "archive": {
+        "members": [
+          {
+            "bytes": 2704417,
+            "name": "Dumas-1.txt",
+            "sha256": "649dc5b18efc095035fd29216bdcdfca6744ed3dccacd7bfc11859451004e327"
+          }
+        ],
+        "sha256": "c8a4fdb491eb5a3985338b0ca99ff7ac3e084720b6283cbd36f68aa650b626fe"
+      },
+      "bytes": 2704417,
+      "sha256": "649dc5b18efc095035fd29216bdcdfca6744ed3dccacd7bfc11859451004e327",
+      "url": "https://github.com/akaliutau/sample-datasets/raw/refs/heads/main/gutenberg.org/books2.zip"
+    },
+    "train": {
+      "archive": {
+        "members": [
+          {
+            "bytes": 5422721,
+            "name": "Shakespeare-1.txt",
+            "sha256": "a023115c2d4e2ee12221bdd780fdf2ac5a864fe225948656f51f8be462c7fffb"
+          }
+        ],
+        "sha256": "c8a4fdb491eb5a3985338b0ca99ff7ac3e084720b6283cbd36f68aa650b626fe"
+      },
+      "bytes": 5422721,
+      "sha256": "a023115c2d4e2ee12221bdd780fdf2ac5a864fe225948656f51f8be462c7fffb",
+      "url": "https://github.com/akaliutau/sample-datasets/raw/refs/heads/main/gutenberg.org/books2.zip"
+    }
+  },
+  "dataset_manifest_sha256": "0bb17db468e19dcd4cb6447cb76b4005c9142f5930715ab84f3cf63c936212a1",
+  "dataset_manifest_url": "https://github.com/akaliutau/sample-datasets/raw/refs/heads/main/gutenberg.org/books2.zip",
+  "execution": {
+    "run_attempt": 1,
+    "run_id": "41888730674"
+  },
+  "id": "issue-9",
+  "image": "ghcr.io/akaliutau/algomini-lab@sha256:8e7985fc23c0d526ce5ff3741e0e12902ade450dc3529f07a15b5d44a707fdea",
+  "issue": 9,
+  "mode": "generate",
+  "plugin": "text-v4",
+  "policy": {
+    "account_reserve_usd": 20.0,
+    "archive_gain_target": 0.1,
+    "decode_repetitions": 3,
+    "maximum_archive_bytes": 134217728,
+    "maximum_archive_members": 64,
+    "maximum_evolved_candidates": 8,
+    "maximum_initial_candidates": 4,
+    "maximum_input_bytes": 67108864,
+    "maximum_manifest_bytes": 32768,
+    "maximum_repairs": 2,
+    "maximum_research_seconds": 5400,
+    "provider_limit_usd": 150.0,
+    "release_minimum_archive_gain": 0.0,
+    "repository": "akaliutau/algomini",
+    "request_reservation_usd": 40.0,
+    "schema_version": 1,
+    "speed_priority": "secondary",
+    "state_branch": "automation-state"
+  },
+  "policy_sha256": "36762b215fa79cd912737195a79d16d91bd80340a194ee0809203236d70ce696",
+  "repository": "akaliutau/algomini",
+  "schema_version": 1
+}

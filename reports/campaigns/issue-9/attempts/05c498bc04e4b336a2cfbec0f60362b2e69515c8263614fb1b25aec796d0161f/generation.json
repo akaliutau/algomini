@@ -1,0 +1,31 @@
+{
+  "artifact_valid": true,
+  "attempt": 8,
+  "attempt_id": "05c498bc04e4b336a2cfbec0f60362b2e69515c8263614fb1b25aec796d0161f",
+  "benchmark_sample_sha256": "e5f9fe558995b6862fa06af64c3187aa8f280c805c9f017661afe8bb59a3760c",
+  "cli_turn_completed": true,
+  "excerpt_bytes": 16350,
+  "executable_sha256": "0809aac7cb58d18f5022b6d05e02aa1974683c0ec430e5f04d25b60ed17de2da",
+  "exit_code": 0,
+  "isolation": "landlock-abi6+-libseccomp",
+  "kind": "evolved",
+  "model": "muse-wonder-1.0",
+  "ok": true,
+  "phase": "discovery",
+  "prompt_sha256": "ea85bd99643f1c035aea63cf1e1a0c1e8abfd1947aa29a144547b6f4e97e2dd9",
+  "protected_inputs_unchanged": true,
+  "reasoning_effort": "max",
+  "sample_sha256": "486d14d88bcee1d3e90dabcd723d51c21ddeb11a2389a416f2e0b9d62da68c8c",
+  "source_sha256": "d5bfbbb61b33a80a71ea877cbf4f33a5b79cda164ef29e2f1d0442124ed264da",
+  "timed_out": false,
+  "usage": {
+    "available": true,
+    "cached_input_tokens": 1600248,
+    "calls": 23,
+    "cost_source": "CLI token totals and declared standard-mode prices",
+    "estimated_usd": 1.3278016,
+    "input_tokens": 1696811,
+    "output_tokens": 31075
+  },
+  "wall_seconds": 220.2377145979999
+}
