@@ -1,4 +1,4 @@
-# 🗜️ Algomini
+# 🗜️ Algomini - Give your data its own compressor.
 
 <p>
   <img alt="Status: proof of concept" src="https://img.shields.io/badge/status-proof%20of%20concept-orange">
@@ -8,7 +8,6 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green">
 </p>
 
-**Give your data its own compressor.**
 
 <p align="center">
   <img src="docs/assets/algomini_logo.png" width="480" alt="Algomini — a mechanical clamp and neural network on an engineering blueprint" />
@@ -16,11 +15,12 @@
 
 ### [Build a compression plugin](https://github.com/akaliutau/algomini/issues/new?template=codec.yml) · [See the results](#measured-results) · [Cloud setup](docs/cloud.md)
 
-Algomini turns a GitHub issue into a compression experiment—and a qualifying result into a Rust release. Give it a plugin name and a ZIP dataset. The laboratory investigates patterns, retrieves relevant research skills, asks **Meta Muse Spark 1.3** to write and refine Rust candidates, and measures complete archives against gzip, xz and zstd.
+Algomini is an automated discovery of novel compression algorithms, turining them into growing collection of plugins for the Rust-based universal compressor.
 
-Passing candidates reach a review PR. After merge, the release workflow rebuilds the qualified implementation and publishes a console client you can install with Cargo. Compression then runs locally, with no Python, model credentials or network connection.
+To design a new algorithm is as easy as this: invent a new plugin name and give an archive with training samples. 
+The dedicated Data Lab will investigate patterns, retrieve relevant research skills, asks **Meta Muse Spark 1.3** to write and refine Rust candidates, and benchmark against gzip, xz and zstd.
 
-> **AI proposes the algorithm. Exact reconstruction and measured bytes decide what qualifies.**
+Algomini bot will generate a PR with plugin code. After merge, the release workflow rebuilds the qualified implementation and publishes a console client that you can install with Cargo. Compression then runs locally, no Python, model credentials or network connection is needed anymore.
 
 ---
 
@@ -28,9 +28,11 @@ Passing candidates reach a review PR. After merge, the release workflow rebuilds
 
 General-purpose compressors are strong. Specialized data can still offer useful structure: repeated JSON keys, exact numeric spellings, column layouts or predictable language contexts. Finding an advantage requires a reversible representation, working code and careful accounting.
 
-**Algomini automates that research loop and keeps the evidence in GitHub.** It combines candidate coding, deterministic probes, measured feedback, reusable knowledge and a path from experiment to installed software.
+**Algomini automates that research loop and keeps all notes in GitHub.** It combines candidate coding, deterministic probes, measured feedback, reusable knowledge and a path from experiment to installed software.
 
-The goal is a compressor adapted to a workload, with source and measurements that a reviewer can inspect.
+In addition, Algomini is becoming better on each iteration, formulating and collecting research heauristics and skill.
+
+Embedded Data Lab is extensible as well - you can literally install any analytical tools that can run in CLI mode.
 
 ## Demo
 
