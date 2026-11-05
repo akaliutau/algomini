@@ -210,21 +210,23 @@ algomini plugins
 
 `plugins` reports that none are installed. Open a compression request to generate the first codec with the current tool and retained research skills. After a qualifying PR merges, its release adds the plugin name from the issue. Previous codecs remain regression fixtures and old releases remain installable. See [clean plugin development](docs/cloud.md#clean-plugin-development).
 
-For a qualified cloud release, copy the command from its issue. It has this form, with `N` replaced by the issue number:
+For a qualified cloud release, copy the command from its issue. It has this form, with `N` replaced by the issue number (for the latest release 0.3.2 we used `codec-issue-9`):
 
 ```bash
 CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install \
   --git https://github.com/akaliutau/algomini.git \
-  --tag codec-issue-N algomini-cli --locked --force
+  --tag codec-issue-9 algomini-cli --locked --force
 ```
 
-Then compress with the plugin name you requested, for example `text-demo`:
+Then compress with the plugin name you requested, for example `text-v4`:
 
 ```bash
-algomini compress --plugin text-demo input.txt output.alc
+algomini compress --plugin text-v4 input.txt output.alc
 algomini decompress output.alc restored.txt
 cmp input.txt restored.txt
 ```
+
+See all commands for the rust app below in separate docs.
 
 To run research in GitHub, configure the GitHub App credentials and Meta API key once. Installed compressors need none of those credentials.
 
