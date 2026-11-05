@@ -171,6 +171,12 @@ A candidate must pass validation and full-development checks before the final cl
 
 [Research and qualification →](docs/cloud.md#research-and-results) · [Release and installation →](docs/cloud.md#merge-release-and-install)
 
+## How it works (more)
+
+<p align="center">
+  <img src="docs/assets/Automatic Compressor Research Pipeline.png" width="100%" alt="design diagramme" />
+</p>
+
 ## Research memory
 
 Research skills live in Git as **`.agents/skills/NAME/SKILL.md`**, with metadata describing their applicable families and tools. A portable keyword/semantic index helps the laboratory find relevant procedures and earlier development evidence. Retrieval is bounded to four documents and 6,000 excerpt characters.
